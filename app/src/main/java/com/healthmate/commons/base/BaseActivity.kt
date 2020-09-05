@@ -7,6 +7,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.afollestad.materialdialogs.DialogCallback
 import com.afollestad.materialdialogs.MaterialDialog
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.TypeAdapter
@@ -27,6 +29,9 @@ abstract class BaseActivity: AppCompatActivity() {
     lateinit var appPref: AppPref
     lateinit var userPref: UserPref
     protected lateinit var gson: Gson
+    protected var requestOptions = RequestOptions().diskCacheStrategy(
+            DiskCacheStrategy.AUTOMATIC).skipMemoryCache(true)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

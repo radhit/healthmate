@@ -1,7 +1,7 @@
 package com.healthmate.api
 
-import com.artcak.starter.common.functions.replaceEmpty
 import com.google.gson.Gson
+import com.healthmate.common.functions.replaceEmpty
 import retrofit2.Response
 import timber.log.Timber
 

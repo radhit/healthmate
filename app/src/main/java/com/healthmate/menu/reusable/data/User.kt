@@ -3,58 +3,63 @@ package com.healthmate.menu.reusable.data
 import com.google.gson.annotations.SerializedName
 
 data class User(
+        var type: String = "",
+        var token: String = "",
+        var id: String = "",
+        var validated: Boolean = true,
+        var phone_number: String = "",
+        var password: String = "",
+        var name: String = "",
+        var covid_checked: Boolean = false,
+        var hospital: Hospital? = Hospital(),
+        var location: Location? = Location(),
+        var profil_picture: String? = "",
+        var age: String? = "",
+        var kia: Kia? = Kia(),
+        var diagnostics_color: String? = ""
+)
 
-    @field:SerializedName("address")
-    val address: String = "",
+data class Hospital(
+        var id: String = "",
+        var name: String = "",
+        var level: String = "",
+        var subdistrict: String = "",
+        var district: String = "",
+        var city: String = ""
+)
 
-    @field:SerializedName("is_email_verified")
-    val isEmailVerified: Int = 0,
+data class Location(
+        var id : String = "",
+        var subdistrict: String = "",
+        var district: String = "",
+        var city: String = ""
+)
 
-    @field:SerializedName("built_in")
-    val builtIn: Int = 0,
+data class Kia(
+        var nik: String = "",
+        var birth_place: String = "",
+        var birth_date: String = "",
+        var number_of_pregnancy: String = "",
+        var last_child_age: String = "",
+        var last_education: String = "",
+        var job: String = "",
+        var religion: String = "",
+        var jkn_number: String = "",
+        var blood_type: String = "",
+        var husband: Husband = Husband()
 
-    @field:SerializedName("photo")
-    val photo: String? = null,
+)
 
-    @field:SerializedName("active")
-    val active: Int = 0,
-
-    @field:SerializedName("created_at")
-    val createdAt: String = "",
-
-    @field:SerializedName("token")
-    val token: String = "",
-
-    @field:SerializedName("name")
-    val name: String = "",
-
-    @field:SerializedName("updated_at")
-    val updatedAt: String = "",
-
-    @field:SerializedName("is_phone_number_verified")
-    val isPhoneNumberVerified: Int = 0,
-
-    @field:SerializedName("phone")
-    val phone: String = "",
-
-    @field:SerializedName("id")
-    val id: Int = 0,
-
-    @field:SerializedName("email")
-    val email: String = "",
-
-    @field:SerializedName("username")
-    val username: String = "",
-
-    @field:SerializedName("gambar")
-    val gambar: Gambar = Gambar(),
-
-    @field:SerializedName("access")
-    val access: UserAccess = UserAccess(),
-
-    @field:SerializedName("latitude")
-    var latitude: Double = 0.0,
-
-    @field:SerializedName("longitude")
-    var longitude: Double = 0.0
+data class Husband(
+        var name: String = "",
+        var birth_place: String = "",
+        var birth_date: String = "",
+        var job: String = "",
+        var religion: String = "",
+        var last_education: String = "",
+        var blood_type: String = "",
+        var phone_number: String = "",
+        var address: String = "",
+        var districts: String = "",
+        var sub_districts: String = ""
 )

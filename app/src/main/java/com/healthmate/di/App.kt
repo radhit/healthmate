@@ -4,12 +4,12 @@ import android.content.Context
 import timber.log.Timber
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
-import com.artcak.starter.BuildConfig
-import com.artcak.starter.R
 import com.artcak.starter.di.room.RoomModule
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 import androidx.core.content.ContextCompat.getSystemService
 import com.facebook.stetho.Stetho
+import com.healthmate.BuildConfig
+import com.healthmate.R
 
 class App : MultiDexApplication(),DaggerComponentProvider {
     companion object{

@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.artcak.starter.R
-import com.artcak.starter.modules.reusable.data.Menu
 import com.bumptech.glide.Glide
+import com.healthmate.R
+import com.healthmate.menu.reusable.data.Menu
 import kotlinx.android.synthetic.main.item_menu.view.*
 
 class MenuAdapter(private val context: Context) : RecyclerView.Adapter<MenuAdapter.ViewHolder>(){
@@ -20,7 +20,7 @@ class MenuAdapter(private val context: Context) : RecyclerView.Adapter<MenuAdapt
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val value = lists[position]
-        holder.view.tv_nama.text = value.nama
+        holder.view.tv_title.text = value.nama
         Glide.with(context).load(value.icon_drawable).into(holder.view.iv_icon)
     }
 

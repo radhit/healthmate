@@ -2,7 +2,6 @@ package com.artcak.starter.di.room
 
 import android.app.Application
 import androidx.room.Room
-import com.artcak.starter.modules.jenis_truk.data.JenisTrukDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -20,9 +19,4 @@ class RoomModule (application: Application){
         return appDatabase
     }
 
-    @Singleton
-    @Provides
-    internal fun provideJenisTrukDao(): JenisTrukDao{
-        return appDatabase.jenisTrukDao()
-    }
 }

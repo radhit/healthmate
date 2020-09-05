@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">HealthMate</string>
+
+    <string name="judul_intro_1">Persalinan Aman</string>
+    <string name="judul_intro_2">Rujukan Terencana</string>
+    <string name="judul_intro_3">Kunjungan Bidan ke Rumah Anda</string>
+    <string name="judul_intro_4">Belajar Dimanapun dan Kapanpun</string>
+    <string name="judul_intro_5">Aman dan Terpercaya</string>
+
+    <string name="keterangan_intro_1">Pemeriksaan faktor resiko diawal kehamilan ibu</string>
+    <string name="keterangan_intro_2">Terdeteksi faktor resiko tinggi?\nTak perlu takut dan khawatir!\nDapatkan pelayanan yang tepat melalui sistem rujuan dini HealthMate</string>
+    <string name="keterangan_intro_3">Tidak ada waktu untuk keluar rumah?\nBidan bisa datang ke rumah Anda</string>
+    <string name="keterangan_intro_4">Akses informasi terkini dan kelas online terkait kehamilan dan kesehatan ibu dan bayi</string>
+    <string name="keterangan_intro_5">Semua data yang diberikan dan transaksi kami jaga kerahasiaannya</string>
+    <string name="testing_user">{"type":"mother","id": "mothers-id","validated": true,"phone_number": "080989999","password": "hashedpassword","name": "Tejo","covid_checked": false}</string>
+
 </resources>

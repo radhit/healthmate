@@ -2,11 +2,10 @@ package com.artcak.starter.di
 
 import android.app.Application
 import android.content.Context
-import com.artcak.starter.BuildConfig
-import com.artcak.starter.api.AppInterceptor
-import com.artcak.starter.api.AppService
-import com.artcak.starter.common.constant.Urls
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.healthmate.api.AppInterceptor
+import com.healthmate.api.AppService
+import com.healthmate.common.constant.Urls
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -47,11 +46,11 @@ class AppModule(val application: Application) {
     @Provides
     fun provideOkhttpClient(appInterceptor: AppInterceptor): OkHttpClient {
         val builder = OkHttpClient.Builder()
-        if (BuildConfig.DEBUG) {
-            val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-            builder.addInterceptor(loggingInterceptor)
-                .addNetworkInterceptor(StethoInterceptor())
-        }
+//        if (BuildConfig.DEBUG) {
+//            val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+//            builder.addInterceptor(loggingInterceptor)
+//                .addNetworkInterceptor(StethoInterceptor())
+//        }
         builder.addInterceptor(appInterceptor)
         builder.writeTimeout(10, TimeUnit.MINUTES)
         builder.readTimeout(10, TimeUnit.MINUTES)

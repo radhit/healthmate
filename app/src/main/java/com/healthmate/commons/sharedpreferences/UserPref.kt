@@ -5,8 +5,8 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.healthmate.api.Payload
 import com.healthmate.api.PayloadEntry
-import com.artcak.starter.modules.reusable.data.User
 import com.google.gson.Gson
+import com.healthmate.menu.reusable.data.User
 import okhttp3.RequestBody
 import javax.inject.Inject
 
@@ -47,5 +47,16 @@ class UserPref @Inject constructor(context: Context){
             )))
         payload.payloads.addAll(payloadEntries)
         return payload.getRequestBody()
+    }
+    
+    val isLoggedin: Boolean
+        get() {
+            val session = getUser()
+            if (session!=null){
+                if (!session.id.equals("")){
+                    return true
+                }
+            }
+        return false
     }
 }

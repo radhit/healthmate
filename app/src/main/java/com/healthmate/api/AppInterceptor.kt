@@ -2,10 +2,10 @@ package com.healthmate.api
 
 import android.content.Context
 import android.content.Intent
-import com.artcak.starter.common.sharedpreferences.UserPref
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonObject
+import com.healthmate.common.sharedpreferences.UserPref
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -26,9 +26,7 @@ class AppInterceptor @Inject constructor(
     override fun intercept(chain: Interceptor.Chain): Response {
         return chain.proceed(chain.request()
             .newBuilder()
-            .addHeader("Authorization","${userPref.getUser().access.token_type} ${userPref.getUser().access.access_token}")
-            .addHeader("latitude",userPref.getUser().latitude.toString())
-            .addHeader("longitude",userPref.getUser().longitude.toString())
+            .addHeader("Authorization","Bearer ${userPref.getUser().token}")
             .addHeader("device","android")
             .addHeader("Content-Type","application/json")
             .addHeader("Accept","application/json")
