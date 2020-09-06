@@ -1,25 +1,25 @@
-package com.artcak.starter.di
+package com.healthmate.di
 
 import android.content.Context
-import timber.log.Timber
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
-import com.artcak.starter.di.room.RoomModule
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig
-import androidx.core.content.ContextCompat.getSystemService
-import com.facebook.stetho.Stetho
 import com.healthmate.BuildConfig
 import com.healthmate.R
+import com.healthmate.di.room.RoomModule
+import com.facebook.stetho.Stetho
+import timber.log.Timber
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
 class App : MultiDexApplication(),DaggerComponentProvider {
+    private var activityVisible = false
     companion object{
         var context: App? = null
     }
     override val component: AppComponent by lazy {
         DaggerAppComponent.builder()
-            .appModule(AppModule(this))
-            .roomModule(RoomModule(this))
-            .build()
+                .appModule(AppModule(this))
+                .roomModule(RoomModule(this))
+                .build()
     }
 
     override fun onCreate() {
@@ -28,10 +28,10 @@ class App : MultiDexApplication(),DaggerComponentProvider {
         Stetho.initializeWithDefaults(this);
         setupTimber()
         CalligraphyConfig.initDefault(
-            CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/OpenSans-Regular.ttf")
-                .setFontAttrId(R.attr.fontPath)
-                .build()
+                CalligraphyConfig.Builder()
+                        .setDefaultFontPath("fonts/Roboto-Regular.ttf")
+                        .setFontAttrId(R.attr.fontPath)
+                        .build()
         )
     }
 
@@ -44,5 +44,17 @@ class App : MultiDexApplication(),DaggerComponentProvider {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
+    }
+
+    fun isActivityVisible(): Boolean {
+        return activityVisible
+    }
+
+    fun activityResumed() {
+        activityVisible = true
+    }
+
+    fun activityPaused() {
+        activityVisible = false
     }
 }

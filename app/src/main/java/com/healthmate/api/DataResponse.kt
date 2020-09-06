@@ -17,7 +17,7 @@ class DataResponse<T> {
     @Expose
     var message: String = ""
 
-    @SerializedName(value = "errors")
+    @SerializedName(value = "error")
     @Expose
     var errors: List<String> = listOf()
 }

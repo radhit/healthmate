@@ -218,7 +218,7 @@
                     android:layout_height="wrap_content"
                     app:passwordToggleEnabled="true"
                     app:passwordToggleTint="@color/textColorLight"
-                    android:hint="Password"
+                    android:hint="Konfirmasi Password"
                     android:layout_marginTop="10dp">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldKonfirmasiPassword"

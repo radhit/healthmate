@@ -1,4 +1,4 @@
-package com.artcak.starter.di
+package com.healthmate.di
 
 import android.app.Activity
 import androidx.fragment.app.Fragment

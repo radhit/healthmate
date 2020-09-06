@@ -1,11 +1,12 @@
-package com.artcak.starter.di
+package com.healthmate.di
 
 import android.app.Application
 import android.content.Context
-import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.healthmate.BuildConfig
 import com.healthmate.api.AppInterceptor
 import com.healthmate.api.AppService
 import com.healthmate.common.constant.Urls
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -29,28 +30,28 @@ class AppModule(val application: Application) {
     @Provides
     fun provideAppService(okHttpClient: OkHttpClient): AppService {
         return Retrofit.Builder()
-            .baseUrl(Urls.getServer())
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .addCallAdapterFactory(
-                RxJava2CallAdapterFactory.createWithScheduler(
-                    Schedulers.io()
+                .baseUrl(Urls.getServer())
+                .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                .addCallAdapterFactory(
+                        RxJava2CallAdapterFactory.createWithScheduler(
+                                Schedulers.io()
+                        )
                 )
-            )
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(AppService::class.java)
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(AppService::class.java)
     }
 
     @Singleton
     @Provides
     fun provideOkhttpClient(appInterceptor: AppInterceptor): OkHttpClient {
         val builder = OkHttpClient.Builder()
-//        if (BuildConfig.DEBUG) {
-//            val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-//            builder.addInterceptor(loggingInterceptor)
-//                .addNetworkInterceptor(StethoInterceptor())
-//        }
+        if (BuildConfig.DEBUG) {
+            val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+            builder.addInterceptor(loggingInterceptor)
+            builder.addNetworkInterceptor(StethoInterceptor())
+        }
         builder.addInterceptor(appInterceptor)
         builder.writeTimeout(10, TimeUnit.MINUTES)
         builder.readTimeout(10, TimeUnit.MINUTES)

@@ -9,7 +9,10 @@ import retrofit2.http.Url
 
 interface AppService {
     @POST
-    suspend fun signin(@Url url: String, @Body requestBody: RequestBody): Response<DataResponse<User>>
+    suspend fun login(@Url url: String, @Body requestBody: RequestBody): Response<DataResponse<User>>
+
+    @POST
+    suspend fun register(@Url url: String, @Body requestBody: RequestBody): Response<DataResponse<Any>>
 
     @POST
     suspend fun postUser(@Url url: String, @Body requestBody: RequestBody): Response<DataResponse<User>>

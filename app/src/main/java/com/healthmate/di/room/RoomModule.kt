@@ -1,7 +1,8 @@
-package com.artcak.starter.di.room
+package com.healthmate.di.room
 
 import android.app.Application
 import androidx.room.Room
+import com.healthmate.JenisTrukDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -19,4 +20,9 @@ class RoomModule (application: Application){
         return appDatabase
     }
 
+    @Singleton
+    @Provides
+    internal fun provideJenisTrukDao(): JenisTrukDao {
+        return appDatabase.jenisTrukDao()
+    }
 }

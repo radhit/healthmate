@@ -1,4 +1,4 @@
-package com.artcak.starter.di
+package com.healthmate.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -6,7 +6,7 @@ import javax.inject.Inject
 import javax.inject.Provider
 
 class AppViewModelFactory<VM : ViewModel> @Inject constructor(
-    private val viewModel: Provider<VM>
+        private val viewModel: Provider<VM>
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")

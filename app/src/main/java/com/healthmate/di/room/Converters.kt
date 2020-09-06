@@ -1,4 +1,4 @@
-package com.artcak.starter.di.room
+package com.healthmate.di.room
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
