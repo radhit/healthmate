@@ -46,7 +46,7 @@ data class Kia(
         var religion: String = "",
         var jkn_number: String = "",
         var blood_type: String = "",
-        var husband: Husband = Husband()
+        var husband: Husband? = Husband()
 
 )
 
@@ -54,11 +54,11 @@ data class Husband(
         var name: String = "",
         var birth_place: String = "",
         var birth_date: String = "",
-        var job: String = "",
-        var religion: String = "",
-        var last_education: String = "",
-        var blood_type: String = "",
         var phone_number: String = "",
+        var religion: String = "",
+        var blood_type: String = "",
+        var job: String = "",
+        var last_education: String = "",
         var address: String = "",
         var districts: String = "",
         var sub_districts: String = ""

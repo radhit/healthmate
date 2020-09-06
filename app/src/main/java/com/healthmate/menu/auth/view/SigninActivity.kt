@@ -133,11 +133,7 @@ class SigninActivity : BaseActivity() {
                         Result.Status.SUCCESS->{
                             finishLoading()
                             createDialog("Pendaftaran berhasil",{
-                                fieldNama.setText("")
-                                fieldNomorHp.setText("")
-                                fieldPassword.setText("")
-                                fieldKonfirmasiPassword.setText("")
-                                viewLogin()
+                                navigator.verifikasi(this,fieldNomorHpRegister.text.toString())
                             })
                         }
                         Result.Status.ERROR->{
@@ -163,6 +159,7 @@ class SigninActivity : BaseActivity() {
                             val user = result.data!!
                             var dataJson = gson.fromJson(getString(R.string.testing_user),User::class.java)
                             userPref.setUser(user)
+                            println("data user : ${userPref.getUser()}")
                             navigator.mainMom(this,true)
                         }
                         Result.Status.ERROR->{

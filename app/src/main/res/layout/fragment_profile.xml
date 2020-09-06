@@ -5,6 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fontPath="http://schemas.android.com/tools"
     android:background="@color/white">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"
+        android:text="v.1.0.0"
+        android:textColor="@color/textColor"
+        android:id="@+id/tv_versi"/>
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,14 +20,54 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:gravity="center">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/bumil_on"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/colorPrimary"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:text="Susanti"
                 android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimary"
+                android:id="@+id/tv_name"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0812347659"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="16sp"
                 android:textColor="@color/textColor"
-                android:text="Masih dalam masa pengembangan..."/>
+                android:id="@+id/tv_phone_number"/>
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Ubah Data KIA"
+                android:textColor="@color/white"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp"
+                android:id="@+id/btn_ubah"
+                android:background="@drawable/bg_primary"
+                android:textAllCaps="false"/>
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Keluar"
+                android:textColor="@color/white"
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                android:id="@+id/btn_logout"
+                android:background="@drawable/bg_red"
+                android:textAllCaps="false"/>
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

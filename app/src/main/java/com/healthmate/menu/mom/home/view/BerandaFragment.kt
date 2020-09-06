@@ -24,7 +24,6 @@ class BerandaFragment : BaseFragment() {
 
     override fun getViewId(): Int = R.layout.fragment_beranda
     lateinit var adapter: MenuAdapter
-    var menus: ArrayList<Menu> = ArrayList()
 
     companion object {
         fun newInstance(): BerandaFragment = BerandaFragment()
@@ -36,12 +35,34 @@ class BerandaFragment : BaseFragment() {
             if (userPref.getUser().location!=null && userPref.getUser().location!!.subdistrict.equals("")){
                 ll_profile_done.visibility = View.GONE
                 ll_profile_not.visibility = View.VISIBLE
-                tv_nama_not.text = "Hei, ${userPref.getUser().name}"
+                tv_nama_not.text = "Hei, ${user.name}"
+                iv_banner.visibility = View.GONE
             } else{
                 ll_profile_done.visibility = View.VISIBLE
                 ll_profile_not.visibility = View.GONE
-                tv_nama_done.text = "Pasien\n${userPref.getUser().name}"
-
+                tv_nama_done.text = "Pasien\n${user.name}"
+                if (user.covid_checked){
+                    iv_banner.visibility = View.GONE
+                } else{
+                    iv_banner.visibility = View.VISIBLE
+                }
+            }
+        }
+        tv_update.setOnClickListener {
+            navigator.dataKiaMom(activity!!)
+        }
+        iv_banner.setOnClickListener {
+            navigator.screeningCovid(activity!!)
+        }
+        ll_checkup.setOnClickListener {
+            if (user.kia!=null){
+                if (user.kia!!.nik.equals("")){
+                    createDialog("Anda belum menambahkan data KIA")
+                } else{
+                    //checkup
+                }
+            } else{
+                createDialog("Anda belum menambahkan data KIA")
             }
         }
     }
@@ -83,5 +104,27 @@ class BerandaFragment : BaseFragment() {
         arrays.add(Menu("Modul",R.drawable.modul))
         arrays.add(Menu("Home Care",R.drawable.homecare))
         return arrays
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //getdatacheckup
+        if (userPref.getUser()!=null){
+            if (userPref.getUser().location!=null && userPref.getUser().location!!.subdistrict.equals("")){
+                ll_profile_done.visibility = View.GONE
+                ll_profile_not.visibility = View.VISIBLE
+                tv_nama_not.text = "Hei, ${user.name}"
+                iv_banner.visibility = View.GONE
+            } else{
+                ll_profile_done.visibility = View.VISIBLE
+                ll_profile_not.visibility = View.GONE
+                tv_nama_done.text = "Pasien\n${user.name}"
+                if (user.covid_checked){
+                    iv_banner.visibility = View.GONE
+                } else{
+                    iv_banner.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 }

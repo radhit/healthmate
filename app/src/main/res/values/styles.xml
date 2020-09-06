@@ -41,6 +41,11 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="ButtonOrange">
+        <item name="android:background">@drawable/bg_secondary</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="TextInputLayoutCustom" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="android:textColor">@color/buttonTextColor</item>
     </style>

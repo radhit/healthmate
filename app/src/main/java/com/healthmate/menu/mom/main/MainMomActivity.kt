@@ -25,7 +25,6 @@ class MainMomActivity : BaseActivity() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         setBottomNavigation()
-        tv_versi.text = "v.${BuildConfig.VERSION_NAME}"
     }
 
     private fun setBottomNavigation(){

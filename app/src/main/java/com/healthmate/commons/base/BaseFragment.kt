@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.afollestad.materialdialogs.DialogCallback
+import com.afollestad.materialdialogs.MaterialDialog
+import com.healthmate.R
 import com.healthmate.common.functions.Fun
 import com.healthmate.menu.reusable.data.User
 import com.healthmate.common.navigation.Navigator
@@ -52,5 +55,22 @@ abstract class BaseFragment: Fragment() {
     protected fun signout(){
         userPref.setUser(User())
         navigator.signin(activity!!,true)
+    }
+
+    protected fun createDialogWithBackButton(title: String=resources.getString(R.string.app_name), message: String, click: DialogCallback? = null, positiveText: String = "OK", negativeText: String = "Kembali"){
+        val dialog = MaterialDialog(activity!!).title(null,title)
+                .message(null, message)
+                .positiveButton(null,positiveText,click).cancelable(false)
+                .negativeButton(null,negativeText,{
+                    it.dismiss()
+                }).cancelable(true)
+        dialog.show()
+    }
+
+    protected fun createDialog(message: String, click: DialogCallback? = null,title: String=resources.getString(R.string.app_name)){
+        val dialog = MaterialDialog(activity!!).title(null,title)
+                .message(null, message)
+                .positiveButton(null,"OK",click).cancelable(false)
+        dialog.show()
     }
 }

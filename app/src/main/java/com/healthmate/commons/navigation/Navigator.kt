@@ -5,6 +5,9 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import com.healthmate.common.template.TemplateActivity.Companion.getCallingIntent
 import com.healthmate.menu.auth.view.SigninActivity
+import com.healthmate.menu.auth.view.ValidasiActivity
+import com.healthmate.menu.mom.covid.view.ScreeningCovidActivity
+import com.healthmate.menu.mom.kia.view.MainKiaActivity
 import com.healthmate.menu.mom.main.MainMomActivity
 import javax.inject.Inject
 
@@ -32,14 +35,22 @@ class Navigator @Inject constructor() {
         activity.startActivity(intent)
     }
 
-//
-//    fun signup(activity: Activity){
-//        goto(activity, SignupActivity.getCallingIntent(activity))
-//    }
-//
+    fun verifikasi(activity: Activity, data: String){
+        goto(activity,ValidasiActivity.getCallingIntent(activity,data))
+    }
+
     fun mainMom(activity: Activity,clearTop:Boolean = false){
         val intent = MainMomActivity.getCallingIntent(activity)
         if (clearTop) intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         activity.startActivity(intent)
     }
+
+    fun screeningCovid(activity: Activity){
+        goto(activity, ScreeningCovidActivity.getCallingIntent(activity))
+    }
+
+    fun dataKiaMom(activity: Activity){
+        goto(activity, MainKiaActivity.getCallingIntent(activity))
+    }
+
 }

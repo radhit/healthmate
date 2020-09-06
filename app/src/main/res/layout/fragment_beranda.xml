@@ -37,7 +37,9 @@
                             android:id="@+id/iv_profile_done"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/user_male"/>
+                            android:src="@drawable/bumil_on"
+                            app:civ_border_width="2dp"
+                            app:civ_border_color="@color/white"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -62,7 +64,9 @@
                                 android:id="@+id/iv_profile_not"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
-                                android:src="@drawable/user_male"/>
+                                android:src="@drawable/bumil_on"
+                                app:civ_border_width="2dp"
+                                app:civ_border_color="@color/white"/>
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -111,6 +115,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
+                    android:id="@+id/ll_checkup"
                     android:gravity="center">
                     <ImageView
                         android:layout_width="50dp"
@@ -129,6 +134,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/rv_menu"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginTop="50dp"
+                android:scaleType="fitXY"
+                android:id="@+id/iv_banner"
+                android:src="@drawable/banner_awal"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

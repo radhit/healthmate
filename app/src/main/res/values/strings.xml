@@ -14,4 +14,10 @@
     <string name="keterangan_intro_5">Semua data yang diberikan dan transaksi kami jaga kerahasiaannya</string>
     <string name="testing_user">{"type":"mother","id": "mothers-id","validated": true,"phone_number": "080989999","password": "hashedpassword","name": "Tejo","covid_checked": false}</string>
 
+    <string name="pertanyaan_covid_1">Apakah anda mengalami\nsesak nafas yang hebat?\n\n(Kesulitan bernafas, bernafas dengan sangat cepat atau sulit berbicara dalam satu kalimat)</string>
+    <string name="pertanyaan_covid_2">Apakah anda mengalami demam (suhu >38 derajat Celcius)\natau memiliki riwayat demam dalam waktu 14 hari terakhir</string>
+    <string name="pertanyaan_covid_3">Apakah anda mengalami\nbatuk/pilek/sakit tenggorokan?</string>
+    <string name="pertanyaan_covid_4">Apakah anda memiliki riwayat bepergian ke luar negeri atau tinggal di wilayah berikut dalam 14 hari terakhir?\n\n(Balikpapan, Pontianak, Banjarmasin, Makassar,Surabaya, Malang, Sidoarjo, Kediri, Magetan, Surakarta, Bandung, Bogor, Karawang, Bekasi, Depok, Tangerang, DKI Jakarta)</string>
+    <string name="pertanyaan_covid_5">Apakah anda memberikan perawatan atau melakukan kontak dekat (dalam radius 1 meter) dengan seseorang yang dalam pengawasan atau telah dinyatakan positif Covid-19 oleh dokter?</string>
+
 </resources>
