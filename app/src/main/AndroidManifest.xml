@@ -13,9 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".menu.mom.kia.view.MainKiaActivity"></activity>
-        <activity android:name=".menu.mom.covid.view.ScreeningCovidActivity" />
-        <activity android:name=".menu.auth.view.ValidasiActivity" />
+        <activity android:name=".menu.reusable.view.MasterListActivity"></activity>
+        <activity android:name=".menu.mom.checkup.view.CheckupActivity" />
+        <activity android:name=".menu.mom.kia.view.MainKiaActivity" />
+        <activity android:name=".menu.mom.covid.view.ScreeningCovidActivity"
+            android:theme="@style/AppTheme.NoActionBar"  />
+        <activity android:name=".menu.auth.view.ValidasiActivity"
+            android:theme="@style/AppTheme.NoActionBar"  />
         <activity
             android:name=".menu.mom.main.MainMomActivity"
             android:theme="@style/AppTheme.NoActionBar" />

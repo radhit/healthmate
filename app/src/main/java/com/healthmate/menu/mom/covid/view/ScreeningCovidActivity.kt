@@ -49,7 +49,7 @@ class ScreeningCovidActivity : BaseActivity() {
                 currentQuetion+=1
                 changeQuetion()
             } else{
-                saveAnswer("Ya")
+                saveAnswer("Tidak")
                 submit()
             }
         }
@@ -57,10 +57,13 @@ class ScreeningCovidActivity : BaseActivity() {
     }
 
     private fun submit() {
-        var user = userPref.getUser()
-        user.covid_checked = true
-        userPref.setUser(user)
-        navigator.mainMom(this, true)
+        createDialog("Data berhasil terkirim",{
+            var user = userPref.getUser()
+            user.covid_checked = true
+            userPref.setUser(user)
+            finish()
+
+        })
     }
 
     private fun saveAnswer(jawaban: String) {

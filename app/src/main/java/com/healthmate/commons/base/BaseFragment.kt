@@ -11,6 +11,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.afollestad.materialdialogs.DialogCallback
 import com.afollestad.materialdialogs.MaterialDialog
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.TypeAdapter
+import com.google.gson.stream.JsonReader
+import com.google.gson.stream.JsonToken
+import com.google.gson.stream.JsonWriter
 import com.healthmate.R
 import com.healthmate.common.functions.Fun
 import com.healthmate.menu.reusable.data.User
@@ -18,6 +24,7 @@ import com.healthmate.common.navigation.Navigator
 import com.healthmate.common.sharedpreferences.AppPref
 import com.healthmate.common.sharedpreferences.UserPref
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
+import java.io.IOException
 
 abstract class BaseFragment: Fragment() {
     val navigator = Navigator()
@@ -25,6 +32,11 @@ abstract class BaseFragment: Fragment() {
     lateinit var appPref: AppPref
     lateinit var userPref: UserPref
     var user = User()
+    protected lateinit var gson: Gson
+
+    init {
+        createGson()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -72,5 +84,59 @@ abstract class BaseFragment: Fragment() {
                 .message(null, message)
                 .positiveButton(null,"OK",click).cancelable(false)
         dialog.show()
+    }
+
+    private fun createGson() {
+        val gsonBuilder = GsonBuilder()
+        gsonBuilder.registerTypeAdapter(Float::class.java, object : TypeAdapter<Float>() {
+            @Throws(IOException::class)
+            override fun read(reader: JsonReader): Float? {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.nextNull()
+                    return null
+                }
+                try {
+                    return java.lang.Float.valueOf(reader.nextString())
+                } catch (e: NumberFormatException) {
+                    return null
+                }
+
+            }
+
+            @Throws(IOException::class)
+            override fun write(writer: JsonWriter, value: Float?) {
+                if (value == null) {
+                    writer.nullValue()
+                    return
+                }
+                writer.value(value)
+            }
+
+        })
+        gsonBuilder.registerTypeAdapter(Double::class.java, object : TypeAdapter<Double>() {
+            @Throws(IOException::class)
+            override fun read(reader: JsonReader): Double? {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.nextNull()
+                    return 0.0
+                }
+                try {
+                    return java.lang.Double.valueOf(reader.nextString())
+                } catch (e: NumberFormatException) {
+                    return 0.0
+                }
+
+            }
+
+            @Throws(IOException::class)
+            override fun write(writer: JsonWriter, value: Double?) {
+                if (value == null) {
+                    writer.nullValue()
+                    return
+                }
+                writer.value(value)
+            }
+        })
+        gson = gsonBuilder.create()
     }
 }

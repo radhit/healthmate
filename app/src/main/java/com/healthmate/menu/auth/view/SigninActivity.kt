@@ -60,10 +60,10 @@ class SigninActivity : BaseActivity() {
 
         btn_signin.setOnClickListener {
             if (isValidLogin()){
-//                var dataJson = gson.fromJson(getString(R.string.testing_user),User::class.java)
-//                userPref.setUser(dataJson)
-//                navigator.mainMom(this,true)
-                login()
+                var dataJson = gson.fromJson(getString(R.string.testing_user),User::class.java)
+                userPref.setUser(dataJson)
+                navigator.mainMom(this,true)
+//                login()
             }
         }
         btn_signup.setOnClickListener {

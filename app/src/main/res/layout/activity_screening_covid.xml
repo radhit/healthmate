@@ -12,13 +12,13 @@
         android:layout_height="match_parent"
         android:id="@+id/ll_awal"
         android:gravity="center_horizontal"
-        android:visibility="gone"
+        android:visibility="visible"
         android:orientation="vertical"
         android:background="@drawable/background_covid">
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/logo"/>
+            android:src="@drawable/logo_compress"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,6 +46,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         android:id="@+id/rl_pertanyaan">
         <LinearLayout
             android:layout_width="match_parent"

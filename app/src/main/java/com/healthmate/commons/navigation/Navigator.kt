@@ -6,9 +6,11 @@ import android.content.Intent
 import com.healthmate.common.template.TemplateActivity.Companion.getCallingIntent
 import com.healthmate.menu.auth.view.SigninActivity
 import com.healthmate.menu.auth.view.ValidasiActivity
+import com.healthmate.menu.mom.checkup.view.CheckupActivity
 import com.healthmate.menu.mom.covid.view.ScreeningCovidActivity
 import com.healthmate.menu.mom.kia.view.MainKiaActivity
 import com.healthmate.menu.mom.main.MainMomActivity
+import com.healthmate.menu.reusable.view.MasterListActivity
 import javax.inject.Inject
 
 class Navigator @Inject constructor() {
@@ -51,6 +53,14 @@ class Navigator @Inject constructor() {
 
     fun dataKiaMom(activity: Activity){
         goto(activity, MainKiaActivity.getCallingIntent(activity))
+    }
+
+    fun checkUp(activity: Activity){
+        goto(activity,CheckupActivity.getCallingIntent(activity))
+    }
+
+    fun dataMaster(activity: Activity, keterangan:String, response_code: Int){
+        gotoForResult(activity,MasterListActivity.getCallingIntent(activity,keterangan),response_code)
     }
 
 }

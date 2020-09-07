@@ -55,14 +55,18 @@ class BerandaFragment : BaseFragment() {
             navigator.screeningCovid(activity!!)
         }
         ll_checkup.setOnClickListener {
-            if (user.kia!=null){
-                if (user.kia!!.nik.equals("")){
-                    createDialog("Anda belum menambahkan data KIA")
+            if (userPref.getUser().location!=null && !userPref.getUser().location!!.subdistrict.equals("")){
+                if (userPref.getUser().covid_checked){
+                    if (userPref.getUser().hospital!!.id.equals("")){
+                        navigator.checkUp(activity!!)
+                    } else{
+                        createDialog("Pemeriksaan sedang dilakukan!")
+                    }
                 } else{
-                    //checkup
+                    createDialog("Anda belum melakukan cek status covid!")
                 }
             } else{
-                createDialog("Anda belum menambahkan data KIA")
+                createDialog("Anda belum menambah data KIA!")
             }
         }
     }
@@ -109,17 +113,18 @@ class BerandaFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         //getdatacheckup
+        println("data user: ${gson.toJson(user)}")
         if (userPref.getUser()!=null){
             if (userPref.getUser().location!=null && userPref.getUser().location!!.subdistrict.equals("")){
                 ll_profile_done.visibility = View.GONE
                 ll_profile_not.visibility = View.VISIBLE
-                tv_nama_not.text = "Hei, ${user.name}"
+                tv_nama_not.text = "Hei, ${userPref.getUser().name}"
                 iv_banner.visibility = View.GONE
             } else{
                 ll_profile_done.visibility = View.VISIBLE
                 ll_profile_not.visibility = View.GONE
-                tv_nama_done.text = "Pasien\n${user.name}"
-                if (user.covid_checked){
+                tv_nama_done.text = "Pasien\n${userPref.getUser().name}"
+                if (userPref.getUser().covid_checked){
                     iv_banner.visibility = View.GONE
                 } else{
                     iv_banner.visibility = View.VISIBLE
