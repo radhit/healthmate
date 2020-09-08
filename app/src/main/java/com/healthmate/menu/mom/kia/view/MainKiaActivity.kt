@@ -5,16 +5,27 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProviders
 import com.healthmate.R
+import com.healthmate.api.Payload
+import com.healthmate.api.Result
 import com.healthmate.common.base.BaseActivity
+import com.healthmate.common.constant.Urls
+import com.healthmate.common.functions.Fun
+import com.healthmate.di.injector
 import com.healthmate.menu.mom.covid.view.ScreeningCovidActivity
+import com.healthmate.menu.mom.home.data.BerandaViewModel
+import com.healthmate.menu.mom.kia.data.KiaViewModel
 import com.healthmate.menu.reusable.data.Husband
 import com.healthmate.menu.reusable.data.Kia
 import com.healthmate.menu.reusable.data.Location
 import com.healthmate.menu.reusable.data.MasterListModel
 import kotlinx.android.synthetic.main.activity_main_kia.*
+import kotlinx.android.synthetic.main.fragment_beranda.*
 import java.text.SimpleDateFormat
 import java.util.*
+import androidx.lifecycle.Observer
+import com.healthmate.api.PayloadEntry
 
 class MainKiaActivity : BaseActivity() {
     companion object {
@@ -29,6 +40,10 @@ class MainKiaActivity : BaseActivity() {
     var dataKia: Kia = Kia()
     var id_kabupaten: String = ""
     var id_kecamatan: String = ""
+
+    private val viewModel by lazy {
+        ViewModelProviders.of(this, injector.kiaVM()).get(KiaViewModel::class.java)
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         this.setTitle("Data KIA")
@@ -49,7 +64,8 @@ class MainKiaActivity : BaseActivity() {
                 user.location = location
 
                 userPref.setUser(user)
-                finish()
+
+                updateData()
             }
         }
         fieldTanggalLahir.setOnClickListener {
@@ -83,6 +99,30 @@ class MainKiaActivity : BaseActivity() {
             navigator.dataMaster(this,"agama",8)
         }
 
+    }
+
+    private fun updateData() {
+        val payload = Payload()
+        payload.url = "${Urls.registerMother}/${userPref.getUser().id}"
+        payload.payloads.add(PayloadEntry("kia",gson.toJson(dataKia)))
+        viewModel.updateDataMom(payload)
+                .observe(this, Observer {result ->
+                    when(result.status){
+                        Result.Status.LOADING->{
+                            startLoading()
+                        }
+                        Result.Status.SUCCESS->{
+                            finishLoading()
+                            createDialog(result.message!!,{
+                                finish()
+                            })
+                        }
+                        Result.Status.ERROR->{
+                            finishLoading()
+                            Fun.handleError(this,result)
+                        }
+                    }
+                })
     }
 
     private fun isValid(): Boolean {

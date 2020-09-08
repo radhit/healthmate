@@ -12,13 +12,9 @@ abstract class BaseDataSource {
             val body = response.body()
             if (body!=null){
                 if (body.responseCode in 200..299){
-                    return Result.success(body.data,body.message.replaceEmpty("-"),200) as Result<T>
+                    return Result.success(body.data,body.message.replaceEmpty("-"),200,body.cursor) as Result<T>
                 }else{
-                    var errorMessage: String = ""
-                    for (i in 0..body.errors.size-1){
-                        errorMessage = "${errorMessage}${body.errors.get(i)}\n"
-                    }
-                    return error(errorMessage,body.responseCode)
+                    return error(body.message,body.responseCode)
                 }
             }else{
                 return error("Failed. Response not found.",response.code())

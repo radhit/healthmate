@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.healthmate">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -10,16 +11,24 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".menu.reusable.view.MasterListActivity"></activity>
+        <activity android:name=".menu.midwife.profile.view.UbahProfileMidwiveActivity"></activity>
+        <activity android:name=".menu.midwife.main.MainMidwiveActivity" />
+        <activity
+            android:name=".menu.mom.rapor.view.MainRaporActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".menu.reusable.view.MasterListActivity" />
         <activity android:name=".menu.mom.checkup.view.CheckupActivity" />
         <activity android:name=".menu.mom.kia.view.MainKiaActivity" />
-        <activity android:name=".menu.mom.covid.view.ScreeningCovidActivity"
-            android:theme="@style/AppTheme.NoActionBar"  />
-        <activity android:name=".menu.auth.view.ValidasiActivity"
-            android:theme="@style/AppTheme.NoActionBar"  />
+        <activity
+            android:name=".menu.mom.covid.view.ScreeningCovidActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".menu.auth.view.ValidasiActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".menu.mom.main.MainMomActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -38,6 +47,18 @@
         <activity
             android:name=".menu.auth.view.SigninActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"
+                tools:replace="android:resource" />
+        </provider>
     </application>
 
 </manifest>

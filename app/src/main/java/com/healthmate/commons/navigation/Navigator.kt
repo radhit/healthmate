@@ -10,6 +10,7 @@ import com.healthmate.menu.mom.checkup.view.CheckupActivity
 import com.healthmate.menu.mom.covid.view.ScreeningCovidActivity
 import com.healthmate.menu.mom.kia.view.MainKiaActivity
 import com.healthmate.menu.mom.main.MainMomActivity
+import com.healthmate.menu.mom.rapor.view.MainRaporActivity
 import com.healthmate.menu.reusable.view.MasterListActivity
 import javax.inject.Inject
 
@@ -61,6 +62,10 @@ class Navigator @Inject constructor() {
 
     fun dataMaster(activity: Activity, keterangan:String, response_code: Int){
         gotoForResult(activity,MasterListActivity.getCallingIntent(activity,keterangan),response_code)
+    }
+
+    fun rapor(activity: Activity){
+        goto(activity, MainRaporActivity.getCallingIntent(activity))
     }
 
 }

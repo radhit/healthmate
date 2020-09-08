@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.DialogCallback
 import com.afollestad.materialdialogs.MaterialDialog
 import com.google.gson.Gson
@@ -18,6 +20,8 @@ import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonToken
 import com.google.gson.stream.JsonWriter
 import com.healthmate.R
+import com.healthmate.common.adapter.RecyclerViewClickListener
+import com.healthmate.common.adapter.RecyclerViewTouchListener
 import com.healthmate.common.functions.Fun
 import com.healthmate.menu.reusable.data.User
 import com.healthmate.common.navigation.Navigator
@@ -139,4 +143,12 @@ abstract class BaseFragment: Fragment() {
         })
         gson = gsonBuilder.create()
     }
+
+    fun initiateLinearLayoutRecyclerView(recyclerView: RecyclerView, clickListener: RecyclerViewClickListener?){
+        recyclerView.layoutManager = LinearLayoutManager(context!!)
+        val mLayoutManager = LinearLayoutManager(context)
+        recyclerView.setLayoutManager(mLayoutManager)
+        recyclerView.addOnItemTouchListener(RecyclerViewTouchListener(context!!, recyclerView, clickListener))
+    }
+
 }

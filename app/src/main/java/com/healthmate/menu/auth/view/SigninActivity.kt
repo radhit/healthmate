@@ -2,11 +2,10 @@ package com.healthmate.menu.auth.view
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.healthmate.R
@@ -18,9 +17,9 @@ import com.healthmate.common.constant.Urls
 import com.healthmate.common.functions.Fun
 import com.healthmate.di.injector
 import com.healthmate.menu.auth.data.AuthViewModel
-import com.healthmate.menu.reusable.data.User
 import kotlinx.android.synthetic.main.activity_signin.*
-import java.util.*
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 
 class SigninActivity : BaseActivity() {
     companion object {
@@ -60,10 +59,10 @@ class SigninActivity : BaseActivity() {
 
         btn_signin.setOnClickListener {
             if (isValidLogin()){
-                var dataJson = gson.fromJson(getString(R.string.testing_user),User::class.java)
-                userPref.setUser(dataJson)
-                navigator.mainMom(this,true)
-//                login()
+//                var dataJson = gson.fromJson(getString(R.string.testing_user),User::class.java)
+//                userPref.setUser(dataJson)
+//                navigator.mainMom(this,true)
+                login()
             }
         }
         btn_signup.setOnClickListener {
@@ -118,7 +117,7 @@ class SigninActivity : BaseActivity() {
         val payload = Payload()
         payload.payloads.add(PayloadEntry("name",fieldNama.text.toString()))
         payload.payloads.add(PayloadEntry("phone_number",fieldNomorHpRegister.text.toString()))
-        payload.payloads.add(PayloadEntry("password",fieldPasswordRegister.text.toString()))
+        payload.payloads.add(PayloadEntry("password",generateMd5(fieldPassword.text.toString())))
         if (currentChar.equals("mom")){
             payload.url = Urls.registerMother
         } else{
@@ -128,16 +127,14 @@ class SigninActivity : BaseActivity() {
                 .observe(this, Observer {result ->
                     when(result.status){
                         Result.Status.LOADING->{
-                            startLoading()
+                            startLoading("register")
                         }
                         Result.Status.SUCCESS->{
-                            finishLoading()
-                            createDialog("Pendaftaran berhasil",{
-                                navigator.verifikasi(this,fieldNomorHpRegister.text.toString())
-                            })
+                            finishLoading("register")
+                            viewLogin()
                         }
                         Result.Status.ERROR->{
-                            finishLoading()
+                            finishLoading("register")
                             Fun.handleError(this,result)
                         }
                     }
@@ -147,23 +144,22 @@ class SigninActivity : BaseActivity() {
     private fun login() {
         val payload = Payload()
         payload.payloads.add(PayloadEntry("phone_number",fieldNomorHp.text.toString()))
-        payload.payloads.add(PayloadEntry("password",fieldPassword.text.toString()))
+        payload.payloads.add(PayloadEntry("password",generateMd5(fieldPassword.text.toString())))
         viewModel.login(payload)
                 .observe(this, Observer {result ->
                     when(result.status){
                         Result.Status.LOADING->{
-                            startLoading()
+                            startLoading("login")
                         }
                         Result.Status.SUCCESS->{
-                            finishLoading()
+                            finishLoading("login")
                             val user = result.data!!
-                            var dataJson = gson.fromJson(getString(R.string.testing_user),User::class.java)
                             userPref.setUser(user)
                             println("data user : ${userPref.getUser()}")
                             navigator.mainMom(this,true)
                         }
                         Result.Status.ERROR->{
-                            finishLoading()
+                            finishLoading("login")
                             Fun.handleError(this,result)
                         }
                     }
@@ -189,5 +185,50 @@ class SigninActivity : BaseActivity() {
             Glide.with(this).applyDefaultRequestOptions(requestOptions).load(getDrawable(R.drawable.bumil_off)).into(iv_mom)
             Glide.with(this).applyDefaultRequestOptions(requestOptions).load(getDrawable(R.drawable.bidan_on)).into(iv_midwife)
         }
+    }
+
+    //d41d8cd98f00b204e9800998ecf8427e
+    //d3f4e6e9247c96116fe2eef011bedc74
+    fun startLoading(keterangan: String){
+        if (keterangan.equals("login")){
+            btn_signin.isEnabled = false
+            btn_signin.text = "Mohon Tunggu..."
+        } else{
+            btn_signup.isEnabled = false
+            btn_signup.text = "Mohon Tunggu..."
+        }
+    }
+
+    fun finishLoading(keterangan: String){
+        if (keterangan.equals("login")){
+            btn_signin.isEnabled = true
+            btn_signin.text = "Masuk"
+        } else{
+            btn_signup.isEnabled = true
+            btn_signup.text = "Daftar"
+        }
+    }
+
+    fun generateMd5(password: String): String {
+        val MD5 = "MD5"
+        try {
+            // Create MD5 Hash
+            val digest = MessageDigest
+                    .getInstance(MD5)
+            digest.update(password.toByteArray())
+            val messageDigest = digest.digest()
+
+            // Create Hex String
+            val hexString = StringBuilder()
+            for (aMessageDigest in messageDigest) {
+                var h = Integer.toHexString(0xFF and aMessageDigest.toInt())
+                while (h.length < 2) h = "0$h"
+                hexString.append(h)
+            }
+            return hexString.toString()
+        } catch (e: NoSuchAlgorithmException) {
+            e.printStackTrace()
+        }
+        return ""
     }
 }

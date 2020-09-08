@@ -15,7 +15,7 @@ fun <T,A> resultLiveData(
     liveData(Dispatchers.IO){
         emit(Result.loading())
         val source = databaseQuery.invoke().map {
-            Result.success(it,"Berhasil.",200)
+            Result.success(it,"Berhasil.",200,"")
         }
         emitSource(source)
 
@@ -36,7 +36,7 @@ fun <A> resultLiveDataNoDao(
         val responseStatus = networkCall.invoke()
         if (responseStatus.status == Result.Status.SUCCESS){
             println("resultLiveDataNoDao SUCCESS")
-            emit(Result.success(responseStatus.data,responseStatus.message.replaceEmpty(""),responseStatus.response_code))
+            emit(Result.success(responseStatus.data,responseStatus.message.replaceEmpty(""),responseStatus.response_code,responseStatus.cursor))
         }else if(responseStatus.status == Result.Status.ERROR){
             println("resultLiveDataNoDao ERROR")
             emit(Result.error(responseStatus.message!!))

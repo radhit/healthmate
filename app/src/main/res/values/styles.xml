@@ -50,5 +50,9 @@
         <item name="android:textColor">@color/buttonTextColor</item>
     </style>
 
+    <style name="ToolbarColoredBackArrow">
+        <item name="android:textColorSecondary">@color/textColor</item>
+    </style>
+
 
 </resources>

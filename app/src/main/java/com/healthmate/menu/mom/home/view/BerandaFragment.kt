@@ -7,16 +7,24 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.artcak.starter.modules.reusable.adapter.MenuAdapter
-import com.bumptech.glide.Glide
-import com.healthmate.BuildConfig
 import com.healthmate.R
+import com.healthmate.api.Payload
+import com.healthmate.api.PayloadEntry
+import com.healthmate.api.Result
 import com.healthmate.common.adapter.GridSpacingItemDecoration
 import com.healthmate.common.adapter.RecyclerViewClickListener
 import com.healthmate.common.adapter.RecyclerViewTouchListener
 import com.healthmate.common.base.BaseFragment
+import com.healthmate.common.functions.Fun
+import androidx.lifecycle.Observer
+import com.healthmate.common.constant.Urls
+import com.healthmate.di.injector
+import com.healthmate.menu.mom.home.data.BerandaViewModel
+import com.healthmate.menu.mom.home.data.CheckUpModel
 import com.healthmate.menu.reusable.data.Menu
+import com.healthmate.menu.reusable.data.User
+import kotlinx.android.synthetic.main.activity_signin.*
 import kotlinx.android.synthetic.main.fragment_beranda.*
-import kotlinx.android.synthetic.main.fragment_profile.*
 import java.util.*
 
 class BerandaFragment : BaseFragment() {
@@ -24,6 +32,15 @@ class BerandaFragment : BaseFragment() {
 
     override fun getViewId(): Int = R.layout.fragment_beranda
     lateinit var adapter: MenuAdapter
+    var status_api: Boolean = false //false = api belum selesai
+    var status_checkup: Boolean = false //false = tidak ada checkup/belum rating, true = ada check up
+    var status_rating: Boolean = false //false = tidak ada tanggungan rating, true = ada tanggungan rating
+    var checkUp = CheckUpModel()
+
+    private val viewModel by lazy {
+        ViewModelProviders.of(this, injector.homeVM()).get(BerandaViewModel::class.java)
+    }
+
 
     companion object {
         fun newInstance(): BerandaFragment = BerandaFragment()
@@ -58,7 +75,19 @@ class BerandaFragment : BaseFragment() {
             if (userPref.getUser().location!=null && !userPref.getUser().location!!.subdistrict.equals("")){
                 if (userPref.getUser().covid_checked){
                     if (userPref.getUser().hospital!!.id.equals("")){
-                        navigator.checkUp(activity!!)
+                        if (status_api){
+                            if (tv_checkup.text.toString().equals("Periksa Sekarang / Check Up")){
+                                navigator.checkUp(activity!!)
+                            } else if (tv_checkup.text.toString().equals("Anda sedang melakukan pemeriksaan")){
+                                createDialog("Anda sedang menjalani pemeriksaan")
+                            } else if (tv_checkup.text.toString().equals("Anda belum memberikan rating")){
+                                createDialog("Anda belum melakukan penilaian",{
+                                    openDialogRating()
+                                })
+                            }
+                        } else{
+                            createDialog("Sedang mengambil data")
+                        }
                     } else{
                         createDialog("Pemeriksaan sedang dilakukan!")
                     }
@@ -69,6 +98,10 @@ class BerandaFragment : BaseFragment() {
                 createDialog("Anda belum menambah data KIA!")
             }
         }
+    }
+
+    private fun openDialogRating() {
+
     }
 
     private fun setRecycleView() {
@@ -83,7 +116,7 @@ class BerandaFragment : BaseFragment() {
             override fun onClick(view: View, position: Int) {
                 val menu = adapter.lists[position]
                 if (menu.nama.equals("Rapor")){
-
+                    navigator.rapor(activity!!)
                 } else if (menu.nama.equals("Modul")){
 
                 } else if (menu.nama.equals("Home Care")){
@@ -113,7 +146,7 @@ class BerandaFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         //getdatacheckup
-        println("data user: ${gson.toJson(user)}")
+        println("data user resume: ${gson.toJson(user)}")
         if (userPref.getUser()!=null){
             if (userPref.getUser().location!=null && userPref.getUser().location!!.subdistrict.equals("")){
                 ll_profile_done.visibility = View.GONE
@@ -126,10 +159,52 @@ class BerandaFragment : BaseFragment() {
                 tv_nama_done.text = "Pasien\n${userPref.getUser().name}"
                 if (userPref.getUser().covid_checked){
                     iv_banner.visibility = View.GONE
+                    getDataCheckup()
                 } else{
                     iv_banner.visibility = View.VISIBLE
                 }
             }
         }
+    }
+
+    private fun getDataCheckup() {
+        val payload = Payload()
+        payload.url = "${Urls.action}?num=1&mother_id=${userPref.getUser().id}"
+        viewModel.statusCheckUp(payload)
+                .observe(this, Observer {result ->
+                    when(result.status){
+                        Result.Status.LOADING->{
+                        }
+                        Result.Status.SUCCESS->{
+                            status_api = true
+                            var data = result.data!!
+                            if (data.size>0){
+                                checkUp = data.get(0)
+                                if (checkUp.in_progress){
+                                    tv_checkup.text = "Anda sedang melakukan pemeriksaan"
+                                    status_checkup = true
+                                } else{
+                                    if (checkUp.midwive==null){
+                                        tv_checkup.text = "Periksa Sekarang / Check Up"
+                                        status_checkup = false
+                                    } else{
+                                        if (checkUp.rating.equals("0")){
+                                            status_checkup = true
+                                            status_rating = true
+                                            tv_checkup.text = "Anda belum memberikan rating"
+                                        } else{
+                                            status_checkup = false
+                                        }
+                                    }
+                                }
+                            } else{
+                                status_checkup = false
+                            }
+                        }
+                        Result.Status.ERROR->{
+                            Fun.handleError(activity!!,result)
+                        }
+                    }
+                })
     }
 }

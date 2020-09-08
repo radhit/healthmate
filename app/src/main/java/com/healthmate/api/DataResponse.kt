@@ -19,5 +19,9 @@ class DataResponse<T> {
 
     @SerializedName(value = "error")
     @Expose
-    var errors: List<String> = listOf()
+    var errors: String = ""
+
+    @SerializedName("cursor")
+    @Expose
+    var cursor: String = ""
 }

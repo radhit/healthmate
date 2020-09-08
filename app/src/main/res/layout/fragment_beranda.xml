@@ -127,6 +127,7 @@
                         android:textSize="16sp"
                         android:layout_marginLeft="10dp"
                         android:textColor="@color/textColor"
+                        android:id="@+id/tv_checkup"
                         android:text="Periksa Sekarang / Check Up"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
