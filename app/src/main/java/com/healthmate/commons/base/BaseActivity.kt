@@ -16,18 +16,30 @@ import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonToken
 import com.google.gson.stream.JsonWriter
 import com.healthmate.R
+import com.healthmate.api.BaseApi
+import com.healthmate.common.constant.Urls
 import com.healthmate.common.functions.Fun
 import com.healthmate.common.navigation.Navigator
 import com.healthmate.common.sharedpreferences.AppPref
 import com.healthmate.common.sharedpreferences.UserPref
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 abstract class BaseActivity: AppCompatActivity() {
     val navigator = Navigator()
     abstract fun getView(): Int
     lateinit var appPref: AppPref
     lateinit var userPref: UserPref
+    lateinit var baseApi: BaseApi
+    lateinit var retrofit: Retrofit
     protected lateinit var gson: Gson
     protected var requestOptions = RequestOptions().diskCacheStrategy(
             DiskCacheStrategy.AUTOMATIC).skipMemoryCache(true)
@@ -38,12 +50,43 @@ abstract class BaseActivity: AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         appPref = AppPref(this)
         userPref = UserPref(this)
+        createRetrofit()
+        baseApi = retrofit.create(BaseApi::class.java)
         setContentView(getView())
         observeVM()
         onActivityCreated(savedInstanceState)
         if (!Fun.isConnected(this)){
             Toast.makeText(this,"Tidak ada akses internet",Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun createRetrofit() {
+        val logging = HttpLoggingInterceptor()
+        // set your desired log level
+        logging.level = HttpLoggingInterceptor.Level.BODY
+
+        var httpClient: OkHttpClient.Builder = OkHttpClient.Builder()
+                .readTimeout(2000000, TimeUnit.SECONDS)
+                .writeTimeout(200000, TimeUnit.SECONDS)
+                .connectTimeout(200000, TimeUnit.SECONDS)
+        httpClient.addInterceptor(object : Interceptor {
+            @Throws(IOException::class)
+            override fun intercept(chain: Interceptor.Chain): Response? {
+                val request: Request = chain.request().newBuilder().addHeader("Authorization", "Bearer ${userPref.getUser().token}").build()
+                return chain.proceed(request)
+            }
+        })
+        // add your other interceptors …
+
+        // add logging as last interceptor
+        httpClient.addInterceptor(logging)
+//        httpClient = enableTls12OnPreLollipop(httpClient)
+
+        retrofit = Retrofit.Builder()
+                .baseUrl(Urls.SERVER_DEV)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClient.build())
+                .build()
     }
 
     abstract fun onActivityCreated(savedInstanceState: Bundle?)

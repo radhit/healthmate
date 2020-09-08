@@ -74,23 +74,23 @@ class BerandaFragment : BaseFragment() {
         ll_checkup.setOnClickListener {
             if (userPref.getUser().location!=null && !userPref.getUser().location!!.subdistrict.equals("")){
                 if (userPref.getUser().covid_checked){
-                    if (userPref.getUser().hospital!!.id.equals("")){
-                        if (status_api){
-                            if (tv_checkup.text.toString().equals("Periksa Sekarang / Check Up")){
-                                navigator.checkUp(activity!!)
-                            } else if (tv_checkup.text.toString().equals("Anda sedang melakukan pemeriksaan")){
-                                createDialog("Anda sedang menjalani pemeriksaan")
-                            } else if (tv_checkup.text.toString().equals("Anda belum memberikan rating")){
-                                createDialog("Anda belum melakukan penilaian",{
-                                    openDialogRating()
-                                })
-                            }
-                        } else{
-                            createDialog("Sedang mengambil data")
-                        }
-                    } else{
-                        createDialog("Pemeriksaan sedang dilakukan!")
-                    }
+//                    if (userPref.getUser().hospital!!.id.equals("")){
+//                        if (status_api){
+//                            if (tv_checkup.text.toString().equals("Periksa Sekarang / Check Up")){
+//                                navigator.checkUp(activity!!)
+//                            } else if (tv_checkup.text.toString().equals("Anda sedang melakukan pemeriksaan")){
+//                                createDialog("Anda sedang menjalani pemeriksaan")
+//                            } else if (tv_checkup.text.toString().equals("Anda belum memberikan rating")){
+//                                createDialog("Anda belum melakukan penilaian",{
+//                                    openDialogRating()
+//                                })
+//                            }
+//                        } else{
+//                            createDialog("Sedang mengambil data")
+//                        }
+//                    } else{
+//                        createDialog("Pemeriksaan sedang dilakukan!")
+//                    }
                 } else{
                     createDialog("Anda belum melakukan cek status covid!")
                 }

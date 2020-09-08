@@ -14,9 +14,9 @@ data class User(
         var hospital: Hospital? = Hospital(),
         var location: Location? = Location(),
         var profil_picture: String? = "",
-        var age: String? = "",
+        var age: Int?,
         var kia: Kia? = Kia(),
-        var diagnostics_color: String? = ""
+        var diagnostics_color: String?
 )
 
 data class Hospital(

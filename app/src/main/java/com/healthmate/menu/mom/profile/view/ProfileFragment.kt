@@ -22,13 +22,20 @@ class ProfileFragment : BaseFragment() {
 
     override fun onFragmentCreated(savedInstanceState: Bundle?) {
         tv_versi.text = "v.${BuildConfig.VERSION_NAME}"
-        tv_name.text = user.name
-        tv_phone_number.text = user.phone_number
+        tv_name.text = userPref.getUser().name
+        tv_phone_number.text = userPref.getUser().phone_number
         btn_logout.setOnClickListener {
             signout()
         }
         btn_ubah.setOnClickListener {
             navigator.dataKiaMom(activity!!)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        tv_name.text = userPref.getUser().name
+        tv_phone_number.text = userPref.getUser().phone_number
+
     }
 }

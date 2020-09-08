@@ -144,7 +144,8 @@ class SigninActivity : BaseActivity() {
     private fun login() {
         val payload = Payload()
         payload.payloads.add(PayloadEntry("phone_number",fieldNomorHp.text.toString()))
-        payload.payloads.add(PayloadEntry("password",generateMd5(fieldPassword.text.toString())))
+//        payload.payloads.add(PayloadEntry("password",generateMd5(fieldPassword.text.toString())))
+        payload.payloads.add(PayloadEntry("password",fieldPassword.text.toString()))
         viewModel.login(payload)
                 .observe(this, Observer {result ->
                     when(result.status){

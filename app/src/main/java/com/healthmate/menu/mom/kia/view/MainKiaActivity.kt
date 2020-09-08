@@ -1,14 +1,14 @@
 package com.healthmate.menu.mom.kia.view
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import com.healthmate.R
-import com.healthmate.api.Payload
-import com.healthmate.api.Result
 import com.healthmate.common.base.BaseActivity
 import com.healthmate.common.constant.Urls
 import com.healthmate.common.functions.Fun
@@ -16,16 +16,18 @@ import com.healthmate.di.injector
 import com.healthmate.menu.mom.covid.view.ScreeningCovidActivity
 import com.healthmate.menu.mom.home.data.BerandaViewModel
 import com.healthmate.menu.mom.kia.data.KiaViewModel
-import com.healthmate.menu.reusable.data.Husband
-import com.healthmate.menu.reusable.data.Kia
-import com.healthmate.menu.reusable.data.Location
-import com.healthmate.menu.reusable.data.MasterListModel
 import kotlinx.android.synthetic.main.activity_main_kia.*
 import kotlinx.android.synthetic.main.fragment_beranda.*
 import java.text.SimpleDateFormat
 import java.util.*
 import androidx.lifecycle.Observer
-import com.healthmate.api.PayloadEntry
+import com.healthmate.api.*
+import com.healthmate.menu.reusable.data.*
+import okhttp3.*
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainKiaActivity : BaseActivity() {
     companion object {
@@ -54,6 +56,9 @@ class MainKiaActivity : BaseActivity() {
         fieldNama.setText("${userPref.getUser().name}")
         btn_simpan.setOnClickListener {
             if (isValid()){
+//                val jsonObject = JSONObject()
+//                jsonObject.put("kia",dataKia)
+//                println("data kia : ${jsonObject}")
                 var user = userPref.getUser()
                 setDataInput()
                 user.name = fieldNama.text.toString()
@@ -101,29 +106,54 @@ class MainKiaActivity : BaseActivity() {
 
     }
 
-    private fun updateData() {
-        val payload = Payload()
-        payload.url = "${Urls.registerMother}/${userPref.getUser().id}"
-        payload.payloads.add(PayloadEntry("kia",gson.toJson(dataKia)))
-        viewModel.updateDataMom(payload)
-                .observe(this, Observer {result ->
-                    when(result.status){
-                        Result.Status.LOADING->{
-                            startLoading()
-                        }
-                        Result.Status.SUCCESS->{
-                            finishLoading()
-                            createDialog(result.message!!,{
-                                finish()
-                            })
-                        }
-                        Result.Status.ERROR->{
-                            finishLoading()
-                            Fun.handleError(this,result)
-                        }
+    fun updateData(){
+        val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(userPref.getUser()))
+        println("req body : ${requestBody}")
+        val call: Call<DataResponse<Any>> = baseApi.updateDataMom("${Urls.registerMother}/${userPref.getUser().id}",requestBody)
+        call.enqueue(object : Callback<DataResponse<Any>> {
+            override fun onResponse(call: Call<DataResponse<Any>>?, response: Response<DataResponse<Any>>?) {
+                if (response!!.isSuccessful) {
+                    if (response!!.body()!!.responseCode in 200..299){
+                        finish()
+                    } else{
+                        createDialog(response.body()!!.message)
                     }
-                })
+                } else {
+                    Toast.makeText(this@MainKiaActivity,response!!.body()!!.message, Toast.LENGTH_LONG).show()
+                }
+            }
+            override fun onFailure(call: Call<DataResponse<Any>>?, t: Throwable?) {
+                Toast.makeText(this@MainKiaActivity,t!!.message, Toast.LENGTH_LONG).show()
+            }
+        })
     }
+
+//    private fun updateData() {
+//        val payload = Payload()
+//        payload.url = "${Urls.registerMother}/${userPref.getUser().id}"
+////        payload.payloads.add(PayloadEntry("kia",gson.toJson(dataKia)))
+//        var json = JSONObject()
+//        json.put("name",userPref.getUser().name)
+//        payload.payloadCoba.add(PayloadCoba(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(userPref.getUser()))))
+//        viewModel.updateDataMom(payload)
+//                .observe(this, Observer {result ->
+//                    when(result.status){
+//                        Result.Status.LOADING->{
+//                            startLoading()
+//                        }
+//                        Result.Status.SUCCESS->{
+//                            finishLoading()
+//                            createDialog(result.message!!,{
+//                                finish()
+//                            })
+//                        }
+//                        Result.Status.ERROR->{
+//                            finishLoading()
+//                            Fun.handleError(this,result)
+//                        }
+//                    }
+//                })
+//    }
 
     private fun isValid(): Boolean {
         if (fieldNomorKtp.text.toString().equals("")){
