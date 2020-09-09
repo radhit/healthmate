@@ -6,6 +6,4 @@ import javax.inject.Inject
 
 class BerandaViewModel @Inject constructor(private val berandaRepository: BerandaRepository): ViewModel(){
     fun statusCheckUp(payload: Payload) = berandaRepository.statusCheckUp(payload)
-
-    fun updateDataMom(payload: Payload) = berandaRepository.updateDataMom(payload)
 }

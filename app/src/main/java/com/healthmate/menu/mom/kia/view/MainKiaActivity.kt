@@ -17,7 +17,6 @@ import com.healthmate.menu.mom.covid.view.ScreeningCovidActivity
 import com.healthmate.menu.mom.home.data.BerandaViewModel
 import com.healthmate.menu.mom.kia.data.KiaViewModel
 import kotlinx.android.synthetic.main.activity_main_kia.*
-import kotlinx.android.synthetic.main.fragment_beranda.*
 import java.text.SimpleDateFormat
 import java.util.*
 import androidx.lifecycle.Observer
@@ -40,8 +39,8 @@ class MainKiaActivity : BaseActivity() {
     }
     override fun getView(): Int = R.layout.activity_main_kia
     var dataKia: Kia = Kia()
-    var id_kabupaten: String = ""
-    var id_kecamatan: String = ""
+    var city: Location = Location()
+    var district: Location = Location()
 
     private val viewModel by lazy {
         ViewModelProviders.of(this, injector.kiaVM()).get(KiaViewModel::class.java)
@@ -56,17 +55,12 @@ class MainKiaActivity : BaseActivity() {
         fieldNama.setText("${userPref.getUser().name}")
         btn_simpan.setOnClickListener {
             if (isValid()){
-//                val jsonObject = JSONObject()
-//                jsonObject.put("kia",dataKia)
-//                println("data kia : ${jsonObject}")
                 var user = userPref.getUser()
                 setDataInput()
                 user.name = fieldNama.text.toString()
                 user.kia = dataKia
-                var location = Location()
-                location.district = dataKia.husband!!.districts
-                location.subdistrict = dataKia.husband!!.sub_districts
-                user.location = location
+                user.city = city
+                user.district = district
 
                 userPref.setUser(user)
 
@@ -80,10 +74,10 @@ class MainKiaActivity : BaseActivity() {
             callCalender("husband")
         }
         fieldKabupaten.setOnClickListener {
-            navigator.dataMaster(this, "kabupaten",1)
+            navigator.listLocation(this, "kabupaten",1)
         }
         fieldKecamatan.setOnClickListener {
-            navigator.dataMaster(this, "kecamatan",2)
+            navigator.listLocation(this, "kecamatan",2)
         }
         fieldGoldarMom.setOnClickListener {
             navigator.dataMaster(this,"goldar",3)
@@ -107,53 +101,32 @@ class MainKiaActivity : BaseActivity() {
     }
 
     fun updateData(){
+        startLoading()
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(userPref.getUser()))
         println("req body : ${requestBody}")
         val call: Call<DataResponse<Any>> = baseApi.updateDataMom("${Urls.registerMother}/${userPref.getUser().id}",requestBody)
         call.enqueue(object : Callback<DataResponse<Any>> {
             override fun onResponse(call: Call<DataResponse<Any>>?, response: Response<DataResponse<Any>>?) {
+                finishLoading()
                 if (response!!.isSuccessful) {
                     if (response!!.body()!!.responseCode in 200..299){
-                        finish()
+                        createDialog(response.body()!!.message,{
+                            finish()
+                        })
                     } else{
                         createDialog(response.body()!!.message)
                     }
                 } else {
-                    Toast.makeText(this@MainKiaActivity,response!!.body()!!.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@MainKiaActivity,"Terjadi kesalahan", Toast.LENGTH_LONG).show()
                 }
             }
+
             override fun onFailure(call: Call<DataResponse<Any>>?, t: Throwable?) {
+                finishLoading()
                 Toast.makeText(this@MainKiaActivity,t!!.message, Toast.LENGTH_LONG).show()
             }
         })
     }
-
-//    private fun updateData() {
-//        val payload = Payload()
-//        payload.url = "${Urls.registerMother}/${userPref.getUser().id}"
-////        payload.payloads.add(PayloadEntry("kia",gson.toJson(dataKia)))
-//        var json = JSONObject()
-//        json.put("name",userPref.getUser().name)
-//        payload.payloadCoba.add(PayloadCoba(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(userPref.getUser()))))
-//        viewModel.updateDataMom(payload)
-//                .observe(this, Observer {result ->
-//                    when(result.status){
-//                        Result.Status.LOADING->{
-//                            startLoading()
-//                        }
-//                        Result.Status.SUCCESS->{
-//                            finishLoading()
-//                            createDialog(result.message!!,{
-//                                finish()
-//                            })
-//                        }
-//                        Result.Status.ERROR->{
-//                            finishLoading()
-//                            Fun.handleError(this,result)
-//                        }
-//                    }
-//                })
-//    }
 
     private fun isValid(): Boolean {
         if (fieldNomorKtp.text.toString().equals("")){
@@ -225,8 +198,10 @@ class MainKiaActivity : BaseActivity() {
         dataKia.religion = fieldAgamaMom.text.toString()
         dataKia.jkn_number = fieldNomorJkn.text.toString()
         dataKia.blood_type = fieldGoldarMom.text.toString()
+        city.address = fieldAlamat.text.toString()
+        district.address = fieldAlamat.text.toString()
         var husband = Husband(fieldNamaSuami.text.toString(),fieldTempatLahirSuami.text.toString(),fieldTanggalLahirSuami.text.toString(),fieldNomorHpSuami.text.toString(),
-        fieldAgamaSuami.text.toString(),fieldGoldarSuami.text.toString(),"","",fieldAlamat.text.toString(),fieldKabupaten.text.toString(),fieldKecamatan.text.toString())
+        fieldAgamaSuami.text.toString(),fieldGoldarSuami.text.toString(),"","",fieldAlamat.text.toString(),city,district)
         dataKia.husband = husband
     }
 
@@ -249,8 +224,8 @@ class MainKiaActivity : BaseActivity() {
             fieldAgamaSuami.setText("${dataKia.husband!!.religion}")
             fieldGoldarSuami.setText("${dataKia.husband!!.blood_type}")
             fieldAlamat.setText("${dataKia.husband!!.address}")
-            fieldKabupaten.setText("${dataKia.husband!!.districts}")
-            fieldKecamatan.setText("${dataKia.husband!!.sub_districts}")
+            fieldKabupaten.setText("${dataKia.husband!!.city!!.name}")
+            fieldKecamatan.setText("${dataKia.husband!!.district!!.name}")
         }
     }
 
@@ -288,15 +263,15 @@ class MainKiaActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode==1){
             if (resultCode==Activity.RESULT_OK){
-                var dataMaster = gson.fromJson(data!!.getStringExtra("data"),MasterListModel::class.java)
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"),Location::class.java)
                 fieldKabupaten.setText(dataMaster.name)
-                id_kabupaten = dataMaster.id
+                city = dataMaster
             }
         } else if (requestCode==2){
             if (resultCode==Activity.RESULT_OK){
-                var dataMaster = gson.fromJson(data!!.getStringExtra("data"),MasterListModel::class.java)
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"),Location::class.java)
                 fieldKecamatan.setText(dataMaster.name)
-                id_kecamatan = dataMaster.id
+                district = dataMaster
             }
         } else if (requestCode==3){
             if (resultCode==Activity.RESULT_OK){
@@ -307,7 +282,6 @@ class MainKiaActivity : BaseActivity() {
             if (resultCode==Activity.RESULT_OK){
                 var dataMaster = gson.fromJson(data!!.getStringExtra("data"),MasterListModel::class.java)
                 fieldGoldarSuami.setText(dataMaster.name)
-                id_kecamatan = dataMaster.id
             }
         } else if (requestCode==5){
             if (resultCode==Activity.RESULT_OK){
@@ -330,5 +304,17 @@ class MainKiaActivity : BaseActivity() {
                 fieldAgamaSuami.setText(dataMaster.name)
             }
         }
+    }
+
+    override fun startLoading() {
+        super.startLoading()
+        btn_simpan.isEnabled = false
+        btn_simpan.text = "Mohon Tunggu..."
+    }
+
+    override fun finishLoading() {
+        super.finishLoading()
+        btn_simpan.isEnabled = true
+        btn_simpan.text = "Simpan"
     }
 }

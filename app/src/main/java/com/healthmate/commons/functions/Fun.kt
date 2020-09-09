@@ -49,20 +49,12 @@ object Fun{
     }
 
     fun handleError(activity: Activity, response: Result<Any?>, showDialog: Boolean = true, isNeedClose: Boolean = false){
-        val invalid_token = response.message.replaceEmpty().toLowerCase(Locale.getDefault()).contains("invalid token")
-        if ((response.status == Result.Status.ERROR && showDialog) || invalid_token){
-            val dialog = MaterialDialog(activity).title(null,"Failed [${response.response_code}]")
+        if ((response.status == Result.Status.ERROR && showDialog)){
+            val dialog = MaterialDialog(activity).title(null,"Failed")
                 .message(null, response.message.replaceEmpty("Something Wrong."))
                 .positiveButton(null,"OK",{
-                    if (invalid_token){
-                        val dataManager = UserPref(activity)
-                        dataManager.setUser(User())
-//                        activity.startActivity(Intent(activity, SigninActivity::class.java))
+                    if (isNeedClose){
                         activity.finish()
-                    }else{
-                        if (isNeedClose){
-                            activity.finish()
-                        }
                     }
                     it.dismiss()
                 }).noAutoDismiss().cancelable(false)

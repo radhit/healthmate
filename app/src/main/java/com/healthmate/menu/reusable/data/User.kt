@@ -11,12 +11,14 @@ data class User(
         var password: String = "",
         var name: String = "",
         var covid_checked: Boolean = false,
+        var covid_status: String = "",
         var hospital: Hospital? = Hospital(),
-        var location: Location? = Location(),
         var profil_picture: String? = "",
-        var age: Int?,
+        var age: Int? = 0,
         var kia: Kia? = Kia(),
-        var diagnostics_color: String?
+        var city: Location? = Location(),
+        var district: Location? = Location(),
+        var diagnostics_color: String? = ""
 )
 
 data class Hospital(
@@ -30,9 +32,11 @@ data class Hospital(
 
 data class Location(
         var id : String = "",
-        var subdistrict: String = "",
-        var district: String = "",
-        var city: String = ""
+        var name: String = "",
+        var level: String = "",
+        var address: String = "",
+        var created_time: String = "",
+        var updated_time: String = ""
 )
 
 data class Kia(
@@ -60,6 +64,6 @@ data class Husband(
         var job: String = "",
         var last_education: String = "",
         var address: String = "",
-        var districts: String = "",
-        var sub_districts: String = ""
+        var city: Location? = Location(),
+        var district: Location? = Location()
 )

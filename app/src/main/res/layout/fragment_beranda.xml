@@ -111,25 +111,35 @@
                 android:layout_marginRight="7dp"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="2dp">
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:id="@+id/ll_checkup"
-                    android:gravity="center">
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/checkup"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:layout_marginLeft="10dp"
-                        android:textColor="@color/textColor"
-                        android:id="@+id/tv_checkup"
-                        android:text="Periksa Sekarang / Check Up"/>
-                </LinearLayout>
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:padding="10dp"
+                        android:id="@+id/ll_checkup"
+                        android:gravity="center">
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/checkup"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="@color/textColor"
+                            android:id="@+id/tv_checkup"
+                            android:text="Periksa Sekarang / Check Up"/>
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:id="@+id/checkup_inprogress"
+                        android:background="@color/transparan_putih"/>
+                </RelativeLayout>
+
             </androidx.cardview.widget.CardView>
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"

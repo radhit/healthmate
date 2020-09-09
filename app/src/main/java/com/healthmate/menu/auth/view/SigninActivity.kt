@@ -4,11 +4,13 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.healthmate.R
+import com.healthmate.api.DataResponse
 import com.healthmate.api.Payload
 import com.healthmate.api.PayloadEntry
 import com.healthmate.api.Result
@@ -17,7 +19,14 @@ import com.healthmate.common.constant.Urls
 import com.healthmate.common.functions.Fun
 import com.healthmate.di.injector
 import com.healthmate.menu.auth.data.AuthViewModel
+import com.healthmate.menu.reusable.data.User
 import kotlinx.android.synthetic.main.activity_signin.*
+import okhttp3.MediaType
+import okhttp3.RequestBody
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -46,9 +55,6 @@ class SigninActivity : BaseActivity() {
         iv_midwife.setOnClickListener {
             currentChar = "midwife"
             changeImage()
-        }
-        iv_doctor.setOnClickListener {
-            createDialog("Masih dalam masa pengembangan")
         }
         btn_login.setOnClickListener {
             viewLogin()
@@ -117,7 +123,7 @@ class SigninActivity : BaseActivity() {
         val payload = Payload()
         payload.payloads.add(PayloadEntry("name",fieldNama.text.toString()))
         payload.payloads.add(PayloadEntry("phone_number",fieldNomorHpRegister.text.toString()))
-        payload.payloads.add(PayloadEntry("password",generateMd5(fieldPassword.text.toString())))
+        payload.payloads.add(PayloadEntry("password",fieldPassword.text.toString()))
         if (currentChar.equals("mom")){
             payload.url = Urls.registerMother
         } else{
@@ -144,8 +150,8 @@ class SigninActivity : BaseActivity() {
     private fun login() {
         val payload = Payload()
         payload.payloads.add(PayloadEntry("phone_number",fieldNomorHp.text.toString()))
-//        payload.payloads.add(PayloadEntry("password",generateMd5(fieldPassword.text.toString())))
         payload.payloads.add(PayloadEntry("password",fieldPassword.text.toString()))
+//        payload.payloads.add(PayloadEntry("password",fieldPassword.text.toString()))
         viewModel.login(payload)
                 .observe(this, Observer {result ->
                     when(result.status){
@@ -188,8 +194,6 @@ class SigninActivity : BaseActivity() {
         }
     }
 
-    //d41d8cd98f00b204e9800998ecf8427e
-    //d3f4e6e9247c96116fe2eef011bedc74
     fun startLoading(keterangan: String){
         if (keterangan.equals("login")){
             btn_signin.isEnabled = false

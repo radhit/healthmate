@@ -6,6 +6,7 @@ import com.healthmate.menu.auth.data.AuthViewModel
 import com.healthmate.menu.mom.home.data.BerandaViewModel
 import com.healthmate.menu.mom.kia.data.KiaViewModel
 import com.healthmate.menu.mom.rapor.data.RaporViewModel
+import com.healthmate.menu.reusable.data.MasterViewModel
 import dagger.Component
 import javax.inject.Singleton
 
@@ -18,4 +19,5 @@ interface AppComponent {
     fun homeVM(): AppViewModelFactory<BerandaViewModel>
     fun kiaVM(): AppViewModelFactory<KiaViewModel>
     fun raporVM(): AppViewModelFactory<RaporViewModel>
+    fun masterVM(): AppViewModelFactory<MasterViewModel>
 }

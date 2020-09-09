@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".menu.midwife.profile.view.UbahProfileMidwiveActivity"></activity>
+        <activity android:name=".menu.reusable.view.ListLocationActivity"></activity>
+        <activity android:name=".menu.midwife.profile.view.UbahProfileMidwiveActivity" />
         <activity android:name=".menu.midwife.main.MainMidwiveActivity" />
         <activity
             android:name=".menu.mom.rapor.view.MainRaporActivity"

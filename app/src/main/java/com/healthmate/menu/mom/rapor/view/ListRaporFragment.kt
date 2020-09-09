@@ -64,11 +64,15 @@ class ListRaporFragment : BaseFragment() {
                                     for (data in result.data!!){
                                         raporAdapter.lists.add(data)
                                     }
+                                    list.clear()
+                                    list.addAll(raporAdapter.lists)
                                 }
                                 raporAdapter.notifyDataSetChanged()
                             } else{
                                 raporAdapter.lists.clear()
                                 raporAdapter.lists.addAll(result.data!!)
+                                list.clear()
+                                list.addAll(raporAdapter.lists)
                                 raporAdapter.notifyDataSetChanged()
                                 if (raporAdapter.lists.size>0){
                                     rv_list.visibility = View.VISIBLE

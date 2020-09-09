@@ -2,6 +2,8 @@ package com.healthmate.api
 
 import com.healthmate.menu.mom.home.data.CheckUpModel
 import com.healthmate.menu.mom.rapor.data.RaporModel
+import com.healthmate.menu.reusable.data.Hospital
+import com.healthmate.menu.reusable.data.Location
 import com.healthmate.menu.reusable.data.User
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -17,9 +19,12 @@ interface AppService {
     @GET
     suspend fun statusCheckup(@Url url: String): Response<DataResponse<List<CheckUpModel>>>
 
-    @PUT
-    suspend fun updateDataMom(@Url url: String, @Body requestBody: RequestBody): Response<DataResponse<Any>>
-
     @GET
     suspend fun getAncs(@Url url: String): Response<DataResponse<List<RaporModel>>>
+
+    @GET
+    suspend fun getLocation(@Url url: String): Response<DataResponse<List<Location>>>
+
+    @GET
+    suspend fun getHospital(@Url url: String): Response<DataResponse<List<Hospital>>>
 }

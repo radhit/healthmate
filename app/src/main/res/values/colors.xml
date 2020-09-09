@@ -16,6 +16,8 @@
     <color name="buttonDisableColor">#FFFFFF</color>
     <color name="buttonDisableTextColor">#424242</color>
     <color name="colorDisable">#BDBDBD</color>
+    <color name="transparan_putih">#B4FFFFFF</color>
+    <color name="transparan_hitam">#51000000</color>
 
     <!--reds-->
     <color name="md_red_50">#FFEBEE</color>
