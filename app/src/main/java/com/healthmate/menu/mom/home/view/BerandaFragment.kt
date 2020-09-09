@@ -54,6 +54,7 @@ class BerandaFragment : BaseFragment() {
                 ll_profile_not.visibility = View.VISIBLE
                 tv_nama_not.text = "Hei, ${user.name}"
                 iv_banner.visibility = View.GONE
+                checkup_inprogress.visibility = View.GONE
             } else{
                 ll_profile_done.visibility = View.VISIBLE
                 ll_profile_not.visibility = View.GONE
