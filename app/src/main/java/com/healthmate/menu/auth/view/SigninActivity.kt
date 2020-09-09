@@ -64,6 +64,8 @@ class SigninActivity : BaseActivity() {
         }
 
         btn_signin.setOnClickListener {
+            //081321654987, 111222
+            //089789456123, 111222
             if (isValidLogin()){
 //                var dataJson = gson.fromJson(getString(R.string.testing_user),User::class.java)
 //                userPref.setUser(dataJson)
@@ -123,7 +125,7 @@ class SigninActivity : BaseActivity() {
         val payload = Payload()
         payload.payloads.add(PayloadEntry("name",fieldNama.text.toString()))
         payload.payloads.add(PayloadEntry("phone_number",fieldNomorHpRegister.text.toString()))
-        payload.payloads.add(PayloadEntry("password",fieldPassword.text.toString()))
+        payload.payloads.add(PayloadEntry("password",Fun.encrypt(fieldPasswordRegister.text.toString(),fieldNomorHpRegister.text.toString())))
         if (currentChar.equals("mom")){
             payload.url = Urls.registerMother
         } else{
@@ -150,8 +152,7 @@ class SigninActivity : BaseActivity() {
     private fun login() {
         val payload = Payload()
         payload.payloads.add(PayloadEntry("phone_number",fieldNomorHp.text.toString()))
-        payload.payloads.add(PayloadEntry("password",fieldPassword.text.toString()))
-//        payload.payloads.add(PayloadEntry("password",fieldPassword.text.toString()))
+        payload.payloads.add(PayloadEntry("password",Fun.encrypt(fieldPassword.text.toString(),fieldNomorHp.text.toString())))
         viewModel.login(payload)
                 .observe(this, Observer {result ->
                     when(result.status){
@@ -212,28 +213,5 @@ class SigninActivity : BaseActivity() {
             btn_signup.isEnabled = true
             btn_signup.text = "Daftar"
         }
-    }
-
-    fun generateMd5(password: String): String {
-        val MD5 = "MD5"
-        try {
-            // Create MD5 Hash
-            val digest = MessageDigest
-                    .getInstance(MD5)
-            digest.update(password.toByteArray())
-            val messageDigest = digest.digest()
-
-            // Create Hex String
-            val hexString = StringBuilder()
-            for (aMessageDigest in messageDigest) {
-                var h = Integer.toHexString(0xFF and aMessageDigest.toInt())
-                while (h.length < 2) h = "0$h"
-                hexString.append(h)
-            }
-            return hexString.toString()
-        } catch (e: NoSuchAlgorithmException) {
-            e.printStackTrace()
-        }
-        return ""
     }
 }

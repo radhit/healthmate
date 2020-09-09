@@ -28,20 +28,20 @@ object Fun{
         return activeNetwork?.isConnectedOrConnecting == true
     }
 
-    fun encrypt(value: String): String {
+    fun encrypt(value: String, key: String): String {
         var result = value
         try {
-            result = AESCrypt.encrypt(Key.enc_key, value)
+            result = AESCrypt.encrypt(key, value)
         } catch (e: GeneralSecurityException) {
             e.printStackTrace()
         }
         return result
     }
 
-    fun decrypt(value: String): String {
+    fun decrypt(value: String, key: String): String {
         var result = value
         try {
-            result = AESCrypt.decrypt(Key.enc_key, value)
+            result = AESCrypt.decrypt(key, value)
         } catch (e: GeneralSecurityException) {
             e.printStackTrace()
         }
