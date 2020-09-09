@@ -62,7 +62,7 @@ class BerandaFragment : BaseFragment() {
                     iv_banner.visibility = View.GONE
                     if (!userPref.getUser().hospital!!.id.equals("")){
                         checkup_inprogress.visibility = View.VISIBLE
-                        getDataCheckup()
+//                        getDataCheckup()
                     } else{
                         checkup_inprogress.visibility = View.GONE
                     }
@@ -151,8 +151,6 @@ class BerandaFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        //getdatacheckup
-        println("data user resume: ${gson.toJson(user)}")
         if (userPref.getUser()!=null){
             if (userPref.getUser().city!=null && userPref.getUser().city!!.name.equals("")){
                 ll_profile_done.visibility = View.GONE
