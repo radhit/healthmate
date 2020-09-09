@@ -85,9 +85,7 @@ class MainKiaActivity : BaseActivity() {
         fieldGoldarSuami.setOnClickListener {
             navigator.dataMaster(this,"goldar",4)
         }
-        fieldPekerjaanMom.setOnClickListener {
-            navigator.dataMaster(this, "pekerjaan",5)
-        }
+        
         fieldPendidikan.setOnClickListener {
             navigator.dataMaster(this, "pendidikan",6)
         }
