@@ -3,8 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.healthmate">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:name=".di.App"
@@ -17,7 +30,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".menu.reusable.view.ListLocationActivity"></activity>
         <activity android:name=".menu.midwife.profile.view.UbahProfileMidwiveActivity" />
-        <activity android:name=".menu.midwife.main.MainMidwiveActivity" />
+        <activity android:name=".menu.midwife.main.MainMidwiveActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".menu.mom.rapor.view.MainRaporActivity"
             android:theme="@style/AppTheme.NoActionBar" />

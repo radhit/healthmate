@@ -6,6 +6,8 @@ import android.content.Intent
 import com.healthmate.common.template.TemplateActivity.Companion.getCallingIntent
 import com.healthmate.menu.auth.view.SigninActivity
 import com.healthmate.menu.auth.view.ValidasiActivity
+import com.healthmate.menu.midwife.main.MainMidwiveActivity
+import com.healthmate.menu.midwife.profile.view.UbahProfileMidwiveActivity
 import com.healthmate.menu.mom.checkup.view.CheckupActivity
 import com.healthmate.menu.mom.covid.view.ScreeningCovidActivity
 import com.healthmate.menu.mom.kia.view.MainKiaActivity
@@ -39,8 +41,8 @@ class Navigator @Inject constructor() {
         activity.startActivity(intent)
     }
 
-    fun verifikasi(activity: Activity, data: String){
-        goto(activity,ValidasiActivity.getCallingIntent(activity,data))
+    fun verifikasi(activity: Activity, data: String, keterangan: String){
+        goto(activity,ValidasiActivity.getCallingIntent(activity,data, keterangan))
     }
 
     fun mainMom(activity: Activity,clearTop:Boolean = false){
@@ -71,6 +73,16 @@ class Navigator @Inject constructor() {
 
     fun rapor(activity: Activity){
         goto(activity, MainRaporActivity.getCallingIntent(activity))
+    }
+
+    fun mainMidwive(activity: Activity,clearTop:Boolean = false){
+        val intent = MainMidwiveActivity.getCallingIntent(activity)
+        if (clearTop) intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        activity.startActivity(intent)
+    }
+
+    fun ubahProfileMidwife(activity: Activity){
+        goto(activity,UbahProfileMidwiveActivity.getCallingIntent(activity))
     }
 
 }
