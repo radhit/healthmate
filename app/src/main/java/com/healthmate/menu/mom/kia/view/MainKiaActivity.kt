@@ -3,10 +3,19 @@ package com.healthmate.menu.mom.kia.view
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
+import android.view.View
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProviders
 import com.healthmate.R
 import com.healthmate.common.base.BaseActivity
@@ -20,17 +29,33 @@ import kotlinx.android.synthetic.main.activity_main_kia.*
 import java.text.SimpleDateFormat
 import java.util.*
 import androidx.lifecycle.Observer
+import com.afollestad.materialdialogs.MaterialDialog
+import com.bumptech.glide.Glide
+import com.healthmate.BuildConfig
 import com.healthmate.api.*
 import com.healthmate.menu.reusable.data.*
+import kotlinx.android.synthetic.main.activity_main_kia.fieldNama
+import kotlinx.android.synthetic.main.activity_signin.*
 import okhttp3.*
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.IOException
+import com.healthmate.api.Result
 
 class MainKiaActivity : BaseActivity() {
     companion object {
         val EXTRA = "EXTRA"
+        val RC_GALLERY = 102
+        val RC_CAMERA = 103
+        val RP_WRITE_STORAGE = 200
+        val RP_CAMERA = 201
+        val RP_GALLERY = 202
+
         @JvmStatic
         fun getCallingIntent(activity: Activity): Intent {
             val intent = Intent(activity, MainKiaActivity::class.java)
@@ -41,9 +66,15 @@ class MainKiaActivity : BaseActivity() {
     var dataKia: Kia = Kia()
     var city: Location = Location()
     var district: Location = Location()
+    //Gambar
+    lateinit var gambar_bitmap: Bitmap
+    lateinit var imageUri: Uri
+    var changeImage: Boolean = false
+    lateinit var user : User
+
 
     private val viewModel by lazy {
-        ViewModelProviders.of(this, injector.kiaVM()).get(KiaViewModel::class.java)
+        ViewModelProviders.of(this, injector.masterVM()).get(MasterViewModel::class.java)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -52,19 +83,23 @@ class MainKiaActivity : BaseActivity() {
             dataKia = userPref.getUser().kia!!
             setData()
         }
+        Glide.with(this).applyDefaultRequestOptions(requestOptionsMom).load(userPref.getUser().profil_picture).into(iv_profile)
         fieldNama.setText("${userPref.getUser().name}")
         btn_simpan.setOnClickListener {
             if (isValid()){
-                var user = userPref.getUser()
+                user = userPref.getUser()
                 setDataInput()
                 user.name = fieldNama.text.toString()
                 user.kia = dataKia
                 user.city = city
                 user.district = district
 
-                userPref.setUser(user)
 
-                updateData()
+                if (changeImage){
+                    uploadFoto()
+                } else{
+                    updateData()
+                }
             }
         }
         fieldTanggalLahir.setOnClickListener {
@@ -96,6 +131,48 @@ class MainKiaActivity : BaseActivity() {
             navigator.dataMaster(this,"agama",8)
         }
 
+        rl_foto.setOnClickListener {
+            createDialogTakePhoto()
+        }
+    }
+
+    private fun uploadFoto() {
+        try{
+            val stream = ByteArrayOutputStream()
+            gambar_bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream)
+            val byteArray = stream.toByteArray()
+//            formBodyMultipart.addFormDataPart("image", "produk", RequestBody.create(MediaType.parse("image/jpeg"), byteArray))
+            val payload = Payload(
+                    ArrayList(listOf(PayloadEntry("image","image"))),
+                    ArrayList(listOf(
+                            PayloadEntryMultipart("image","image",
+                                    RequestBody.create(MediaType.parse("image/jpeg"), byteArray))
+                    ))
+            )
+            viewModel.uploadFoto(payload)
+                    .observe(this, Observer {result ->
+                        when(result.status){
+                            Result.Status.LOADING->{
+                                showLoadingDialog()
+                            }
+                            Result.Status.SUCCESS->{
+                                closeLoadingDialog()
+                                val freshData = result.data!!
+                                var user = userPref.getUser()
+                                user.profil_picture = freshData.url
+                                userPref.setUser(user)
+                                updateData()
+                            }
+                            Result.Status.ERROR->{
+                                closeLoadingDialog()
+                                Fun.handleError(this,result)
+                            }
+                        }
+                    })
+        }catch (e: UninitializedPropertyAccessException){
+            e.printStackTrace()
+            createDialog(e.localizedMessage)
+        }
     }
 
     fun updateData(){
@@ -108,6 +185,7 @@ class MainKiaActivity : BaseActivity() {
                 finishLoading()
                 if (response!!.isSuccessful) {
                     if (response!!.body()!!.responseCode in 200..299){
+                        userPref.setUser(user)
                         createDialog(response.body()!!.message,{
                             finish()
                         })
@@ -224,6 +302,8 @@ class MainKiaActivity : BaseActivity() {
             fieldAlamat.setText("${dataKia.husband!!.address}")
             fieldKabupaten.setText("${dataKia.husband!!.city!!.name}")
             fieldKecamatan.setText("${dataKia.husband!!.district!!.name}")
+            city = dataKia.husband!!.city!!
+            district = dataKia.husband!!.district!!
         }
     }
 
@@ -301,6 +381,45 @@ class MainKiaActivity : BaseActivity() {
                 var dataMaster = gson.fromJson(data!!.getStringExtra("data"),MasterListModel::class.java)
                 fieldAgamaSuami.setText(dataMaster.name)
             }
+        } else if (requestCode== RC_CAMERA){
+            var bitmap: Bitmap? = null
+            try {
+                bitmap = data?.extras?.get("data") as Bitmap
+            } catch (e: RuntimeException) {
+                val mediaScanIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
+                try {
+                    mediaScanIntent.data = imageUri
+                    launchMediaScanIntent(mediaScanIntent)
+                    try {
+                        bitmap = decodeBitmapUri(this, imageUri)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        createDialog(e.localizedMessage)
+                    }
+                } catch (e: UninitializedPropertyAccessException) {
+                    e.printStackTrace()
+                    createDialog(e.localizedMessage)
+                }
+
+            }
+            if (bitmap != null) {
+                Glide.with(this).applyDefaultRequestOptions(requestOptions).load(bitmap).into(iv_profile)
+                gambar_bitmap = bitmap
+                iv_profile.visibility = View.VISIBLE
+                changeImage = true
+            }
+        } else if (requestCode== RC_GALLERY){
+            try {
+                val returnUri = data?.data
+                val bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), returnUri)
+                gambar_bitmap = bitmap
+                Glide.with(this).applyDefaultRequestOptions(requestOptions).load(bitmap).into(iv_profile)
+                gambar_bitmap = bitmap
+                changeImage = true
+            }catch (e: java.lang.NullPointerException){
+                e.printStackTrace()
+                createDialog(e.localizedMessage)
+            }
         }
     }
 
@@ -315,4 +434,88 @@ class MainKiaActivity : BaseActivity() {
         btn_simpan.isEnabled = true
         btn_simpan.text = "Simpan"
     }
+
+    protected fun createDialogTakePhoto(){
+        val dialog = MaterialDialog(this).title(null,"Ambil Gambar")
+                .message(null, "Pilih sumber gambar")
+                .positiveButton(null,"Camera",{
+                    it.dismiss()
+                    openCamera()
+                })
+                .negativeButton(null,"Gallery",{
+                    it.dismiss()
+                    openGallery()
+                }).noAutoDismiss().cancelable(true)
+        dialog.show()
+    }
+
+    fun openGallery() {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            val permissions = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            ActivityCompat.requestPermissions(this, permissions,
+                    RP_GALLERY
+            )
+        } else {
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.type = "image/*"
+            if (intent.resolveActivity(packageManager) != null) {
+                startActivityForResult(intent,
+                        RC_GALLERY
+                )
+            }
+        }
+    }
+
+    fun openCamera() {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            val permissions = arrayOf(android.Manifest.permission.CAMERA)
+            ActivityCompat.requestPermissions(this, permissions,
+                    RP_CAMERA
+            )
+        } else {
+            Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+                takePictureIntent.resolveActivity(packageManager)?.also {
+                    val photoFile: File? = try {
+                        createImageFile()
+                    } catch (ex: IOException) {
+                        null
+                    }
+                    val applicationId = BuildConfig.APPLICATION_ID
+                    photoFile?.also {
+                        imageUri = FileProvider.getUriForFile(
+                                this,
+                                "$applicationId.provider",
+                                it
+                        )
+                        if (::imageUri.isInitialized){
+                            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
+                            startActivityForResult(takePictureIntent,
+                                    RC_CAMERA
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun launchMediaScanIntent(mediaScanIntent: Intent) {
+        this.sendBroadcast(mediaScanIntent)
+    }
+
+    @Throws(FileNotFoundException::class)
+    fun decodeBitmapUri(ctx: Context, uri: Uri?): Bitmap? {
+        val targetW = 600
+        val targetH = 600
+        val bmOptions = BitmapFactory.Options()
+        bmOptions.inJustDecodeBounds = true
+        BitmapFactory.decodeStream(ctx.contentResolver.openInputStream(uri), null, bmOptions)
+        val photoW = bmOptions.outWidth
+        val photoH = bmOptions.outHeight
+        val scaleFactor = Math.min(photoW / targetW, photoH / targetH)
+        bmOptions.inJustDecodeBounds = false
+        bmOptions.inSampleSize = scaleFactor
+        return BitmapFactory.decodeStream(ctx.contentResolver.openInputStream(uri), null, bmOptions)
+    }
+
 }

@@ -137,6 +137,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:id="@+id/checkup_inprogress"
+                        android:visibility="gone"
                         android:background="@color/transparan_putih"/>
                 </RelativeLayout>
 

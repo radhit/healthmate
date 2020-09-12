@@ -59,13 +59,15 @@ class BerandaFragment : BaseFragment() {
                 ll_profile_done.visibility = View.VISIBLE
                 ll_profile_not.visibility = View.GONE
                 tv_nama_done.text = "Pasien\n${user.name}"
-                if (userPref.getUser().covid_checked){
+                checkup_inprogress.visibility = View.GONE
+                if (!userPref.getUser().covid_status.equals("")){
                     iv_banner.visibility = View.GONE
                     if (!userPref.getUser().hospital!!.id.equals("")){
+                        tv_checkup.text = "Anda sudah memilih lokasi checkup"
                         checkup_inprogress.visibility = View.VISIBLE
-//                        getDataCheckup()
                     } else{
                         checkup_inprogress.visibility = View.GONE
+                        tv_checkup.text = "Periksa Sekarang / Check Up"
                     }
                 } else{
                     iv_banner.visibility = View.VISIBLE
@@ -82,23 +84,19 @@ class BerandaFragment : BaseFragment() {
             if (userPref.getUser().city!=null && userPref.getUser().city!!.name.equals("")){
                 createDialog("Anda belum menambah data KIA!")
             } else{
-                if (userPref.getUser().covid_checked){
+                if (!userPref.getUser().covid_status.equals("")){
                     if (userPref.getUser().hospital!!.id.equals("")){
-                        if (status_api){
-                            if (tv_checkup.text.toString().equals("Periksa Sekarang / Check Up")){
-                                navigator.checkUp(activity!!)
-                            } else if (tv_checkup.text.toString().equals("Anda sedang melakukan pemeriksaan")){
-                                createDialog("Anda sedang menjalani pemeriksaan")
-                            } else if (tv_checkup.text.toString().equals("Anda belum memberikan rating")){
-                                createDialog("Anda belum melakukan penilaian",{
-                                    openDialogRating()
-                                })
-                            }
-                        } else{
-                            createDialog("Sedang mengambil data")
-                        }
+                        navigator.checkUp(activity!!)
                     } else{
-                        createDialog("Pemeriksaan sedang dilakukan!")
+                        if (tv_checkup.text.toString().equals("Anda sedang melakukan pemeriksaan")){
+                            createDialog("Anda sedang menjalani pemeriksaan")
+                        } else if (tv_checkup.text.toString().equals("Anda belum memberikan rating")){
+                            createDialog("Anda belum melakukan penilaian",{
+                                openDialogRating()
+                            })
+                        } else if (tv_checkup.text.toString().equals("Anda sudah memilih lokasi checkup")){
+                            createDialog("Anda sudah memilih lokasi checkup")
+                        }
                     }
                 } else{
                     createDialog("Anda belum melakukan cek status covid!")
@@ -162,12 +160,14 @@ class BerandaFragment : BaseFragment() {
                 ll_profile_done.visibility = View.VISIBLE
                 ll_profile_not.visibility = View.GONE
                 tv_nama_done.text = "Pasien\n${userPref.getUser().name}"
-                if (userPref.getUser().covid_checked){
+                if (!userPref.getUser().covid_status.equals("")){
                     iv_banner.visibility = View.GONE
                     if (!userPref.getUser().hospital!!.id.equals("")){
                         checkup_inprogress.visibility = View.VISIBLE
+                        tv_checkup.text = "Anda sudah memilih lokasi checkup"
                         getDataCheckup()
                     } else{
+                        tv_checkup.text = "Periksa Sekarang / Check Up"
                         checkup_inprogress.visibility = View.GONE
                     }
                 } else{
@@ -192,19 +192,9 @@ class BerandaFragment : BaseFragment() {
                                 checkUp = data.get(0)
                                 if (checkUp.in_progress){
                                     tv_checkup.text = "Anda sedang melakukan pemeriksaan"
-                                    status_checkup = true
                                 } else{
-                                    if (checkUp.midwive==null){
-                                        tv_checkup.text = "Periksa Sekarang / Check Up"
-                                        status_checkup = false
-                                    } else{
-                                        if (checkUp.rating.equals("0")){
-                                            status_checkup = true
-                                            status_rating = true
-                                            tv_checkup.text = "Anda belum memberikan rating"
-                                        } else{
-                                            status_checkup = false
-                                        }
+                                    if (checkUp.rating.equals("0")){
+                                        tv_checkup.text = "Anda belum memberikan rating"
                                     }
                                 }
                             } else{
