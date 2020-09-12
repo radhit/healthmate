@@ -2,6 +2,7 @@ package com.healthmate.common.base
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Environment
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -30,10 +31,14 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
+import java.io.File
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 abstract class BaseActivity: AppCompatActivity() {
+    protected var materialDialog: MaterialDialog? = null
     val navigator = Navigator()
     abstract fun getView(): Int
     lateinit var appPref: AppPref
@@ -43,6 +48,11 @@ abstract class BaseActivity: AppCompatActivity() {
     protected lateinit var gson: Gson
     protected var requestOptions = RequestOptions().diskCacheStrategy(
             DiskCacheStrategy.AUTOMATIC).skipMemoryCache(true)
+    protected var requestOptionsMom = RequestOptions().placeholder(R.drawable.bumil_on).error(R.drawable.bumil_off).diskCacheStrategy(
+            DiskCacheStrategy.AUTOMATIC).skipMemoryCache(true)
+    protected var requestOptionsMidwife = RequestOptions().placeholder(R.drawable.bidan_on).error(R.drawable.bidan_off).diskCacheStrategy(
+            DiskCacheStrategy.AUTOMATIC).skipMemoryCache(true)
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -181,6 +191,7 @@ abstract class BaseActivity: AppCompatActivity() {
         dialog.show()
     }
 
+
     protected fun createDialogWithBackButton(title: String,message: String, click: DialogCallback? = null, positiveText: String = "OK"){
         val dialog = MaterialDialog(this).title(null,title)
             .message(null, message)
@@ -189,5 +200,43 @@ abstract class BaseActivity: AppCompatActivity() {
                 it.dismiss()
             }).cancelable(true)
         dialog.show()
+    }
+
+    var currentPhotoPath: String = ""
+    @Throws(IOException::class)
+    fun createImageFile(): File {
+        // Create an image file name
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val storageDir: File = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(
+                "JPEG_${timeStamp}_", /* prefix */
+                ".jpg", /* suffix */
+                storageDir /* directory */
+        ).apply {
+            // Save a file: path for use with ACTION_VIEW intents
+            currentPhotoPath = absolutePath
+        }
+    }
+
+    protected fun showLoadingDialog(title: String = "Mohon tunggu...",isCancelable: Boolean = false) {
+        if (materialDialog==null){
+            materialDialog = MaterialDialog(this)
+                    .title(null,title)
+                    .message(null,"")
+                    .noAutoDismiss()
+                    .cancelable(isCancelable)
+            if (isCancelable){
+                materialDialog = materialDialog?.negativeButton(null,"Kembali",{
+                    finish()
+                    it.dismiss()
+                })
+            }
+
+        }
+        materialDialog?.show()
+    }
+
+    protected fun closeLoadingDialog() {
+        materialDialog?.dismiss()
     }
 }

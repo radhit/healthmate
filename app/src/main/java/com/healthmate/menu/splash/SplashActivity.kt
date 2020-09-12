@@ -21,6 +21,8 @@ class SplashActivity : BaseActivity() {
                 if (userPref.isLoggedin){
                     if (userPref.getUser().type.equals("mother")){
                         navigator.mainMom(this,true)
+                    } else{
+                        navigator.mainMidwive(this,true)
                     }
                 } else{
                     navigator.signin(this, true)

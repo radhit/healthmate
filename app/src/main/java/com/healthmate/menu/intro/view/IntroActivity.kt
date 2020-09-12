@@ -84,6 +84,33 @@ class IntroActivity : BaseActivity() {
         } else {
             requestPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
         }
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            permissionCount++
+        } else {
+            requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            permissionCount++
+        } else {
+            requestPermission(Manifest.permission.CAMERA)
+        }
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            permissionCount++
+        } else {
+            requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
 
     }
 

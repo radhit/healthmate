@@ -11,4 +11,10 @@ import retrofit2.http.*
 interface BaseApi {
     @PUT
     fun updateDataMom(@Url url: String, @Body requestBody: RequestBody): Call<DataResponse<Any>>
+
+    @PUT
+    fun updateDataMidwive(@Url url: String, @Body requestBody: RequestBody): Call<DataResponse<Any>>
+
+    @POST
+    fun changeCovidStatus(@Url url: String, @Body requestBody: RequestBody): Call<DataResponse<User>>
 }

@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.DialogCallback
 import com.afollestad.materialdialogs.MaterialDialog
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.TypeAdapter
@@ -37,6 +39,11 @@ abstract class BaseFragment: Fragment() {
     lateinit var userPref: UserPref
     var user = User()
     protected lateinit var gson: Gson
+    protected var requestOptions = RequestOptions().diskCacheStrategy(
+            DiskCacheStrategy.AUTOMATIC).skipMemoryCache(true)
+    protected var requestOptionsMom = RequestOptions().placeholder(R.drawable.bumil_on).error(R.drawable.bumil_on).diskCacheStrategy(
+            DiskCacheStrategy.AUTOMATIC).skipMemoryCache(true)
+
 
     init {
         createGson()
