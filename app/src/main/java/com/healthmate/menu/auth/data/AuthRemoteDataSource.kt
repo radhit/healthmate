@@ -15,4 +15,8 @@ class AuthRemoteDataSource @Inject constructor(private val  appService: AppServi
     suspend fun register(payload: Payload) = getResult {
         appService.register(payload.url, payload.getRequestBody())
     }
+
+    suspend fun verifikasi(payload: Payload) = getResult {
+        appService.verifikasi(Urls.verifikasi, payload.getRequestBody())
+    }
 }

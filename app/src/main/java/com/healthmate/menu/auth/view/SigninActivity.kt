@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.healthmate.R
-import com.healthmate.api.DataResponse
 import com.healthmate.api.Payload
 import com.healthmate.api.PayloadEntry
 import com.healthmate.api.Result
@@ -19,16 +18,8 @@ import com.healthmate.common.constant.Urls
 import com.healthmate.common.functions.Fun
 import com.healthmate.di.injector
 import com.healthmate.menu.auth.data.AuthViewModel
-import com.healthmate.menu.reusable.data.User
 import kotlinx.android.synthetic.main.activity_signin.*
-import okhttp3.MediaType
-import okhttp3.RequestBody
-import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
+import java.util.*
 
 class SigninActivity : BaseActivity() {
     companion object {
@@ -40,36 +31,43 @@ class SigninActivity : BaseActivity() {
             return intent
         }
     }
+
     private val viewModel by lazy {
         ViewModelProviders.of(this, injector.authVM()).get(AuthViewModel::class.java)
     }
 
     override fun getView(): Int = R.layout.activity_signin
-    var currentChar: String = "mom"
+    var currentChar: String = "mother"
+    var currentPage: String = "login"
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         iv_mom.setOnClickListener {
-            currentChar = "mom"
+            inputStr.visibility = View.GONE
+            currentChar = "mother"
             changeImage()
         }
         iv_midwife.setOnClickListener {
             currentChar = "midwife"
+            if (currentPage.equals("register")){
+                inputStr.visibility = View.VISIBLE
+            } else{
+                inputStr.visibility = View.GONE
+            }
             changeImage()
         }
         btn_login.setOnClickListener {
+            currentPage = "login"
             viewLogin()
         }
         btn_register.setOnClickListener {
+            currentPage = "register"
             viewRegister()
         }
 
         btn_signin.setOnClickListener {
-            //081321654987, 111222
+            //0811234567890, secret
             //089789456123, 111222
             if (isValidLogin()){
-//                var dataJson = gson.fromJson(getString(R.string.testing_user),User::class.java)
-//                userPref.setUser(dataJson)
-//                navigator.mainMom(this,true)
                 login()
             }
         }
@@ -87,6 +85,11 @@ class SigninActivity : BaseActivity() {
         btn_login.setTextColor(resources.getColor(R.color.colorPrimary))
         ll_login.visibility = View.GONE
         ll_register.visibility = View.VISIBLE
+        if (currentChar.equals("midwife")){
+            inputStr.visibility = View.VISIBLE
+        } else{
+            inputStr.visibility = View.GONE
+        }
     }
 
     private fun viewLogin() {
@@ -123,10 +126,13 @@ class SigninActivity : BaseActivity() {
 
     private fun register() {
         val payload = Payload()
+        if (currentChar.equals("midwife")){
+            payload.payloads.add(PayloadEntry("str_number",fieldNomorStr.text.toString()))
+        }
         payload.payloads.add(PayloadEntry("name",fieldNama.text.toString()))
         payload.payloads.add(PayloadEntry("phone_number",fieldNomorHpRegister.text.toString()))
-        payload.payloads.add(PayloadEntry("password",Fun.encrypt(fieldPasswordRegister.text.toString(),fieldNomorHpRegister.text.toString())))
-        if (currentChar.equals("mom")){
+        payload.payloads.add(PayloadEntry("password", Base64.getEncoder().encodeToString(fieldPasswordRegister.text.toString().toByteArray())))
+        if (currentChar.equals("mother")){
             payload.url = Urls.registerMother
         } else{
             payload.url = Urls.registerMidwife
@@ -138,8 +144,9 @@ class SigninActivity : BaseActivity() {
                             startLoading("register")
                         }
                         Result.Status.SUCCESS->{
-                            finishLoading("register")
-                            viewLogin()
+                            var user = result.data!!
+                            navigator.verifikasi(this, gson.toJson(user),currentChar)
+                            finish()
                         }
                         Result.Status.ERROR->{
                             finishLoading("register")
@@ -152,7 +159,7 @@ class SigninActivity : BaseActivity() {
     private fun login() {
         val payload = Payload()
         payload.payloads.add(PayloadEntry("phone_number",fieldNomorHp.text.toString()))
-        payload.payloads.add(PayloadEntry("password",Fun.encrypt(fieldPassword.text.toString(),fieldNomorHp.text.toString())))
+        payload.payloads.add(PayloadEntry("password", Base64.getEncoder().encodeToString(fieldPassword.text.toString().toByteArray())))
         viewModel.login(payload)
                 .observe(this, Observer {result ->
                     when(result.status){
@@ -164,7 +171,11 @@ class SigninActivity : BaseActivity() {
                             val user = result.data!!
                             userPref.setUser(user)
                             println("data user : ${userPref.getUser()}")
-                            navigator.mainMom(this,true)
+                            if (userPref.getUser().type.equals("midwife")){
+                                navigator.mainMidwive(this,true)
+                            } else{
+                                navigator.mainMom(this,true)
+                            }
                         }
                         Result.Status.ERROR->{
                             finishLoading("login")
@@ -186,7 +197,7 @@ class SigninActivity : BaseActivity() {
     }
 
     private fun changeImage() {
-        if (currentChar.equals("mom")){
+        if (currentChar.equals("mother")){
             Glide.with(this).applyDefaultRequestOptions(requestOptions).load(getDrawable(R.drawable.bumil_on)).into(iv_mom)
             Glide.with(this).applyDefaultRequestOptions(requestOptions).load(getDrawable(R.drawable.bidan_off)).into(iv_midwife)
         } else{

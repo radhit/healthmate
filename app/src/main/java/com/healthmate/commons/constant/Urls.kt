@@ -15,13 +15,16 @@ object Urls {
     val login = "/login"
     val registerMother = "/mothers"
     val registerMidwife = "/midwives"
+    val verifikasi = "/otp"
 
     //MASTER
     val location = "locations?num=50"
     val hospital = "hospitals?num=50"
+    val upload = "/upload"
 
     //MOTHER
     val action = "/actions"
+    val covid = ""
     val ancsMom = "/ancs"
 
 

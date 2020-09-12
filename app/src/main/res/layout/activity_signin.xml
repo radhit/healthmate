@@ -156,6 +156,20 @@
                     style="@style/TextInputLayoutCustom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="Nomor STR"
+                    android:id="@+id/inputStr"
+                    android:layout_marginTop="10dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/fieldNomorStr"
+                        android:layout_width="match_parent"
+                        android:padding="10dp"
+                        android:layout_height="50dp"
+                        android:inputType="number"/>
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputLayoutCustom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:hint="Nama"
                     android:layout_marginTop="10dp">
                     <com.google.android.material.textfield.TextInputEditText

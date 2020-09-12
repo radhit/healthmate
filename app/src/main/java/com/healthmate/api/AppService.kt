@@ -2,6 +2,7 @@ package com.healthmate.api
 
 import com.healthmate.menu.mom.home.data.CheckUpModel
 import com.healthmate.menu.mom.rapor.data.RaporModel
+import com.healthmate.menu.reusable.data.Gambar
 import com.healthmate.menu.reusable.data.Hospital
 import com.healthmate.menu.reusable.data.Location
 import com.healthmate.menu.reusable.data.User
@@ -14,7 +15,10 @@ interface AppService {
     suspend fun login(@Url url: String, @Body requestBody: RequestBody): Response<DataResponse<User>>
 
     @POST
-    suspend fun register(@Url url: String, @Body requestBody: RequestBody): Response<DataResponse<Any>>
+    suspend fun register(@Url url: String, @Body requestBody: RequestBody): Response<DataResponse<User>>
+
+    @POST
+    suspend fun verifikasi(@Url url: String, @Body requestBody: RequestBody): Response<DataResponse<Any>>
 
     @GET
     suspend fun statusCheckup(@Url url: String): Response<DataResponse<List<CheckUpModel>>>
@@ -27,4 +31,8 @@ interface AppService {
 
     @GET
     suspend fun getHospital(@Url url: String): Response<DataResponse<List<Hospital>>>
+
+    @POST
+    suspend fun uploadImage(@Url url: String, @Body requestBody: RequestBody): Response<DataResponse<Gambar>>
+
 }

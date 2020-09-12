@@ -12,4 +12,8 @@ class AuthRepository @Inject constructor(private val authRemoteDataSource: AuthR
     fun register(payload: Payload) = resultLiveDataNoDao (
             networkCall = {authRemoteDataSource.register(payload)}
     )
+
+    fun verifikasi(payload: Payload) = resultLiveDataNoDao (
+            networkCall = {authRemoteDataSource.verifikasi(payload)}
+    )
 }
