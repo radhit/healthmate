@@ -3,6 +3,7 @@ package com.healthmate.menu.reusable.data
 import com.healthmate.api.AppService
 import com.healthmate.api.BaseDataSource
 import com.healthmate.api.Payload
+import com.healthmate.common.constant.Urls
 import javax.inject.Inject
 
 class MasterRemoteDataSource @Inject constructor(private val appService: AppService): BaseDataSource(){
@@ -12,5 +13,9 @@ class MasterRemoteDataSource @Inject constructor(private val appService: AppServ
 
     suspend fun getHospital(payload: Payload) = getResult {
         appService.getHospital(payload.url)
+    }
+
+    suspend fun uploadFoto(payload: Payload) = getResult {
+        appService.uploadImage(Urls.upload, payload.getRequestBody())
     }
 }

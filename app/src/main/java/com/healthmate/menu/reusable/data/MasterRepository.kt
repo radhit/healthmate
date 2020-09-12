@@ -12,4 +12,8 @@ class MasterRepository @Inject constructor(private val masterRemoteDataSource: M
     fun getHospital(payload: Payload) = resultLiveDataNoDao(
             networkCall = {masterRemoteDataSource.getHospital(payload)}
     )
+
+    fun uploadFoto(payload: Payload) = resultLiveDataNoDao (
+            networkCall = {masterRemoteDataSource.uploadFoto(payload)}
+    )
 }

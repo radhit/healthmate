@@ -4,15 +4,12 @@ import com.google.gson.annotations.SerializedName
 
 data class Gambar(
 
-    @field:SerializedName("path")
-    val path: String = "",
+    @field:SerializedName("url")
+    val url: String = "",
 
-    @field:SerializedName("updated_at")
-    val updatedAt: String = "",
+    @field:SerializedName("mimetype")
+    val mimetype: String = "",
 
-    @field:SerializedName("created_at")
-    val createdAt: String = "",
-
-    @field:SerializedName("id")
-    val id: Int = 0
+    @field:SerializedName("size")
+    val size: String = ""
 )
