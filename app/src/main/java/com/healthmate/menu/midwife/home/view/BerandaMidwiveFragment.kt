@@ -42,6 +42,7 @@ class BerandaMidwiveFragment : BaseFragment() {
 
     override fun onFragmentCreated(savedInstanceState: Bundle?) {
         setRecycleView()
+        tv_nama.text = "Bidan\n${userPref.getUser().name}"
         iv_banner.visibility = View.GONE
     }
 
@@ -59,14 +60,18 @@ class BerandaMidwiveFragment : BaseFragment() {
                 if (menu.nama.equals("Pasien")){
 
                 } else if (menu.nama.equals("Modul")){
-
+                    createDialog("Masih dalam pengembangan")
                 } else if (menu.nama.equals("Rujukan")){
+                    createDialog("Masih dalam pengembangan")
 
                 } else if (menu.nama.equals("Konsultasi")){
+                    createDialog("Masih dalam pengembangan")
 
                 } else if (menu.nama.equals("Komunitas")){
+                    createDialog("Masih dalam pengembangan")
 
                 } else if (menu.nama.equals("Poin")){
+                    createDialog("Masih dalam pengembangan")
 
                 }
             }
@@ -77,7 +82,6 @@ class BerandaMidwiveFragment : BaseFragment() {
 
         }))
         adapter.lists.clear()
-
         adapter.lists.addAll(generateMenus())
         adapter.notifyDataSetChanged()
     }

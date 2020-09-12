@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:focusableInTouchMode="true"
     android:padding="20dp"
     tools:context=".menu.midwife.profile.view.UbahProfileMidwiveActivity">
     <androidx.core.widget.NestedScrollView
@@ -66,6 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Alamat Email"
+                android:visibility="gone"
                 android:layout_marginTop="10dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldEmail"
@@ -91,10 +93,40 @@
                 style="@style/TextInputLayoutCustom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Kota/Kabupaten Tempat Praktik"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fieldKabupaten"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:layout_height="50dp"
+                    android:inputType="text"
+                    android:clickable="true"
+                    android:focusable="false"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Kecamatan Tempat Praktik"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fieldKecamatan"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:layout_height="50dp"
+                    android:inputType="text"
+                    android:clickable="true"
+                    android:focusable="false"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="Tempat Praktik"
                 android:layout_marginTop="10dp">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/fieldTempatPraktik"
+                    android:id="@+id/fieldHospital"
                     android:layout_width="match_parent"
                     android:padding="10dp"
                     android:layout_height="50dp"
@@ -106,7 +138,7 @@
                 style="@style/ButtonCustom"
                 android:layout_marginTop="20dp"
                 android:text="Simpan"
-                android:id="@+id/btn_signin"/>
+                android:id="@+id/btn_simpan"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>

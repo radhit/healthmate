@@ -63,10 +63,14 @@ class ListLocationActivity : BaseActivity() {
 
     private fun getHospital(keterangan: String = "awal") {
         val payload = Payload()
+        var level = ""
+        if (!intent.getStringExtra(EXTRA).equals("bidan")){
+            level = intent.getStringExtra(EXTRA)
+        }
         if (keterangan.equals("awal")){
-            payload.url = "${Urls.hospital}&level=${intent.getStringExtra(EXTRA)}&city=${userPref.getUser().city!!.name}&district=${userPref.getUser().district!!.name}"
+            payload.url = "${Urls.hospital}&level=${level}&city=${userPref.getUser().city!!.name}&district=${userPref.getUser().district!!.name}"
         } else{
-            payload.url = "${Urls.hospital}&level=${intent.getStringExtra(EXTRA)}&city=${userPref.getUser().city!!.name}&district=${userPref.getUser().district!!.name}&cursor=${cursor}"
+            payload.url = "${Urls.hospital}&level=${level}&city=${userPref.getUser().city!!.name}&district=${userPref.getUser().district!!.name}&cursor=${cursor}"
         }
         viewModel.getHospital(payload)
                 .observe(this, Observer {result ->

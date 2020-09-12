@@ -18,7 +18,8 @@ data class User(
         var kia: Kia? = Kia(),
         var city: Location? = Location(),
         var district: Location? = Location(),
-        var diagnostics_color: String? = ""
+        var diagnostics_color: String? = "",
+        var str_number: String? = ""
 )
 
 data class Hospital(
