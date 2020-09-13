@@ -8,7 +8,6 @@ data class User(
         var id: String = "",
         var validated: Boolean = true,
         var phone_number: String = "",
-        var password: String = "",
         var name: String = "",
         var covid_checked: Boolean = false,
         var covid_status: String = "",

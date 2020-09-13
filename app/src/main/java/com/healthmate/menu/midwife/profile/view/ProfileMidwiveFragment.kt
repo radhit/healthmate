@@ -9,12 +9,6 @@ import com.healthmate.BuildConfig
 import com.healthmate.R
 import com.healthmate.common.base.BaseFragment
 import com.healthmate.common.utils.replaceEmpty
-import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.android.synthetic.main.fragment_profile.btn_logout
-import kotlinx.android.synthetic.main.fragment_profile.btn_ubah
-import kotlinx.android.synthetic.main.fragment_profile.tv_name
-import kotlinx.android.synthetic.main.fragment_profile.tv_phone_number
-import kotlinx.android.synthetic.main.fragment_profile.tv_versi
 import kotlinx.android.synthetic.main.fragment_profile_midwive.*
 import java.util.*
 
@@ -33,6 +27,7 @@ class ProfileMidwiveFragment : BaseFragment() {
         tv_phone_number.text = userPref.getUser().phone_number
         tv_nomor_str.text = userPref.getUser().str_number
         tv_tempat_praktik.text = userPref.getUser().hospital!!.name.replaceEmpty("-")
+        Glide.with(this).applyDefaultRequestOptions(requestOptionsMidwife).load(userPref.getUser().profil_picture).into(iv_profile)
         btn_logout.setOnClickListener {
             signout()
         }

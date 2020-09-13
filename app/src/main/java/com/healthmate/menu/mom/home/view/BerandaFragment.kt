@@ -17,13 +17,13 @@ import com.healthmate.common.adapter.RecyclerViewTouchListener
 import com.healthmate.common.base.BaseFragment
 import com.healthmate.common.functions.Fun
 import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
 import com.healthmate.common.constant.Urls
 import com.healthmate.di.injector
 import com.healthmate.menu.mom.home.data.BerandaViewModel
 import com.healthmate.menu.mom.home.data.CheckUpModel
 import com.healthmate.menu.reusable.data.Menu
 import com.healthmate.menu.reusable.data.User
-import kotlinx.android.synthetic.main.activity_signin.*
 import kotlinx.android.synthetic.main.fragment_beranda.*
 import java.util.*
 
@@ -60,6 +60,7 @@ class BerandaFragment : BaseFragment() {
                 ll_profile_not.visibility = View.GONE
                 tv_nama_done.text = "Pasien\n${user.name}"
                 checkup_inprogress.visibility = View.GONE
+                Glide.with(this).applyDefaultRequestOptions(requestOptionsMom).load(userPref.getUser().profil_picture).into(iv_profile_done)
                 if (!userPref.getUser().covid_status.equals("")){
                     iv_banner.visibility = View.GONE
                     if (!userPref.getUser().hospital!!.id.equals("")){

@@ -1,6 +1,5 @@
 package com.healthmate.menu.mom.kia.view
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
@@ -9,7 +8,6 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
@@ -22,11 +20,7 @@ import com.healthmate.common.base.BaseActivity
 import com.healthmate.common.constant.Urls
 import com.healthmate.common.functions.Fun
 import com.healthmate.di.injector
-import com.healthmate.menu.mom.covid.view.ScreeningCovidActivity
-import com.healthmate.menu.mom.home.data.BerandaViewModel
-import com.healthmate.menu.mom.kia.data.KiaViewModel
 import kotlinx.android.synthetic.main.activity_main_kia.*
-import java.text.SimpleDateFormat
 import java.util.*
 import androidx.lifecycle.Observer
 import com.afollestad.materialdialogs.MaterialDialog
@@ -35,9 +29,7 @@ import com.healthmate.BuildConfig
 import com.healthmate.api.*
 import com.healthmate.menu.reusable.data.*
 import kotlinx.android.synthetic.main.activity_main_kia.fieldNama
-import kotlinx.android.synthetic.main.activity_signin.*
 import okhttp3.*
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -94,7 +86,7 @@ class MainKiaActivity : BaseActivity() {
                 user.city = city
                 user.district = district
 
-
+                userPref.setUser(user)
                 if (changeImage){
                     uploadFoto()
                 } else{

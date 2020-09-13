@@ -3,9 +3,7 @@ package com.healthmate.menu.mom.rapor.view
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProviders
-import com.afollestad.materialdialogs.MaterialDialog
 import com.artcak.starter.modules.reusable.adapter.RaporAdapter
-import com.bumptech.glide.Glide
 import com.healthmate.R
 import com.healthmate.api.Payload
 import com.healthmate.api.Result
@@ -15,12 +13,9 @@ import com.healthmate.common.constant.Urls
 import com.healthmate.common.functions.Fun
 import com.healthmate.commons.helper.EndlessScrollListener
 import com.healthmate.di.injector
-import com.healthmate.menu.mom.kia.data.KiaViewModel
 import com.healthmate.menu.mom.rapor.data.RaporModel
 import com.healthmate.menu.mom.rapor.data.RaporViewModel
 import kotlinx.android.synthetic.main.fragment_list_rapor.*
-import kotlinx.android.synthetic.main.fragment_profile.*
-import java.util.*
 import kotlin.collections.ArrayList
 import androidx.lifecycle.Observer
 

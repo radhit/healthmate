@@ -4,15 +4,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp">
-    <androidx.recyclerview.widget.RecyclerView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rv_list"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:visibility="gone"
-        android:id="@+id/tv_loading"
-        android:text="Mohon Tunggu..."/>
+        android:padding="8dp"
+        android:id="@+id/top">
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/TextInputLayoutCustom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:layout_marginRight="10dp"
+            android:hint="Nama Pasien">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fieldName"
+                android:layout_width="match_parent"
+                android:padding="10dp"
+                android:layout_height="50dp"
+                android:inputType="text"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="cari"
+            android:id="@+id/btn_search"
+            style="@style/ButtonOrange"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:id="@+id/rv_list"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="gone"
+            android:id="@+id/tv_loading"
+            android:text="Mohon Tunggu..."/>
+    </RelativeLayout>
+
 </RelativeLayout>

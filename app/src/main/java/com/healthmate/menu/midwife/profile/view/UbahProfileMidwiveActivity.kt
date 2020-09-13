@@ -84,7 +84,7 @@ class UbahProfileMidwiveActivity : BaseActivity() {
             navigator.listLocation(this, "kecamatan",2)
         }
         fieldHospital.setOnClickListener {
-            if (userPref.getUser().city!!.name.equals("") || userPref.getUser().district!!.name.equals("")){
+            if (city.name.equals("") || district.name.equals("")){
                 createDialog("Kota dan kecamatan kerja belum dipilih")
             } else{
                 navigator.listLocation(this,"bidan",3)
@@ -102,6 +102,7 @@ class UbahProfileMidwiveActivity : BaseActivity() {
                 user.city = city
                 user.district = district
                 user.hospital = hospital
+                userPref.setUser(user)
                 if (changeImage){
                     uploadFoto()
                 } else{
