@@ -68,9 +68,9 @@ class ListLocationActivity : BaseActivity() {
             level = intent.getStringExtra(EXTRA)
         }
         if (keterangan.equals("awal")){
-            payload.url = "${Urls.hospital}&level=${level}&city=${userPref.getUser().city!!.name}&district=${userPref.getUser().district!!.name}"
+            payload.url = "${Urls.hospital}?num=50&level=${level}&city=${userPref.getUser().city!!.name}&district=${userPref.getUser().district!!.name}"
         } else{
-            payload.url = "${Urls.hospital}&level=${level}&city=${userPref.getUser().city!!.name}&district=${userPref.getUser().district!!.name}&cursor=${cursor}"
+            payload.url = "${Urls.hospital}?num=50&level=${level}&city=${userPref.getUser().city!!.name}&district=${userPref.getUser().district!!.name}&cursor=${cursor}"
         }
         viewModel.getHospital(payload)
                 .observe(this, Observer {result ->
@@ -122,15 +122,15 @@ class ListLocationActivity : BaseActivity() {
         val payload = Payload()
         if (level.equals("kabupaten")){
             if (keterangan.equals("awal")){
-                payload.url = "${Urls.location}&level=city"
+                payload.url = "${Urls.location}?num=50&level=city"
             } else{
-                payload.url = "${Urls.location}&level=city&cursor=${cursor}"
+                payload.url = "${Urls.location}?num=50&level=city&cursor=${cursor}"
             }
         } else{
             if (keterangan.equals("awal")){
-                payload.url = "${Urls.location}&level=district"
+                payload.url = "${Urls.location}?num=50&level=district"
             } else{
-                payload.url = "${Urls.location}&level=district&cursor=${cursor}"
+                payload.url = "${Urls.location}?num=50&level=district&cursor=${cursor}"
             }
         }
         viewModel.getLocation(payload)
