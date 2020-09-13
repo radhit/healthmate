@@ -7,6 +7,7 @@ import com.healthmate.common.template.TemplateActivity.Companion.getCallingInten
 import com.healthmate.menu.auth.view.SigninActivity
 import com.healthmate.menu.auth.view.ValidasiActivity
 import com.healthmate.menu.midwife.main.MainMidwiveActivity
+import com.healthmate.menu.midwife.pasien.view.MainPasienMidwifeActivity
 import com.healthmate.menu.midwife.profile.view.UbahProfileMidwiveActivity
 import com.healthmate.menu.mom.checkup.view.CheckupActivity
 import com.healthmate.menu.mom.covid.view.ScreeningCovidActivity
@@ -83,6 +84,10 @@ class Navigator @Inject constructor() {
 
     fun ubahProfileMidwife(activity: Activity){
         goto(activity,UbahProfileMidwiveActivity.getCallingIntent(activity))
+    }
+
+    fun mainPasien(activity: Activity){
+        goto(activity,MainPasienMidwifeActivity.getCallingIntent(activity))
     }
 
 }

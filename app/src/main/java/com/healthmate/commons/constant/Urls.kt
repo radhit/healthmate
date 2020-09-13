@@ -18,14 +18,17 @@ object Urls {
     val verifikasi = "/otp"
 
     //MASTER
-    val location = "locations?num=50"
-    val hospital = "hospitals?num=50"
+    val location = "/locations"
+    val hospital = "/hospitals"
     val upload = "/upload"
 
     //MOTHER
     val action = "/actions"
     val covid = ""
     val ancsMom = "/ancs"
+
+    //MIDWIFE
+    val pasien = "/pasien"
 
 
 }

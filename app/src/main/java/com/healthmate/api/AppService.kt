@@ -35,4 +35,6 @@ interface AppService {
     @POST
     suspend fun uploadImage(@Url url: String, @Body requestBody: RequestBody): Response<DataResponse<Gambar>>
 
+    @GET
+    suspend fun listMothers(@Url url: String): Response<DataResponse<List<User>>>
 }

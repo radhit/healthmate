@@ -41,7 +41,9 @@ abstract class BaseFragment: Fragment() {
     protected lateinit var gson: Gson
     protected var requestOptions = RequestOptions().diskCacheStrategy(
             DiskCacheStrategy.AUTOMATIC).skipMemoryCache(true)
-    protected var requestOptionsMom = RequestOptions().placeholder(R.drawable.bumil_on).error(R.drawable.bumil_on).diskCacheStrategy(
+    protected var requestOptionsMom = RequestOptions().placeholder(R.drawable.bumil_on).error(R.drawable.bumil_off).diskCacheStrategy(
+            DiskCacheStrategy.AUTOMATIC).skipMemoryCache(true)
+    protected var requestOptionsMidwife = RequestOptions().placeholder(R.drawable.bidan_on).error(R.drawable.bidan_off).diskCacheStrategy(
             DiskCacheStrategy.AUTOMATIC).skipMemoryCache(true)
 
 

@@ -17,16 +17,8 @@ import com.healthmate.common.adapter.RecyclerViewTouchListener
 import com.healthmate.common.base.BaseFragment
 import com.healthmate.common.functions.Fun
 import androidx.lifecycle.Observer
-import com.healthmate.common.constant.Urls
-import com.healthmate.di.injector
-import com.healthmate.menu.mom.home.data.BerandaViewModel
-import com.healthmate.menu.mom.home.data.CheckUpModel
+import com.bumptech.glide.Glide
 import com.healthmate.menu.reusable.data.Menu
-import com.healthmate.menu.reusable.data.User
-import kotlinx.android.synthetic.main.activity_signin.*
-import kotlinx.android.synthetic.main.fragment_beranda.*
-import kotlinx.android.synthetic.main.fragment_beranda.iv_banner
-import kotlinx.android.synthetic.main.fragment_beranda.rv_menu
 import kotlinx.android.synthetic.main.fragment_beranda_midwive.*
 import java.util.*
 
@@ -44,6 +36,7 @@ class BerandaMidwiveFragment : BaseFragment() {
         setRecycleView()
         tv_nama.text = "Bidan\n${userPref.getUser().name}"
         iv_banner.visibility = View.GONE
+        Glide.with(this).applyDefaultRequestOptions(requestOptionsMidwife).load(userPref.getUser().profil_picture).into(iv_foto)
     }
 
     private fun setRecycleView() {
@@ -58,21 +51,17 @@ class BerandaMidwiveFragment : BaseFragment() {
             override fun onClick(view: View, position: Int) {
                 val menu = adapter.lists[position]
                 if (menu.nama.equals("Pasien")){
-
+                    navigator.mainPasien(activity!!)
                 } else if (menu.nama.equals("Modul")){
                     createDialog("Masih dalam pengembangan")
                 } else if (menu.nama.equals("Rujukan")){
                     createDialog("Masih dalam pengembangan")
-
                 } else if (menu.nama.equals("Konsultasi")){
                     createDialog("Masih dalam pengembangan")
-
                 } else if (menu.nama.equals("Komunitas")){
                     createDialog("Masih dalam pengembangan")
-
                 } else if (menu.nama.equals("Poin")){
                     createDialog("Masih dalam pengembangan")
-
                 }
             }
 
