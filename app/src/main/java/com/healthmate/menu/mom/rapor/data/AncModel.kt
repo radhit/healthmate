@@ -2,7 +2,7 @@ package com.healthmate.menu.mom.rapor.data
 
 import com.healthmate.menu.reusable.data.Hospital
 
-data class RaporModel(
+data class AncModel(
         var hb: String = "",
         var id: String = "",
         var rr: String = "",

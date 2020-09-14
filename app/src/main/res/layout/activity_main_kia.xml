@@ -200,6 +200,41 @@
                             android:clickable="true"
                             android:focusable="false"/>
                     </com.google.android.material.textfield.TextInputLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:id="@+id/midwife_create">
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/TextInputLayoutCustom"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Nomor HP/Telp"
+                            android:layout_marginTop="10dp">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/fieldNomorHp"
+                                android:layout_width="match_parent"
+                                android:padding="10dp"
+                                android:layout_height="50dp"
+                                android:inputType="number"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/TextInputLayoutCustom"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Password"
+                            app:passwordToggleEnabled="true"
+                            app:passwordToggleTint="@color/textColorLight"
+                            android:layout_marginTop="10dp">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/fieldPassword"
+                                android:layout_width="match_parent"
+                                android:padding="10dp"
+                                android:layout_height="50dp"
+                                android:inputType="textPassword"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
@@ -279,6 +314,19 @@
                         style="@style/TextInputLayoutCustom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="Pekerjaan"
+                        android:layout_marginTop="10dp">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/fieldPekerjaanSuami"
+                            android:layout_width="match_parent"
+                            android:padding="10dp"
+                            android:layout_height="50dp"
+                            android:inputType="text"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutCustom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:hint="Agama"
                         android:layout_marginTop="10dp">
                         <com.google.android.material.textfield.TextInputEditText
@@ -304,6 +352,20 @@
                             android:clickable="true"
                             android:focusable="false"
                             android:inputType="text"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutCustom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Pendidikan Terakhir"
+                        android:layout_marginTop="10dp">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/fieldPendidikanSuami"
+                            android:layout_width="match_parent"
+                            android:padding="10dp"
+                            android:layout_height="50dp"
+                            android:clickable="true"
+                            android:focusable="false"/>
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/TextInputLayoutCustom"

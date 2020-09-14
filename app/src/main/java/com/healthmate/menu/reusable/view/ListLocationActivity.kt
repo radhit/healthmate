@@ -2,14 +2,12 @@ package com.healthmate.menu.reusable.view
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.artcak.starter.modules.reusable.adapter.ListHospitalAdapter
 import com.artcak.starter.modules.reusable.adapter.ListLocationAdapter
-import com.artcak.starter.modules.reusable.adapter.MasterListAdapter
 import com.healthmate.R
 import com.healthmate.api.Payload
 import com.healthmate.api.Result
@@ -20,14 +18,11 @@ import com.healthmate.common.functions.Fun
 import com.healthmate.common.functions.setOnClick
 import com.healthmate.commons.helper.EndlessScrollListener
 import com.healthmate.di.injector
-import com.healthmate.menu.mom.rapor.data.RaporViewModel
 import com.healthmate.menu.reusable.data.Hospital
 import com.healthmate.menu.reusable.data.Location
 import com.healthmate.menu.reusable.data.MasterViewModel
-import kotlinx.android.synthetic.main.activity_list_location.*
 import kotlinx.android.synthetic.main.activity_list_location.rv_list
 import kotlinx.android.synthetic.main.activity_list_location.tv_loading
-import kotlinx.android.synthetic.main.fragment_list_rapor.*
 
 class ListLocationActivity : BaseActivity() {
     companion object {

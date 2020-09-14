@@ -38,10 +38,14 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
 import com.healthmate.api.Result
+import kotlinx.android.synthetic.main.activity_main_kia.fieldNomorHp
+import kotlinx.android.synthetic.main.activity_main_kia.fieldPassword
+import kotlinx.android.synthetic.main.activity_signin.*
 
 class MainKiaActivity : BaseActivity() {
     companion object {
         val EXTRA = "EXTRA"
+        val EXTRA_KETERANGAN = "EXTRA_KETERANGAN"
         val RC_GALLERY = 102
         val RC_CAMERA = 103
         val RP_WRITE_STORAGE = 200
@@ -49,8 +53,10 @@ class MainKiaActivity : BaseActivity() {
         val RP_GALLERY = 202
 
         @JvmStatic
-        fun getCallingIntent(activity: Activity): Intent {
+        fun getCallingIntent(activity: Activity, keterangan: String, data: String): Intent {
             val intent = Intent(activity, MainKiaActivity::class.java)
+            intent.putExtra(EXTRA,data)
+            intent.putExtra(EXTRA_KETERANGAN, keterangan)
             return intent
         }
     }
@@ -64,6 +70,8 @@ class MainKiaActivity : BaseActivity() {
     var changeImage: Boolean = false
     lateinit var user : User
 
+    var keterangan = ""
+
 
     private val viewModel by lazy {
         ViewModelProviders.of(this, injector.masterVM()).get(MasterViewModel::class.java)
@@ -71,26 +79,48 @@ class MainKiaActivity : BaseActivity() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         this.setTitle("Data KIA")
-        if (userPref.getUser().kia!=null){
-            dataKia = userPref.getUser().kia!!
+        keterangan = intent.getStringExtra(EXTRA_KETERANGAN)
+        if (keterangan.equals("mother")){
+            fieldNama.setText("${userPref.getUser().name}")
+            Glide.with(this).applyDefaultRequestOptions(requestOptionsMom).load(userPref.getUser().profil_picture).into(iv_profile)
+
+            if (userPref.getUser().kia!=null){
+                dataKia = userPref.getUser().kia!!
+                setData()
+            }
+            user = userPref.getUser()
+            midwife_create.visibility = View.GONE
+        } else if (keterangan.equals("midwife_create")){
+            user = User()
+            midwife_create.visibility = View.VISIBLE
+        } else if (keterangan.equals("midwife_edit")){
+            user = gson.fromJson(intent.getStringExtra(EXTRA),User::class.java)
+            dataKia = user.kia!!
+            fieldNama.setText("${user.name}")
             setData()
+            midwife_create.visibility = View.GONE
+            Glide.with(this).applyDefaultRequestOptions(requestOptionsMom).load(user.profil_picture).into(iv_profile)
         }
-        Glide.with(this).applyDefaultRequestOptions(requestOptionsMom).load(userPref.getUser().profil_picture).into(iv_profile)
-        fieldNama.setText("${userPref.getUser().name}")
         btn_simpan.setOnClickListener {
             if (isValid()){
-                user = userPref.getUser()
                 setDataInput()
+                if (keterangan.equals("midwife_create")){
+                    user.phone_number = fieldNomorHp.text.toString()
+                    user.password = Base64.getEncoder().encodeToString(fieldPassword.text.toString().toByteArray())
+                }
                 user.name = fieldNama.text.toString()
                 user.kia = dataKia
                 user.city = city
                 user.district = district
 
-                userPref.setUser(user)
                 if (changeImage){
                     uploadFoto()
                 } else{
-                    updateData()
+                    if (!keterangan.equals("mother")){
+                        updateData()
+                    } else{
+                        createData()
+                    }
                 }
             }
         }
@@ -122,7 +152,9 @@ class MainKiaActivity : BaseActivity() {
         fieldAgamaSuami.setOnClickListener {
             navigator.dataMaster(this,"agama",8)
         }
-
+        fieldPendidikanSuami.setOnClickListener {
+            navigator.dataMaster(this, "pendidikan",9)
+        }
         rl_foto.setOnClickListener {
             createDialogTakePhoto()
         }
@@ -150,10 +182,12 @@ class MainKiaActivity : BaseActivity() {
                             Result.Status.SUCCESS->{
                                 closeLoadingDialog()
                                 val freshData = result.data!!
-                                var user = userPref.getUser()
                                 user.profil_picture = freshData.url
-                                userPref.setUser(user)
-                                updateData()
+                                if (!keterangan.equals("mother")){
+                                    updateData()
+                                } else{
+                                    createData()
+                                }
                             }
                             Result.Status.ERROR->{
                                 closeLoadingDialog()
@@ -169,15 +203,60 @@ class MainKiaActivity : BaseActivity() {
 
     fun updateData(){
         startLoading()
-        val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(userPref.getUser()))
+        val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(user))
+        var url = ""
+        if (keterangan.equals("mother")){
+            url = "${Urls.registerMother}/${userPref.getUser().id}"
+        } else if (keterangan.equals("midwife_edit")){
+            url = "${Urls.registerMother}/${user.id}"
+        }
         println("req body : ${requestBody}")
-        val call: Call<DataResponse<Any>> = baseApi.updateDataMom("${Urls.registerMother}/${userPref.getUser().id}",requestBody)
+        val call: Call<DataResponse<Any>> = baseApi.updateDataMom(url,requestBody)
         call.enqueue(object : Callback<DataResponse<Any>> {
             override fun onResponse(call: Call<DataResponse<Any>>?, response: Response<DataResponse<Any>>?) {
                 finishLoading()
                 if (response!!.isSuccessful) {
                     if (response!!.body()!!.responseCode in 200..299){
-                        userPref.setUser(user)
+                        if (keterangan.equals("mother")){
+                            userPref.setUser(user)
+                        }
+                        createDialog(response.body()!!.message,{
+                            finish()
+                        })
+                    } else{
+                        createDialog(response.body()!!.message)
+                    }
+                } else {
+                    Toast.makeText(this@MainKiaActivity,"Terjadi kesalahan", Toast.LENGTH_LONG).show()
+                }
+            }
+
+            override fun onFailure(call: Call<DataResponse<Any>>?, t: Throwable?) {
+                finishLoading()
+                Toast.makeText(this@MainKiaActivity,t!!.message, Toast.LENGTH_LONG).show()
+            }
+        })
+    }
+
+    fun createData(){
+        startLoading()
+        val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(user))
+        var url = ""
+        if (keterangan.equals("midwife_create")){
+            url = Urls.registerMother
+        } else{
+            url = "${Urls.registerMother}/${user.id}/kia"
+        }
+        println("req body : ${requestBody}")
+        val call: Call<DataResponse<Any>> = baseApi.createDataMom(url,requestBody)
+        call.enqueue(object : Callback<DataResponse<Any>> {
+            override fun onResponse(call: Call<DataResponse<Any>>?, response: Response<DataResponse<Any>>?) {
+                finishLoading()
+                if (response!!.isSuccessful) {
+                    if (response!!.body()!!.responseCode in 200..299){
+                        if (keterangan.equals("mother")){
+                            userPref.setUser(user)
+                        }
                         createDialog(response.body()!!.message,{
                             finish()
                         })
@@ -252,6 +331,15 @@ class MainKiaActivity : BaseActivity() {
             fieldKecamatan.setError("Wajib diisi!")
             return false
         }
+        if (keterangan.equals("midwife_create")){
+            if (fieldNomorHp.text.toString().equals("")){
+                fieldNomorHp.setError("Wajib diisi")
+                return false
+            } else if (fieldPassword.text.toString().equals("")){
+                fieldPassword.setError("Wajib disii")
+                return false
+            }
+        }
         return true
     }
 
@@ -269,7 +357,7 @@ class MainKiaActivity : BaseActivity() {
         city.address = fieldAlamat.text.toString()
         district.address = fieldAlamat.text.toString()
         var husband = Husband(fieldNamaSuami.text.toString(),fieldTempatLahirSuami.text.toString(),fieldTanggalLahirSuami.text.toString(),fieldNomorHpSuami.text.toString(),
-        fieldAgamaSuami.text.toString(),fieldGoldarSuami.text.toString(),"","",fieldAlamat.text.toString(),city,district)
+        fieldAgamaSuami.text.toString(),fieldGoldarSuami.text.toString(),fieldPekerjaanSuami.text.toString(),fieldPendidikanSuami.text.toString(),fieldAlamat.text.toString(),city,district)
         dataKia.husband = husband
     }
 
@@ -294,6 +382,8 @@ class MainKiaActivity : BaseActivity() {
             fieldAlamat.setText("${dataKia.husband!!.address}")
             fieldKabupaten.setText("${dataKia.husband!!.city!!.name}")
             fieldKecamatan.setText("${dataKia.husband!!.district!!.name}")
+            fieldPendidikanSuami.setText("${dataKia.husband!!.last_education}")
+            fieldPekerjaanSuami.setText("${dataKia.husband!!.job}")
             city = dataKia.husband!!.city!!
             district = dataKia.husband!!.district!!
         }
@@ -411,6 +501,11 @@ class MainKiaActivity : BaseActivity() {
             }catch (e: java.lang.NullPointerException){
                 e.printStackTrace()
                 createDialog(e.localizedMessage)
+            }
+        } else if (requestCode==9){
+            if (resultCode==Activity.RESULT_OK){
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"),MasterListModel::class.java)
+                fieldPendidikanSuami.setText(dataMaster.name)
             }
         }
     }
