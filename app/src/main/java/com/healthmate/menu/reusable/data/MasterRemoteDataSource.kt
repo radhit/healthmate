@@ -18,4 +18,12 @@ class MasterRemoteDataSource @Inject constructor(private val appService: AppServ
     suspend fun uploadFoto(payload: Payload) = getResult {
         appService.uploadImage(Urls.upload, payload.getRequestBody())
     }
+
+    suspend fun getDataMe(payload: Payload) = getResult {
+        appService.getDataMe(payload.url)
+    }
+
+    suspend fun getAncs(payload: Payload) = getResult {
+        appService.getAncs(payload.url)
+    }
 }

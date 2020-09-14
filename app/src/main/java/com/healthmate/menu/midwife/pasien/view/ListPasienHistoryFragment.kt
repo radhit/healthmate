@@ -41,9 +41,9 @@ class ListPasienHistoryFragment : BaseFragment() {
     private fun getData(keterangan: String) {
         val payload = Payload()
         if (keterangan.equals("load")){
-            payload.url = "${Urls.hospital}/1/mothers&cursor=${cursor}"
+            payload.url = "${Urls.hospital}/${userPref.getUser().hospital!!.id}/mothers&cursor=${cursor}"
         } else{
-            payload.url = "${Urls.hospital}/1/mothers"
+            payload.url = "${Urls.hospital}/${userPref.getUser().hospital!!.id}/mothers"
         }
         viewModel.listMother(payload)
                 .observe(this, Observer {result ->
@@ -83,7 +83,7 @@ class ListPasienHistoryFragment : BaseFragment() {
                             tv_loading.visibility = View.VISIBLE
                             rv_list.visibility = View.GONE
                             tv_loading.text = "Data Kosong"
-                            Fun.handleError(activity!!,result)
+                            createDialog(result.message!!)
                         }
                     }
                 })
@@ -94,7 +94,7 @@ class ListPasienHistoryFragment : BaseFragment() {
         rv_list.adapter = pasienListAdapter
         initiateLinearLayoutRecyclerView(rv_list,object : RecyclerViewClickListener {
             override fun onClick(view: View, position: Int) {
-
+                navigator.mainDetilPasien(activity!!,gson.toJson(pasienListAdapter.lists[position]))
             }
             override fun onLongClick(view: View, position: Int) {
             }

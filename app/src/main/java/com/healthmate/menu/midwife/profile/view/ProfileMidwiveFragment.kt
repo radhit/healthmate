@@ -35,4 +35,14 @@ class ProfileMidwiveFragment : BaseFragment() {
             navigator.ubahProfileMidwife(activity!!)
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        tv_name.text = userPref.getUser().name
+        tv_phone_number.text = userPref.getUser().phone_number
+        tv_nomor_str.text = userPref.getUser().str_number
+        tv_tempat_praktik.text = userPref.getUser().hospital!!.name.replaceEmpty("-")
+        Glide.with(this).applyDefaultRequestOptions(requestOptionsMidwife).load(userPref.getUser().profil_picture).into(iv_profile)
+
+    }
 }

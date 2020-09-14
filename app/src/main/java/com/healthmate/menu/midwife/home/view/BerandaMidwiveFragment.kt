@@ -51,7 +51,11 @@ class BerandaMidwiveFragment : BaseFragment() {
             override fun onClick(view: View, position: Int) {
                 val menu = adapter.lists[position]
                 if (menu.nama.equals("Pasien")){
-                    navigator.mainPasien(activity!!)
+                    if (userPref.getUser().hospital!=null && userPref.getUser().hospital!!.id.equals("")){
+                        createDialog("Update data anda terlebih dahulu")
+                    } else {
+                        navigator.mainPasien(activity!!)
+                    }
                 } else if (menu.nama.equals("Modul")){
                     createDialog("Masih dalam pengembangan")
                 } else if (menu.nama.equals("Rujukan")){

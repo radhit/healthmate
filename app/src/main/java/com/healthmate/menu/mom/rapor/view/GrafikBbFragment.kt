@@ -3,9 +3,6 @@ package com.healthmate.menu.mom.rapor.view
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProviders
-import com.afollestad.materialdialogs.MaterialDialog
-import com.artcak.starter.modules.reusable.adapter.RaporAdapter
-import com.bumptech.glide.Glide
 import com.healthmate.R
 import com.healthmate.api.Payload
 import com.healthmate.api.Result
@@ -13,11 +10,9 @@ import com.healthmate.common.base.BaseFragment
 import com.healthmate.common.constant.Urls
 import com.healthmate.common.functions.Fun
 import com.healthmate.di.injector
-import com.healthmate.menu.mom.rapor.data.RaporViewModel
-import kotlinx.android.synthetic.main.fragment_list_rapor.*
-import java.util.*
 import androidx.lifecycle.Observer
-import com.healthmate.menu.mom.rapor.data.RaporModel
+import com.healthmate.menu.mom.rapor.data.AncModel
+import com.healthmate.menu.reusable.data.MasterViewModel
 import kotlinx.android.synthetic.main.fragment_grafik_bb.*
 import kotlinx.android.synthetic.main.fragment_list_rapor.tv_loading
 
@@ -25,9 +20,9 @@ class GrafikBbFragment : BaseFragment() {
 
     override fun getViewId(): Int = R.layout.fragment_grafik_bb
     private val viewModel by lazy {
-        ViewModelProviders.of(this, injector.raporVM()).get(RaporViewModel::class.java)
+        ViewModelProviders.of(this, injector.masterVM()).get(MasterViewModel::class.java)
     }
-    var dataAnc: RaporModel = RaporModel()
+    var dataAnc: AncModel = AncModel()
 
     companion object {
         fun newInstance(): GrafikBbFragment = GrafikBbFragment()

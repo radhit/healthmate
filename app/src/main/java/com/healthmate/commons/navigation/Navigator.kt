@@ -3,10 +3,11 @@ package com.healthmate.common.navigation
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import com.healthmate.common.template.TemplateActivity.Companion.getCallingIntent
 import com.healthmate.menu.auth.view.SigninActivity
 import com.healthmate.menu.auth.view.ValidasiActivity
 import com.healthmate.menu.midwife.main.MainMidwiveActivity
+import com.healthmate.menu.midwife.pasien.view.FormRiwayatAncActivity
+import com.healthmate.menu.midwife.pasien.view.MainDetilPasienActivity
 import com.healthmate.menu.midwife.pasien.view.MainPasienMidwifeActivity
 import com.healthmate.menu.midwife.profile.view.UbahProfileMidwiveActivity
 import com.healthmate.menu.mom.checkup.view.CheckupActivity
@@ -56,8 +57,8 @@ class Navigator @Inject constructor() {
         goto(activity, ScreeningCovidActivity.getCallingIntent(activity))
     }
 
-    fun dataKiaMom(activity: Activity){
-        goto(activity, MainKiaActivity.getCallingIntent(activity))
+    fun dataKiaMom(activity: Activity, keterangan: String = "mother", data: String = ""){
+        goto(activity, MainKiaActivity.getCallingIntent(activity, keterangan, data))
     }
 
     fun checkUp(activity: Activity){
@@ -88,6 +89,14 @@ class Navigator @Inject constructor() {
 
     fun mainPasien(activity: Activity){
         goto(activity,MainPasienMidwifeActivity.getCallingIntent(activity))
+    }
+
+    fun mainDetilPasien(activity: Activity, data: String){
+        goto(activity,MainDetilPasienActivity.getCallingIntent(activity,data))
+    }
+
+    fun formHistoryAnc(activity: Activity, keterangan: String, data: String){
+        goto(activity, FormRiwayatAncActivity.getCallingIntent(activity, keterangan, data))
     }
 
 }

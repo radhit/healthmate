@@ -9,4 +9,8 @@ class PasienRemoteDataSource @Inject constructor(private val appService: AppServ
     suspend fun listMother(payload: Payload) = getResult {
         appService.listMothers(payload.url)
     }
+
+    suspend fun postDataAncsHistory(payload: Payload) = getResult {
+        appService.postDataHistoryAncs(payload.url, payload.getRequestBody())
+    }
 }

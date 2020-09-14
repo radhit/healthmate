@@ -8,4 +8,6 @@ class MasterViewModel @Inject constructor(private val masterRepository: MasterRe
     fun getLocation(payload: Payload) = masterRepository.getLocation(payload)
     fun getHospital(payload: Payload) = masterRepository.getHospital(payload)
     fun uploadFoto(payload: Payload) = masterRepository.uploadFoto(payload)
+    fun getDataMe(payload: Payload) = masterRepository.getDataMe(payload)
+    fun getAncs(payload: Payload) = masterRepository.getAncs(payload)
 }

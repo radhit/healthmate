@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.healthmate.R
 import com.healthmate.menu.reusable.data.User
+import kotlinx.android.synthetic.main.activity_ubah_profile_midwive.*
 import kotlinx.android.synthetic.main.item_list_pasien.view.*
 
 class PasienListAdapter(private val mContext: Context) : RecyclerView.Adapter<PasienListAdapter.ViewHolder>(){
@@ -34,6 +36,8 @@ class PasienListAdapter(private val mContext: Context) : RecyclerView.Adapter<Pa
         } else if (value.diagnostics_color.equals("green")){
             holder.view.iv_foto.borderColor = getColor(mContext, R.color.md_green_500)
         }
+        Glide.with(mContext).load(value.profil_picture).into(holder.view.iv_foto)
+
 
     }
 

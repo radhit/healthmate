@@ -1,7 +1,7 @@
 package com.healthmate.api
 
 import com.healthmate.menu.mom.home.data.CheckUpModel
-import com.healthmate.menu.mom.rapor.data.RaporModel
+import com.healthmate.menu.mom.rapor.data.AncModel
 import com.healthmate.menu.reusable.data.Gambar
 import com.healthmate.menu.reusable.data.Hospital
 import com.healthmate.menu.reusable.data.Location
@@ -21,10 +21,13 @@ interface AppService {
     suspend fun verifikasi(@Url url: String, @Body requestBody: RequestBody): Response<DataResponse<Any>>
 
     @GET
+    suspend fun getDataMe(@Url url: String): Response<DataResponse<User>>
+
+    @GET
     suspend fun statusCheckup(@Url url: String): Response<DataResponse<List<CheckUpModel>>>
 
     @GET
-    suspend fun getAncs(@Url url: String): Response<DataResponse<List<RaporModel>>>
+    suspend fun getAncs(@Url url: String): Response<DataResponse<List<AncModel>>>
 
     @GET
     suspend fun getLocation(@Url url: String): Response<DataResponse<List<Location>>>
@@ -37,4 +40,8 @@ interface AppService {
 
     @GET
     suspend fun listMothers(@Url url: String): Response<DataResponse<List<User>>>
+
+    @POST
+    suspend fun postDataHistoryAncs(@Url url: String, @Body requestBody: RequestBody): Response<DataResponse<Any>>
+
 }

@@ -28,7 +28,7 @@ object Urls {
     val ancsMom = "/ancs"
 
     //MIDWIFE
-    val pasien = "/pasien"
+    val ancsHistory = "/anc-histories"
 
 
 }

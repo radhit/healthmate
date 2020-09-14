@@ -6,4 +6,6 @@ import javax.inject.Inject
 
 class PasienViewModel @Inject constructor(private val pasienRepository: PasienRepository): ViewModel(){
     fun listMother(payload: Payload) = pasienRepository.listMother(payload)
+
+    fun postDataAncsHistory(payload: Payload) = pasienRepository.postDataAncsHistory(payload)
 }

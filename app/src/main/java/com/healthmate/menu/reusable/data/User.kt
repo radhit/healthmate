@@ -8,6 +8,7 @@ data class User(
         var id: String = "",
         var validated: Boolean = true,
         var phone_number: String = "",
+        var password: String? = "",
         var name: String = "",
         var covid_checked: Boolean = false,
         var covid_status: String = "",
@@ -18,7 +19,17 @@ data class User(
         var city: Location? = Location(),
         var district: Location? = Location(),
         var diagnostics_color: String? = "",
-        var str_number: String? = ""
+        var str_number: String? = "",
+        var hpht: String? = "",
+
+        @SerializedName("hml")
+        var hpl: String? = "",
+
+        var preg_num: String? = "",
+        var labor_num: String? = "",
+        var miscarriage_num: String? = "",
+        var live_child_num: String? = "",
+        var prev_child_difference: String? = ""
 )
 
 data class Hospital(

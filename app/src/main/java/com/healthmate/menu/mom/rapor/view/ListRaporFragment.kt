@@ -13,11 +13,11 @@ import com.healthmate.common.constant.Urls
 import com.healthmate.common.functions.Fun
 import com.healthmate.commons.helper.EndlessScrollListener
 import com.healthmate.di.injector
-import com.healthmate.menu.mom.rapor.data.RaporModel
-import com.healthmate.menu.mom.rapor.data.RaporViewModel
+import com.healthmate.menu.mom.rapor.data.AncModel
 import kotlinx.android.synthetic.main.fragment_list_rapor.*
 import kotlin.collections.ArrayList
 import androidx.lifecycle.Observer
+import com.healthmate.menu.reusable.data.MasterViewModel
 
 class ListRaporFragment : BaseFragment() {
 
@@ -27,10 +27,11 @@ class ListRaporFragment : BaseFragment() {
         fun newInstance(): ListRaporFragment = ListRaporFragment()
     }
     lateinit var raporAdapter: RaporAdapter
-    var list: ArrayList<RaporModel> = ArrayList()
+    var list: ArrayList<AncModel> = ArrayList()
     var cursor: String = ""
+
     private val viewModel by lazy {
-        ViewModelProviders.of(this, injector.raporVM()).get(RaporViewModel::class.java)
+        ViewModelProviders.of(this, injector.masterVM()).get(MasterViewModel::class.java)
     }
 
     override fun onFragmentCreated(savedInstanceState: Bundle?) {

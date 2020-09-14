@@ -8,4 +8,8 @@ class PasienRepository @Inject constructor(private val pasienRemoteDataSource: P
     fun listMother(payload: Payload) = resultLiveDataNoDao(
             networkCall = {pasienRemoteDataSource.listMother(payload)}
     )
+
+    fun postDataAncsHistory(payload: Payload) = resultLiveDataNoDao(
+            networkCall = {pasienRemoteDataSource.postDataAncsHistory(payload)}
+    )
 }

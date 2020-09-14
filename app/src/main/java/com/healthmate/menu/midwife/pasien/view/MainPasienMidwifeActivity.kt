@@ -53,6 +53,7 @@ class MainPasienMidwifeActivity : BaseActivity() {
         viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
         viewPagerAdapter.addFragment(ListPasienHistoryFragment.newInstance(),"Daftar Pasien")
         viewPagerAdapter.addFragment(SearchPasienFragment.newInstance(),"Cari Pasien")
+        viewPagerAdapter.addFragment(CreatePasienFragment.newInstance(),"Registrasi Baru")
         viewPager.adapter = viewPagerAdapter
     }
 }

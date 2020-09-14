@@ -12,7 +12,6 @@ import com.healthmate.common.constant.Urls
 import com.healthmate.common.functions.Fun
 import com.healthmate.commons.helper.EndlessScrollListener
 import com.healthmate.di.injector
-import com.healthmate.menu.mom.rapor.data.RaporViewModel
 import kotlinx.android.synthetic.main.fragment_search_pasien.*
 import kotlin.collections.ArrayList
 import androidx.lifecycle.Observer
@@ -48,9 +47,9 @@ class SearchPasienFragment : BaseFragment() {
     private fun getData(keterangan: String) {
         val payload = Payload()
         if (keterangan.equals("load")){
-            payload.url = "${Urls.hospital}/1/mothers?name=${fieldName.text.toString()}&cursor=${cursor}"
+            payload.url = "${Urls.hospital}/${userPref.getUser().hospital!!.id}/mothers?name=${fieldName.text.toString()}&cursor=${cursor}"
         } else{
-            payload.url = "${Urls.hospital}/1/mothers?name=${fieldName.text.toString()}"
+            payload.url = "${Urls.hospital}/${userPref.getUser().hospital!!.id}/mothers?name=${fieldName.text.toString()}"
         }
         viewModel.listMother(payload)
                 .observe(this, Observer {result ->
@@ -101,7 +100,7 @@ class SearchPasienFragment : BaseFragment() {
         rv_list.adapter = pasienListAdapter
         initiateLinearLayoutRecyclerView(rv_list,object : RecyclerViewClickListener {
             override fun onClick(view: View, position: Int) {
-
+                navigator.mainDetilPasien(activity!!,gson.toJson(pasienListAdapter.lists[position]))
             }
             override fun onLongClick(view: View, position: Int) {
             }
