@@ -169,6 +169,7 @@ class SigninActivity : BaseActivity() {
                         Result.Status.SUCCESS->{
                             finishLoading("login")
                             val user = result.data!!
+                            user.password = Base64.getEncoder().encodeToString(fieldPassword.text.toString().toByteArray())
                             userPref.setUser(user)
                             println("data user : ${userPref.getUser()}")
                             if (userPref.getUser().type.equals("midwife")){
@@ -179,7 +180,7 @@ class SigninActivity : BaseActivity() {
                         }
                         Result.Status.ERROR->{
                             finishLoading("login")
-                            Fun.handleError(this,result)
+                            createDialog(result.message!!)
                         }
                     }
                 })
