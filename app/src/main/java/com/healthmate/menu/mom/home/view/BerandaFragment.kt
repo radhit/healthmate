@@ -191,15 +191,17 @@ class BerandaFragment : BaseFragment() {
                             var data = result.data!!
                             if (data.size>0){
                                 checkUp = data.get(0)
-                                if (checkUp.in_progress){
+                                // finished true, udah anc udah rating, finish false, udah isi anc blm rating
+                                if (checkUp.object_type.equals("anc")){
                                     tv_checkup.text = "Anda sedang melakukan pemeriksaan"
-                                } else{
-                                    if (checkUp.rating.equals("0")){
-                                        tv_checkup.text = "Anda belum memberikan rating"
+                                    if (!checkUp.finished){
+                                        if (checkUp.rating.equals("0")){
+                                            tv_checkup.text = "Anda belum memberikan rating"
+                                        }
+                                    } else{
+                                        tv_checkup.text = "Periksa Sekarang / Check Up"
                                     }
                                 }
-                            } else{
-                                status_checkup = false
                             }
                         }
                         Result.Status.ERROR->{
