@@ -140,7 +140,7 @@ class UbahProfileMidwiveActivity : BaseActivity() {
             val payload = Payload(
                     ArrayList(listOf(PayloadEntry("image","image"))),
                     ArrayList(listOf(
-                            PayloadEntryMultipart("image","image",
+                            PayloadEntryMultipart("image","image.jpg",
                                     RequestBody.create(MediaType.parse("image/jpg"), byteArray))
                     ))
             )

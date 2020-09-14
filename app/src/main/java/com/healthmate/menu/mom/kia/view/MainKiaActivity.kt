@@ -169,8 +169,8 @@ class MainKiaActivity : BaseActivity() {
             val payload = Payload(
                     ArrayList(listOf(PayloadEntry("image","image"))),
                     ArrayList(listOf(
-                            PayloadEntryMultipart("image","image",
-                                    RequestBody.create(MediaType.parse("image/jpeg"), byteArray))
+                            PayloadEntryMultipart("image","image.jpg",
+                                    RequestBody.create(MediaType.parse("image/jpg"), byteArray))
                     ))
             )
             viewModel.uploadFoto(payload)
