@@ -102,7 +102,6 @@ class UbahProfileMidwiveActivity : BaseActivity() {
                 user.city = city
                 user.district = district
                 user.hospital = hospital
-                userPref.setUser(user)
                 if (changeImage){
                     uploadFoto()
                 } else{
@@ -142,9 +141,10 @@ class UbahProfileMidwiveActivity : BaseActivity() {
                     ArrayList(listOf(PayloadEntry("image","image"))),
                     ArrayList(listOf(
                             PayloadEntryMultipart("image","image",
-                                    RequestBody.create(MediaType.parse("image/jpeg"), byteArray))
+                                    RequestBody.create(MediaType.parse("image/jpg"), byteArray))
                     ))
             )
+
             viewModel.uploadFoto(payload)
                     .observe(this, Observer {result ->
                         when(result.status){
@@ -154,9 +154,7 @@ class UbahProfileMidwiveActivity : BaseActivity() {
                             Result.Status.SUCCESS->{
                                 closeLoadingDialog()
                                 val freshData = result.data!!
-                                var user = userPref.getUser()
                                 user.profil_picture = freshData.url
-                                userPref.setUser(user)
                                 updateData()
                             }
                             Result.Status.ERROR->{
@@ -173,7 +171,7 @@ class UbahProfileMidwiveActivity : BaseActivity() {
 
     private fun updateData() {
         startLoading()
-        val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(userPref.getUser()))
+        val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(user))
         println("req body : ${requestBody}")
         val call: Call<DataResponse<Any>> = baseApi.updateDataMidwive("${Urls.registerMidwife}/${userPref.getUser().id}",requestBody)
         call.enqueue(object : Callback<DataResponse<Any>> {
