@@ -169,7 +169,7 @@ class MainKiaActivity : BaseActivity() {
             val payload = Payload(
                     ArrayList(listOf(PayloadEntry("image","image"))),
                     ArrayList(listOf(
-                            PayloadEntryMultipart("image","image.jpg",
+                            PayloadEntryMultipart("image","profile_${userPref.getUser().name}.jpg",
                                     RequestBody.create(MediaType.parse("image/jpg"), byteArray))
                     ))
             )

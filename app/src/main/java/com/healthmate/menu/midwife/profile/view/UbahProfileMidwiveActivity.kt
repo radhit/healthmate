@@ -140,7 +140,7 @@ class UbahProfileMidwiveActivity : BaseActivity() {
             val payload = Payload(
                     ArrayList(listOf(PayloadEntry("image","image"))),
                     ArrayList(listOf(
-                            PayloadEntryMultipart("image","image.jpg",
+                            PayloadEntryMultipart("image","profile_${userPref.getUser().name}.jpg",
                                     RequestBody.create(MediaType.parse("image/jpg"), byteArray))
                     ))
             )
@@ -170,13 +170,13 @@ class UbahProfileMidwiveActivity : BaseActivity() {
     }
 
     private fun updateData() {
-        startLoading()
+        showLoadingDialog()
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(user))
         println("req body : ${requestBody}")
         val call: Call<DataResponse<Any>> = baseApi.updateDataMidwive("${Urls.registerMidwife}/${userPref.getUser().id}",requestBody)
         call.enqueue(object : Callback<DataResponse<Any>> {
             override fun onResponse(call: Call<DataResponse<Any>>?, response: Response<DataResponse<Any>>?) {
-                finishLoading()
+                closeLoadingDialog()
                 if (response!!.isSuccessful) {
                     if (response!!.body()!!.responseCode in 200..299){
                         userPref.setUser(user)
@@ -192,7 +192,7 @@ class UbahProfileMidwiveActivity : BaseActivity() {
             }
 
             override fun onFailure(call: Call<DataResponse<Any>>?, t: Throwable?) {
-                finishLoading()
+                closeLoadingDialog()
                 Toast.makeText(this@UbahProfileMidwiveActivity,t!!.message, Toast.LENGTH_LONG).show()
             }
         })
