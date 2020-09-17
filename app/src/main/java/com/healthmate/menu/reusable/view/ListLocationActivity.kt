@@ -21,16 +21,19 @@ import com.healthmate.di.injector
 import com.healthmate.menu.reusable.data.Hospital
 import com.healthmate.menu.reusable.data.Location
 import com.healthmate.menu.reusable.data.MasterViewModel
+import com.healthmate.menu.reusable.data.User
 import kotlinx.android.synthetic.main.activity_list_location.rv_list
 import kotlinx.android.synthetic.main.activity_list_location.tv_loading
 
 class ListLocationActivity : BaseActivity() {
     companion object {
         val EXTRA = "EXTRA"
+        val EXTRA_DATA = "EXTRA_DATA"
         @JvmStatic
-        fun getCallingIntent(activity: Activity, keterangan: String): Intent {
+        fun getCallingIntent(activity: Activity, keterangan: String, data: String = ""): Intent {
             val intent = Intent(activity, ListLocationActivity::class.java)
             intent.putExtra(EXTRA, keterangan)
+            intent.putExtra(EXTRA_DATA, data)
             return intent
         }
     }
@@ -44,6 +47,7 @@ class ListLocationActivity : BaseActivity() {
     var listHospital: ArrayList<Hospital> = ArrayList()
     var cursor: String = ""
     var level = ""
+    var dataMother: User = User()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         this.setTitle("Daftar ${intent.getStringExtra(EXTRA)}")
@@ -52,6 +56,9 @@ class ListLocationActivity : BaseActivity() {
         if(level.equals("kabupaten") || level.equals("kecamatan")){
             getData()
         } else{
+            if (level.equals("rujukan")){
+                dataMother = gson.fromJson(intent.getStringExtra(EXTRA_DATA),User::class.java)
+            }
             getHospital()
         }
     }
@@ -59,13 +66,20 @@ class ListLocationActivity : BaseActivity() {
     private fun getHospital(keterangan: String = "awal") {
         val payload = Payload()
         var level = ""
+        var city = "${userPref.getUser().city!!.name}"
+        var district = "${userPref.getUser().district!!.name}"
         if (!intent.getStringExtra(EXTRA).equals("bidan")){
             level = intent.getStringExtra(EXTRA)
         }
+        if (intent.getStringExtra(EXTRA).equals("rujukan")){
+            city = dataMother.city!!.name
+            district = dataMother.district!!.name
+            level = ""
+        }
         if (keterangan.equals("awal")){
-            payload.url = "${Urls.hospital}?num=50&level=${level}&city=${userPref.getUser().city!!.name}&district=${userPref.getUser().district!!.name}"
+            payload.url = "${Urls.hospital}?num=50&level=${level}&city=${city}&district=${district}"
         } else{
-            payload.url = "${Urls.hospital}?num=50&level=${level}&city=${userPref.getUser().city!!.name}&district=${userPref.getUser().district!!.name}&cursor=${cursor}"
+            payload.url = "${Urls.hospital}?num=50&level=${level}&city=${city}&district=${district}&cursor=${cursor}"
         }
         viewModel.getHospital(payload)
                 .observe(this, Observer {result ->

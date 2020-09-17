@@ -33,8 +33,7 @@ class BerandaFragment : BaseFragment() {
     override fun getViewId(): Int = R.layout.fragment_beranda
     lateinit var adapter: MenuAdapter
     var status_api: Boolean = false //false = api belum selesai
-    var status_checkup: Boolean = false //false = tidak ada checkup/belum rating, true = ada check up
-    var status_rating: Boolean = false //false = tidak ada tanggungan rating, true = ada tanggungan rating
+    var finishedCheckup: Boolean = true
     var checkUp = CheckUpModel()
 
     private val viewModel by lazy {
@@ -63,8 +62,8 @@ class BerandaFragment : BaseFragment() {
                 Glide.with(this).applyDefaultRequestOptions(requestOptionsMom).load(userPref.getUser().profil_picture).into(iv_profile_done)
                 if (!userPref.getUser().covid_status.equals("")){
                     iv_banner.visibility = View.GONE
-                    if (!userPref.getUser().hospital!!.id.equals("")){
-                        tv_checkup.text = "Anda sudah memilih lokasi checkup"
+                    if (!finishedCheckup){
+                        tv_checkup.text = "Anda sedang melakukan pemeriksaan"
                         checkup_inprogress.visibility = View.VISIBLE
                     } else{
                         checkup_inprogress.visibility = View.GONE
@@ -86,15 +85,15 @@ class BerandaFragment : BaseFragment() {
                 createDialog("Anda belum menambah data KIA!")
             } else{
                 if (!userPref.getUser().covid_status.equals("")){
-                    if (userPref.getUser().hospital!!.id.equals("")){
+                    if (finishedCheckup){
                         navigator.checkUp(activity!!)
                     } else{
                         if (tv_checkup.text.toString().equals("Anda sedang melakukan pemeriksaan")){
-                            createDialog("Anda sedang menjalani pemeriksaan")
+                            createDialog("Anda sedang melakukan pemeriksaan")
                         } else if (tv_checkup.text.toString().equals("Anda belum memberikan rating")){
                             createDialog("Anda belum melakukan penilaian",{
                                 openDialogRating()
-                            })
+                            },"HealthMate","Rating Sekarang")
                         } else if (tv_checkup.text.toString().equals("Anda sudah memilih lokasi checkup")){
                             createDialog("Anda sudah memilih lokasi checkup")
                         }
@@ -195,10 +194,12 @@ class BerandaFragment : BaseFragment() {
                                 if (checkUp.object_type.equals("anc")){
                                     tv_checkup.text = "Anda sedang melakukan pemeriksaan"
                                     if (!checkUp.finished){
+                                        finishedCheckup = false
                                         if (checkUp.rating.equals("0")){
                                             tv_checkup.text = "Anda belum memberikan rating"
                                         }
                                     } else{
+                                        finishedCheckup = true
                                         tv_checkup.text = "Periksa Sekarang / Check Up"
                                     }
                                 }
