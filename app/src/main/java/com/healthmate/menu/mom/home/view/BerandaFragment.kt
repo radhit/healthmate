@@ -59,7 +59,7 @@ class BerandaFragment : BaseFragment() {
                 ll_profile_not.visibility = View.GONE
                 tv_nama_done.text = "Pasien\n${user.name}"
                 checkup_inprogress.visibility = View.GONE
-                Glide.with(this).applyDefaultRequestOptions(requestOptionsMom).load(userPref.getUser().profil_picture).into(iv_profile_done)
+                Glide.with(this).applyDefaultRequestOptions(requestOptionsMom).load(userPref.getUser().profile_picture).into(iv_profile_done)
                 if (!userPref.getUser().covid_status.equals("")){
                     iv_banner.visibility = View.GONE
                     if (!finishedCheckup){

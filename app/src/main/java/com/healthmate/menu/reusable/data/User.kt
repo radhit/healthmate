@@ -13,7 +13,7 @@ data class User(
         var covid_checked: Boolean = false,
         var covid_status: String = "",
         var hospital: Hospital? = Hospital(),
-        var profil_picture: String? = "",
+        var profile_picture: String? = "",
         var age: Int? = 0,
         var kia: Kia? = Kia(),
         var city: Location? = Location(),

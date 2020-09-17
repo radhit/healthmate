@@ -27,7 +27,7 @@ class ProfileMidwiveFragment : BaseFragment() {
         tv_phone_number.text = userPref.getUser().phone_number
         tv_nomor_str.text = userPref.getUser().str_number
         tv_tempat_praktik.text = userPref.getUser().hospital!!.name.replaceEmpty("-")
-        Glide.with(this).applyDefaultRequestOptions(requestOptionsMidwife).load(userPref.getUser().profil_picture).into(iv_profile)
+        Glide.with(this).applyDefaultRequestOptions(requestOptionsMidwife).load(userPref.getUser().profile_picture).into(iv_profile)
         btn_logout.setOnClickListener {
             signout()
         }
@@ -42,7 +42,7 @@ class ProfileMidwiveFragment : BaseFragment() {
         tv_phone_number.text = userPref.getUser().phone_number
         tv_nomor_str.text = userPref.getUser().str_number
         tv_tempat_praktik.text = userPref.getUser().hospital!!.name.replaceEmpty("-")
-        Glide.with(this).applyDefaultRequestOptions(requestOptionsMidwife).load(userPref.getUser().profil_picture).into(iv_profile)
+        Glide.with(this).applyDefaultRequestOptions(requestOptionsMidwife).load(userPref.getUser().profile_picture).into(iv_profile)
 
     }
 }

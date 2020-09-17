@@ -49,7 +49,7 @@ class MainPasienMidwifeActivity : BaseActivity() {
 
         })
         tvTitle.text = "Pasien"
-        Glide.with(this).applyDefaultRequestOptions(requestOptionsMidwife).load(userPref.getUser().profil_picture).into(iv_foto)
+        Glide.with(this).applyDefaultRequestOptions(requestOptionsMidwife).load(userPref.getUser().profile_picture).into(iv_foto)
         tv_nama.text = userPref.getUser().name
         tv_status.text = "Nomor STR : ${userPref.getUser().str_number}"
     }

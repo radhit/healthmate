@@ -127,7 +127,7 @@ class UbahProfileMidwiveActivity : BaseActivity() {
             fieldKecamatan.setText("${userPref.getUser().district!!.name}")
             district = userPref.getUser().district!!
         }
-        Glide.with(this).applyDefaultRequestOptions(requestOptionsMidwife).load(userPref.getUser().profil_picture).into(iv_profile)
+        Glide.with(this).applyDefaultRequestOptions(requestOptionsMidwife).load(userPref.getUser().profile_picture).into(iv_profile)
 
     }
 
@@ -140,7 +140,7 @@ class UbahProfileMidwiveActivity : BaseActivity() {
             val payload = Payload(
                     ArrayList(listOf(PayloadEntry("image","image"))),
                     ArrayList(listOf(
-                            PayloadEntryMultipart("image","profile_${userPref.getUser().name}.jpg",
+                            PayloadEntryMultipart("image","profile_${userPref.getUser().id}.jpg",
                                     RequestBody.create(MediaType.parse("image/jpg"), byteArray))
                     ))
             )
@@ -154,7 +154,7 @@ class UbahProfileMidwiveActivity : BaseActivity() {
                             Result.Status.SUCCESS->{
                                 closeLoadingDialog()
                                 val freshData = result.data!!
-                                user.profil_picture = freshData.url
+                                user.profile_picture = freshData.url
                                 updateData()
                             }
                             Result.Status.ERROR->{

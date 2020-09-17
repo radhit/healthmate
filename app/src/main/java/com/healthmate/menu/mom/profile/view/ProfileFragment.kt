@@ -32,7 +32,7 @@ class ProfileFragment : BaseFragment() {
         btn_ubah.setOnClickListener {
             navigator.dataKiaMom(activity!!)
         }
-        Glide.with(this).applyDefaultRequestOptions(requestOptionsMom).load(userPref.getUser().profil_picture).into(iv_profile)
+        Glide.with(this).applyDefaultRequestOptions(requestOptionsMom).load(userPref.getUser().profile_picture).into(iv_profile)
 
     }
 
@@ -40,7 +40,7 @@ class ProfileFragment : BaseFragment() {
         super.onResume()
         tv_name.text = userPref.getUser().name
         tv_phone_number.text = userPref.getUser().phone_number
-        Glide.with(this).applyDefaultRequestOptions(requestOptionsMom).load(userPref.getUser().profil_picture).into(iv_profile)
+        Glide.with(this).applyDefaultRequestOptions(requestOptionsMom).load(userPref.getUser().profile_picture).into(iv_profile)
 
     }
 }

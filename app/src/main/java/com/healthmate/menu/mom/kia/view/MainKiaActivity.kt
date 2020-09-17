@@ -82,7 +82,7 @@ class MainKiaActivity : BaseActivity() {
         keterangan = intent.getStringExtra(EXTRA_KETERANGAN)
         if (keterangan.equals("mother")){
             fieldNama.setText("${userPref.getUser().name}")
-            Glide.with(this).applyDefaultRequestOptions(requestOptionsMom).load(userPref.getUser().profil_picture).into(iv_profile)
+            Glide.with(this).applyDefaultRequestOptions(requestOptionsMom).load(userPref.getUser().profile_picture).into(iv_profile)
 
             if (userPref.getUser().kia!=null){
                 dataKia = userPref.getUser().kia!!
@@ -99,7 +99,7 @@ class MainKiaActivity : BaseActivity() {
             fieldNama.setText("${user.name}")
             setData()
             midwife_create.visibility = View.GONE
-            Glide.with(this).applyDefaultRequestOptions(requestOptionsMom).load(user.profil_picture).into(iv_profile)
+            Glide.with(this).applyDefaultRequestOptions(requestOptionsMom).load(user.profile_picture).into(iv_profile)
         }
         btn_simpan.setOnClickListener {
             if (isValid()){
@@ -116,7 +116,7 @@ class MainKiaActivity : BaseActivity() {
                 if (changeImage){
                     uploadFoto()
                 } else{
-                    if (!keterangan.equals("mother")){
+                    if (keterangan.equals("mother")){
                         updateData()
                     } else{
                         createData()
@@ -169,7 +169,7 @@ class MainKiaActivity : BaseActivity() {
             val payload = Payload(
                     ArrayList(listOf(PayloadEntry("image","image"))),
                     ArrayList(listOf(
-                            PayloadEntryMultipart("image","profile_${userPref.getUser().name}.jpg",
+                            PayloadEntryMultipart("image","profile_${userPref.getUser().id}.jpg",
                                     RequestBody.create(MediaType.parse("image/jpg"), byteArray))
                     ))
             )
@@ -182,8 +182,8 @@ class MainKiaActivity : BaseActivity() {
                             Result.Status.SUCCESS->{
                                 closeLoadingDialog()
                                 val freshData = result.data!!
-                                user.profil_picture = freshData.url
-                                if (!keterangan.equals("mother")){
+                                user.profile_picture = freshData.url
+                                if (keterangan.equals("mother")){
                                     updateData()
                                 } else{
                                     createData()
@@ -205,11 +205,9 @@ class MainKiaActivity : BaseActivity() {
         startLoading()
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(user))
         var url = ""
-        if (keterangan.equals("mother")){
-            url = "${Urls.registerMother}/${userPref.getUser().id}"
-        } else if (keterangan.equals("midwife_edit")){
-            url = "${Urls.registerMother}/${user.id}"
-        }
+        url = "${Urls.registerMother}/${userPref.getUser().id}"
+//        if (keterangan.equals("mother")){
+//        }
         println("req body : ${requestBody}")
         val call: Call<DataResponse<Any>> = baseApi.updateDataMom(url,requestBody)
         call.enqueue(object : Callback<DataResponse<Any>> {

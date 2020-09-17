@@ -36,7 +36,7 @@ class BerandaMidwiveFragment : BaseFragment() {
         setRecycleView()
         tv_nama.text = "Bidan\n${userPref.getUser().name}"
         iv_banner.visibility = View.GONE
-        Glide.with(this).applyDefaultRequestOptions(requestOptionsMidwife).load(userPref.getUser().profil_picture).into(iv_foto)
+        Glide.with(this).applyDefaultRequestOptions(requestOptionsMidwife).load(userPref.getUser().profile_picture).into(iv_foto)
     }
 
     private fun setRecycleView() {

@@ -36,7 +36,7 @@ class PasienListAdapter(private val mContext: Context) : RecyclerView.Adapter<Pa
         } else if (value.diagnostic_color.equals("green")){
             holder.view.iv_foto.borderColor = getColor(mContext, R.color.md_green_500)
         }
-        Glide.with(mContext).load(value.profil_picture).into(holder.view.iv_foto)
+        Glide.with(mContext).load(value.profile_picture).into(holder.view.iv_foto)
 
 
     }
