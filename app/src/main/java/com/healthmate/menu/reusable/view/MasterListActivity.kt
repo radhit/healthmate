@@ -69,7 +69,27 @@ class MasterListActivity : BaseActivity() {
             getPendidikan()
         } else if (intent.getStringExtra(EXTRA).equals("hospital")){
             getHospital()
+        } else if (intent.getStringExtra(EXTRA).equals("rhesus") || intent.getStringExtra(EXTRA).equals("bta") || intent.getStringExtra(EXTRA).equals("malaria") || intent.getStringExtra(EXTRA).equals("sifilis")){
+            getPlusMin()
+        } else if (intent.getStringExtra(EXTRA).equals("hepatitis") || intent.getStringExtra(EXTRA).equals("hiv")){
+            getHepatitis()
         }
+    }
+
+    private fun getHepatitis() {
+        val arrays: ArrayList<MasterListModel> = arrayListOf()
+        arrays.add(MasterListModel("1","R/+"))
+        arrays.add(MasterListModel("2","NR/-"))
+
+        adapter.updateLists(arrays)
+    }
+
+    private fun getPlusMin() {
+        val arrays: ArrayList<MasterListModel> = arrayListOf()
+        arrays.add(MasterListModel("1","+"))
+        arrays.add(MasterListModel("2","-"))
+
+        adapter.updateLists(arrays)
     }
 
     private fun getHospital() {
