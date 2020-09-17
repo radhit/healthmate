@@ -27,7 +27,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".menu.midwife.pasien.view.FormRiwayatAncActivity"></activity>
+        <activity android:name=".menu.midwife.pasien.view.FormInputAncActivity"></activity>
+        <activity android:name=".menu.midwife.pasien.view.FormRiwayatAncActivity" />
         <activity
             android:name=".menu.midwife.pasien.view.MainDetilPasienActivity"
             android:theme="@style/AppTheme.NoActionBar" />

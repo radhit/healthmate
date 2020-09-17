@@ -41,9 +41,9 @@ class ListPasienHistoryFragment : BaseFragment() {
     private fun getData(keterangan: String) {
         val payload = Payload()
         if (keterangan.equals("load")){
-            payload.url = "${Urls.hospital}/${userPref.getUser().hospital!!.id}/mothers&cursor=${cursor}"
+            payload.url = "${Urls.registerMidwife}/${userPref.getUser().id}/mothers&cursor=${cursor}"
         } else{
-            payload.url = "${Urls.hospital}/${userPref.getUser().hospital!!.id}/mothers"
+            payload.url = "${Urls.registerMidwife}/${userPref.getUser().id}/mothers"
         }
         viewModel.listMother(payload)
                 .observe(this, Observer {result ->

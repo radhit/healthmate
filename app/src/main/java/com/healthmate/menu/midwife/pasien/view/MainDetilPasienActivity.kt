@@ -49,16 +49,16 @@ class MainDetilPasienActivity : BaseActivity() {
 
         })
         tvTitle.text = "Pasien"
-        if (user.diagnostics_color.equals("red")){
+        if (user.diagnostic_color.equals("red")){
             iv_foto.borderColor = ContextCompat.getColor(this, R.color.md_red_500)
-        } else if (user.diagnostics_color.equals("yellow")){
+        } else if (user.diagnostic_color.equals("yellow")){
             iv_foto.borderColor = ContextCompat.getColor(this, R.color.md_yellow_500)
-        } else if (user.diagnostics_color.equals("green")){
+        } else if (user.diagnostic_color.equals("green")){
             iv_foto.borderColor = ContextCompat.getColor(this, R.color.md_green_500)
         }
         Glide.with(this).applyDefaultRequestOptions(requestOptionsMidwife).load(user.profil_picture).into(iv_foto)
         tv_nama.text = user.name
-        tv_status.text = "Status Terakhir : ${user.diagnostics_color.replaceEmpty("-")}"
+        tv_status.text = "Status Terakhir : ${user.diagnostic_color.replaceEmpty("-")}"
     }
 
     private fun setupViewPager(){

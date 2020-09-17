@@ -15,6 +15,7 @@ import com.healthmate.common.adapter.RecyclerViewClickListener
 import com.healthmate.common.base.BaseFragment
 import com.healthmate.common.constant.Urls
 import com.healthmate.common.functions.Fun
+import com.healthmate.common.functions.replaceEmpty
 import com.healthmate.commons.helper.EndlessScrollListener
 import com.healthmate.di.injector
 import com.healthmate.menu.midwife.pasien.data.PasienViewModel
@@ -60,11 +61,14 @@ class DataAncFragment : BaseFragment() {
         setRecycleView()
         getDataMother()
         btn_data_riwayat.setOnClickListener {
-            if (dataPasien.hpht.equals("")){
+            if (dataPasien.anc_history.id.equals("")){
                 navigator.formHistoryAnc(activity!!, "insert",gson.toJson(dataPasien))
             } else{
                 navigator.formHistoryAnc(activity!!, "edit",gson.toJson(dataPasien))
             }
+        }
+        btn_pemeriksaan.setOnClickListener {
+            navigator.formInputAnc(activity!!, gson.toJson(dataPasien))
         }
     }
 
@@ -80,6 +84,11 @@ class DataAncFragment : BaseFragment() {
                         Result.Status.SUCCESS->{
                             finishLoading()
                             dataPasien = result.data!!
+                            if (dataPasien.anc_history.id.equals("")){
+                                btn_data_riwayat.text = "Tambah Data Riwayat"
+                            } else{
+                                btn_data_riwayat.text = "Ubah Data Riwayat"
+                            }
                             setHistoryView()
                             getData("awal")
                         }
@@ -92,21 +101,21 @@ class DataAncFragment : BaseFragment() {
     }
 
     private fun setHistoryView() {
-        tv_hpht.text = dataPasien.hpht
-        tv_hpl.text = dataPasien.hpl
-        tv_kehamilan_ke.text = dataPasien.preg_num
-        tv_total_persalinan.text = dataPasien.labor_num
-        tv_total_keguguran.text = dataPasien.miscarriage_num
-        tv_total_hidup.text = dataPasien.live_child_num
-        tv_jarak.text = dataPasien.prev_child_difference
+        tv_hpht.text = dataPasien.anc_history.hpht.replaceEmpty("-")
+        tv_hpl.text = dataPasien.anc_history.hml.replaceEmpty("-")
+        tv_kehamilan_ke.text = dataPasien.anc_history.preg_num.replaceEmpty("-")
+        tv_total_persalinan.text = dataPasien.anc_history.labor_num.replaceEmpty("-")
+        tv_total_keguguran.text = dataPasien.anc_history.miscarriage_num.replaceEmpty("-")
+        tv_total_hidup.text = dataPasien.anc_history.live_child_num.replaceEmpty("-")
+        tv_jarak.text = dataPasien.anc_history.prev_child_difference.replaceEmpty("-")
     }
 
     private fun getData(keterangan: String) {
         val payload = Payload()
         if (keterangan.equals("load")){
-            payload.url = "${Urls.ancsMom}?mother_id=${userPref.getUser().id}&midwife_id=${userPref.getUser().id}&cursor=${cursor}"
+            payload.url = "${Urls.ancsMom}?mother_id=${dataPasien.id}&midwife_id=${userPref.getUser().id}&cursor=${cursor}"
         } else{
-            payload.url = "${Urls.ancsMom}?mother_id=${userPref.getUser().id}&midwife_id=${userPref.getUser().id}"
+            payload.url = "${Urls.ancsMom}?mother_id=${dataPasien.id}&midwife_id=${userPref.getUser().id}"
         }
         viewModelMaster.getAncs(payload)
                 .observe(this, Observer {result ->

@@ -24,7 +24,6 @@ object Urls {
 
     //MOTHER
     val action = "/actions"
-    val covid = ""
     val ancsMom = "/ancs"
 
     //MIDWIFE

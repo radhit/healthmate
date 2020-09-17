@@ -22,18 +22,18 @@ class PasienListAdapter(private val mContext: Context) : RecyclerView.Adapter<Pa
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val value = lists[position]
-        holder.view.tv_status.text = value.diagnostics_color
+        holder.view.tv_status.text = value.diagnostic_color
         holder.view.tv_nama.text = value.name
         holder.view.tv_alamat.text = "${value.city!!.name} - ${value.district!!.name}"
         holder.view.tv_keterangan.text = "-"
-        if (value.diagnostics_color.equals("")){
+        if (value.diagnostic_color.equals("")){
             holder.view.iv_foto.borderColor = getColor(mContext, R.color.colorPrimary)
             holder.view.tv_status.text = "-"
-        } else if (value.diagnostics_color.equals("red")){
+        } else if (value.diagnostic_color.equals("red")){
             holder.view.iv_foto.borderColor = getColor(mContext, R.color.md_red_500)
-        } else if (value.diagnostics_color.equals("yellow")){
+        } else if (value.diagnostic_color.equals("yellow")){
             holder.view.iv_foto.borderColor = getColor(mContext, R.color.md_yellow_500)
-        } else if (value.diagnostics_color.equals("green")){
+        } else if (value.diagnostic_color.equals("green")){
             holder.view.iv_foto.borderColor = getColor(mContext, R.color.md_green_500)
         }
         Glide.with(mContext).load(value.profil_picture).into(holder.view.iv_foto)

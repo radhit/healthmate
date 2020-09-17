@@ -42,5 +42,6 @@ data class AncModel(
         var other_complaint: String = "",
         var urine_reduction: String = "",
         var age_of_pregnancy: String = "",
-        var number_of_immunitation: String = ""
+        var number_of_immunitation: String = "",
+        var diagnostic_color: String = ""
 )

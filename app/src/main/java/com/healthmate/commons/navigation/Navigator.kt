@@ -6,6 +6,7 @@ import android.content.Intent
 import com.healthmate.menu.auth.view.SigninActivity
 import com.healthmate.menu.auth.view.ValidasiActivity
 import com.healthmate.menu.midwife.main.MainMidwiveActivity
+import com.healthmate.menu.midwife.pasien.view.FormInputAncActivity
 import com.healthmate.menu.midwife.pasien.view.FormRiwayatAncActivity
 import com.healthmate.menu.midwife.pasien.view.MainDetilPasienActivity
 import com.healthmate.menu.midwife.pasien.view.MainPasienMidwifeActivity
@@ -69,8 +70,8 @@ class Navigator @Inject constructor() {
         gotoForResult(activity,MasterListActivity.getCallingIntent(activity,keterangan),response_code)
     }
 
-    fun listLocation(activity: Activity, keterangan:String, response_code: Int){
-        gotoForResult(activity,ListLocationActivity.getCallingIntent(activity,keterangan),response_code)
+    fun listLocation(activity: Activity, keterangan:String, response_code: Int, data: String = ""){
+        gotoForResult(activity,ListLocationActivity.getCallingIntent(activity,keterangan,data),response_code)
     }
 
     fun rapor(activity: Activity){
@@ -97,6 +98,10 @@ class Navigator @Inject constructor() {
 
     fun formHistoryAnc(activity: Activity, keterangan: String, data: String){
         goto(activity, FormRiwayatAncActivity.getCallingIntent(activity, keterangan, data))
+    }
+
+    fun formInputAnc(activity: Activity, data: String){
+        goto(activity,FormInputAncActivity.getCallingIntent(activity,data))
     }
 
 }

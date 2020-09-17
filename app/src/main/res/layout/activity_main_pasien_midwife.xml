@@ -25,6 +25,41 @@
                 android:textColor="@color/textColor"
                 android:gravity="start|center_vertical"/>
         </androidx.appcompat.widget.Toolbar>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:gravity="center">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_foto"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/bidan_on"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/colorPrimary"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="5dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nama Bumil"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorPrimary"
+                    android:id="@+id/tv_nama"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Status : -"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/textColor"
+                    android:id="@+id/tv_status"/>
+            </LinearLayout>
+        </LinearLayout>
         <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"

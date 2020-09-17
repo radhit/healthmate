@@ -65,8 +65,8 @@ class SigninActivity : BaseActivity() {
         }
 
         btn_signin.setOnClickListener {
-            //0811234567890, secret
-            //089789456123, 111222
+            //0811234567890, c2VjcmV0 midwife
+            //089789456123, c2VjcmV0 mother
             if (isValidLogin()){
                 login()
             }

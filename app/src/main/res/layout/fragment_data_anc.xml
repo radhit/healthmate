@@ -48,6 +48,7 @@
                             android:textColor="@color/textColor"
                             android:textStyle="bold"
                             android:id="@+id/tv_hpht"
+                            android:text="-"
                             android:textSize="16sp"/>
                     </LinearLayout>
                     <LinearLayout
@@ -67,6 +68,7 @@
                             android:layout_weight="3"
                             android:textColor="@color/textColor"
                             android:textStyle="bold"
+                            android:text="-"
                             android:id="@+id/tv_hpl"
                             android:textSize="16sp"/>
                     </LinearLayout>
@@ -88,6 +90,7 @@
                             android:id="@+id/tv_kehamilan_ke"
                             android:textColor="@color/textColor"
                             android:textStyle="bold"
+                            android:text="-"
                             android:textSize="16sp"/>
                     </LinearLayout>
                     <LinearLayout
@@ -107,6 +110,7 @@
                             android:layout_weight="3"
                             android:textColor="@color/textColor"
                             android:textStyle="bold"
+                            android:text="-"
                             android:id="@+id/tv_total_persalinan"
                             android:textSize="16sp"/>
                     </LinearLayout>
@@ -127,6 +131,7 @@
                             android:layout_weight="3"
                             android:textColor="@color/textColor"
                             android:textStyle="bold"
+                            android:text="-"
                             android:id="@+id/tv_total_keguguran"
                             android:textSize="16sp"/>
                     </LinearLayout>
@@ -147,6 +152,7 @@
                             android:layout_weight="3"
                             android:textColor="@color/textColor"
                             android:textStyle="bold"
+                            android:text="-"
                             android:id="@+id/tv_total_hidup"
                             android:textSize="16sp"/>
                     </LinearLayout>
@@ -160,13 +166,15 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/textColor"
                         android:id="@+id/tv_jarak"
+                        android:text="-"
                         android:textStyle="bold"
                         android:textSize="16sp"/>
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Data Riwayat"
+                        android:text="Tambah Data Riwayat"
                         android:layout_gravity="right"
+                        android:textAllCaps="false"
                         android:id="@+id/btn_data_riwayat"
                         style="@style/ButtonOrange"/>
                 </LinearLayout>
@@ -182,32 +190,34 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:orientation="vertical">
-                    <RelativeLayout
+                    <LinearLayout
                         xmlns:android="http://schemas.android.com/apk/res/android"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:padding="10dp">
+                        android:padding="10dp"
+                        android:orientation="vertical">
                         <androidx.recyclerview.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:id="@+id/rv_list"/>
+                            android:id="@+id/rv_list"
+                            android:visibility="gone"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
-                            android:visibility="gone"
                             android:id="@+id/tv_loading"
                             android:text="Mohon Tunggu..."/>
-                    </RelativeLayout>
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:textAllCaps="false"
-                        android:layout_marginTop="10dp"
-                        android:textColor="@color/white"
-                        android:id="@+id/btn_pemeriksaan"
-                        android:text="+Tambah Pemeriksaan"/>
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:textAllCaps="false"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/white"
+                            android:id="@+id/btn_pemeriksaan"
+                            android:text="+Tambah Pemeriksaan"/>
+                    </LinearLayout>
+
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>

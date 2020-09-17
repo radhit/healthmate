@@ -22,4 +22,5 @@
     <string name="pertanyaan_covid_5">Apakah anda memiliki riwayat kontak dengan kasus konfirmasi(+)/probable Covid-19 dalam 14 hari terakhir?</string>
     <string name="pertanyaan_covid_6">Apakah anda memberikan perawatan tanpa menggunakan APD sesuai standart/kontak/tatap muka/berdekatan dengan kasus konfirmasi(+)/probable dalam radius 1 meter dan jangka waktu?</string>
 
+    <string name="thanks_midwife">Dengan langkah ini, anda secara langsung ikut berpartisipasi dalam penurunan angka kematian ibu di Indonesia</string>
 </resources>

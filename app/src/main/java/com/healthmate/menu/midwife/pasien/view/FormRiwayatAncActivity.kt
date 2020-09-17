@@ -1,9 +1,9 @@
 package com.healthmate.menu.midwife.pasien.view
 
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -14,18 +14,17 @@ import com.healthmate.api.PayloadEntry
 import com.healthmate.api.Result
 import com.healthmate.common.base.BaseActivity
 import com.healthmate.common.constant.Urls
-import com.healthmate.common.functions.Fun
 import com.healthmate.di.injector
-import com.healthmate.menu.midwife.pasien.data.HistoryAncsModel
 import com.healthmate.menu.midwife.pasien.data.PasienViewModel
+import com.healthmate.menu.reusable.data.AncHistory
 import com.healthmate.menu.reusable.data.User
 import kotlinx.android.synthetic.main.activity_data_riwayat_anc.*
-import kotlinx.android.synthetic.main.fragment_search_pasien.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class FormRiwayatAncActivity : BaseActivity() {
     companion object {
@@ -47,12 +46,13 @@ class FormRiwayatAncActivity : BaseActivity() {
     override fun getView(): Int = R.layout.activity_data_riwayat_anc
     var keterangan: String = ""
     var user: User = User()
-    var historyAncsModel: HistoryAncsModel = HistoryAncsModel()
+    var historyAncsModel: AncHistory = AncHistory()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         keterangan = intent.getStringExtra(EXTRA_KETERANGAN)
+        user = gson.fromJson(intent.getStringExtra(EXTRA),User::class.java)
+        this.setTitle("Data History Anc")
         if (keterangan.equals("edit")){
-            user = gson.fromJson(intent.getStringExtra(EXTRA),User::class.java)
             setData()
         }
         btn_simpan.setOnClickListener {
@@ -65,19 +65,56 @@ class FormRiwayatAncActivity : BaseActivity() {
                 historyAncsModel.live_child_num = fieldJumlahAnakHidup.text.toString()
                 historyAncsModel.prev_child_difference = fieldJarak.text.toString()
                 if (keterangan.equals("edit")){
+                    historyAncsModel.id = user.anc_history.id
                     update()
                 } else{
                     submit()
                 }
             }
         }
+        fieldHPHT.setOnClickListener {
+            callCalender("hpht")
+        }
+        fieldHPL.setOnClickListener {
+            callCalender("hpl")
+        }
+    }
+
+    private fun callCalender(keterangan: String) {
+        val c = Calendar.getInstance()
+        val mYear = c.get(Calendar.YEAR)
+        val mMonth = c.get(Calendar.MONTH)
+        val mDay = c.get(Calendar.DAY_OF_MONTH)
+        val datePickerDialog = DatePickerDialog(this,
+                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                    var tanggal = ""
+                    tanggal = year.toString() + "-"
+                    if (monthOfYear + 1 < 10) {
+                        tanggal = tanggal + "0" + (monthOfYear + 1).toString() + "-"
+                    } else {
+                        tanggal = tanggal + (monthOfYear + 1).toString() + "-"
+                    }
+
+                    if (dayOfMonth < 10) {
+                        tanggal = tanggal + "0" + dayOfMonth.toString()
+                    } else {
+                        tanggal = tanggal + dayOfMonth.toString()
+                    }
+                    if (keterangan.equals("hpht")){
+                        fieldHPHT.setText(tanggal)
+                    } else{
+                        fieldHPL.setText(tanggal)
+                    }
+                }, mYear, mMonth, mDay)
+
+        datePickerDialog.show()
     }
 
     private fun update() {
         showLoadingDialog()
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(historyAncsModel))
         println("req body : ${requestBody}")
-        val call: Call<DataResponse<Any>> = baseApi.updateDataAncsHistory("${Urls.ancsHistory}/${user.id}",requestBody)
+        val call: Call<DataResponse<Any>> = baseApi.updateDataAncsHistory("${Urls.ancsHistory}/${user.anc_history.id}",requestBody)
         call.enqueue(object : Callback<DataResponse<Any>> {
             override fun onResponse(call: Call<DataResponse<Any>>?, response: Response<DataResponse<Any>>?) {
                 closeLoadingDialog()
@@ -105,12 +142,12 @@ class FormRiwayatAncActivity : BaseActivity() {
         val payload = Payload()
         payload.url = "${Urls.registerMother}/${user.id}/anc-history"
         payload.payloads.add(PayloadEntry("hpht",historyAncsModel.hpht!!))
-        payload.payloads.add(PayloadEntry("hpl",historyAncsModel.hml))
-        payload.payloads.add(PayloadEntry("preg_num",historyAncsModel.preg_num))
-        payload.payloads.add(PayloadEntry("labor_num",historyAncsModel.labor_num))
-        payload.payloads.add(PayloadEntry("miscarriage_num",historyAncsModel.miscarriage_num))
-        payload.payloads.add(PayloadEntry("live_child_num",historyAncsModel.live_child_num))
-        payload.payloads.add(PayloadEntry("prev_child_difference",historyAncsModel.prev_child_difference))
+        payload.payloads.add(PayloadEntry("hpl",historyAncsModel.hml!!))
+        payload.payloads.add(PayloadEntry("preg_num",historyAncsModel.preg_num!!))
+        payload.payloads.add(PayloadEntry("labor_num",historyAncsModel.labor_num!!))
+        payload.payloads.add(PayloadEntry("miscarriage_num",historyAncsModel.miscarriage_num!!))
+        payload.payloads.add(PayloadEntry("live_child_num",historyAncsModel.live_child_num!!))
+        payload.payloads.add(PayloadEntry("prev_child_difference",historyAncsModel.prev_child_difference!!))
         viewModel.postDataAncsHistory(payload)
                 .observe(this, Observer {result ->
                     when(result.status){
@@ -132,13 +169,13 @@ class FormRiwayatAncActivity : BaseActivity() {
     }
 
     private fun setData() {
-        fieldHPHT.setText("${user.hpht}")
-        fieldHPL.setText("${user.hpl}")
-        fieldkehamilan.setText("${user.preg_num}")
-        fieldJumlahPersalinan.setText("${user.labor_num}")
-        fieldJumlahKeguguran.setText("${user.miscarriage_num}")
-        fieldJumlahAnakHidup.setText("${user.live_child_num}")
-        fieldJarak.setText("${user.prev_child_difference}")
+        fieldHPHT.setText("${user.anc_history.hpht}")
+        fieldHPL.setText("${user.anc_history.hml}")
+        fieldkehamilan.setText("${user.anc_history.preg_num}")
+        fieldJumlahPersalinan.setText("${user.anc_history.labor_num}")
+        fieldJumlahKeguguran.setText("${user.anc_history.miscarriage_num}")
+        fieldJumlahAnakHidup.setText("${user.anc_history.live_child_num}")
+        fieldJarak.setText("${user.anc_history.prev_child_difference}")
     }
 
     private fun isValid(): Boolean {

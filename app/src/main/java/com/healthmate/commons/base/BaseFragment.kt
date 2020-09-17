@@ -92,10 +92,10 @@ abstract class BaseFragment: Fragment() {
         dialog.show()
     }
 
-    protected fun createDialog(message: String, click: DialogCallback? = null,title: String=resources.getString(R.string.app_name)){
+    protected fun createDialog(message: String, click: DialogCallback? = null,title: String=resources.getString(R.string.app_name), positiveText: String = "OK"){
         val dialog = MaterialDialog(activity!!).title(null,title)
                 .message(null, message)
-                .positiveButton(null,"OK",click).cancelable(false)
+                .positiveButton(null,positiveText,click).cancelable(false)
         dialog.show()
     }
 

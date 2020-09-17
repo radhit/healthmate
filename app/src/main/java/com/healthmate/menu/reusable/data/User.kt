@@ -18,20 +18,22 @@ data class User(
         var kia: Kia? = Kia(),
         var city: Location? = Location(),
         var district: Location? = Location(),
-        var diagnostics_color: String? = "",
+        var diagnostic_color: String? = "",
         var str_number: String? = "",
+        var anc_history: AncHistory = AncHistory()
+)
+
+data class AncHistory(
+        var id: String = "",
         var hpht: String? = "",
-
-        @SerializedName("hml")
-        var hpl: String? = "",
-
+        @SerializedName("hpl")
+        var hml: String? = "",
         var preg_num: String? = "",
         var labor_num: String? = "",
         var miscarriage_num: String? = "",
         var live_child_num: String? = "",
         var prev_child_difference: String? = ""
 )
-
 data class Hospital(
         var id: String = "",
         var name: String = "",

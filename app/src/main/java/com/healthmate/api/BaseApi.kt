@@ -1,8 +1,10 @@
 package com.healthmate.api
 
+import com.healthmate.menu.mom.rapor.data.AncModel
 import com.healthmate.menu.reusable.data.User
 import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface BaseApi {
@@ -17,6 +19,12 @@ interface BaseApi {
 
     @PUT
     fun updateDataAncsHistory(@Url url: String, @Body requestBody: RequestBody): Call<DataResponse<Any>>
+
+    @POST
+    fun validatorAnc(@Url url: String, @Body requestBody: RequestBody): Call<DataResponse<AncModel>>
+
+    @POST
+    fun inputFormAnc(@Url url: String, @Body requestBody: RequestBody): Call<DataResponse<Any>>
 
     @POST
     fun changeCovidStatus(@Url url: String, @Body requestBody: RequestBody): Call<DataResponse<User>>
