@@ -8,4 +8,8 @@ class BerandaRepository @Inject constructor(private val berandaRemoteDataSource:
     fun statusCheckUp(payload: Payload) = resultLiveDataNoDao(
             networkCall ={berandaRemoteDataSource.statusCheckUp(payload)}
     )
+
+    fun postRating(payload: Payload) = resultLiveDataNoDao (
+            networkCall = {berandaRemoteDataSource.postRating(payload)}
+    )
 }

@@ -1,7 +1,12 @@
 package com.healthmate.menu.mom.home.view
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.View
+import android.view.Window
+import android.widget.Button
+import android.widget.RatingBar
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -85,17 +90,19 @@ class BerandaFragment : BaseFragment() {
                 createDialog("Anda belum menambah data KIA!")
             } else{
                 if (!userPref.getUser().covid_status.equals("")){
-                    if (finishedCheckup){
-                        navigator.checkUp(activity!!)
-                    } else{
-                        if (tv_checkup.text.toString().equals("Anda sedang melakukan pemeriksaan")){
-                            createDialog("Anda sedang melakukan pemeriksaan")
-                        } else if (tv_checkup.text.toString().equals("Anda belum memberikan rating")){
-                            createDialog("Anda belum melakukan penilaian",{
-                                openDialogRating()
-                            },"HealthMate","Rating Sekarang")
-                        } else if (tv_checkup.text.toString().equals("Anda sudah memilih lokasi checkup")){
-                            createDialog("Anda sudah memilih lokasi checkup")
+                    if (status_api){
+                        if (finishedCheckup){
+                            navigator.checkUp(activity!!)
+                        } else{
+                            if (tv_checkup.text.toString().equals("Anda sedang melakukan pemeriksaan")){
+                                createDialog("Anda sedang melakukan pemeriksaan")
+                            } else if (tv_checkup.text.toString().equals("Anda belum memberikan rating")){
+                                createDialog("Anda belum melakukan penilaian",{
+                                    openDialogRating()
+                                },"HealthMate","Rating Sekarang")
+                            } else if (tv_checkup.text.toString().equals("Anda sudah memilih lokasi checkup")){
+                                createDialog("Anda sudah memilih lokasi checkup")
+                            }
                         }
                     }
                 } else{
@@ -106,7 +113,50 @@ class BerandaFragment : BaseFragment() {
     }
 
     private fun openDialogRating() {
+        val dialog = Dialog(activity!!)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.item_rating)
+        val tv_name = dialog.findViewById(R.id.tv_name) as TextView
+        val tv_hospital = dialog.findViewById(R.id.tv_hospital_name) as TextView
+        val rating = dialog.findViewById(R.id.rating) as RatingBar
+        val btn_rating = dialog.findViewById(R.id.btn_rating) as Button
+        tv_name.text = "Bidan ${checkUp.midwive.name}"
+        tv_hospital.text = checkUp.midwive.hospital!!.name
+        btn_rating.setOnClickListener {
+            checkUp.rating = rating.rating.toInt()
+            submitRating()
+//            rating.rating.toString()
+//            finish()
+            dialog.dismiss()
+        }
 
+        dialog.show()
+    }
+
+    private fun submitRating() {
+        println("data rating : ${checkUp}")
+        val payload = Payload()
+        payload.url = "${Urls.action}/${checkUp.id}/rating"
+        payload.payloads.add(PayloadEntry("value",checkUp.rating.toString()))
+        viewModel.postRating(payload)
+                .observe(this, Observer {result ->
+                    when(result.status){
+                        Result.Status.LOADING->{
+                            startLoading()
+                        }
+                        Result.Status.SUCCESS->{
+                            finishLoading()
+                            createDialog(result.message!!,{
+                                getDataCheckup()
+                            })
+                        }
+                        Result.Status.ERROR->{
+                            finishLoading()
+                            Fun.handleError(activity!!,result)
+                        }
+                    }
+                })
     }
 
     private fun setRecycleView() {
@@ -178,8 +228,10 @@ class BerandaFragment : BaseFragment() {
     }
 
     private fun getDataCheckup() {
+        status_api = false
         val payload = Payload()
         payload.url = "${Urls.action}?num=1&mother_id=${userPref.getUser().id}"
+        tv_checkup.text = "Mohon Tunggu, sedang mengambil data..."
         viewModel.statusCheckUp(payload)
                 .observe(this, Observer {result ->
                     when(result.status){
@@ -190,18 +242,26 @@ class BerandaFragment : BaseFragment() {
                             var data = result.data!!
                             if (data.size>0){
                                 checkUp = data.get(0)
+                                println("data checkup before rating : ${gson.toJson(checkUp)}")
                                 // finished true, udah anc udah rating, finish false, udah isi anc blm rating
                                 if (checkUp.object_type.equals("anc")){
+                                    checkup_inprogress.visibility = View.VISIBLE
                                     tv_checkup.text = "Anda sedang melakukan pemeriksaan"
                                     if (!checkUp.finished){
                                         finishedCheckup = false
-                                        if (checkUp.rating.equals("0")){
+                                        if (checkUp.rating==0){
                                             tv_checkup.text = "Anda belum memberikan rating"
+                                            openDialogRating()
                                         }
                                     } else{
+                                        checkup_inprogress.visibility = View.GONE
                                         finishedCheckup = true
                                         tv_checkup.text = "Periksa Sekarang / Check Up"
                                     }
+                                } else{
+                                    checkup_inprogress.visibility = View.GONE
+                                    finishedCheckup = true
+                                    tv_checkup.text = "Periksa Sekarang / Check Up"
                                 }
                             }
                         }
@@ -211,4 +271,17 @@ class BerandaFragment : BaseFragment() {
                     }
                 })
     }
+
+    private fun finishLoading() {
+        materialDialog?.dismiss()
+    }
+
+    private fun startLoading() {
+        materialDialog = MaterialDialog(activity!!)
+                .title(null,"Mohon Tunggu...")
+                .message(null,"")
+                .noAutoDismiss()
+                .cancelable(false)
+    }
+
 }

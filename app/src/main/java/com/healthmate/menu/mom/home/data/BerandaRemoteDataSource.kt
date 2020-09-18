@@ -10,4 +10,8 @@ class BerandaRemoteDataSource @Inject constructor(private val appService: AppSer
     suspend fun statusCheckUp(payload: Payload) = getResult {
         appService.statusCheckup(payload.url)
     }
+
+    suspend fun postRating(payload: Payload) = getResult {
+        appService.postRatingMother(payload.url,payload.getRequestBody())
+    }
 }
