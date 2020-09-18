@@ -83,6 +83,8 @@ dependencies {
     implementation 'com.xwray:groupie:2.0.3'
     implementation 'com.xwray:groupie-kotlin-android-extensions:2.0.3'
 
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
     //Encryption
     implementation 'com.scottyab:aescrypt:0.0.1'
 

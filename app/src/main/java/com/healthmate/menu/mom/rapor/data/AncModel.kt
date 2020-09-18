@@ -43,5 +43,9 @@ data class AncModel(
         var urine_reduction: String = "",
         var age_of_pregnancy: String = "",
         var number_of_immunitation: String = "",
-        var diagnostic_color: String = ""
+        var diagnostic_color: String = "",
+        var week_of_pregnancy: String = "",
+        var suggested_weight: String = "",
+        var differenced_weight: String = "",
+        var initial_weight: String = ""
 )

@@ -44,4 +44,7 @@ interface AppService {
     @POST
     suspend fun postDataHistoryAncs(@Url url: String, @Body requestBody: RequestBody): Response<DataResponse<Any>>
 
+    @POST
+    suspend fun postRatingMother(@Url url: String, @Body requestBody: RequestBody): Response<DataResponse<Any>>
+
 }

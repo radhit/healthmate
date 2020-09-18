@@ -41,6 +41,19 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
                 android:id="@+id/ll_form">
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputLayoutCustom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Minggu Kehamilan"
+                    android:layout_marginTop="10dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/fieldWeekPregnancy"
+                        android:layout_width="match_parent"
+                        android:padding="10dp"
+                        android:layout_height="50dp"
+                        android:inputType="number"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/TextInputLayoutCustom"
@@ -84,7 +97,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:hint="Sistolik (mmHg)"
-                        android:layout_marginRight="10dp"
                         android:layout_marginTop="10dp">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/fieldSistolik"
@@ -117,11 +129,76 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="Diastolik (mmHg)"
                         android:layout_marginRight="10dp"
+                        android:hint="Berat Badan Awal (kg)"
+                        android:layout_marginTop="10dp">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/fieldBbawal"
+                            android:layout_width="match_parent"
+                            android:padding="10dp"
+                            android:layout_height="50dp"
+                            android:inputType="number"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutCustom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Saran Berat Badan (kg)"
+                        android:layout_marginTop="10dp">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/fieldSuggestedWeight"
+                            android:layout_width="match_parent"
+                            android:padding="10dp"
+                            android:layout_height="50dp"
+                            android:inputType="text"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutCustom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Diastolik (mmHg)"
                         android:layout_marginTop="10dp">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/fieldDiastolik"
+                            android:layout_width="match_parent"
+                            android:padding="10dp"
+                            android:layout_height="50dp"
+                            android:inputType="number"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutCustom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:hint="Perbedaan BB (kg)"
+                        android:layout_marginTop="10dp">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/fieldDifferenceBB"
+                            android:layout_width="match_parent"
+                            android:padding="10dp"
+                            android:layout_height="50dp"
+                            android:inputType="number"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutCustom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Nadi (x/menit)"
+                        android:layout_marginTop="10dp">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/fieldNadi"
                             android:layout_width="match_parent"
                             android:padding="10dp"
                             android:layout_height="50dp"
@@ -151,11 +228,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="Nadi (x/menit)"
-                        android:layout_marginRight="10dp"
+                        android:hint="RR (x/menit)"
                         android:layout_marginTop="10dp">
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/fieldNadi"
+                            android:id="@+id/fieldRr"
                             android:layout_width="match_parent"
                             android:padding="10dp"
                             android:layout_height="50dp"
@@ -177,19 +253,7 @@
                             android:inputType="number"/>
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/TextInputLayoutCustom"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="RR (x/menit)"
-                    android:layout_marginTop="10dp">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/fieldRr"
-                        android:layout_width="match_parent"
-                        android:padding="10dp"
-                        android:layout_height="50dp"
-                        android:inputType="number"/>
-                </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/TextInputLayoutCustom"
                     android:layout_width="match_parent"

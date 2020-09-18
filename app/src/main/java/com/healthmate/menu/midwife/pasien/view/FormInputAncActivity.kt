@@ -215,11 +215,24 @@ class FormInputAncActivity : BaseActivity() {
         ancModel.number_of_immunitation = fieldPemberianImunisasi.text.toString()
         ancModel.return_date = fieldTanggal.text.toString()
         ancModel.message = fieldNasihat.text.toString()
+        ancModel.week_of_pregnancy = fieldWeekPregnancy.text.toString()
+        ancModel.suggested_weight = fieldSuggestedWeight.text.toString()
+        ancModel.differenced_weight = fieldDifferenceBB.text.toString()
+        ancModel.initial_weight = fieldBbawal.text.toString()
     }
 
     private fun isValid(): Boolean {
-        if (fieldKeluhanUtama.text.toString().equals("")){
+        if (fieldWeekPregnancy.text.toString().equals("")){
+            fieldWeekPregnancy.setError("Wajib diisi")
+            return false
+        } else if (fieldDifferenceBB.text.toString().equals("")){
+            fieldDifferenceBB.setError("Wajib diisi")
+            return false
+        } else if (fieldKeluhanUtama.text.toString().equals("")){
             fieldKeluhanUtama.setError("Wajib diisi")
+            return false
+        } else if (fieldSuggestedWeight.text.toString().equals("")){
+            fieldSuggestedWeight.setError("Wajib diisi")
             return false
         } else if (fieldKeluhanLainnya.text.toString().equals("")){
             fieldKeluhanLainnya.setError("Wajib diisi")

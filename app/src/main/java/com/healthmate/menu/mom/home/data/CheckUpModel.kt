@@ -7,7 +7,7 @@ data class CheckUpModel(
         var finished: Boolean = false,
         var object_type: String = "",
         var object_id: String = "",
-        var rating: String = "",
+        var rating: Int = 0,
         var mother: User = User(),
         var midwive: User = User()
 )

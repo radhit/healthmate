@@ -19,6 +19,7 @@ class RaporAdapter(context: Context) : RecyclerView.Adapter<RaporAdapter.ViewHol
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val value = lists[position]
+        holder.view.tv_minggu_ke.text = "Minggu ke ${value.week_of_pregnancy}"
         holder.view.tv_bb.text = "${value.weight} Kg"
         holder.view.tv_tanggal.text = value.date.split("T")[0]
     }
