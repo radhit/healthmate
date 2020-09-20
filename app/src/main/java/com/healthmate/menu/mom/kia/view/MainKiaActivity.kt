@@ -41,6 +41,7 @@ import com.healthmate.api.Result
 import kotlinx.android.synthetic.main.activity_main_kia.fieldNomorHp
 import kotlinx.android.synthetic.main.activity_main_kia.fieldPassword
 import kotlinx.android.synthetic.main.activity_signin.*
+import java.time.LocalDateTime
 
 class MainKiaActivity : BaseActivity() {
     companion object {
@@ -71,6 +72,9 @@ class MainKiaActivity : BaseActivity() {
     lateinit var user : User
 
     var keterangan = ""
+    var dateNow: String = ""
+    var dateHusband: String = ""
+    var dateMother: String = ""
 
 
     private val viewModel by lazy {
@@ -79,6 +83,8 @@ class MainKiaActivity : BaseActivity() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         this.setTitle("Data KIA")
+
+        dateNow = LocalDateTime.now().toString()
         keterangan = intent.getStringExtra(EXTRA_KETERANGAN)
         if (keterangan.equals("mother")){
             fieldNama.setText("${userPref.getUser().name}")
@@ -344,7 +350,7 @@ class MainKiaActivity : BaseActivity() {
     private fun setDataInput() {
         dataKia.nik = fieldNomorKtp.text.toString()
         dataKia.birth_place = fieldTempatLahir.text.toString()
-        dataKia.birth_date = fieldTanggalLahir.text.toString()
+        dataKia.birth_date = dateMother
         dataKia.number_of_pregnancy = fieldHamilKeberapa.text.toString()
         dataKia.last_child_age = fieldUmurAnak.text.toString()
         dataKia.last_education = fieldPendidikan.text.toString()
@@ -354,8 +360,9 @@ class MainKiaActivity : BaseActivity() {
         dataKia.blood_type = fieldGoldarMom.text.toString()
         city.address = fieldAlamat.text.toString()
         district.address = fieldAlamat.text.toString()
-        var husband = Husband(fieldNamaSuami.text.toString(),fieldTempatLahirSuami.text.toString(),fieldTanggalLahirSuami.text.toString(),fieldNomorHpSuami.text.toString(),
-        fieldAgamaSuami.text.toString(),fieldGoldarSuami.text.toString(),fieldPekerjaanSuami.text.toString(),fieldPendidikanSuami.text.toString(),fieldAlamat.text.toString(),city,district)
+        var husband = Husband(fieldNamaSuami.text.toString(),fieldTempatLahirSuami.text.toString(),dateHusband,fieldNomorHpSuami.text.toString(),
+                fieldAgamaSuami.text.toString(),fieldGoldarSuami.text.toString(),fieldPekerjaanSuami.text.toString(),fieldPendidikanSuami.text.toString(),
+                fieldAlamat.text.toString(),city,district)
         dataKia.husband = husband
     }
 
@@ -409,8 +416,10 @@ class MainKiaActivity : BaseActivity() {
                     }
                     if (keterangan.equals("mother")){
                         fieldTanggalLahir.setText(tanggal)
+                        dateMother = "${tanggal}T${dateNow.split("T")[1]}"
                     } else{
                         fieldTanggalLahirSuami.setText(tanggal)
+                        dateHusband = "${tanggal}T${dateNow.split("T")[1]}"
                     }
                 }, mYear, mMonth, mDay)
 

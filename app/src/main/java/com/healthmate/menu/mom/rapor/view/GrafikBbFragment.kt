@@ -41,7 +41,7 @@ class GrafikBbFragment : BaseFragment() {
 
     private fun getData() {
         val payload = Payload()
-        payload.url = "${Urls.ancsMom}?mother_id=${userPref.getUser().id}&num=1"
+        payload.url = "${Urls.ancsMom}?mother_id=${userPref.getUser().id}"
         viewModel.getAncs(payload)
                 .observe(this, Observer {result ->
                     when(result.status){
@@ -74,7 +74,7 @@ class GrafikBbFragment : BaseFragment() {
 
     private fun setData() {
         tv_bb_awal.text = "${dataAnc.initial_weight} Kg"
-        tv_minggu_ke.text = dataAnc.week_of_pregnancy
+        tv_minggu_ke.text = dataAnc.age_of_pregnancy
         tv_bb_now.text = "${dataAnc.weight} Kg"
         tv_perubahan_bb.text = "${dataAnc.differenced_weight} Kg"
         tv_suggested.text = "Suggested Weight\n${dataAnc.suggested_weight} Kg"
@@ -90,8 +90,10 @@ class GrafikBbFragment : BaseFragment() {
             floatNumber = "${position}F"
             floatValue = "${dataAncs[position].weight}F"
             data.add(Entry(floatNumber.toFloat(),floatValue.toFloat()))
-            date.add(dataAncs[position].created_time.split("T")[0])
+            date.add("")
         }
+        println("${data}")
+        println("${date}")
 
         val lineBB = LineDataSet(data, "Berat Badan")
         lineBB.mode = LineDataSet.Mode.CUBIC_BEZIER

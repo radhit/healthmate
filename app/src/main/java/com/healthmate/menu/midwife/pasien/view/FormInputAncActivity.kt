@@ -46,17 +46,20 @@ class FormInputAncActivity : BaseActivity() {
     var ancModel: AncModel = AncModel()
     var mother: User = User()
     var hospital: Hospital = Hospital()
+    var dateNow: String = ""
+    var dateComeback: String = ""
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         this.setTitle("Form ANC")
         mother = gson.fromJson(intent.getStringExtra(EXTRA),User::class.java)
-        val current = LocalDateTime.now()
         ll_form.visibility = View.VISIBLE
         ll_hospital.visibility = View.GONE
 
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS")
-        val formatted = current.format(formatter)
-        tv_tanggal.text = formatted.split(" ")[0]
+        dateNow = LocalDateTime.now().toString()
+//        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX")
+//        dateNow = current.format(formatter)
+        println("date comeback : ${dateNow}")
+        tv_tanggal.text = dateNow.split("T")[0]
         fieldGoldar.setOnClickListener {
             navigator.dataMaster(this,"goldar",1)
         }
@@ -182,7 +185,7 @@ class FormInputAncActivity : BaseActivity() {
     private fun setData() {
         ancModel.mother_id = mother.id
         ancModel.midwife_id = userPref.getUser().id
-        ancModel.date = tv_tanggal.text.toString()
+        ancModel.date = dateNow
         ancModel.complaint = fieldKeluhanUtama.text.toString()
         ancModel.other_complaint = fieldKeluhanLainnya.text.toString()
         ancModel.sistolik = fieldSistolik.text.toString()
@@ -213,19 +216,20 @@ class FormInputAncActivity : BaseActivity() {
         ancModel.diagnostic = fieldDiagnosa.text.toString()
         ancModel.therapy = fieldTerapi.text.toString()
         ancModel.number_of_immunitation = fieldPemberianImunisasi.text.toString()
-        ancModel.return_date = fieldTanggal.text.toString()
+        ancModel.return_date = dateComeback
         ancModel.message = fieldNasihat.text.toString()
-        ancModel.week_of_pregnancy = fieldWeekPregnancy.text.toString()
+//        ancModel.week_of_pregnancy = fieldWeekPregnancy.text.toString()
         ancModel.suggested_weight = fieldSuggestedWeight.text.toString()
         ancModel.differenced_weight = fieldDifferenceBB.text.toString()
         ancModel.initial_weight = fieldBbawal.text.toString()
     }
 
     private fun isValid(): Boolean {
-        if (fieldWeekPregnancy.text.toString().equals("")){
-            fieldWeekPregnancy.setError("Wajib diisi")
-            return false
-        } else if (fieldDifferenceBB.text.toString().equals("")){
+//        if (fieldWeekPregnancy.text.toString().equals("")){
+//            fieldWeekPregnancy.setError("Wajib diisi")
+//            return false
+//        } else
+        if (fieldDifferenceBB.text.toString().equals("")){
             fieldDifferenceBB.setError("Wajib diisi")
             return false
         } else if (fieldKeluhanUtama.text.toString().equals("")){
@@ -348,7 +352,9 @@ class FormInputAncActivity : BaseActivity() {
                     } else {
                         tanggal = tanggal + dayOfMonth.toString()
                     }
+                    dateComeback = "${tanggal}T${dateNow.split("T")[1]}"
                     fieldTanggal.setText(tanggal)
+                    println("date comeback : ${dateComeback}")
 
                 }, mYear, mMonth, mDay)
 
