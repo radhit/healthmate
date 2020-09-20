@@ -31,7 +31,6 @@ class CheckupActivity : BaseActivity() {
         }
     }
     var currentHospital: String = ""
-    var choosedHospital: String = ""
     override fun getView(): Int = R.layout.activity_checkup
     var hospital = Hospital()
 

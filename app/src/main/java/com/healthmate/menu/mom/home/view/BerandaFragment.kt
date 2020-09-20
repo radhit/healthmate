@@ -7,6 +7,7 @@ import android.view.Window
 import android.widget.Button
 import android.widget.RatingBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,13 +24,22 @@ import com.healthmate.common.base.BaseFragment
 import com.healthmate.common.functions.Fun
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import com.healthmate.api.DataResponse
 import com.healthmate.common.constant.Urls
 import com.healthmate.di.injector
 import com.healthmate.menu.mom.home.data.BerandaViewModel
 import com.healthmate.menu.mom.home.data.CheckUpModel
+import com.healthmate.menu.reusable.data.Hospital
+import com.healthmate.menu.reusable.data.MasterViewModel
 import com.healthmate.menu.reusable.data.Menu
 import com.healthmate.menu.reusable.data.User
 import kotlinx.android.synthetic.main.fragment_beranda.*
+import kotlinx.android.synthetic.main.fragment_data_anc.*
+import okhttp3.MediaType
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 
 class BerandaFragment : BaseFragment() {
@@ -45,58 +55,37 @@ class BerandaFragment : BaseFragment() {
         ViewModelProviders.of(this, injector.homeVM()).get(BerandaViewModel::class.java)
     }
 
-
     companion object {
         fun newInstance(): BerandaFragment = BerandaFragment()
     }
 
     override fun onFragmentCreated(savedInstanceState: Bundle?) {
         setRecycleView()
-        if (userPref.getUser()!=null){
-            if (userPref.getUser().city!=null && userPref.getUser().city!!.name.equals("")){
-                ll_profile_done.visibility = View.GONE
-                ll_profile_not.visibility = View.VISIBLE
-                tv_nama_not.text = "Hei, ${user.name}"
-                iv_banner.visibility = View.GONE
-                checkup_inprogress.visibility = View.GONE
-            } else{
-                ll_profile_done.visibility = View.VISIBLE
-                ll_profile_not.visibility = View.GONE
-                tv_nama_done.text = "Pasien\n${user.name}"
-                checkup_inprogress.visibility = View.GONE
-                Glide.with(this).applyDefaultRequestOptions(requestOptionsMom).load(userPref.getUser().profile_picture).into(iv_profile_done)
-                if (!userPref.getUser().covid_status.equals("")){
-                    iv_banner.visibility = View.GONE
-                    if (!userPref.getUser().hospital!!.id.equals("")){
-                        checkup_inprogress.visibility = View.VISIBLE
-                        tv_checkup.text = "Anda sudah memilih lokasi checkup"
-                        getDataCheckup()
-                    } else{
-                        tv_checkup.text = "Periksa Sekarang / Check Up"
-                        checkup_inprogress.visibility = View.GONE
-                    }
-                } else{
-                    iv_banner.visibility = View.VISIBLE
-                }
-            }
-        }
+        setTampilan()
         tv_update.setOnClickListener {
             navigator.dataKiaMom(activity!!)
         }
         iv_banner.setOnClickListener {
             navigator.screeningCovid(activity!!)
         }
-        ll_checkup.setOnClickListener {
+        getDataCheckup()
+        cv_checkup.setOnClickListener {
+            println("masuk sini 0")
             if (userPref.getUser().city!=null && userPref.getUser().city!!.name.equals("")){
                 createDialog("Anda belum menambah data KIA!")
             } else{
                 if (!userPref.getUser().covid_status.equals("")){
                     if (status_api){
-                        if (finishedCheckup){
-                            navigator.checkUp(activity!!)
+                        if (userPref.getUser().hospital!!.id.equals("")){
+                            if (checkUp.next_hospital!!.id.equals("")){
+                                println("masuk sini 1")
+                                navigator.checkUp(activity!!)
+                            } else{
+                                dialogSuggestion()
+                            }
                         } else{
-                            if (tv_checkup.text.toString().equals("Anda sedang melakukan pemeriksaan")){
-                                createDialog("Anda sedang melakukan pemeriksaan")
+                            if (tv_checkup.text.toString().equals("Anda sudah memilih lokasi checkup")){
+                                createDialog("Anda sudah memilih lokasi checkup")
                             } else if (tv_checkup.text.toString().equals("Anda belum memberikan rating")){
                                 createDialog("Anda belum melakukan penilaian",{
                                     openDialogRating()
@@ -105,12 +94,57 @@ class BerandaFragment : BaseFragment() {
                                 createDialog("Anda sudah memilih lokasi checkup")
                             }
                         }
+                    } else{
+                        createDialog("Sedang mengambil data")
                     }
                 } else{
                     createDialog("Anda belum melakukan cek status covid!")
                 }
             }
         }
+    }
+
+    private fun dialogSuggestion() {
+        val dialog = MaterialDialog(activity!!).title(null,"HealthMate")
+                .message(null, "Apakah anda ingin melakukan pemeriksaan rujukan bidan sebelumnya?")
+                .positiveButton(null,"Ya",{
+                    var user = userPref.getUser()
+                    user.hospital = checkUp.next_hospital
+                    userPref.setUser(user)
+                    submitHospital()
+                })
+                .negativeButton(null, "Tidak",{
+                    navigator.checkUp(activity!!)
+                }).cancelable(true)
+        dialog.show()
+    }
+
+    private fun submitHospital() {
+        startLoading()
+        val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(userPref.getUser()))
+        println("req body : ${requestBody}")
+        val call: Call<DataResponse<Any>> = baseApi.updateDataMom("${Urls.registerMother}/${userPref.getUser().id}",requestBody)
+        call.enqueue(object : Callback<DataResponse<Any>> {
+            override fun onResponse(call: Call<DataResponse<Any>>?, response: Response<DataResponse<Any>>?) {
+                finishLoading()
+                if (response!!.isSuccessful) {
+                    if (response!!.body()!!.responseCode in 200..299){
+                        createDialog(response.body()!!.message,{
+                            setTampilan()
+                        })
+                    } else{
+                        createDialog(response.body()!!.message)
+                    }
+                } else {
+                    Toast.makeText(activity!!,"Terjadi kesalahan", Toast.LENGTH_LONG).show()
+                }
+            }
+
+            override fun onFailure(call: Call<DataResponse<Any>>?, t: Throwable?) {
+                finishLoading()
+                Toast.makeText(activity!!,t!!.message, Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     private fun openDialogRating() {
@@ -149,7 +183,12 @@ class BerandaFragment : BaseFragment() {
                         Result.Status.SUCCESS->{
                             finishLoading()
                             createDialog(result.message!!,{
-                                getDataCheckup()
+                                var hospital = Hospital()
+                                var user = userPref.getUser()
+                                user.hospital = hospital
+                                userPref.setUser(user)
+                                checkup_inprogress.visibility = View.GONE
+                                tv_checkup.text = "Periksa Sekarang / Check Up"
                             })
                         }
                         Result.Status.ERROR->{
@@ -201,16 +240,23 @@ class BerandaFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
+        setTampilan()
+    }
+
+    private fun setTampilan() {
         if (userPref.getUser()!=null){
             if (userPref.getUser().city!=null && userPref.getUser().city!!.name.equals("")){
                 ll_profile_done.visibility = View.GONE
                 ll_profile_not.visibility = View.VISIBLE
-                tv_nama_not.text = "Hei, ${userPref.getUser().name}"
+                tv_nama_not.text = "Hei, ${user.name}"
                 iv_banner.visibility = View.GONE
+                checkup_inprogress.visibility = View.GONE
             } else{
                 ll_profile_done.visibility = View.VISIBLE
                 ll_profile_not.visibility = View.GONE
-                tv_nama_done.text = "Pasien\n${userPref.getUser().name}"
+                tv_nama_done.text = "Pasien\n${user.name}"
+                checkup_inprogress.visibility = View.GONE
+                Glide.with(this).applyDefaultRequestOptions(requestOptionsMom).load(userPref.getUser().profile_picture).into(iv_profile_done)
                 if (!userPref.getUser().covid_status.equals("")){
                     iv_banner.visibility = View.GONE
                     if (!userPref.getUser().hospital!!.id.equals("")){
@@ -232,7 +278,7 @@ class BerandaFragment : BaseFragment() {
         status_api = false
         val payload = Payload()
         payload.url = "${Urls.action}?num=1&mother_id=${userPref.getUser().id}"
-        tv_checkup.text = "Mohon Tunggu, sedang mengambil data..."
+//        tv_checkup.text = "Mohon Tunggu, sedang mengambil data..."
         viewModel.statusCheckUp(payload)
                 .observe(this, Observer {result ->
                     when(result.status){
@@ -243,26 +289,12 @@ class BerandaFragment : BaseFragment() {
                             var data = result.data!!
                             if (data.size>0){
                                 checkUp = data.get(0)
-                                println("data checkup before rating : ${gson.toJson(checkUp)}")
-                                // finished true, udah anc udah rating, finish false, udah isi anc blm rating
-                                if (checkUp.object_type.equals("anc")){
-                                    checkup_inprogress.visibility = View.VISIBLE
-                                    tv_checkup.text = "Anda sedang melakukan pemeriksaan"
-                                    if (!checkUp.finished){
-                                        finishedCheckup = false
-                                        if (checkUp.rating==0){
-                                            tv_checkup.text = "Anda belum memberikan rating"
-                                            openDialogRating()
-                                        }
-                                    } else{
-                                        checkup_inprogress.visibility = View.GONE
-                                        finishedCheckup = true
-                                        tv_checkup.text = "Periksa Sekarang / Check Up"
+                                if (!checkUp.finished){
+                                    finishedCheckup = false
+                                    if (checkUp.rating==0){
+                                        tv_checkup.text = "Anda belum memberikan rating"
+                                        openDialogRating()
                                     }
-                                } else{
-                                    checkup_inprogress.visibility = View.GONE
-                                    finishedCheckup = true
-                                    tv_checkup.text = "Periksa Sekarang / Check Up"
                                 }
                             }
                         }

@@ -106,6 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:id="@+id/cv_checkup"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="7dp"
                 android:layout_marginRight="7dp"
@@ -118,7 +119,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:padding="10dp"
-                        android:id="@+id/ll_checkup"
                         android:gravity="center">
                         <ImageView
                             android:layout_width="50dp"
