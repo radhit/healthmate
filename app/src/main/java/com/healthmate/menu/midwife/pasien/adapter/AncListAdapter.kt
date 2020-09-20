@@ -24,7 +24,7 @@ class AncListAdapter(private val mContext: Context) : RecyclerView.Adapter<AncLi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val value = lists[position]
-        holder.view.tv_tanggal.text = "${value.created_time.split("T")[0]} - ${value.created_time.split("T")[1]}"
+        holder.view.tv_tanggal.text = "${value.created_time.split("T")[0]} - ${value.created_time.split("T")[1].split("+")[0]}"
 
     }
 

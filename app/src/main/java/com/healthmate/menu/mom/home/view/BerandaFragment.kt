@@ -67,12 +67,13 @@ class BerandaFragment : BaseFragment() {
                 Glide.with(this).applyDefaultRequestOptions(requestOptionsMom).load(userPref.getUser().profile_picture).into(iv_profile_done)
                 if (!userPref.getUser().covid_status.equals("")){
                     iv_banner.visibility = View.GONE
-                    if (!finishedCheckup){
-                        tv_checkup.text = "Anda sedang melakukan pemeriksaan"
+                    if (!userPref.getUser().hospital!!.id.equals("")){
                         checkup_inprogress.visibility = View.VISIBLE
+                        tv_checkup.text = "Anda sudah memilih lokasi checkup"
+                        getDataCheckup()
                     } else{
-                        checkup_inprogress.visibility = View.GONE
                         tv_checkup.text = "Periksa Sekarang / Check Up"
+                        checkup_inprogress.visibility = View.GONE
                     }
                 } else{
                     iv_banner.visibility = View.VISIBLE
@@ -115,7 +116,7 @@ class BerandaFragment : BaseFragment() {
     private fun openDialogRating() {
         val dialog = Dialog(activity!!)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(false)
+        dialog.setCancelable(true)
         dialog.setContentView(R.layout.item_rating)
         val tv_name = dialog.findViewById(R.id.tv_name) as TextView
         val tv_hospital = dialog.findViewById(R.id.tv_hospital_name) as TextView
