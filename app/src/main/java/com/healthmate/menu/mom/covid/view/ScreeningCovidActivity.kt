@@ -73,9 +73,7 @@ class ScreeningCovidActivity : BaseActivity() {
                     if (response!!.body()!!.responseCode in 200..299){
                         var user = response.body()!!.data
                         userPref.setUser(user!!)
-                        createDialog(response.body()!!.message,{
-                            finish()
-                        })
+                        finish()
                     } else{
                         createDialog(response.body()!!.message)
                     }

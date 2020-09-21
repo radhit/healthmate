@@ -82,9 +82,7 @@ class CheckupActivity : BaseActivity() {
                 finishLoading()
                 if (response!!.isSuccessful) {
                     if (response!!.body()!!.responseCode in 200..299){
-                        createDialog(response.body()!!.message,{
-                            finish()
-                        })
+                        finish()
                     } else{
                         createDialog(response.body()!!.message)
                     }
