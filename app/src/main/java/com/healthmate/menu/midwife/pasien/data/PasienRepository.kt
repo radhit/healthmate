@@ -12,4 +12,12 @@ class PasienRepository @Inject constructor(private val pasienRemoteDataSource: P
     fun postDataAncsHistory(payload: Payload) = resultLiveDataNoDao(
             networkCall = {pasienRemoteDataSource.postDataAncsHistory(payload)}
     )
+
+    fun getDataKala(payload: Payload) = resultLiveDataNoDao (
+            networkCall = {pasienRemoteDataSource.getDataKala(payload)}
+    )
+
+    fun getInc(payload: Payload) = resultLiveDataNoDao (
+            networkCall = {pasienRemoteDataSource.getDataInc(payload)}
+    )
 }

@@ -24,7 +24,7 @@ interface BaseApi {
     fun validatorAnc(@Url url: String, @Body requestBody: RequestBody): Call<DataResponse<AncModel>>
 
     @POST
-    fun inputFormAnc(@Url url: String, @Body requestBody: RequestBody): Call<DataResponse<Any>>
+    fun inputForm(@Url url: String, @Body requestBody: RequestBody): Call<DataResponse<Any>>
 
     @POST
     fun changeCovidStatus(@Url url: String, @Body requestBody: RequestBody): Call<DataResponse<User>>

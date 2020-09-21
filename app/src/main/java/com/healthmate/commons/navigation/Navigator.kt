@@ -6,10 +6,7 @@ import android.content.Intent
 import com.healthmate.menu.auth.view.SigninActivity
 import com.healthmate.menu.auth.view.ValidasiActivity
 import com.healthmate.menu.midwife.main.MainMidwiveActivity
-import com.healthmate.menu.midwife.pasien.view.FormInputAncActivity
-import com.healthmate.menu.midwife.pasien.view.FormRiwayatAncActivity
-import com.healthmate.menu.midwife.pasien.view.MainDetilPasienActivity
-import com.healthmate.menu.midwife.pasien.view.MainPasienMidwifeActivity
+import com.healthmate.menu.midwife.pasien.view.*
 import com.healthmate.menu.midwife.profile.view.UbahProfileMidwiveActivity
 import com.healthmate.menu.mom.checkup.view.CheckupActivity
 import com.healthmate.menu.mom.covid.view.ScreeningCovidActivity
@@ -102,6 +99,14 @@ class Navigator @Inject constructor() {
 
     fun formInputAnc(activity: Activity, data: String){
         goto(activity,FormInputAncActivity.getCallingIntent(activity,data))
+    }
+
+    fun mainKalaInc(activity: Activity,type: String, data: String){
+        goto(activity,MainKalaActivity.getCallingIntent(activity,type,data))
+    }
+
+    fun formKalaInc(activity: Activity, type: String, data: String){
+        goto(activity,FormInputKalaActivity.getCallingIntent(activity,type, data))
     }
 
 }

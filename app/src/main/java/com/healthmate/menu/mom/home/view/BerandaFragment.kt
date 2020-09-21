@@ -278,6 +278,7 @@ class BerandaFragment : BaseFragment() {
         status_api = false
         val payload = Payload()
         payload.url = "${Urls.action}?num=1&mother_id=${userPref.getUser().id}"
+        //081456789123
 //        tv_checkup.text = "Mohon Tunggu, sedang mengambil data..."
         viewModel.statusCheckUp(payload)
                 .observe(this, Observer {result ->

@@ -50,16 +50,16 @@ class FormInputAncActivity : BaseActivity() {
     var dateComeback: String = ""
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        this.setTitle("Form ANC")
+        this.setTitle("Formulir ANC")
         mother = gson.fromJson(intent.getStringExtra(EXTRA),User::class.java)
         ll_form.visibility = View.VISIBLE
         ll_hospital.visibility = View.GONE
 
-        dateNow = LocalDateTime.now().toString()
-//        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX")
-//        dateNow = current.format(formatter)
+        var current = LocalDateTime.now().toString()
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        dateNow = current.format(formatter)
         println("date comeback : ${dateNow}")
-        tv_tanggal.text = dateNow.split("T")[0]
+        tv_tanggal.text = dateNow.split(" ")[0]
         fieldGoldar.setOnClickListener {
             navigator.dataMaster(this,"goldar",1)
         }
@@ -106,7 +106,7 @@ class FormInputAncActivity : BaseActivity() {
         showLoadingDialog()
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(ancModel))
         println("req body : ${requestBody}")
-        val call: Call<DataResponse<Any>> = baseApi.inputFormAnc("${Urls.ancsMom}",requestBody)
+        val call: Call<DataResponse<Any>> = baseApi.inputForm("${Urls.ancsMom}",requestBody)
         call.enqueue(object : Callback<DataResponse<Any>> {
             override fun onResponse(call: Call<DataResponse<Any>>?, response: Response<DataResponse<Any>>?) {
                 closeLoadingDialog()
@@ -185,7 +185,7 @@ class FormInputAncActivity : BaseActivity() {
     private fun setData() {
         ancModel.mother_id = mother.id
         ancModel.midwife_id = userPref.getUser().id
-        ancModel.date = dateNow
+        ancModel.date = "${dateNow.split(" ")[0]}T${dateNow.split(" ")[1]}+07:00"
         ancModel.complaint = fieldKeluhanUtama.text.toString()
         ancModel.other_complaint = fieldKeluhanLainnya.text.toString()
         ancModel.sistolik = fieldSistolik.text.toString()
@@ -352,7 +352,7 @@ class FormInputAncActivity : BaseActivity() {
                     } else {
                         tanggal = tanggal + dayOfMonth.toString()
                     }
-                    dateComeback = "${tanggal}T${dateNow.split("T")[1]}"
+                    dateComeback = "${tanggal}T${dateNow.split(" ")[1]}+07:00"
                     fieldTanggal.setText(tanggal)
                     println("date comeback : ${dateComeback}")
 

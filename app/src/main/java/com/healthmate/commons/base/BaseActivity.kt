@@ -6,6 +6,8 @@ import android.os.Environment
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.DialogCallback
 import com.afollestad.materialdialogs.MaterialDialog
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -18,6 +20,8 @@ import com.google.gson.stream.JsonToken
 import com.google.gson.stream.JsonWriter
 import com.healthmate.R
 import com.healthmate.api.BaseApi
+import com.healthmate.common.adapter.RecyclerViewClickListener
+import com.healthmate.common.adapter.RecyclerViewTouchListener
 import com.healthmate.common.constant.Urls
 import com.healthmate.common.functions.Fun
 import com.healthmate.common.navigation.Navigator
@@ -238,5 +242,12 @@ abstract class BaseActivity: AppCompatActivity() {
 
     protected fun closeLoadingDialog() {
         materialDialog?.dismiss()
+    }
+
+    fun initiateLinearLayoutRecyclerView(recyclerView: RecyclerView, clickListener: RecyclerViewClickListener?){
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        val mLayoutManager = LinearLayoutManager(this)
+        recyclerView.setLayoutManager(mLayoutManager)
+        recyclerView.addOnItemTouchListener(RecyclerViewTouchListener(this, recyclerView, clickListener))
     }
 }

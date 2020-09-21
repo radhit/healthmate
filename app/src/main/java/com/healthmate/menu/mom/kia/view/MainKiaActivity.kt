@@ -72,7 +72,6 @@ class MainKiaActivity : BaseActivity() {
     lateinit var user : User
 
     var keterangan = ""
-    var dateNow: String = ""
     var dateHusband: String = ""
     var dateMother: String = ""
 
@@ -84,7 +83,6 @@ class MainKiaActivity : BaseActivity() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         this.setTitle("Data KIA")
 
-        dateNow = LocalDateTime.now().toString()
         keterangan = intent.getStringExtra(EXTRA_KETERANGAN)
         if (keterangan.equals("mother")){
             fieldNama.setText("${userPref.getUser().name}")
@@ -224,9 +222,7 @@ class MainKiaActivity : BaseActivity() {
                         if (keterangan.equals("mother")){
                             userPref.setUser(user)
                         }
-                        createDialog(response.body()!!.message,{
-                            finish()
-                        })
+                        finish()
                     } else{
                         createDialog(response.body()!!.message)
                     }
@@ -261,9 +257,7 @@ class MainKiaActivity : BaseActivity() {
                         if (keterangan.equals("mother")){
                             userPref.setUser(user)
                         }
-                        createDialog(response.body()!!.message,{
-                            finish()
-                        })
+                        finish()
                     } else{
                         createDialog(response.body()!!.message)
                     }
@@ -369,7 +363,7 @@ class MainKiaActivity : BaseActivity() {
     private fun setData() {
         fieldNomorKtp.setText("${dataKia.nik}")
         fieldTempatLahir.setText("${dataKia.birth_place}")
-        fieldTanggalLahir.setText("${dataKia.birth_date}")
+        fieldTanggalLahir.setText("${dataKia.birth_date.split("T")[0]}")
         fieldHamilKeberapa.setText("${dataKia.number_of_pregnancy}")
         fieldUmurAnak.setText("${dataKia.last_child_age}")
         fieldPendidikan.setText("${dataKia.last_education}")
@@ -380,7 +374,7 @@ class MainKiaActivity : BaseActivity() {
         if (dataKia.husband!=null){
             fieldNamaSuami.setText("${dataKia.husband!!.name}")
             fieldTempatLahirSuami.setText("${dataKia.husband!!.birth_place}")
-            fieldTanggalLahirSuami.setText("${dataKia.husband!!.birth_date}")
+            fieldTanggalLahirSuami.setText("${dataKia.husband!!.birth_date.split("T")[0]}")
             fieldNomorHpSuami.setText("${dataKia.husband!!.phone_number}")
             fieldAgamaSuami.setText("${dataKia.husband!!.religion}")
             fieldGoldarSuami.setText("${dataKia.husband!!.blood_type}")
@@ -416,10 +410,10 @@ class MainKiaActivity : BaseActivity() {
                     }
                     if (keterangan.equals("mother")){
                         fieldTanggalLahir.setText(tanggal)
-                        dateMother = "${tanggal}T${dateNow.split("T")[1]}"
+                        dateMother = "${tanggal}T01:00:00+07:00"
                     } else{
                         fieldTanggalLahirSuami.setText(tanggal)
-                        dateHusband = "${tanggal}T${dateNow.split("T")[1]}"
+                        dateHusband = "${tanggal}T01:00:00+07:00"
                     }
                 }, mYear, mMonth, mDay)
 
