@@ -1,7 +1,6 @@
 package com.healthmate.api
 
-import com.healthmate.menu.midwife.pasien.data.IncKalaModel
-import com.healthmate.menu.midwife.pasien.data.IncModel
+import com.healthmate.menu.midwife.pasien.data.*
 import com.healthmate.menu.mom.home.data.CheckUpModel
 import com.healthmate.menu.mom.rapor.data.AncModel
 import com.healthmate.menu.reusable.data.Gambar
@@ -54,4 +53,13 @@ interface AppService {
 
     @GET
     suspend fun getKala(@Url url: String): Response<DataResponse<List<IncKalaModel>>>
+
+    @GET
+    suspend fun getDataSummary(@Url url: String): Response<DataResponse<Summary>>
+
+    @GET
+    suspend fun getDataBabyNote(@Url url: String): Response<DataResponse<BabyNote>>
+
+    @GET
+    suspend fun getListPnc(@Url url: String): Response<DataResponse<List<PncModel>>>
 }

@@ -109,4 +109,28 @@ class Navigator @Inject constructor() {
         goto(activity,FormInputKalaActivity.getCallingIntent(activity,type, data))
     }
 
+    fun mainSummaryInc(activity: Activity,data: String){
+        goto(activity,MainRingkasanPersalinanActivity.getCallingIntent(activity,data))
+    }
+
+    fun formSummaryInc(activity: Activity,data: String){
+        goto(activity,FormRingkasanPersalinanActivity.getCallingIntent(activity,data))
+    }
+
+    fun mainBabyNoteInc(activity: Activity, data: String){
+        goto(activity,MainCatatanBayiActivity.getCallingIntent(activity,data))
+    }
+
+    fun formBabyNoteInc(activity: Activity, data: String){
+        goto(activity,FormCatatanBayiActivity.getCallingIntent(activity,data))
+    }
+
+    fun mainRujukan(activity: Activity,data: String){
+        goto(activity,FormRujukanActivity.getCallingIntent(activity,data))
+    }
+
+    fun mainBalikanRujukan(activity: Activity, data: String){
+        goto(activity,FormUmpanBalikRujukanActivity.getCallingIntent(activity,data))
+    }
+
 }

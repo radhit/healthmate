@@ -20,7 +20,8 @@ data class User(
         var district: Location? = Location(),
         var diagnostic_color: String? = "",
         var str_number: String? = "",
-        var anc_history: AncHistory = AncHistory()
+        var anc_history: AncHistory = AncHistory(),
+        var next_visit: String? = ""
 )
 
 data class AncHistory(

@@ -26,6 +26,9 @@ interface BaseApi {
     @POST
     fun inputForm(@Url url: String, @Body requestBody: RequestBody): Call<DataResponse<Any>>
 
+    @PUT
+    fun updateForm(@Url url: String, @Body requestBody: RequestBody): Call<DataResponse<Any>>
+
     @POST
     fun changeCovidStatus(@Url url: String, @Body requestBody: RequestBody): Call<DataResponse<User>>
 }

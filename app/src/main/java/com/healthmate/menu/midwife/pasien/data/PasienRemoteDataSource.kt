@@ -21,4 +21,16 @@ class PasienRemoteDataSource @Inject constructor(private val appService: AppServ
     suspend fun getDataInc(payload: Payload) = getResult {
         appService.getInc(payload.url)
     }
+
+    suspend fun getDataSummary(payload: Payload) = getResult {
+        appService.getDataSummary(payload.url)
+    }
+
+    suspend fun getDataBabyNote(payload: Payload) = getResult {
+        appService.getDataBabyNote(payload.url)
+    }
+
+    suspend fun getListPnc(payload: Payload) = getResult {
+        appService.getListPnc(payload.url)
+    }
 }

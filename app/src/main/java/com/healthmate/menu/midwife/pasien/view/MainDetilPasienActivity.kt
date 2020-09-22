@@ -66,6 +66,7 @@ class MainDetilPasienActivity : BaseActivity() {
         viewPagerAdapter.addFragment(DetilPasienFragment.newInstance(gson.toJson(user)),"Data KIA")
         viewPagerAdapter.addFragment(DataAncFragment.newInstance(gson.toJson(user)),"Data ANC")
         viewPagerAdapter.addFragment(MainIncFragment.newInstance(gson.toJson(user)),"Data INC")
+        viewPagerAdapter.addFragment(MainPncFragment.newInstance(gson.toJson(user)),"Data PNC")
         viewPager.adapter = viewPagerAdapter
     }
 }

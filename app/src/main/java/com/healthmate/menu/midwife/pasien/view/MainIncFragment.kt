@@ -67,7 +67,19 @@ class MainIncFragment : BaseFragment() {
         kala_4.setOnClickListener {
             navigator.mainKalaInc(activity!!,"kala-4",gson.toJson(dataMother))
         }
-        getData()
+        btn_ringkasan.setOnClickListener {
+            navigator.mainSummaryInc(activity!!,gson.toJson(dataMother))
+        }
+        btn_catatan_bayi.setOnClickListener {
+            navigator.mainBabyNoteInc(activity!!, gson.toJson(dataMother))
+        }
+        btn_rujukan.setOnClickListener {
+            navigator.mainRujukan(activity!!, gson.toJson(dataMother))
+        }
+        btn_balikan_rujukan.setOnClickListener {
+            navigator.mainBalikanRujukan(activity!!, gson.toJson(dataMother))
+        }
+//        getData()
     }
 
     private fun getData() {
@@ -106,7 +118,7 @@ class MainIncFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        getData()
+//        getData()
     }
 
 }

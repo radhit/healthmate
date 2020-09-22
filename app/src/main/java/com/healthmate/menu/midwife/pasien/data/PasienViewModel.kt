@@ -12,4 +12,10 @@ class PasienViewModel @Inject constructor(private val pasienRepository: PasienRe
     fun getDataKala(payload: Payload) = pasienRepository.getDataKala(payload)
 
     fun getInc(payload: Payload) = pasienRepository.getInc(payload)
+
+    fun getDataSummary(payload: Payload) = pasienRepository.getDataSummary(payload)
+
+    fun getDataBabyNote(payload: Payload) = pasienRepository.getDataBabyNote(payload)
+
+    fun getListPnc(payload: Payload) = pasienRepository.getListPnc(payload)
 }

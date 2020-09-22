@@ -29,6 +29,8 @@ object Urls {
     //MIDWIFE
     val ancsHistory = "/anc-histories"
     val kala = "/kala"
+    val inc = "/incs"
+    val pnc = "/pncs"
 
 
 }

@@ -25,7 +25,7 @@ class PasienListAdapter(private val mContext: Context) : RecyclerView.Adapter<Pa
         holder.view.tv_status.text = value.diagnostic_color
         holder.view.tv_nama.text = value.name
         holder.view.tv_alamat.text = "${value.city!!.name} - ${value.district!!.name}"
-        holder.view.tv_keterangan.text = "-"
+        holder.view.tv_keterangan.text = ""
         if (value.diagnostic_color.equals("")){
             holder.view.iv_foto.borderColor = getColor(mContext, R.color.colorPrimary)
             holder.view.tv_status.text = "-"
