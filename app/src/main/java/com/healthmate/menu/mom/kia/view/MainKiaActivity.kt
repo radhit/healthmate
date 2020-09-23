@@ -416,7 +416,7 @@ class MainKiaActivity : BaseActivity() {
                         dateHusband = "${tanggal}T01:00:00+07:00"
                     }
                 }, mYear, mMonth, mDay)
-
+        datePickerDialog.datePicker.maxDate = Date().time
         datePickerDialog.show()
     }
 

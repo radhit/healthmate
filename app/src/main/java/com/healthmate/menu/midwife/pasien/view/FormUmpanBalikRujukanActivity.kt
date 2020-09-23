@@ -93,7 +93,7 @@ class FormUmpanBalikRujukanActivity : BaseActivity() {
                     }
                     fieldTanggal.setText(tanggal)
                 }, mYear, mMonth, mDay)
-
+        datePickerDialog.datePicker.minDate = Date().time
         datePickerDialog.show()
     }
 

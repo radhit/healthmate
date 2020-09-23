@@ -59,7 +59,7 @@ class FormInputAncActivity : BaseActivity() {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
         dateNow = current.format(formatter)
         println("date comeback : ${dateNow}")
-        tv_tanggal.text = dateNow.split(" ")[0]
+        tv_tanggal.text = dateNow.split("T")[0]
         fieldGoldar.setOnClickListener {
             navigator.dataMaster(this,"goldar",1)
         }
@@ -185,7 +185,7 @@ class FormInputAncActivity : BaseActivity() {
     private fun setData() {
         ancModel.mother_id = mother.id
         ancModel.midwife_id = userPref.getUser().id
-        ancModel.date = "${dateNow.split(" ")[0]}T${dateNow.split(" ")[1]}+07:00"
+        ancModel.date = "${dateNow}+07:00"
         ancModel.complaint = fieldKeluhanUtama.text.toString()
         ancModel.other_complaint = fieldKeluhanLainnya.text.toString()
         ancModel.sistolik = fieldSistolik.text.toString()
@@ -357,7 +357,7 @@ class FormInputAncActivity : BaseActivity() {
                     println("date comeback : ${dateComeback}")
 
                 }, mYear, mMonth, mDay)
-
+        datePickerDialog.datePicker.minDate = Date().time
         datePickerDialog.show()
     }
 
