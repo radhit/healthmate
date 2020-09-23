@@ -37,6 +37,7 @@ class MainRingkasanPersalinanActivity : BaseActivity() {
     var dataMother: User = User()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        this.setTitle("Ringkasan Persalinan")
         dataMother = gson.fromJson(intent.getStringExtra(EXTRA),User::class.java)
         getData()
         btn_edit.setOnClickListener {
@@ -78,5 +79,10 @@ class MainRingkasanPersalinanActivity : BaseActivity() {
         tv_cara_persalinan.text = summary.mode_delivery!!.replaceEmpty("-")
         tv_keadaan_ibu.text = summary.mother_condition!!.replaceEmpty("-")
         tv_keterangan.text = summary.information!!.replaceEmpty("-")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getData()
     }
 }

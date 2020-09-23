@@ -133,4 +133,8 @@ class Navigator @Inject constructor() {
         goto(activity,FormUmpanBalikRujukanActivity.getCallingIntent(activity,data))
     }
 
+    fun formPnc(activity: Activity, data: String){
+        goto(activity,FormPncActivity.getCallingIntent(activity,data))
+    }
+
 }

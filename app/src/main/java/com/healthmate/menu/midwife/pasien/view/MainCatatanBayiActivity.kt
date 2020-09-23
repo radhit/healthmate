@@ -37,6 +37,7 @@ class MainCatatanBayiActivity : BaseActivity() {
     var babyNote: BabyNote = BabyNote()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        this.setTitle("Catatan Bayi")
         dataMother = gson.fromJson(intent.getStringExtra(MainRingkasanPersalinanActivity.EXTRA),User::class.java)
         getData()
         btn_edit.setOnClickListener {
@@ -80,5 +81,10 @@ class MainCatatanBayiActivity : BaseActivity() {
         }
         tv_asuhan.text = asuhan.replaceEmpty("-")
         tv_keterangan.text = babyNote.information.replaceEmpty("-")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getData()
     }
 }

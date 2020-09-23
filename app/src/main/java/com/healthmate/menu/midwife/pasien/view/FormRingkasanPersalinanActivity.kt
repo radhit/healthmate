@@ -36,6 +36,7 @@ class FormRingkasanPersalinanActivity : BaseActivity() {
     var summary: Summary = Summary()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        this.setTitle("Formulir Ringkasan Persalinan")
         summary = gson.fromJson(intent.getStringExtra(EXTRA), Summary::class.java)
         if (!summary.date_birth.equals("")){
             setData()
@@ -108,7 +109,7 @@ class FormRingkasanPersalinanActivity : BaseActivity() {
         showLoadingDialog()
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(summary))
         println("req body : ${requestBody}")
-        val call: Call<DataResponse<Any>> = baseApi.inputForm("${Urls.inc}/${summary.inc_id}/summary",requestBody)
+        val call: Call<DataResponse<Any>> = baseApi.updateForm("${Urls.inc}/${summary.inc_id}/summary",requestBody)
         call.enqueue(object : Callback<DataResponse<Any>> {
             override fun onResponse(call: Call<DataResponse<Any>>?, response: Response<DataResponse<Any>>?) {
                 closeLoadingDialog()

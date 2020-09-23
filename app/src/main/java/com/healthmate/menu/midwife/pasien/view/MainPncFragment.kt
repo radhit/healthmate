@@ -62,7 +62,7 @@ class MainPncFragment : BaseFragment() {
         setRecycleView()
         getData("awal")
         btn_tambah.setOnClickListener {
-
+            navigator.formPnc(activity!!, gson.toJson(dataMother))
         }
     }
 

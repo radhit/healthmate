@@ -31,6 +31,7 @@ class FormCatatanBayiActivity : BaseActivity() {
     var babyNote: BabyNote = BabyNote()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        this.setTitle("Formulir Catatan Bayi")
         babyNote = gson.fromJson(intent.getStringExtra(EXTRA),BabyNote::class.java)
         if (!babyNote.weight.equals("")){
             setData()
@@ -47,7 +48,7 @@ class FormCatatanBayiActivity : BaseActivity() {
         showLoadingDialog()
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(babyNote))
         println("req body : ${requestBody}")
-        val call: Call<DataResponse<Any>> = baseApi.inputForm("${Urls.inc}/${babyNote.inc_id}/baby-note",requestBody)
+        val call: Call<DataResponse<Any>> = baseApi.updateForm("${Urls.inc}/${babyNote.inc_id}/baby-note",requestBody)
         call.enqueue(object : Callback<DataResponse<Any>> {
             override fun onResponse(call: Call<DataResponse<Any>>?, response: Response<DataResponse<Any>>?) {
                 closeLoadingDialog()

@@ -27,7 +27,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".menu.midwife.pasien.view.FormUmpanBalikRujukanActivity"></activity>
+        <activity android:name=".menu.midwife.pasien.view.FormPncActivity"></activity>
+        <activity android:name=".menu.midwife.pasien.view.FormUmpanBalikRujukanActivity" />
         <activity android:name=".menu.midwife.pasien.view.FormRujukanActivity" />
         <activity android:name=".menu.midwife.pasien.view.FormCatatanBayiActivity" />
         <activity android:name=".menu.midwife.pasien.view.MainCatatanBayiActivity" />
