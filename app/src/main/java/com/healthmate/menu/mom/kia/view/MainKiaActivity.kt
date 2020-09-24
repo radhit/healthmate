@@ -195,7 +195,7 @@ class MainKiaActivity : BaseActivity() {
                             }
                             Result.Status.ERROR->{
                                 closeLoadingDialog()
-                                Fun.handleError(this,result)
+                                createDialog(result.message!!)
                             }
                         }
                     })

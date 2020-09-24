@@ -155,7 +155,7 @@ class DataAncFragment : BaseFragment() {
                             tv_loading.visibility = View.VISIBLE
                             rv_list.visibility = View.GONE
                             tv_loading.text = "Data Kosong"
-                            Fun.handleError(activity!!,result)
+                            createDialog(result.message!!)
                         }
                     }
                 })

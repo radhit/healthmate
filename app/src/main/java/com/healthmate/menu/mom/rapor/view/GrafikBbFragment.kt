@@ -66,7 +66,7 @@ class GrafikBbFragment : BaseFragment() {
                             tv_loading.visibility = View.VISIBLE
                             ll_data.visibility = View.GONE
                             tv_loading.text = "Data Kosong"
-                            Fun.handleError(activity!!,result)
+                            createDialog(result.message!!)
                         }
                     }
                 })

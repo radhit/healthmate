@@ -21,7 +21,7 @@ data class User(
         var diagnostic_color: String? = "",
         var str_number: String? = "",
         var anc_history: AncHistory = AncHistory(),
-        var next_visit: String? = ""
+        var return_date: String? = ""
 )
 
 data class AncHistory(

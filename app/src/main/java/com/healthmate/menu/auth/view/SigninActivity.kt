@@ -150,7 +150,7 @@ class SigninActivity : BaseActivity() {
                         }
                         Result.Status.ERROR->{
                             finishLoading("register")
-                            Fun.handleError(this,result)
+                            createDialog(result.message!!)
                         }
                     }
                 })
