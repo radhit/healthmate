@@ -3,6 +3,8 @@ package com.healthmate.menu.reusable.view
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -22,8 +24,7 @@ import com.healthmate.menu.reusable.data.Hospital
 import com.healthmate.menu.reusable.data.Location
 import com.healthmate.menu.reusable.data.MasterViewModel
 import com.healthmate.menu.reusable.data.User
-import kotlinx.android.synthetic.main.activity_list_location.rv_list
-import kotlinx.android.synthetic.main.activity_list_location.tv_loading
+import kotlinx.android.synthetic.main.activity_list_location.*
 
 class ListLocationActivity : BaseActivity() {
     companion object {
@@ -44,14 +45,40 @@ class ListLocationActivity : BaseActivity() {
     var adapter: ListLocationAdapter = ListLocationAdapter()
     var adapterHospital: ListHospitalAdapter = ListHospitalAdapter()
     var list: ArrayList<Location> = ArrayList()
+    var listFull: ArrayList<Location> = ArrayList()
     var listHospital: ArrayList<Hospital> = ArrayList()
+    var listHospitalFull: ArrayList<Hospital> = ArrayList()
     var cursor: String = ""
     var level = ""
     var dataMother: User = User()
+    var search: Boolean = false
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         this.setTitle("Daftar ${intent.getStringExtra(EXTRA)}")
         level = intent.getStringExtra(EXTRA)
+        fieldSearch.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (p0.toString().equals("")){
+                    if (search){
+                        search = false
+                        if (level.equals("kabupaten")||level.equals("kecamatan")){
+                            adapter.lists.clear()
+                            adapter.lists.addAll(listFull)
+                        } else{
+                            adapterHospital.lists.clear()
+                            adapterHospital.lists.addAll(listHospitalFull)
+                        }
+                    }
+                }
+            }
+        })
         setRecycleView()
         if(level.equals("kabupaten") || level.equals("kecamatan")){
             getData()
@@ -61,6 +88,110 @@ class ListLocationActivity : BaseActivity() {
             }
             getHospital()
         }
+        btn_cari.setOnClickListener {
+            if (!fieldSearch.text.toString().equals("")){
+                search = true
+                if (level.equals("kabupaten") || level.equals("kecamatan")){
+                    searchLocation()
+                } else{
+                    search()
+                }
+            }
+        }
+
+    }
+
+    private fun searchLocation() {
+        val payload = Payload()
+        if (level.equals("kabupaten")){
+            payload.url = "${Urls.location}?num=1000&level=city&name=${fieldSearch.text.toString()}"
+        } else{
+            payload.url = "${Urls.location}?num=1000&level=district&name=${fieldSearch.text.toString()}"
+        }
+        viewModel.getLocation(payload)
+                .observe(this, Observer {result ->
+                    when(result.status){
+                        Result.Status.LOADING->{
+                            showLoadingDialog()
+                            tv_loading.visibility = View.GONE
+                            rv_list.visibility = View.GONE
+                        }
+                        Result.Status.SUCCESS->{
+                            closeLoadingDialog()
+                            adapter.lists.clear()
+                            adapter.lists.addAll(result.data!!)
+                            list.clear()
+                            list.addAll(adapter.lists)
+
+                            adapter.notifyDataSetChanged()
+                            if (adapter.lists.size>0){
+                                rv_list.visibility = View.VISIBLE
+                                tv_loading.visibility = View.GONE
+                            } else{
+                                rv_list.visibility = View.GONE
+                                tv_loading.visibility = View.VISIBLE
+                                tv_loading.text = "Data Kosong"
+                            }
+                        }
+                        Result.Status.ERROR->{
+                            closeLoadingDialog()
+                            tv_loading.visibility = View.VISIBLE
+                            rv_list.visibility = View.GONE
+                            tv_loading.text = "Data Kosong"
+                            createDialog(result.message!!)
+                        }
+                    }
+                })
+    }
+
+    private fun search() {
+        val payload = Payload()
+        var level = ""
+        var city = "${userPref.getUser().city!!.name}"
+        var district = "${userPref.getUser().district!!.name}"
+        if (!intent.getStringExtra(EXTRA).equals("bidan")){
+            level = intent.getStringExtra(EXTRA)
+        }
+        if (intent.getStringExtra(EXTRA).equals("rujukan")){
+            city = dataMother.city!!.name
+            district = dataMother.district!!.name
+            level = ""
+        }
+        payload.url = "${Urls.hospital}?num=1000&level=${level}&city=${city}&district=${district}&name=${fieldSearch.text.toString()}"
+        viewModel.getHospital(payload)
+                .observe(this, Observer {result ->
+                    when(result.status){
+                        Result.Status.LOADING->{
+                            showLoadingDialog()
+                            tv_loading.visibility = View.GONE
+                            rv_list.visibility = View.GONE
+                        }
+                        Result.Status.SUCCESS->{
+                            closeLoadingDialog()
+                            adapterHospital.lists.clear()
+                            adapterHospital.lists.addAll(result.data!!)
+                            listHospital.clear()
+                            listHospital.addAll(adapterHospital.lists)
+
+                            adapterHospital.notifyDataSetChanged()
+                            if (adapterHospital.lists.size>0){
+                                rv_list.visibility = View.VISIBLE
+                                tv_loading.visibility = View.GONE
+                            } else{
+                                rv_list.visibility = View.GONE
+                                tv_loading.visibility = View.VISIBLE
+                                tv_loading.text = "Data Kosong"
+                            }
+                        }
+                        Result.Status.ERROR->{
+                            closeLoadingDialog()
+                            tv_loading.visibility = View.VISIBLE
+                            rv_list.visibility = View.GONE
+                            tv_loading.text = "Data Kosong"
+                            createDialog(result.message!!)
+                        }
+                    }
+                })
     }
 
     private fun getHospital(keterangan: String = "awal") {
@@ -85,10 +216,12 @@ class ListLocationActivity : BaseActivity() {
                 .observe(this, Observer {result ->
                     when(result.status){
                         Result.Status.LOADING->{
-                            tv_loading.visibility = View.VISIBLE
+                            showLoadingDialog()
+                            tv_loading.visibility = View.GONE
                             rv_list.visibility = View.GONE
                         }
                         Result.Status.SUCCESS->{
+                            closeLoadingDialog()
                             cursor = result.cursor
                             if (keterangan.equals("load")){
                                 if (result.data!!.size>0){
@@ -97,7 +230,9 @@ class ListLocationActivity : BaseActivity() {
                                     }
                                 }
                                 listHospital.clear()
-                                listHospital.addAll(adapterHospital.lists)
+                                listHospital.addAll(result.data!!)
+                                rv_list.visibility = View.VISIBLE
+                                tv_loading.visibility = View.GONE
 
                                 adapterHospital.notifyDataSetChanged()
                             } else{
@@ -105,7 +240,6 @@ class ListLocationActivity : BaseActivity() {
                                 adapterHospital.lists.addAll(result.data!!)
                                 listHospital.clear()
                                 listHospital.addAll(adapterHospital.lists)
-
                                 adapterHospital.notifyDataSetChanged()
                                 if (adapterHospital.lists.size>0){
                                     rv_list.visibility = View.VISIBLE
@@ -116,12 +250,14 @@ class ListLocationActivity : BaseActivity() {
                                     tv_loading.text = "Data Kosong"
                                 }
                             }
+                            listHospitalFull.addAll(adapterHospital.lists)
                         }
                         Result.Status.ERROR->{
+                            closeLoadingDialog()
                             tv_loading.visibility = View.VISIBLE
                             rv_list.visibility = View.GONE
                             tv_loading.text = "Data Kosong"
-                            Fun.handleError(this,result)
+                            createDialog(result.message!!)
                         }
                     }
                 })
@@ -146,10 +282,12 @@ class ListLocationActivity : BaseActivity() {
                 .observe(this, Observer {result ->
                     when(result.status){
                         Result.Status.LOADING->{
-                            tv_loading.visibility = View.VISIBLE
+                            showLoadingDialog()
+                            tv_loading.visibility = View.GONE
                             rv_list.visibility = View.GONE
                         }
                         Result.Status.SUCCESS->{
+                            closeLoadingDialog()
                             cursor = result.cursor
                             if (keterangan.equals("load")){
                                 if (result.data!!.size>0){
@@ -158,7 +296,9 @@ class ListLocationActivity : BaseActivity() {
                                     }
                                 }
                                 list.clear()
-                                list.addAll(adapter.lists)
+                                list.addAll(result.data!!)
+                                rv_list.visibility = View.VISIBLE
+                                tv_loading.visibility = View.GONE
 
                                 adapter.notifyDataSetChanged()
                             } else{
@@ -177,12 +317,14 @@ class ListLocationActivity : BaseActivity() {
                                     tv_loading.text = "Data Kosong"
                                 }
                             }
+                            listFull.addAll(adapter.lists)
                         }
                         Result.Status.ERROR->{
+                            closeLoadingDialog()
                             tv_loading.visibility = View.VISIBLE
                             rv_list.visibility = View.GONE
                             tv_loading.text = "Data Kosong"
-                            Fun.handleError(this,result)
+                            createDialog(result.message!!)
                         }
                     }
                 })
@@ -213,12 +355,12 @@ class ListLocationActivity : BaseActivity() {
                 object : EndlessScrollListener(){
                     override fun onLoadMore() {
                         if(level.equals("kabupaten") || level.equals("kecamatan")){
-                            if (list.size>19){
+                            if (list.size>49){
                                 println("addOnScrollListener nextPage")
                                 getData("load")
                             }
                         } else{
-                            if (listHospital.size>19){
+                            if (listHospital.size>49){
                                 println("addOnScrollListener nextPage")
                                 getHospital("load")
                             }
