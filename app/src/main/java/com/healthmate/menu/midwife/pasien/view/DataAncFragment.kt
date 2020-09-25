@@ -101,8 +101,16 @@ class DataAncFragment : BaseFragment() {
     }
 
     private fun setHistoryView() {
-        tv_hpht.text = dataPasien.anc_history.hpht.replaceEmpty("-")
-        tv_hpl.text = dataPasien.anc_history.hml.replaceEmpty("-")
+        if (dataPasien.anc_history.hpht!!.equals("")){
+            tv_hpht.text = dataPasien.anc_history.hpht.replaceEmpty("-")
+        } else {
+            tv_hpht.text = dataPasien.anc_history.hpht!!.split("T")[0]
+        }
+        if (dataPasien.anc_history.hml!!.equals("")){
+            tv_hpht.text = dataPasien.anc_history.hml.replaceEmpty("-")
+        } else {
+            tv_hpht.text = dataPasien.anc_history.hml!!.split("T")[0]
+        }
         tv_kehamilan_ke.text = dataPasien.anc_history.preg_num.replaceEmpty("-")
         tv_total_persalinan.text = dataPasien.anc_history.labor_num.replaceEmpty("-")
         tv_total_keguguran.text = dataPasien.anc_history.miscarriage_num.replaceEmpty("-")

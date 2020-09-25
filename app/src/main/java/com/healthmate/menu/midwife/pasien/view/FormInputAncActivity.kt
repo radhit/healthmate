@@ -84,6 +84,7 @@ class FormInputAncActivity : BaseActivity() {
         fieldTanggal.setOnClickListener {
             callCalender()
         }
+
         btn_verif.setOnClickListener {
             if (isValid()){
                 setData()
@@ -92,6 +93,15 @@ class FormInputAncActivity : BaseActivity() {
         }
         fieldRujukan.setOnClickListener {
             navigator.listLocation(this,"rujukan",8,gson.toJson(mother))
+        }
+        fieldKakiBengkak.setOnClickListener {
+            navigator.dataMaster(this,"kaki bengkak",9)
+        }
+        fieldProteinUrin.setOnClickListener {
+            navigator.dataMaster(this,"protein urin",10)
+        }
+        fieldReduksiUrin.setOnClickListener {
+            navigator.dataMaster(this,"reduksi urin",11)
         }
         btn_simpan.setOnClickListener {
             if (fieldRujukan.text.toString().equals("")){
@@ -218,17 +228,12 @@ class FormInputAncActivity : BaseActivity() {
         ancModel.number_of_immunitation = fieldPemberianImunisasi.text.toString()
         ancModel.return_date = dateComeback
         ancModel.message = fieldNasihat.text.toString()
-//        ancModel.week_of_pregnancy = fieldWeekPregnancy.text.toString()
         ancModel.suggested_weight = fieldSuggestedWeight.text.toString()
         ancModel.differenced_weight = fieldDifferenceBB.text.toString()
         ancModel.initial_weight = fieldBbawal.text.toString()
     }
 
     private fun isValid(): Boolean {
-//        if (fieldWeekPregnancy.text.toString().equals("")){
-//            fieldWeekPregnancy.setError("Wajib diisi")
-//            return false
-//        } else
         if (fieldDifferenceBB.text.toString().equals("")){
             fieldDifferenceBB.setError("Wajib diisi")
             return false
@@ -406,6 +411,15 @@ class FormInputAncActivity : BaseActivity() {
                 ancModel.next_hospital = dataMaster
                 tv_lokasi_rujukan.text = "Rujukan\nKe\n${dataMaster.level}"
             }
+        } else if (requestCode==9){
+            var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
+            fieldKakiBengkak.setText(dataMaster.name)
+        } else if (requestCode==10){
+            var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
+            fieldProteinUrin.setText(dataMaster.name)
+        } else if (requestCode==11){
+            var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
+            fieldReduksiUrin.setText(dataMaster.name)
         }
     }
 }

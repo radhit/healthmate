@@ -73,7 +73,128 @@ class MasterListActivity : BaseActivity() {
             getPlusMin()
         } else if (intent.getStringExtra(EXTRA).equals("hepatitis") || intent.getStringExtra(EXTRA).equals("hiv")){
             getHepatitis()
+        } else if (intent.getStringExtra(EXTRA).equals("penolong persalinan")){
+            getPenolongPersalinan()
+        } else if (intent.getStringExtra(EXTRA).equals("dana persalinan")){
+            getDanaPersalinan()
+        } else if (intent.getStringExtra(EXTRA).equals("kendaraan")){
+            getKendaraan()
+        } else if (intent.getStringExtra(EXTRA).equals("metode kb")){
+            getMetodeKb()
+        } else if (intent.getStringExtra(EXTRA).equals("kontrasepsi")){
+            getKontrasepsi()
+        } else if (intent.getStringExtra(EXTRA).equals("imunisasi")){
+            getImunisasi()
+        } else if (intent.getStringExtra(EXTRA).equals("cara persalinan")){
+            getCaraPersalinan()
+        } else if (intent.getStringExtra(EXTRA).equals("kaki bengkak")){
+            getKakiBengkak()
+        } else if (intent.getStringExtra(EXTRA).equals("protein urin") || intent.getStringExtra(EXTRA).equals("reduksi urin")){
+            getUrin()
         }
+    }
+
+
+    private fun getUrin(){
+        val arrays: ArrayList<MasterListModel> = arrayListOf()
+        arrays.add(MasterListModel("1","Negatif"))
+        arrays.add(MasterListModel("2","+/-"))
+        arrays.add(MasterListModel("3","+1"))
+        arrays.add(MasterListModel("4","+2"))
+        arrays.add(MasterListModel("5","+3"))
+        arrays.add(MasterListModel("6","+4"))
+
+        adapter.updateLists(arrays)
+    }
+
+    private fun getKakiBengkak(){
+        val arrays: ArrayList<MasterListModel> = arrayListOf()
+        arrays.add(MasterListModel("1","Tidak Bengkak"))
+        arrays.add(MasterListModel("2","+1"))
+        arrays.add(MasterListModel("3","+2"))
+        arrays.add(MasterListModel("4","+3"))
+
+        adapter.updateLists(arrays)
+    }
+
+    private fun getCaraPersalinan(){
+        val arrays: ArrayList<MasterListModel> = arrayListOf()
+        arrays.add(MasterListModel("1","Normal Pervaginam"))
+        arrays.add(MasterListModel("2","Sungsang Pervaginam"))
+        arrays.add(MasterListModel("3","Ekstraksi vakum"))
+        arrays.add(MasterListModel("4","Tarikan cunam/forseps"))
+        arrays.add(MasterListModel("5","Operasi sesar/CS"))
+        arrays.add(MasterListModel("6","Laparatomi"))
+        arrays.add(MasterListModel("7","Lainnya"))
+
+        adapter.updateLists(arrays)
+    }
+
+    private fun getImunisasi(){
+        val arrays: ArrayList<MasterListModel> = arrayListOf()
+        arrays.add(MasterListModel("1","T1"))
+        arrays.add(MasterListModel("2","T2"))
+        arrays.add(MasterListModel("3","T3"))
+        arrays.add(MasterListModel("4","T4"))
+        arrays.add(MasterListModel("5","T5"))
+        adapter.updateLists(arrays)
+    }
+
+    private fun getKontrasepsi(){
+        val arrays: ArrayList<MasterListModel> = arrayListOf()
+        arrays.add(MasterListModel("1","Tidak KB"))
+        arrays.add(MasterListModel("2","IUD/Spiral"))
+        arrays.add(MasterListModel("3","KB Suntik 3 bulanan"))
+        arrays.add(MasterListModel("4","KB Suntik 1 bulanan"))
+        arrays.add(MasterListModel("5","KB Susuk"))
+        arrays.add(MasterListModel("6","KB Pil"))
+        arrays.add(MasterListModel("7","KB Alami"))
+        arrays.add(MasterListModel("8","MOW"))
+        arrays.add(MasterListModel("9","Suami MOP"))
+        arrays.add(MasterListModel("10","Lainnya"))
+        adapter.updateLists(arrays)
+    }
+
+    private fun getMetodeKb(){
+        val arrays: ArrayList<MasterListModel> = arrayListOf()
+        arrays.add(MasterListModel("1","Tidak KB"))
+        arrays.add(MasterListModel("2","IUD/Spiral"))
+        arrays.add(MasterListModel("3","KB Suntik 3 bulanan"))
+        arrays.add(MasterListModel("4","KB Suntik 1 bulanan"))
+        arrays.add(MasterListModel("5","KB Susuk"))
+        arrays.add(MasterListModel("6","KB Pil"))
+        arrays.add(MasterListModel("7","KB Mandiri"))
+        adapter.updateLists(arrays)
+    }
+
+
+    private fun getKendaraan(){
+        val arrays: ArrayList<MasterListModel> = arrayListOf()
+        arrays.add(MasterListModel("1","Kendaraan Pribadi"))
+        arrays.add(MasterListModel("2","Ambulan Desa"))
+        arrays.add(MasterListModel("3","Kendaraan Umum"))
+        adapter.updateLists(arrays)
+    }
+
+    private fun getDanaPersalinan(){
+        val arrays: ArrayList<MasterListModel> = arrayListOf()
+        arrays.add(MasterListModel("1","Biaya Sendiri"))
+        arrays.add(MasterListModel("2","BPJS-Kes"))
+        arrays.add(MasterListModel("3","Pemda/desa setempat"))
+        arrays.add(MasterListModel("4","Keluarga"))
+        arrays.add(MasterListModel("5","Asuransi Lainnya"))
+        adapter.updateLists(arrays)
+    }
+
+    private fun getPenolongPersalinan(){
+        val arrays: ArrayList<MasterListModel> = arrayListOf()
+        arrays.add(MasterListModel("1","Bidan"))
+        arrays.add(MasterListModel("2","Dokter Umum"))
+        arrays.add(MasterListModel("3","Dokter SpOG"))
+        arrays.add(MasterListModel("4","Dukun"))
+        arrays.add(MasterListModel("5","Sendiri/Brojol"))
+
+        adapter.updateLists(arrays)
     }
 
     private fun getHepatitis() {
@@ -106,12 +227,12 @@ class MasterListActivity : BaseActivity() {
 
     private fun getPendidikan() {
         val arrays: ArrayList<MasterListModel> = arrayListOf()
-        arrays.add(MasterListModel("1","TK"))
+        arrays.add(MasterListModel("1","Tidak Sekolah"))
         arrays.add(MasterListModel("2","SD"))
         arrays.add(MasterListModel("3","SMP"))
         arrays.add(MasterListModel("4","SMA"))
-        arrays.add(MasterListModel("5","Kuliah"))
-        arrays.add(MasterListModel("6","Tidak Sekolah"))
+        arrays.add(MasterListModel("5","Akademi"))
+        arrays.add(MasterListModel("6","Perguruan Tinggi"))
 
         adapter.updateLists(arrays)
     }

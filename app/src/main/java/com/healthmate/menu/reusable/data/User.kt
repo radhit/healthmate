@@ -29,11 +29,28 @@ data class AncHistory(
         var hpht: String? = "",
         @SerializedName("hpl")
         var hml: String? = "",
+
+        var lila: String? = "",
+        var height: String? = "",
+        var kontrasepsi: String? = "",
+        var riwayat_penyakit: String? = "",
+        var alergi_obat: String? = "",
+        var alergi_lain: String? = "",
+
         var preg_num: String? = "",
         var labor_num: String? = "",
         var miscarriage_num: String? = "",
         var live_child_num: String? = "",
-        var prev_child_difference: String? = ""
+
+        var live_dead_num: String? = "",
+        var less_month_child_num: String? = "",
+
+        var prev_child_difference: String? = "",
+
+        var status_imunisasi: String? = "",
+        var date_imunisasi: String? = "",
+        var helper: String? = "",
+        var born_method: String? = ""
 )
 data class Hospital(
         var id: String = "",
@@ -54,6 +71,7 @@ data class Location(
 )
 
 data class Kia(
+        var domisili: String = "",
         var nik: String = "",
         var birth_place: String = "",
         var birth_date: String = "",
@@ -64,8 +82,17 @@ data class Kia(
         var religion: String = "",
         var jkn_number: String = "",
         var blood_type: String = "",
-        var husband: Husband? = Husband()
+        var husband: Husband? = Husband(),
+        var persalinan: Persalinan? = Persalinan()
+)
 
+data class Persalinan(
+        var helper: String = "",
+        var funds: String = "",
+        var vehicle: String = "",
+        var metode_kb: String = "",
+        var blood_donor: String = "",
+        var blood_kontak: String = ""
 )
 
 data class Husband(

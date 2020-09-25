@@ -47,6 +47,86 @@
                 style="@style/TextInputLayoutCustom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Lingkar Lengan (cm)"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fieldLila"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Tinggi Badan (cm)"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fieldTinggi"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Kontrasepsi sebelum kehamilan"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fieldKontrasepsi"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:layout_height="50dp"
+                    android:clickable="true"
+                    android:focusable="false"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Riwayat Penyakit"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fieldRiwayatPenyakit"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:layout_height="50dp"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Riwayat Alergi Obat"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fieldRiwayatAlergiObat"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:layout_height="50dp"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Alergi Lainnya"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fieldAlergiLain"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:layout_height="50dp"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="Kehamilan ke"
                 android:layout_marginTop="10dp">
                 <com.google.android.material.textfield.TextInputEditText
@@ -99,6 +179,32 @@
                 style="@style/TextInputLayoutCustom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Jumlah Lahir Meninggal"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fieldJumlahLahirMeninggal"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:inputType="number"
+                    android:layout_height="50dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Jumlah Anak Lahir Kurang Bulan"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fieldJumlahLahirKurangBulan"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:inputType="number"
+                    android:layout_height="50dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="Jarak kehamilan sebelumnya"
                 android:layout_marginTop="10dp">
                 <com.google.android.material.textfield.TextInputEditText
@@ -106,6 +212,63 @@
                     android:layout_width="match_parent"
                     android:padding="10dp"
                     android:inputType="text"
+                    android:layout_height="50dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Status Imunisasi TT"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fieldImunisasi"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:inputType="text"
+                    android:layout_height="50dp"
+                    android:clickable="true"
+                    android:focusable="false"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Imunisasi TT Terkahir"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fieldTanggalImunisasi"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:layout_height="50dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Penolong Persalinan Terakhir"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fieldPenolong"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:layout_height="50dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Cara Persalinan Terakhir"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fieldCaraPersalinan"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:clickable="true"
+                    android:focusable="false"
                     android:layout_height="50dp"/>
             </com.google.android.material.textfield.TextInputLayout>
             <Button

@@ -86,7 +86,7 @@ class DetilPasienFragment : BaseFragment() {
     }
 
     private fun setData() {
-        tv_domisili.text = "${dataPasien.city!!.name} - ${dataPasien.district!!.name}"
+        tv_domisili.text = dataPasien.kia!!.domisili
         tv_nik.text = dataPasien.kia!!.nik
         tv_ttl.text = "${dataPasien.kia!!.birth_place}, ${dataPasien.kia!!.birth_date}"
         tv_hamil_ke.text = dataPasien.kia!!.number_of_pregnancy
@@ -107,6 +107,18 @@ class DetilPasienFragment : BaseFragment() {
         tv_goldar_suami.text = dataPasien.kia!!.husband!!.blood_type
         tv_nomor_suami.text = dataPasien.kia!!.husband!!.phone_number
 
+        //data persalinan
+        tv_penolong_persalinan.text = dataPasien.kia!!.persalinan!!.helper
+        tv_dana_persalinan.text = dataPasien.kia!!.persalinan!!.funds
+        tv_jenis_kendaraan.text = dataPasien.kia!!.persalinan!!.vehicle
+        tv_metode.text = dataPasien.kia!!.persalinan!!.metode_kb
+        tv_pendonor_darah.text = dataPasien.kia!!.persalinan!!.blood_donor
+        tv_kontak_pendonor.text = dataPasien.kia!!.persalinan!!.blood_kontak
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getData()
     }
 
 }

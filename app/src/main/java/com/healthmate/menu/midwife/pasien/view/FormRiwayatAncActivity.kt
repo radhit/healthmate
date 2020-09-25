@@ -14,11 +14,17 @@ import com.healthmate.api.PayloadEntry
 import com.healthmate.api.Result
 import com.healthmate.common.base.BaseActivity
 import com.healthmate.common.constant.Urls
+import com.healthmate.common.functions.replaceEmpty
 import com.healthmate.di.injector
 import com.healthmate.menu.midwife.pasien.data.PasienViewModel
 import com.healthmate.menu.reusable.data.AncHistory
+import com.healthmate.menu.reusable.data.MasterListModel
 import com.healthmate.menu.reusable.data.User
 import kotlinx.android.synthetic.main.activity_data_riwayat_anc.*
+import kotlinx.android.synthetic.main.activity_data_riwayat_anc.btn_simpan
+import kotlinx.android.synthetic.main.activity_data_riwayat_anc.fieldPenolong
+import kotlinx.android.synthetic.main.activity_form_ringkasan_persalinan.*
+import kotlinx.android.synthetic.main.activity_main_kia.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -57,13 +63,7 @@ class FormRiwayatAncActivity : BaseActivity() {
         }
         btn_simpan.setOnClickListener {
             if (isValid()){
-                historyAncsModel.hpht = fieldHPHT.text.toString()
-                historyAncsModel.hml = fieldHPL.text.toString()
-                historyAncsModel.preg_num = fieldkehamilan.text.toString()
-                historyAncsModel.labor_num = fieldJumlahPersalinan.text.toString()
-                historyAncsModel.miscarriage_num = fieldJumlahKeguguran.text.toString()
-                historyAncsModel.live_child_num = fieldJumlahAnakHidup.text.toString()
-                historyAncsModel.prev_child_difference = fieldJarak.text.toString()
+                setDataInput()
                 if (keterangan.equals("edit")){
                     historyAncsModel.id = user.anc_history.id
                     update()
@@ -78,6 +78,47 @@ class FormRiwayatAncActivity : BaseActivity() {
         fieldHPL.setOnClickListener {
             callCalender("hpl")
         }
+        fieldTanggalImunisasi.setOnClickListener {
+            callCalender("imunisasi")
+        }
+        fieldKontrasepsi.setOnClickListener {
+            navigator.dataMaster(this,"kontrasepsi",1)
+        }
+        fieldImunisasi.setOnClickListener {
+            navigator.dataMaster(this,"imunisasi",2)
+        }
+        fieldPenolong.setOnClickListener {
+            navigator.dataMaster(this,"penolong persalinan",3)
+        }
+        fieldCaraPersalinan.setOnClickListener {
+            navigator.dataMaster(this,"cara persalinan",4)
+        }
+    }
+
+    private fun setDataInput() {
+        historyAncsModel.hpht = "${fieldHPHT.text.toString()}T07:00:00+07:00"
+        historyAncsModel.hml = "${fieldHPL.text.toString()}T07:00:00+07:00"
+        historyAncsModel.lila = fieldLila.text.toString()
+        historyAncsModel.height = fieldTinggi.text.toString()
+        historyAncsModel.kontrasepsi = fieldKontrasepsi.text.toString()
+        historyAncsModel.riwayat_penyakit = fieldRiwayatPenyakit.text.toString()
+        historyAncsModel.alergi_obat = fieldRiwayatAlergiObat.text.toString()
+        historyAncsModel.alergi_lain = fieldAlergiLain.text.toString()
+
+        historyAncsModel.preg_num = fieldkehamilan.text.toString()
+        historyAncsModel.labor_num = fieldJumlahPersalinan.text.toString()
+        historyAncsModel.miscarriage_num = fieldJumlahKeguguran.text.toString().replaceEmpty("0")
+        historyAncsModel.live_child_num = fieldJumlahAnakHidup.text.toString().replaceEmpty("0")
+
+        historyAncsModel.live_dead_num = fieldJumlahLahirMeninggal.text.toString().replaceEmpty("0")
+        historyAncsModel.less_month_child_num = fieldJumlahLahirKurangBulan.text.toString().replaceEmpty("0")
+
+        historyAncsModel.prev_child_difference = fieldJarak.text.toString()
+
+        historyAncsModel.status_imunisasi = fieldImunisasi.text.toString()
+        historyAncsModel.date_imunisasi = "${fieldTanggalImunisasi.text.toString()}T07:00:00+07:00"
+        historyAncsModel.helper = fieldPenolong.text.toString()
+        historyAncsModel.born_method = fieldCaraPersalinan.text.toString()
     }
 
     private fun callCalender(keterangan: String) {
@@ -102,8 +143,10 @@ class FormRiwayatAncActivity : BaseActivity() {
                     }
                     if (keterangan.equals("hpht")){
                         fieldHPHT.setText(tanggal)
-                    } else{
+                    } else if (keterangan.equals("hpl")){
                         fieldHPL.setText(tanggal)
+                    } else{
+                        fieldTanggalImunisasi.setText(tanggal)
                     }
                 }, mYear, mMonth, mDay)
 
@@ -120,9 +163,7 @@ class FormRiwayatAncActivity : BaseActivity() {
                 closeLoadingDialog()
                 if (response!!.isSuccessful) {
                     if (response!!.body()!!.responseCode in 200..299){
-                        createDialog(response.body()!!.message,{
-                            finish()
-                        })
+                        finish()
                     } else{
                         createDialog(response.body()!!.message)
                     }
@@ -139,43 +180,52 @@ class FormRiwayatAncActivity : BaseActivity() {
     }
 
     private fun submit() {
-        val payload = Payload()
-        payload.url = "${Urls.registerMother}/${user.id}/anc-history"
-        payload.payloads.add(PayloadEntry("hpht",historyAncsModel.hpht!!))
-        payload.payloads.add(PayloadEntry("hpl",historyAncsModel.hml!!))
-        payload.payloads.add(PayloadEntry("preg_num",historyAncsModel.preg_num!!))
-        payload.payloads.add(PayloadEntry("labor_num",historyAncsModel.labor_num!!))
-        payload.payloads.add(PayloadEntry("miscarriage_num",historyAncsModel.miscarriage_num!!))
-        payload.payloads.add(PayloadEntry("live_child_num",historyAncsModel.live_child_num!!))
-        payload.payloads.add(PayloadEntry("prev_child_difference",historyAncsModel.prev_child_difference!!))
-        viewModel.postDataAncsHistory(payload)
-                .observe(this, Observer {result ->
-                    when(result.status){
-                        Result.Status.LOADING->{
-                            showLoadingDialog()
-                        }
-                        Result.Status.SUCCESS->{
-                            closeLoadingDialog()
-                            createDialog(result.message!!,{
-                                finish()
-                            })
-                        }
-                        Result.Status.ERROR->{
-                            closeLoadingDialog()
-                            createDialog(result.message!!)
-                        }
+        showLoadingDialog()
+        val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(historyAncsModel))
+        println("req body : ${requestBody}")
+        val call: Call<DataResponse<Any>> = baseApi.inputForm("${Urls.registerMother}/${user.id}/anc-history",requestBody)
+        call.enqueue(object : Callback<DataResponse<Any>> {
+            override fun onResponse(call: Call<DataResponse<Any>>?, response: Response<DataResponse<Any>>?) {
+                closeLoadingDialog()
+                if (response!!.isSuccessful) {
+                    if (response!!.body()!!.responseCode in 200..299){
+                        finish()
+                    } else{
+                        createDialog(response.body()!!.message)
                     }
-                })
+                } else {
+                    Toast.makeText(this@FormRiwayatAncActivity,"Terjadi kesalahan", Toast.LENGTH_LONG).show()
+                }
+            }
+
+            override fun onFailure(call: Call<DataResponse<Any>>?, t: Throwable?) {
+                closeLoadingDialog()
+                Toast.makeText(this@FormRiwayatAncActivity,t!!.message, Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     private fun setData() {
-        fieldHPHT.setText("${user.anc_history.hpht}")
-        fieldHPL.setText("${user.anc_history.hml}")
+        fieldHPHT.setText("${user.anc_history.hpht!!.split("T")[0]}")
+        fieldHPL.setText("${user.anc_history.hml!!.split("T")[0]}")
+        fieldLila.setText("${user.anc_history.lila}")
+        fieldTinggi.setText("${user.anc_history.height}")
+        fieldKontrasepsi.setText("${user.anc_history.kontrasepsi}")
+        fieldRiwayatPenyakit.setText("${user.anc_history.riwayat_penyakit}")
+        fieldRiwayatAlergiObat.setText("${user.anc_history.alergi_obat}")
+        fieldAlergiLain.setText("${user.anc_history.alergi_lain}")
         fieldkehamilan.setText("${user.anc_history.preg_num}")
         fieldJumlahPersalinan.setText("${user.anc_history.labor_num}")
         fieldJumlahKeguguran.setText("${user.anc_history.miscarriage_num}")
         fieldJumlahAnakHidup.setText("${user.anc_history.live_child_num}")
         fieldJarak.setText("${user.anc_history.prev_child_difference}")
+
+        fieldJumlahLahirMeninggal.setText("${user.anc_history.live_dead_num}")
+        fieldJumlahLahirKurangBulan.setText("${user.anc_history.less_month_child_num}")
+        fieldImunisasi.setText("${user.anc_history.status_imunisasi}")
+        fieldTanggalImunisasi.setText("${user.anc_history.date_imunisasi!!.split("T")[0]}")
+        fieldPenolong.setText("${user.anc_history.helper}")
+        fieldCaraPersalinan.setText("${user.anc_history.born_method}")
     }
 
     private fun isValid(): Boolean {
@@ -200,7 +250,51 @@ class FormRiwayatAncActivity : BaseActivity() {
         } else if (fieldJarak.text.toString().equals("")){
             fieldJarak.setError("Wajib diisi")
             return false
+        } else if (fieldLila.text.toString().equals("")){
+            fieldLila.setError("Wajib diisi")
+            return false
+        } else if (fieldTinggi.text.toString().equals("")){
+            fieldTinggi.setError("Wajib diisi")
+            return false
+        } else if (fieldKontrasepsi.text.toString().equals("")){
+            fieldKontrasepsi.setError("Wajib diisi")
+            return false
+        } else if (fieldJumlahLahirMeninggal.text.toString().equals("")){
+            fieldJumlahLahirMeninggal.setError("Wajib diisi")
+            return false
+        } else if (fieldJumlahLahirKurangBulan.text.toString().equals("")){
+            fieldJumlahLahirKurangBulan.setError("Wajib diisi")
+            return false
+        } else if (fieldImunisasi.text.toString().equals("")){
+            fieldImunisasi.setError("Wajib diisi")
+            return false
+        } else if (fieldTanggalImunisasi.text.toString().equals("")){
+            fieldTanggalImunisasi.setError("Wajib diisi")
+            return false
+        } else if (fieldPenolong.text.toString().equals("")){
+            fieldPenolong.setError("Wajib diisi")
+            return false
+        } else if (fieldCaraPersalinan.text.toString().equals("")){
+            fieldCara.setError("Wajib diisi")
+            return false
         }
         return true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode==1){
+            var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
+            fieldKontrasepsi.setText(dataMaster.name)
+        } else if (requestCode==2){
+            var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
+            fieldImunisasi.setText(dataMaster.name)
+        } else if (requestCode==3){
+            var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
+            fieldPenolong.setText(dataMaster.name)
+        } else if (requestCode==4){
+            var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
+            fieldCaraPersalinan.setText(dataMaster.name)
+        }
     }
 }

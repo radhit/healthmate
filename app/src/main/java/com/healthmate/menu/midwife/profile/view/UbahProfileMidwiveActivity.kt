@@ -228,18 +228,27 @@ class UbahProfileMidwiveActivity : BaseActivity() {
                 var dataMaster = gson.fromJson(data!!.getStringExtra("data"),Location::class.java)
                 fieldKabupaten.setText(dataMaster.name)
                 city = dataMaster
+                var user = userPref.getUser()
+                user.city = city
+                userPref.setUser(user)
             }
         } else if (requestCode==2){
             if (resultCode==Activity.RESULT_OK){
                 var dataMaster = gson.fromJson(data!!.getStringExtra("data"),Location::class.java)
                 fieldKecamatan.setText(dataMaster.name)
                 district = dataMaster
+                var user = userPref.getUser()
+                user.district = district
+                userPref.setUser(user)
             }
         } else if (requestCode==3){
             if (resultCode==Activity.RESULT_OK){
                 var dataMaster = gson.fromJson(data!!.getStringExtra("data"), Hospital::class.java)
                 fieldHospital.setText(dataMaster.name)
                 hospital = dataMaster
+                var user = userPref.getUser()
+                user.hospital = hospital
+                userPref.setUser(user)
             }
         } else if (requestCode== MainKiaActivity.RC_CAMERA){
             var bitmap: Bitmap? = null

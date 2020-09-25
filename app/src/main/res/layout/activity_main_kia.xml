@@ -68,6 +68,19 @@
                         style="@style/TextInputLayoutCustom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:hint="Domisili"
+                        android:layout_marginTop="10dp">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/fieldDomisili"
+                            android:layout_width="match_parent"
+                            android:padding="10dp"
+                            android:layout_height="50dp"
+                            android:inputType="text"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutCustom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:hint="Nomor Induk KTP (NIK)"
                         android:layout_marginTop="10dp">
                         <com.google.android.material.textfield.TextInputEditText
@@ -409,6 +422,113 @@
                             android:clickable="true"
                             android:focusable="false"
                             android:inputType="text"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="7dp"
+                app:cardCornerRadius="4dp"
+                android:layout_marginBottom="15dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Perencanaan Persalinan"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutCustom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Penolong Persalinan"
+                        android:layout_marginTop="10dp">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/fieldPenolong"
+                            android:layout_width="match_parent"
+                            android:padding="10dp"
+                            android:layout_height="50dp"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:inputType="text"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutCustom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Dana Persalinan"
+                        android:layout_marginTop="10dp">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/fieldDana"
+                            android:layout_width="match_parent"
+                            android:padding="10dp"
+                            android:layout_height="50dp"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:inputType="text"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutCustom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Jenis Kendaraan"
+                        android:layout_marginTop="10dp">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/fieldKendaraan"
+                            android:layout_width="match_parent"
+                            android:padding="10dp"
+                            android:layout_height="50dp"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:inputType="text"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutCustom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Metode KB"
+                        android:layout_marginTop="10dp">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/fieldMetode"
+                            android:layout_width="match_parent"
+                            android:padding="10dp"
+                            android:layout_height="50dp"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:inputType="text"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutCustom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Pendonor Darah"
+                        android:layout_marginTop="10dp">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/fieldDonor"
+                            android:layout_width="match_parent"
+                            android:padding="10dp"
+                            android:layout_height="50dp"
+                            android:inputType="text"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutCustom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nomor Pendonor Darah"
+                        android:layout_marginTop="10dp">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/fieldNomorPendonor"
+                            android:layout_width="match_parent"
+                            android:padding="10dp"
+                            android:layout_height="50dp"
+                            android:inputType="number"/>
                     </com.google.android.material.textfield.TextInputLayout>
                     <Button
                         android:layout_width="wrap_content"

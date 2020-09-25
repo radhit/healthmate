@@ -38,6 +38,7 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
 import com.healthmate.api.Result
+import com.healthmate.common.functions.replaceEmpty
 import kotlinx.android.synthetic.main.activity_main_kia.fieldNomorHp
 import kotlinx.android.synthetic.main.activity_main_kia.fieldPassword
 import kotlinx.android.synthetic.main.activity_signin.*
@@ -116,7 +117,7 @@ class MainKiaActivity : BaseActivity() {
                 user.kia = dataKia
                 user.city = city
                 user.district = district
-
+                println("data user kia : ${gson.toJson(user)}")
                 if (changeImage){
                     uploadFoto()
                 } else{
@@ -158,6 +159,18 @@ class MainKiaActivity : BaseActivity() {
         }
         fieldPendidikanSuami.setOnClickListener {
             navigator.dataMaster(this, "pendidikan",9)
+        }
+        fieldPenolong.setOnClickListener {
+            navigator.dataMaster(this,"penolong persalinan",10)
+        }
+        fieldDana.setOnClickListener {
+            navigator.dataMaster(this,"dana persalinan",11)
+        }
+        fieldKendaraan.setOnClickListener {
+            navigator.dataMaster(this,"kendaraan",12)
+        }
+        fieldMetode.setOnClickListener {
+            navigator.dataMaster(this, "metode kb",13)
         }
         rl_foto.setOnClickListener {
             createDialogTakePhoto()
@@ -240,11 +253,13 @@ class MainKiaActivity : BaseActivity() {
 
     fun createData(){
         startLoading()
-        val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(user))
+        lateinit var requestBody: RequestBody
         var url = ""
         if (keterangan.equals("midwife_create")){
+            requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(user))
             url = Urls.registerMother
         } else{
+            requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(user.kia))
             url = "${Urls.registerMother}/${user.id}/kia"
         }
         println("req body : ${requestBody}")
@@ -274,7 +289,13 @@ class MainKiaActivity : BaseActivity() {
     }
 
     private fun isValid(): Boolean {
-        if (fieldNomorKtp.text.toString().equals("")){
+        if (fieldNama.text.toString().equals("")){
+            fieldNama.setError("Wajib diisi!")
+            return false
+        } else if (fieldDomisili.text.toString().equals("")){
+            fieldDomisili.setError("Wajib diisi!")
+            return false
+        } else if (fieldNomorKtp.text.toString().equals("")){
             fieldNomorKtp.setError("Wajib diisi!")
             return false
         } else if (fieldTempatLahir.text.toString().equals("")){
@@ -342,6 +363,7 @@ class MainKiaActivity : BaseActivity() {
     }
 
     private fun setDataInput() {
+        dataKia.domisili = fieldDomisili.text.toString()
         dataKia.nik = fieldNomorKtp.text.toString()
         dataKia.birth_place = fieldTempatLahir.text.toString()
         dataKia.birth_date = dateMother
@@ -358,9 +380,16 @@ class MainKiaActivity : BaseActivity() {
                 fieldAgamaSuami.text.toString(),fieldGoldarSuami.text.toString(),fieldPekerjaanSuami.text.toString(),fieldPendidikanSuami.text.toString(),
                 fieldAlamat.text.toString(),city,district)
         dataKia.husband = husband
+
+        var persalinan = Persalinan(fieldPenolong.text.toString().replaceEmpty(""),fieldDana.text.toString().replaceEmpty("")
+                ,fieldKendaraan.text.toString().replaceEmpty(""),fieldMetode.text.toString().replaceEmpty(""), fieldDonor.text.toString().replaceEmpty("")
+                ,fieldNomorPendonor.text.toString().replaceEmpty(""))
+        dataKia.persalinan = persalinan
+
     }
 
     private fun setData() {
+        fieldDomisili.setText("${dataKia.domisili}")
         fieldNomorKtp.setText("${dataKia.nik}")
         fieldTempatLahir.setText("${dataKia.birth_place}")
         fieldTanggalLahir.setText("${dataKia.birth_date.split("T")[0]}")
@@ -385,6 +414,14 @@ class MainKiaActivity : BaseActivity() {
             fieldPekerjaanSuami.setText("${dataKia.husband!!.job}")
             city = dataKia.husband!!.city!!
             district = dataKia.husband!!.district!!
+        }
+        if (dataKia.persalinan!=null){
+            fieldPenolong.setText("${dataKia.persalinan!!.helper}")
+            fieldDana.setText("${dataKia.persalinan!!.funds}")
+            fieldKendaraan.setText("${dataKia.persalinan!!.vehicle}")
+            fieldMetode.setText("${dataKia.persalinan!!.metode_kb}")
+            fieldDonor.setText("${dataKia.persalinan!!.blood_donor}")
+            fieldNomorPendonor.setText("${dataKia.persalinan!!.blood_kontak}")
         }
     }
 
@@ -508,6 +545,18 @@ class MainKiaActivity : BaseActivity() {
                 var dataMaster = gson.fromJson(data!!.getStringExtra("data"),MasterListModel::class.java)
                 fieldPendidikanSuami.setText(dataMaster.name)
             }
+        } else if (requestCode==10){
+            var dataMaster = gson.fromJson(data!!.getStringExtra("data"),MasterListModel::class.java)
+            fieldPenolong.setText(dataMaster.name)
+        } else if (requestCode==11){
+            var dataMaster = gson.fromJson(data!!.getStringExtra("data"),MasterListModel::class.java)
+            fieldDana.setText(dataMaster.name)
+        } else if (requestCode==12){
+            var dataMaster = gson.fromJson(data!!.getStringExtra("data"),MasterListModel::class.java)
+            fieldKendaraan.setText(dataMaster.name)
+        } else if (requestCode==13){
+            var dataMaster = gson.fromJson(data!!.getStringExtra("data"),MasterListModel::class.java)
+            fieldMetode.setText(dataMaster.name)
         }
     }
 
