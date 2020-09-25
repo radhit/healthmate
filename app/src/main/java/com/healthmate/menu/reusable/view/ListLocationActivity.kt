@@ -71,9 +71,11 @@ class ListLocationActivity : BaseActivity() {
                         if (level.equals("kabupaten")||level.equals("kecamatan")){
                             adapter.lists.clear()
                             adapter.lists.addAll(listFull)
+                            adapter.notifyDataSetChanged()
                         } else{
                             adapterHospital.lists.clear()
                             adapterHospital.lists.addAll(listHospitalFull)
+                            adapterHospital.notifyDataSetChanged()
                         }
                     }
                 }
