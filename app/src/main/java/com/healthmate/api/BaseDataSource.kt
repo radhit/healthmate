@@ -17,7 +17,7 @@ abstract class BaseDataSource {
                     return error(body.message,body.responseCode)
                 }
             }else{
-                return error("Failed. Response not found.",response.code())
+                return error("Got error. Please try again later.",response.code())
             }
         }catch (e: Exception){
             return error("Network call has failed for a following reason: ${e.message ?: e.toString()}")

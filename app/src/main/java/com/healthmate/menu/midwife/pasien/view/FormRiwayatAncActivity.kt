@@ -97,7 +97,7 @@ class FormRiwayatAncActivity : BaseActivity() {
 
     private fun setDataInput() {
         historyAncsModel.hpht = "${fieldHPHT.text.toString()}T07:00:00+07:00"
-        historyAncsModel.hml = "${fieldHPL.text.toString()}T07:00:00+07:00"
+        historyAncsModel.hpl = "${fieldHPL.text.toString()}T07:00:00+07:00"
         historyAncsModel.lila = fieldLila.text.toString()
         historyAncsModel.height = fieldTinggi.text.toString()
         historyAncsModel.kontrasepsi = fieldKontrasepsi.text.toString()
@@ -207,7 +207,7 @@ class FormRiwayatAncActivity : BaseActivity() {
 
     private fun setData() {
         fieldHPHT.setText("${user.anc_history.hpht!!.split("T")[0]}")
-        fieldHPL.setText("${user.anc_history.hml!!.split("T")[0]}")
+        fieldHPL.setText("${user.anc_history.hpl!!.split("T")[0]}")
         fieldLila.setText("${user.anc_history.lila}")
         fieldTinggi.setText("${user.anc_history.height}")
         fieldKontrasepsi.setText("${user.anc_history.kontrasepsi}")

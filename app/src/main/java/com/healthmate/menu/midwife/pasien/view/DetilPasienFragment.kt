@@ -2,7 +2,6 @@ package com.healthmate.menu.midwife.pasien.view
 
 import android.content.Context
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.afollestad.materialdialogs.MaterialDialog
@@ -11,9 +10,7 @@ import com.healthmate.api.Payload
 import com.healthmate.api.Result
 import com.healthmate.common.base.BaseFragment
 import com.healthmate.common.constant.Urls
-import com.healthmate.common.functions.Fun
 import com.healthmate.di.injector
-import com.healthmate.menu.midwife.pasien.data.PasienViewModel
 import com.healthmate.menu.reusable.data.MasterViewModel
 import com.healthmate.menu.reusable.data.User
 import kotlinx.android.synthetic.main.fragment_detil_pasien.*
@@ -25,7 +22,7 @@ class DetilPasienFragment : BaseFragment() {
         val EXTRA_DATA = "EXTRA_DATA"
         fun newInstance(data: String) = DetilPasienFragment().apply {
             arguments = Bundle().apply {
-                putString(EXTRA_DATA,data)
+                putString(EXTRA_DATA, data)
             }
         }
     }
@@ -33,7 +30,7 @@ class DetilPasienFragment : BaseFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         arguments?.getString(EXTRA_DATA)?.let {
-            dataPasien = gson.fromJson(it,User::class.java)
+            dataPasien = gson.fromJson(it, User::class.java)
         }
     }
 
@@ -47,7 +44,7 @@ class DetilPasienFragment : BaseFragment() {
     override fun onFragmentCreated(savedInstanceState: Bundle?) {
         getData()
         btn_ubah.setOnClickListener {
-            navigator.dataKiaMom(activity!!, "midwife_edit",gson.toJson(dataPasien))
+            navigator.dataKiaMom(activity!!, "midwife_edit", gson.toJson(dataPasien))
         }
     }
 
@@ -55,17 +52,17 @@ class DetilPasienFragment : BaseFragment() {
         val payload = Payload()
         payload.url = "${Urls.registerMother}/${dataPasien.id}"
         viewModel.getDataMe(payload)
-                .observe(this, Observer {result ->
-                    when(result.status){
-                        Result.Status.LOADING->{
+                .observe(this, Observer { result ->
+                    when (result.status) {
+                        Result.Status.LOADING -> {
                             startLoading()
                         }
-                        Result.Status.SUCCESS->{
+                        Result.Status.SUCCESS -> {
                             finishLoading()
                             dataPasien = result.data!!
                             setData()
                         }
-                        Result.Status.ERROR->{
+                        Result.Status.ERROR -> {
                             finishLoading()
                             createDialog(result.message!!)
                         }
@@ -79,8 +76,8 @@ class DetilPasienFragment : BaseFragment() {
 
     private fun startLoading() {
         materialDialog = MaterialDialog(activity!!)
-                .title(null,"Mohon Tunggu...")
-                .message(null,"")
+                .title(null, "Mohon Tunggu...")
+                .message(null, "")
                 .noAutoDismiss()
                 .cancelable(false)
     }
@@ -88,7 +85,7 @@ class DetilPasienFragment : BaseFragment() {
     private fun setData() {
         tv_domisili.text = dataPasien.kia!!.domisili
         tv_nik.text = dataPasien.kia!!.nik
-        tv_ttl.text = "${dataPasien.kia!!.birth_place}, ${dataPasien.kia!!.birth_date}"
+        tv_ttl.text = "${dataPasien.kia!!.birth_place}, ${dataPasien.kia!!.birth_date.split("T")[0]}"
         tv_hamil_ke.text = dataPasien.kia!!.number_of_pregnancy
         tv_umur_anak.text = "${dataPasien.kia!!.last_child_age} Tahun"
         tv_jkn.text = dataPasien.kia!!.jkn_number
@@ -100,7 +97,7 @@ class DetilPasienFragment : BaseFragment() {
         //data suami
         tv_nama_suami.text = dataPasien.kia!!.husband!!.name
         tv_domisili_suami.text = "${dataPasien.kia!!.husband!!.city!!.name} - ${dataPasien.kia!!.husband!!.district!!.name}"
-        tv_ttl_suami.text = "${dataPasien.kia!!.husband!!.birth_place}, ${dataPasien.kia!!.husband!!.birth_date}"
+        tv_ttl_suami.text = "${dataPasien.kia!!.husband!!.birth_place}, ${dataPasien.kia!!.husband!!.birth_date.split("T")[0]}"
         tv_pekerjaan_suami.text = dataPasien.kia!!.husband!!.job
         tv_agama_suami.text = dataPasien.kia!!.husband!!.religion
         tv_pendidikan_suami.text = dataPasien.kia!!.husband!!.last_education
@@ -119,6 +116,7 @@ class DetilPasienFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         getData()
+        (activity as MainDetilPasienActivity?)!!.getDataMother()
     }
 
 }

@@ -2,30 +2,17 @@ package com.healthmate.menu.midwife.pasien.view
 
 import android.content.Context
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.afollestad.materialdialogs.MaterialDialog
-import com.artcak.starter.modules.reusable.adapter.AncListAdapter
-import com.artcak.starter.modules.reusable.adapter.PasienListAdapter
 import com.healthmate.R
 import com.healthmate.api.Payload
 import com.healthmate.api.Result
-import com.healthmate.common.adapter.RecyclerViewClickListener
 import com.healthmate.common.base.BaseFragment
 import com.healthmate.common.constant.Urls
-import com.healthmate.common.functions.Fun
-import com.healthmate.common.functions.replaceEmpty
-import com.healthmate.commons.helper.EndlessScrollListener
 import com.healthmate.di.injector
 import com.healthmate.menu.midwife.pasien.data.PasienViewModel
-import com.healthmate.menu.mom.rapor.data.AncModel
-import com.healthmate.menu.reusable.data.MasterViewModel
 import com.healthmate.menu.reusable.data.User
-import kotlinx.android.synthetic.main.activity_main_kala.*
-import kotlinx.android.synthetic.main.fragment_data_anc.*
-import kotlinx.android.synthetic.main.fragment_data_anc.rv_list
-import kotlinx.android.synthetic.main.fragment_data_anc.tv_loading
 import kotlinx.android.synthetic.main.fragment_main_inc.*
 
 class MainIncFragment : BaseFragment() {
@@ -118,6 +105,7 @@ class MainIncFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
+        (activity as MainDetilPasienActivity?)!!.getDataMother()
 //        getData()
     }
 

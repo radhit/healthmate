@@ -357,7 +357,7 @@ class FormInputAncActivity : BaseActivity() {
                     } else {
                         tanggal = tanggal + dayOfMonth.toString()
                     }
-                    dateComeback = "${tanggal}T${dateNow.split(" ")[1]}+07:00"
+                    dateComeback = "${tanggal}T${dateNow.split("T")[1]}+07:00"
                     fieldTanggal.setText(tanggal)
                     println("date comeback : ${dateComeback}")
 

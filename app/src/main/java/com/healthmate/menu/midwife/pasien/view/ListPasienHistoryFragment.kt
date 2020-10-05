@@ -9,13 +9,13 @@ import com.healthmate.api.Result
 import com.healthmate.common.adapter.RecyclerViewClickListener
 import com.healthmate.common.base.BaseFragment
 import com.healthmate.common.constant.Urls
-import com.healthmate.common.functions.Fun
 import com.healthmate.commons.helper.EndlessScrollListener
 import com.healthmate.di.injector
 import kotlinx.android.synthetic.main.fragment_list_rapor.*
 import kotlin.collections.ArrayList
 import androidx.lifecycle.Observer
 import com.artcak.starter.modules.reusable.adapter.PasienListAdapter
+import com.artcak.starter.modules.reusable.adapter.PasienRujukanAdapter
 import com.healthmate.menu.midwife.pasien.data.PasienViewModel
 import com.healthmate.menu.reusable.data.User
 

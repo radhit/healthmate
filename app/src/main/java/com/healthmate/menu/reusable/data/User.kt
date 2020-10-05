@@ -21,14 +21,14 @@ data class User(
         var diagnostic_color: String? = "",
         var str_number: String? = "",
         var anc_history: AncHistory = AncHistory(),
-        var return_date: String? = ""
+        var return_date: String? = "",
+        var rujukan: Rujukan? = Rujukan()
 )
 
 data class AncHistory(
         var id: String = "",
         var hpht: String? = "",
-        @SerializedName("hpl")
-        var hml: String? = "",
+        var hpl: String? = "",
 
         var lila: String? = "",
         var height: String? = "",
@@ -107,4 +107,28 @@ data class Husband(
         var address: String = "",
         var city: Location? = Location(),
         var district: Location? = Location()
+)
+
+data class Rujukan(
+        var id: String = "",
+        var status: String = "",
+        var date: String = "",
+        var time: String = "",
+        var nama_perujuk: String = "",
+        var asal_perujuk: Hospital? = Hospital(),
+        var sebab: String = "",
+        var diagnosis: String = "",
+        var tindakan: String = "",
+        var tujuan: String = "",
+        var umpanbalik_rujukan: UmpanbalikRujukan? = UmpanbalikRujukan()
+)
+
+data class UmpanbalikRujukan(
+        var id: String = "",
+        var date: String = "",
+        var time: String = "",
+        var penerima_rujukan: String = "",
+        var asal_penerima: Hospital? = Hospital(),
+        var diagnosis: String = "",
+        var tindakan: String = ""
 )

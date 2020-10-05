@@ -6,25 +6,18 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.afollestad.materialdialogs.MaterialDialog
-import com.artcak.starter.modules.reusable.adapter.AncListAdapter
-import com.artcak.starter.modules.reusable.adapter.PasienListAdapter
 import com.artcak.starter.modules.reusable.adapter.PncListAdapter
-import com.artcak.starter.modules.reusable.adapter.RaporAdapter
 import com.healthmate.R
 import com.healthmate.api.Payload
 import com.healthmate.api.Result
 import com.healthmate.common.adapter.RecyclerViewClickListener
 import com.healthmate.common.base.BaseFragment
 import com.healthmate.common.constant.Urls
-import com.healthmate.common.functions.Fun
-import com.healthmate.common.functions.replaceEmpty
 import com.healthmate.commons.helper.EndlessScrollListener
 import com.healthmate.di.injector
 import com.healthmate.menu.midwife.pasien.data.PasienViewModel
 import com.healthmate.menu.midwife.pasien.data.PncModel
-import com.healthmate.menu.mom.rapor.data.AncModel
 import com.healthmate.menu.reusable.data.User
-import kotlinx.android.synthetic.main.fragment_list_rapor.*
 import kotlinx.android.synthetic.main.fragment_list_rapor.rv_list
 import kotlinx.android.synthetic.main.fragment_list_rapor.tv_loading
 import kotlinx.android.synthetic.main.fragment_main_pnc.*
@@ -143,6 +136,7 @@ class MainPncFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         getData("awal")
+        (activity as MainDetilPasienActivity?)!!.getDataMother()
     }
 
 }

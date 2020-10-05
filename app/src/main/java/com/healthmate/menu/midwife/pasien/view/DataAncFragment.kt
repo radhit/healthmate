@@ -7,14 +7,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.afollestad.materialdialogs.MaterialDialog
 import com.artcak.starter.modules.reusable.adapter.AncListAdapter
-import com.artcak.starter.modules.reusable.adapter.PasienListAdapter
 import com.healthmate.R
 import com.healthmate.api.Payload
 import com.healthmate.api.Result
 import com.healthmate.common.adapter.RecyclerViewClickListener
 import com.healthmate.common.base.BaseFragment
 import com.healthmate.common.constant.Urls
-import com.healthmate.common.functions.Fun
 import com.healthmate.common.functions.replaceEmpty
 import com.healthmate.commons.helper.EndlessScrollListener
 import com.healthmate.di.injector
@@ -106,10 +104,10 @@ class DataAncFragment : BaseFragment() {
         } else {
             tv_hpht.text = dataPasien.anc_history.hpht!!.split("T")[0]
         }
-        if (dataPasien.anc_history.hml!!.equals("")){
-            tv_hpht.text = dataPasien.anc_history.hml.replaceEmpty("-")
+        if (dataPasien.anc_history.hpl!!.equals("")){
+            tv_hpht.text = dataPasien.anc_history.hpl.replaceEmpty("-")
         } else {
-            tv_hpht.text = dataPasien.anc_history.hml!!.split("T")[0]
+            tv_hpht.text = dataPasien.anc_history.hpl!!.split("T")[0]
         }
         tv_kehamilan_ke.text = dataPasien.anc_history.preg_num.replaceEmpty("-")
         tv_total_persalinan.text = dataPasien.anc_history.labor_num.replaceEmpty("-")
@@ -207,6 +205,7 @@ class DataAncFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         getDataMother()
+        (activity as MainDetilPasienActivity?)!!.getDataMother()
     }
 
 }
