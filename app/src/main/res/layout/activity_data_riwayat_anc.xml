@@ -128,6 +128,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Kehamilan ke"
+                android:visibility="gone"
                 android:layout_marginTop="10dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldkehamilan"
@@ -141,6 +142,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Jumlah Persalinan"
+                android:visibility="gone"
                 android:layout_marginTop="10dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldJumlahPersalinan"
@@ -154,6 +156,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Jumlah Keguguran"
+                android:visibility="gone"
                 android:layout_marginTop="10dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldJumlahKeguguran"
@@ -272,11 +275,13 @@
                     android:layout_height="50dp"/>
             </com.google.android.material.textfield.TextInputLayout>
             <Button
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Simpan"
+                android:textAllCaps="false"
+                android:layout_gravity="right"
                 android:id="@+id/btn_simpan"
-                style="@style/ButtonCustom"
+                style="@style/ButtonOrange"
                 android:layout_marginTop="10dp"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

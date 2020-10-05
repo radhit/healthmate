@@ -105,9 +105,9 @@ class FormRiwayatAncActivity : BaseActivity() {
         historyAncsModel.alergi_obat = fieldRiwayatAlergiObat.text.toString()
         historyAncsModel.alergi_lain = fieldAlergiLain.text.toString()
 
-        historyAncsModel.preg_num = fieldkehamilan.text.toString()
-        historyAncsModel.labor_num = fieldJumlahPersalinan.text.toString()
-        historyAncsModel.miscarriage_num = fieldJumlahKeguguran.text.toString().replaceEmpty("0")
+//        historyAncsModel.preg_num = fieldkehamilan.text.toString()
+//        historyAncsModel.labor_num = fieldJumlahPersalinan.text.toString()
+//        historyAncsModel.miscarriage_num = fieldJumlahKeguguran.text.toString().replaceEmpty("0")
         historyAncsModel.live_child_num = fieldJumlahAnakHidup.text.toString().replaceEmpty("0")
 
         historyAncsModel.live_dead_num = fieldJumlahLahirMeninggal.text.toString().replaceEmpty("0")
@@ -214,9 +214,9 @@ class FormRiwayatAncActivity : BaseActivity() {
         fieldRiwayatPenyakit.setText("${user.anc_history.riwayat_penyakit}")
         fieldRiwayatAlergiObat.setText("${user.anc_history.alergi_obat}")
         fieldAlergiLain.setText("${user.anc_history.alergi_lain}")
-        fieldkehamilan.setText("${user.anc_history.preg_num}")
-        fieldJumlahPersalinan.setText("${user.anc_history.labor_num}")
-        fieldJumlahKeguguran.setText("${user.anc_history.miscarriage_num}")
+//        fieldkehamilan.setText("${user.anc_history.preg_num}")
+//        fieldJumlahPersalinan.setText("${user.anc_history.labor_num}")
+//        fieldJumlahKeguguran.setText("${user.anc_history.miscarriage_num}")
         fieldJumlahAnakHidup.setText("${user.anc_history.live_child_num}")
         fieldJarak.setText("${user.anc_history.prev_child_difference}")
 
@@ -235,16 +235,18 @@ class FormRiwayatAncActivity : BaseActivity() {
         } else if (fieldHPL.text.toString().equals("")){
             fieldHPL.setError("Wajib diisi")
             return false
-        } else if (fieldkehamilan.text.toString().equals("")){
-            fieldkehamilan.setError("Wajib diisi")
-            return false
-        } else if (fieldJumlahPersalinan.text.toString().equals("")){
-            fieldJumlahPersalinan.setError("Wajib diisi")
-            return false
-        } else if (fieldJumlahKeguguran.text.toString().equals("")){
-            fieldJumlahKeguguran.setError("Wajib diisi")
-            return false
-        } else if (fieldJumlahAnakHidup.text.toString().equals("")){
+        }
+//        else if (fieldkehamilan.text.toString().equals("")){
+//            fieldkehamilan.setError("Wajib diisi")
+//            return false
+//        } else if (fieldJumlahPersalinan.text.toString().equals("")){
+//            fieldJumlahPersalinan.setError("Wajib diisi")
+//            return false
+//        } else if (fieldJumlahKeguguran.text.toString().equals("")){
+//            fieldJumlahKeguguran.setError("Wajib diisi")
+//            return false
+//        }
+        else if (fieldJumlahAnakHidup.text.toString().equals("")){
             fieldJumlahAnakHidup.setError("Wajib diisi")
             return false
         } else if (fieldJarak.text.toString().equals("")){

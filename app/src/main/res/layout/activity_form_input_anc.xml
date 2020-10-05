@@ -305,7 +305,9 @@
                         android:layout_width="match_parent"
                         android:padding="10dp"
                         android:layout_height="50dp"
-                        android:inputType="text"/>
+                        android:inputType="text"
+                        android:clickable="true"
+                        android:focusable="false"/>
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/TextInputLayoutCustom"
@@ -320,6 +322,26 @@
                         android:layout_height="50dp"
                         android:inputType="text"/>
                 </com.google.android.material.textfield.TextInputLayout>
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/rb_tunggal"
+                        android:text="Tunggal"
+                        android:textSize="16sp"
+                        android:layout_marginRight="20dp"
+                        android:checked="true"/>
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/rb_kembar"
+                        android:textSize="16sp"
+                        android:text="Kembar"/>
+
+                </RadioGroup>
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/TextInputLayoutCustom"
                     android:layout_width="match_parent"
@@ -328,6 +350,20 @@
                     android:layout_marginTop="10dp">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldDjj"
+                        android:layout_width="match_parent"
+                        android:padding="10dp"
+                        android:layout_height="50dp"
+                        android:inputType="number"/>
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputLayoutCustom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="DJJ 2 (x/menit)"
+                    android:visibility="gone"
+                    android:layout_marginTop="10dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/fieldDjj2"
                         android:layout_width="match_parent"
                         android:padding="10dp"
                         android:layout_height="50dp"

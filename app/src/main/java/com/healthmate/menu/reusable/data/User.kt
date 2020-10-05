@@ -21,8 +21,7 @@ data class User(
         var diagnostic_color: String? = "",
         var str_number: String? = "",
         var anc_history: AncHistory = AncHistory(),
-        var return_date: String? = "",
-        var rujukan: Rujukan? = Rujukan()
+        var return_date: String? = ""
 )
 
 data class AncHistory(
@@ -37,9 +36,9 @@ data class AncHistory(
         var alergi_obat: String? = "",
         var alergi_lain: String? = "",
 
-        var preg_num: String? = "",
-        var labor_num: String? = "",
-        var miscarriage_num: String? = "",
+//        var preg_num: String? = "",
+//        var labor_num: String? = "",
+//        var miscarriage_num: String? = "",
         var live_child_num: String? = "",
 
         var live_dead_num: String? = "",
@@ -91,8 +90,8 @@ data class Persalinan(
         var funds: String = "",
         var vehicle: String = "",
         var metode_kb: String = "",
-        var blood_donor: String = "",
-        var blood_kontak: String = ""
+        var pendonor: String = "",
+        var kontak_pendonor: String = ""
 )
 
 data class Husband(

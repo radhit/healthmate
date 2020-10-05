@@ -109,8 +109,8 @@ class DetilPasienFragment : BaseFragment() {
         tv_dana_persalinan.text = dataPasien.kia!!.persalinan!!.funds
         tv_jenis_kendaraan.text = dataPasien.kia!!.persalinan!!.vehicle
         tv_metode.text = dataPasien.kia!!.persalinan!!.metode_kb
-        tv_pendonor_darah.text = dataPasien.kia!!.persalinan!!.blood_donor
-        tv_kontak_pendonor.text = dataPasien.kia!!.persalinan!!.blood_kontak
+        tv_pendonor_darah.text = dataPasien.kia!!.persalinan!!.pendonor
+        tv_kontak_pendonor.text = dataPasien.kia!!.persalinan!!.kontak_pendonor
     }
 
     override fun onResume() {

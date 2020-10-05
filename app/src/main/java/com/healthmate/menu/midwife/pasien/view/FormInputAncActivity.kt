@@ -22,6 +22,18 @@ import com.healthmate.menu.reusable.data.Location
 import com.healthmate.menu.reusable.data.MasterListModel
 import com.healthmate.menu.reusable.data.User
 import kotlinx.android.synthetic.main.activity_form_input_anc.*
+import kotlinx.android.synthetic.main.activity_form_input_anc.btn_simpan
+import kotlinx.android.synthetic.main.activity_form_input_anc.fieldDiastolik
+import kotlinx.android.synthetic.main.activity_form_input_anc.fieldDjj
+import kotlinx.android.synthetic.main.activity_form_input_anc.fieldDjj2
+import kotlinx.android.synthetic.main.activity_form_input_anc.fieldNadi
+import kotlinx.android.synthetic.main.activity_form_input_anc.fieldRr
+import kotlinx.android.synthetic.main.activity_form_input_anc.fieldSistolik
+import kotlinx.android.synthetic.main.activity_form_input_anc.fieldTanggal
+import kotlinx.android.synthetic.main.activity_form_input_anc.fieldTfu
+import kotlinx.android.synthetic.main.activity_form_input_anc.rb_kembar
+import kotlinx.android.synthetic.main.activity_form_input_anc.rb_tunggal
+import kotlinx.android.synthetic.main.activity_form_input_inc.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -102,6 +114,19 @@ class FormInputAncActivity : BaseActivity() {
         }
         fieldReduksiUrin.setOnClickListener {
             navigator.dataMaster(this,"reduksi urin",11)
+        }
+        fieldLetakJanin.setOnClickListener {
+            navigator.dataMaster(this,"letak janin",12)
+        }
+        rb_kembar.setOnClickListener {
+            rb_kembar.isChecked = true
+            rb_tunggal.isChecked = false
+            fieldDjj2.visibility = View.VISIBLE
+        }
+        rb_tunggal.setOnClickListener {
+            rb_kembar.isChecked = false
+            rb_tunggal.isChecked = true
+            fieldDjj2.visibility = View.GONE
         }
         btn_simpan.setOnClickListener {
             if (fieldRujukan.text.toString().equals("")){
@@ -210,7 +235,8 @@ class FormInputAncActivity : BaseActivity() {
         ancModel.tfu = fieldTfu.text.toString()
         ancModel.fetus_position = fieldLetakJanin.text.toString()
         ancModel.others = fieldLainnya.text.toString()
-        ancModel.djjj = fieldDjj.text.toString()
+        ancModel.djj1 = fieldDjj.text.toString()
+        ancModel.djj2 = fieldDjj2.text.toString()
         ancModel.swollen_foot = fieldKakiBengkak.text.toString()
         ancModel.blood_type = fieldGoldar.text.toString()
         ancModel.rhesus = fieldRhesus.text.toString()
@@ -334,6 +360,12 @@ class FormInputAncActivity : BaseActivity() {
             fieldNasihat.setError("Wajib diisi")
             return false
         }
+        if (rb_kembar.isChecked){
+            if (fieldDjj2.text.toString().equals("")){
+                fieldDjj2.setError("Wajib diisi")
+                return false
+            }
+        }
         return true
     }
 
@@ -420,6 +452,9 @@ class FormInputAncActivity : BaseActivity() {
         } else if (requestCode==11){
             var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
             fieldReduksiUrin.setText(dataMaster.name)
+        } else if (requestCode==12){
+            var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
+            fieldLetakJanin.setText(dataMaster.name)
         }
     }
 }

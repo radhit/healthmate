@@ -267,6 +267,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginTop="10dp"
+                android:textAllCaps="false"
                 style="@style/ButtonOrange"
                 android:id="@+id/btn_simpan"
                 android:text="Simpan"/>

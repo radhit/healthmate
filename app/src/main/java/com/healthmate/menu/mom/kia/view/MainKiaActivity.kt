@@ -147,7 +147,9 @@ class MainKiaActivity : BaseActivity() {
         fieldGoldarSuami.setOnClickListener {
             navigator.dataMaster(this,"goldar",4)
         }
-        
+        fieldPekerjaanMom.setOnClickListener {
+            navigator.dataMaster(this,"pekerjaan",5)
+        }
         fieldPendidikan.setOnClickListener {
             navigator.dataMaster(this, "pendidikan",6)
         }
@@ -171,6 +173,9 @@ class MainKiaActivity : BaseActivity() {
         }
         fieldMetode.setOnClickListener {
             navigator.dataMaster(this, "metode kb",13)
+        }
+        fieldPekerjaanSuami.setOnClickListener {
+            navigator.dataMaster(this,"pekerjaan",14)
         }
         rl_foto.setOnClickListener {
             createDialogTakePhoto()
@@ -420,8 +425,8 @@ class MainKiaActivity : BaseActivity() {
             fieldDana.setText("${dataKia.persalinan!!.funds}")
             fieldKendaraan.setText("${dataKia.persalinan!!.vehicle}")
             fieldMetode.setText("${dataKia.persalinan!!.metode_kb}")
-            fieldDonor.setText("${dataKia.persalinan!!.blood_donor}")
-            fieldNomorPendonor.setText("${dataKia.persalinan!!.blood_kontak}")
+            fieldDonor.setText("${dataKia.persalinan!!.pendonor}")
+            fieldNomorPendonor.setText("${dataKia.persalinan!!.kontak_pendonor}")
         }
     }
 
@@ -557,6 +562,9 @@ class MainKiaActivity : BaseActivity() {
         } else if (requestCode==13){
             var dataMaster = gson.fromJson(data!!.getStringExtra("data"),MasterListModel::class.java)
             fieldMetode.setText(dataMaster.name)
+        } else if (requestCode==14){
+            var dataMaster = gson.fromJson(data!!.getStringExtra("data"),MasterListModel::class.java)
+            fieldPekerjaanSuami.setText(dataMaster.name)
         }
     }
 

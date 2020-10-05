@@ -168,6 +168,8 @@
                             android:layout_width="match_parent"
                             android:padding="10dp"
                             android:layout_height="50dp"
+                            android:clickable="true"
+                            android:focusable="false"
                             android:inputType="text"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -334,6 +336,8 @@
                             android:layout_width="match_parent"
                             android:padding="10dp"
                             android:layout_height="50dp"
+                            android:clickable="true"
+                            android:focusable="false"
                             android:inputType="text"/>
                     </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.textfield.TextInputLayout
@@ -534,10 +538,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Simpan"
+                        android:textAllCaps="false"
+                        android:layout_gravity="right"
                         android:layout_marginTop="10dp"
-                        android:textColor="@color/white"
                         android:id="@+id/btn_simpan"
-                        android:background="@drawable/bg_secondary"/>
+                        style="@style/ButtonOrange"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

@@ -25,44 +25,40 @@
                 android:text="Kala 1"
                 android:textAllCaps="false"
                 android:layout_marginBottom="10dp"
-                android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:id="@+id/kala_1"
-                android:background="@drawable/bg_rounded_light_grey"/>
+                style="@style/ButtonOrange"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Kala 2"
                 android:textAllCaps="false"
                 android:layout_marginBottom="10dp"
-                android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:id="@+id/kala_2"
-                android:background="@drawable/bg_rounded_light_grey"/>
+                style="@style/ButtonOrange"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Kala 3"
                 android:textAllCaps="false"
                 android:layout_marginBottom="10dp"
-                android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:id="@+id/kala_3"
-                android:background="@drawable/bg_rounded_light_grey"/>
+                style="@style/ButtonOrange"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Kala 4"
                 android:textAllCaps="false"
                 android:layout_marginBottom="10dp"
-                android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:id="@+id/kala_4"
-                android:background="@drawable/bg_rounded_light_grey"/>
+                style="@style/ButtonOrange"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,8 +67,7 @@
                     android:layout_width="0dp"
                     android:layout_height="120dp"
                     android:layout_weight="1"
-                    android:background="@drawable/bg_rounded_light_grey"
-                    android:textColor="@color/colorPrimary"
+                    style="@style/ButtonOrange"
                     android:textStyle="bold"
                     android:layout_marginRight="10dp"
                     android:id="@+id/btn_ringkasan"
@@ -81,8 +76,7 @@
                     android:layout_width="0dp"
                     android:layout_height="120dp"
                     android:text="Catatan\nBayi"
-                    android:background="@drawable/bg_rounded_light_grey"
-                    android:textColor="@color/colorPrimary"
+                    style="@style/ButtonOrange"
                     android:textStyle="bold"
                     android:layout_marginLeft="10dp"
                     android:id="@+id/btn_catatan_bayi"
@@ -91,6 +85,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="10dp">
                 <Button
                     android:layout_width="0dp"

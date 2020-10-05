@@ -30,9 +30,8 @@
         android:layout_height="wrap_content"
         android:text="+Tambah Pemeriksaan"
         android:padding="10dp"
-        android:textColor="@color/white"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:id="@+id/btn_tambah"
-        android:background="@drawable/bg_rounded_grey"/>
+        style="@style/ButtonOrange"/>
 </LinearLayout>

@@ -14,6 +14,8 @@ data class AncModel(
         var tfu: String = "",
         var date: String = "",
         var djjj: String = "",
+        var djj1: String = "",
+        var djj2: String = "",
         var nadi: String = "",
         var others: String = "",
         var rhesus: String = "",

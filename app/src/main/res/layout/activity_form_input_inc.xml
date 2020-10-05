@@ -127,41 +127,6 @@
                         android:inputType="number"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/TextInputLayoutCustom"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:hint="Diastolik (mmHg)"
-                    android:layout_marginTop="10dp">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/fieldDiastolik"
-                        android:layout_width="match_parent"
-                        android:padding="10dp"
-                        android:layout_height="50dp"
-                        android:inputType="number"/>
-                </com.google.android.material.textfield.TextInputLayout>
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/TextInputLayoutCustom"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="10dp"
-                    android:hint="DJJ (x/mnt)"
-                    android:layout_marginTop="10dp">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/fieldDjj"
-                        android:layout_width="match_parent"
-                        android:padding="10dp"
-                        android:layout_height="50dp"
-                        android:inputType="number"/>
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -262,6 +227,71 @@
                         android:inputType="number"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputLayoutCustom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Diastolik (mmHg)"
+                    android:layout_marginTop="10dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/fieldDiastolik"
+                        android:layout_width="match_parent"
+                        android:padding="10dp"
+                        android:layout_height="50dp"
+                        android:inputType="number"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rb_tunggal"
+                    android:text="Tunggal"
+                    android:textSize="16sp"
+                    android:layout_marginRight="20dp"
+                    android:checked="true"/>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rb_kembar"
+                    android:textSize="16sp"
+                    android:text="Kembar"/>
+
+            </RadioGroup>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="DJJ (x/menit)"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fieldDjj"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="DJJ 2 (x/menit)"
+                android:visibility="gone"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fieldDjj2"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:layout_height="50dp"
+                    android:inputType="number"/>
+            </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/TextInputLayoutCustom"
                 android:layout_width="match_parent"

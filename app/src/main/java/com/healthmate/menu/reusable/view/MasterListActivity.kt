@@ -91,7 +91,19 @@ class MasterListActivity : BaseActivity() {
             getKakiBengkak()
         } else if (intent.getStringExtra(EXTRA).equals("protein urin") || intent.getStringExtra(EXTRA).equals("reduksi urin")){
             getUrin()
+        } else if (intent.getStringExtra(EXTRA).equals("letak janin")){
+            getLetakJanin()
         }
+    }
+
+    private fun getLetakJanin() {
+        val arrays: ArrayList<MasterListModel> = arrayListOf()
+        arrays.add(MasterListModel("1","Letak Kepala"))
+        arrays.add(MasterListModel("2","Letak Sungsang"))
+        arrays.add(MasterListModel("3","Letak Lintang"))
+        arrays.add(MasterListModel("4","Lainnya"))
+
+        adapter.updateLists(arrays)
     }
 
 
@@ -126,6 +138,9 @@ class MasterListActivity : BaseActivity() {
         arrays.add(MasterListModel("5","Operasi sesar/CS"))
         arrays.add(MasterListModel("6","Laparatomi"))
         arrays.add(MasterListModel("7","Lainnya"))
+        arrays.add(MasterListModel("8","Manual plasenta"))
+        arrays.add(MasterListModel("9","Riwayat infus/transfusi"))
+        arrays.add(MasterListModel("10","Lainnya"))
 
         adapter.updateLists(arrays)
     }
@@ -193,7 +208,7 @@ class MasterListActivity : BaseActivity() {
         arrays.add(MasterListModel("3","Dokter SpOG"))
         arrays.add(MasterListModel("4","Dukun"))
         arrays.add(MasterListModel("5","Sendiri/Brojol"))
-
+        arrays.add(MasterListModel("6","Lainnya"))
         adapter.updateLists(arrays)
     }
 
@@ -239,9 +254,14 @@ class MasterListActivity : BaseActivity() {
 
     private fun getPekerjaan() {
         val arrays: ArrayList<MasterListModel> = arrayListOf()
-        arrays.add(MasterListModel("1","PNS"))
+        arrays.add(MasterListModel("1","Tidak Bekerja"))
         arrays.add(MasterListModel("2","Wiraswasta"))
-        arrays.add(MasterListModel("3","Ibu Rumah Tangga"))
+        arrays.add(MasterListModel("3","Karyawan Swasta"))
+        arrays.add(MasterListModel("4","Karyawan BUMN/BUMD"))
+        arrays.add(MasterListModel("5","ASN/PNS"))
+        arrays.add(MasterListModel("6","Anggota TNI"))
+        arrays.add(MasterListModel("7","Anggota POLRI"))
+        arrays.add(MasterListModel("8","Lainnya"))
 
         adapter.updateLists(arrays)
     }

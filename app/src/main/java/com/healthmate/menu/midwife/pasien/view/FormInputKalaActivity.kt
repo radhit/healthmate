@@ -6,6 +6,7 @@ import android.app.TimePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.healthmate.R
 import com.healthmate.api.DataResponse
@@ -13,16 +14,7 @@ import com.healthmate.common.base.BaseActivity
 import com.healthmate.common.constant.Urls
 import com.healthmate.menu.midwife.pasien.data.IncKalaModel
 import com.healthmate.menu.reusable.data.User
-import kotlinx.android.synthetic.main.activity_form_input_anc.*
 import kotlinx.android.synthetic.main.activity_form_input_inc.*
-import kotlinx.android.synthetic.main.activity_form_input_inc.btn_simpan
-import kotlinx.android.synthetic.main.activity_form_input_inc.fieldDiastolik
-import kotlinx.android.synthetic.main.activity_form_input_inc.fieldDjj
-import kotlinx.android.synthetic.main.activity_form_input_inc.fieldNadi
-import kotlinx.android.synthetic.main.activity_form_input_inc.fieldRr
-import kotlinx.android.synthetic.main.activity_form_input_inc.fieldSistolik
-import kotlinx.android.synthetic.main.activity_form_input_inc.fieldTanggal
-import kotlinx.android.synthetic.main.activity_form_input_inc.fieldTfu
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -63,6 +55,16 @@ class FormInputKalaActivity : BaseActivity() {
                 setDataInput()
                 submit()
             }
+        }
+        rb_kembar.setOnClickListener {
+            rb_kembar.isChecked = true
+            rb_tunggal.isChecked = false
+            fieldDjj2.visibility = View.VISIBLE
+        }
+        rb_tunggal.setOnClickListener {
+            rb_kembar.isChecked = false
+            rb_tunggal.isChecked = true
+            fieldDjj2.visibility = View.GONE
         }
         fieldTanggal.setOnClickListener {
             callCalender()
@@ -106,7 +108,8 @@ class FormInputKalaActivity : BaseActivity() {
         incKalaModel.tfu = fieldTfu.text.toString()
         incKalaModel.diastolik = fieldDiastolik.text.toString()
         incKalaModel.his = fieldHis.text.toString()
-        incKalaModel.djj = fieldDjj.text.toString()
+        incKalaModel.djj1 = fieldDjj.text.toString()
+        incKalaModel.djj2 = fieldDjj2.text.toString()
         incKalaModel.pulse = fieldNadi.text.toString()
         incKalaModel.amniotic_fluid = fieldKetuban.text.toString()
         incKalaModel.rr = fieldRr.text.toString()
@@ -169,6 +172,12 @@ class FormInputKalaActivity : BaseActivity() {
         } else if (fieldPenatalaksaan.text.toString().equals("")){
             fieldPenatalaksaan.setError("Wajib diisi")
             return false
+        }
+        if (rb_kembar.isChecked){
+            if (fieldDjj2.text.toString().equals("")){
+                fieldDjj2.setError("Wajib diisi")
+                return false
+            }
         }
         return true
     }
