@@ -56,9 +56,6 @@ class MainKalaActivity : BaseActivity() {
         type = intent.getStringExtra(EXTRA_TYPE)
         dataMother = gson.fromJson(intent.getStringExtra(EXTRA),User::class.java)
         this.setTitle("Data ${type}")
-        btn_pemeriksaan.setOnClickListener {
-            navigator.formKalaInc(this,type,gson.toJson(dataMother))
-        }
         if (type.contains("1")){
             kala_number = 1
         } else if (type.contains("2")){
@@ -67,6 +64,14 @@ class MainKalaActivity : BaseActivity() {
             kala_number = 3
         } else if (type.contains("4")){
             kala_number = 4
+        }
+
+        btn_pemeriksaan.setOnClickListener {
+            if (kala_number==1){
+                navigator.formKalaInc(this,type,gson.toJson(dataMother))
+            } else if (kala_number==2){
+                navigator.formKala2Inc(this,type,gson.toJson(dataMother))
+            }
         }
         setRecycleView()
         getData()

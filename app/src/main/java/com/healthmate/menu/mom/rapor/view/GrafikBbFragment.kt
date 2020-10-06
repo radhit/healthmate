@@ -74,7 +74,7 @@ class GrafikBbFragment : BaseFragment() {
 
     private fun setData() {
         tv_bb_awal.text = "${dataAnc.initial_weight} Kg"
-        tv_minggu_ke.text = dataAnc.age_of_pregnancy
+        tv_minggu_ke.text = dataAnc.age_of_pregnancy.toString()
         tv_bb_now.text = "${dataAnc.weight} Kg"
         tv_perubahan_bb.text = "${dataAnc.differenced_weight} Kg"
         tv_suggested.text = "Suggested Weight\n${dataAnc.suggested_weight} Kg"

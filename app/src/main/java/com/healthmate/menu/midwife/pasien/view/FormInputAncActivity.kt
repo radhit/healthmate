@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.google.gson.JsonArray
 import com.healthmate.R
 import com.healthmate.api.DataResponse
 import com.healthmate.common.base.BaseActivity
@@ -22,18 +23,6 @@ import com.healthmate.menu.reusable.data.Location
 import com.healthmate.menu.reusable.data.MasterListModel
 import com.healthmate.menu.reusable.data.User
 import kotlinx.android.synthetic.main.activity_form_input_anc.*
-import kotlinx.android.synthetic.main.activity_form_input_anc.btn_simpan
-import kotlinx.android.synthetic.main.activity_form_input_anc.fieldDiastolik
-import kotlinx.android.synthetic.main.activity_form_input_anc.fieldDjj
-import kotlinx.android.synthetic.main.activity_form_input_anc.fieldDjj2
-import kotlinx.android.synthetic.main.activity_form_input_anc.fieldNadi
-import kotlinx.android.synthetic.main.activity_form_input_anc.fieldRr
-import kotlinx.android.synthetic.main.activity_form_input_anc.fieldSistolik
-import kotlinx.android.synthetic.main.activity_form_input_anc.fieldTanggal
-import kotlinx.android.synthetic.main.activity_form_input_anc.fieldTfu
-import kotlinx.android.synthetic.main.activity_form_input_anc.rb_kembar
-import kotlinx.android.synthetic.main.activity_form_input_anc.rb_tunggal
-import kotlinx.android.synthetic.main.activity_form_input_inc.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -60,6 +49,7 @@ class FormInputAncActivity : BaseActivity() {
     var hospital: Hospital = Hospital()
     var dateNow: String = ""
     var dateComeback: String = ""
+    var dataKeluhan: ArrayList<String> = arrayListOf()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         this.setTitle("Formulir ANC")
@@ -96,13 +86,10 @@ class FormInputAncActivity : BaseActivity() {
         fieldTanggal.setOnClickListener {
             callCalender()
         }
-
-        btn_verif.setOnClickListener {
-            if (isValid()){
-                setData()
-                submit()
-            }
+        fieldKeluhanUtama.setOnClickListener {
+            navigator.dataSelectable(this,"Keluhan",13)
         }
+
         fieldRujukan.setOnClickListener {
             navigator.listLocation(this,"rujukan",8,gson.toJson(mother))
         }
@@ -121,12 +108,18 @@ class FormInputAncActivity : BaseActivity() {
         rb_kembar.setOnClickListener {
             rb_kembar.isChecked = true
             rb_tunggal.isChecked = false
-            fieldDjj2.visibility = View.VISIBLE
+            inputDjj2.visibility = View.VISIBLE
         }
         rb_tunggal.setOnClickListener {
             rb_kembar.isChecked = false
             rb_tunggal.isChecked = true
-            fieldDjj2.visibility = View.GONE
+            inputDjj2.visibility = View.GONE
+        }
+        btn_verif.setOnClickListener {
+            if (isValid()){
+                setData()
+                submit()
+            }
         }
         btn_simpan.setOnClickListener {
             if (fieldRujukan.text.toString().equals("")){
@@ -135,6 +128,7 @@ class FormInputAncActivity : BaseActivity() {
                 postAnc()
             }
         }
+
     }
 
     private fun postAnc() {
@@ -221,27 +215,34 @@ class FormInputAncActivity : BaseActivity() {
         ancModel.mother_id = mother.id
         ancModel.midwife_id = userPref.getUser().id
         ancModel.date = "${dateNow}+07:00"
-        ancModel.complaint = fieldKeluhanUtama.text.toString()
+        ancModel.complaint.addAll(dataKeluhan)
         ancModel.other_complaint = fieldKeluhanLainnya.text.toString()
-        ancModel.sistolik = fieldSistolik.text.toString()
-        ancModel.diastolik = fieldDiastolik.text.toString()
-        ancModel.nadi = fieldNadi.text.toString()
-        ancModel.rr = fieldRr.text.toString()
-        ancModel.weight = fieldbb.text.toString()
-        ancModel.imt = fieldImt.text.toString()
-        ancModel.map = fieldMap.text.toString()
+        ancModel.sistolik = fieldSistolik.text.toString().toInt()
+        ancModel.initial_weight = fieldBbawal.text.toString().toInt()
+        ancModel.diastolik = fieldDiastolik.text.toString().toInt()
+        ancModel.nadi = fieldNadi.text.toString().toInt()
+        ancModel.rr = fieldRr.text.toString().toInt()
+        ancModel.weight = fieldbb.text.toString().toInt()
+        ancModel.suggested_weight = fieldSuggestedWeight.text.toString()
+        ancModel.differenced_weight = fieldDifferenceBB.text.toString().toInt()
+        ancModel.imt = fieldImt.text.toString().toInt()
+        ancModel.map = fieldMap.text.toString().toInt()
         ancModel.rot = fieldRot.text.toString()
-        ancModel.age_of_pregnancy = fieldUmurKehamilan.text.toString()
-        ancModel.tfu = fieldTfu.text.toString()
+        ancModel.age_of_pregnancy = fieldUmurKehamilan.text.toString().toInt()
+        ancModel.tfu = fieldTfu.text.toString().toInt()
         ancModel.fetus_position = fieldLetakJanin.text.toString()
         ancModel.others = fieldLainnya.text.toString()
-        ancModel.djj1 = fieldDjj.text.toString()
-        ancModel.djj2 = fieldDjj2.text.toString()
+        if (rb_kembar.isChecked){
+            ancModel.djj.add(fieldDjj.text.toString().toInt())
+            ancModel.djj.add(fieldDjj2.text.toString().toInt())
+        } else{
+            ancModel.djj.add(fieldDjj.text.toString().toInt())
+        }
         ancModel.swollen_foot = fieldKakiBengkak.text.toString()
         ancModel.blood_type = fieldGoldar.text.toString()
         ancModel.rhesus = fieldRhesus.text.toString()
         ancModel.blood_sugar = fieldGulaDarah.text.toString()
-        ancModel.hb = fieldHb.text.toString()
+        ancModel.hb = fieldHb.text.toString().toInt()
         ancModel.urine_protein = fieldProteinUrin.text.toString()
         ancModel.urine_reduction = fieldReduksiUrin.text.toString()
         ancModel.hepatitis_b = fieldHepatitis.text.toString()
@@ -254,9 +255,7 @@ class FormInputAncActivity : BaseActivity() {
         ancModel.number_of_immunitation = fieldPemberianImunisasi.text.toString()
         ancModel.return_date = dateComeback
         ancModel.message = fieldNasihat.text.toString()
-        ancModel.suggested_weight = fieldSuggestedWeight.text.toString()
-        ancModel.differenced_weight = fieldDifferenceBB.text.toString()
-        ancModel.initial_weight = fieldBbawal.text.toString()
+
     }
 
     private fun isValid(): Boolean {
@@ -462,6 +461,19 @@ class FormInputAncActivity : BaseActivity() {
             if (resultCode==Activity.RESULT_OK){
                 var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
                 fieldLetakJanin.setText(dataMaster.name)
+            }
+        } else if (requestCode==13){
+            if (resultCode== RESULT_OK){
+                dataKeluhan.clear()
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), JsonArray::class.java)
+                println("data master : ${gson.toJson(dataMaster)}")
+                var daftarKeluhan = ""
+
+                for (i in 0..dataMaster.size()-1){
+                    dataKeluhan.add(dataMaster[i].toString().substring(1,dataMaster[i].toString().length-1))
+                    daftarKeluhan="${daftarKeluhan}${dataMaster[i].toString().substring(1,dataMaster[i].toString().length-1)}, "
+                }
+                fieldKeluhanUtama.setText(daftarKeluhan.substring(0, daftarKeluhan.length - 2))
             }
         }
     }

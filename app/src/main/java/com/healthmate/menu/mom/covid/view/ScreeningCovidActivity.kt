@@ -72,6 +72,7 @@ class ScreeningCovidActivity : BaseActivity() {
                 if (response!!.isSuccessful) {
                     if (response!!.body()!!.responseCode in 200..299){
                         var user = response.body()!!.data
+                        user!!.token = userPref.getUser().token
                         userPref.setUser(user!!)
                         finish()
                     } else{

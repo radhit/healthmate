@@ -93,7 +93,54 @@ class MasterListActivity : BaseActivity() {
             getUrin()
         } else if (intent.getStringExtra(EXTRA).equals("letak janin")){
             getLetakJanin()
+        } else if (intent.getStringExtra(EXTRA).equals("kesadaran")){
+            getKesadaran()
+        } else if (intent.getStringExtra(EXTRA).equals("presentasi")){
+            getPresentasiKala()
+        } else if (intent.getStringExtra(EXTRA).equals("denominator")){
+            getDenominator()
+        } else if (intent.getStringExtra(EXTRA).equals("tali pusar") || intent.getStringExtra(EXTRA).equals("pernium") || intent.getStringExtra(EXTRA).equals("vulva vagina")){
+            getYaTidak()
         }
+    }
+
+    private fun getYaTidak() {
+        val arrays: ArrayList<MasterListModel> = arrayListOf()
+        arrays.add(MasterListModel("1","Ya"))
+        arrays.add(MasterListModel("2","Tidak"))
+
+        adapter.updateLists(arrays)
+    }
+
+    private fun getDenominator() {
+        val arrays: ArrayList<MasterListModel> = arrayListOf()
+        arrays.add(MasterListModel("1","UUK"))
+        arrays.add(MasterListModel("2","UUB - depan"))
+        arrays.add(MasterListModel("3","Belakang"))
+
+        adapter.updateLists(arrays)
+    }
+
+    private fun getPresentasiKala() {
+        val arrays: ArrayList<MasterListModel> = arrayListOf()
+        arrays.add(MasterListModel("1","Kepala"))
+        arrays.add(MasterListModel("2","Bokong"))
+        arrays.add(MasterListModel("3","Bahu"))
+
+        adapter.updateLists(arrays)
+    }
+
+    private fun getKesadaran() {
+        val arrays: ArrayList<MasterListModel> = arrayListOf()
+        arrays.add(MasterListModel("1","Composmentis"))
+        arrays.add(MasterListModel("2","Apatis"))
+        arrays.add(MasterListModel("3","Delirium"))
+        arrays.add(MasterListModel("4","Somnolen"))
+        arrays.add(MasterListModel("4","Sopor"))
+        arrays.add(MasterListModel("4","Semi-koma"))
+        arrays.add(MasterListModel("4","Koma"))
+
+        adapter.updateLists(arrays)
     }
 
     private fun getLetakJanin() {

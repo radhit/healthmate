@@ -99,20 +99,20 @@ class FormRiwayatAncActivity : BaseActivity() {
     private fun setDataInput() {
         historyAncsModel.hpht = "${fieldHPHT.text.toString()}T07:00:00+07:00"
         historyAncsModel.hpl = "${fieldHPL.text.toString()}T07:00:00+07:00"
-        historyAncsModel.lila = fieldLila.text.toString()
-        historyAncsModel.height = fieldTinggi.text.toString()
+        historyAncsModel.lila = fieldLila.text.toString().replaceEmpty("0").toInt()
+        historyAncsModel.height = fieldTinggi.text.toString().replaceEmpty("0").toInt()
         historyAncsModel.kontrasepsi = fieldKontrasepsi.text.toString()
-        historyAncsModel.riwayat_penyakit = fieldRiwayatPenyakit.text.toString()
+        historyAncsModel.riwayat_penyakit.addAll(dataPenyakit)
         historyAncsModel.alergi_obat = fieldRiwayatAlergiObat.text.toString()
         historyAncsModel.alergi_lain = fieldAlergiLain.text.toString()
 
 //        historyAncsModel.preg_num = fieldkehamilan.text.toString()
 //        historyAncsModel.labor_num = fieldJumlahPersalinan.text.toString()
 //        historyAncsModel.miscarriage_num = fieldJumlahKeguguran.text.toString().replaceEmpty("0")
-        historyAncsModel.live_child_num = fieldJumlahAnakHidup.text.toString().replaceEmpty("0")
+        historyAncsModel.live_child_num = fieldJumlahAnakHidup.text.toString().replaceEmpty("0").toInt()
 
-        historyAncsModel.live_dead_num = fieldJumlahLahirMeninggal.text.toString().replaceEmpty("0")
-        historyAncsModel.less_month_child_num = fieldJumlahLahirKurangBulan.text.toString().replaceEmpty("0")
+        historyAncsModel.live_dead_num = fieldJumlahLahirMeninggal.text.toString().replaceEmpty("0").toInt()
+        historyAncsModel.less_month_child_num = fieldJumlahLahirKurangBulan.text.toString().replaceEmpty("0").toInt()
 
         historyAncsModel.prev_child_difference = fieldJarak.text.toString()
 
@@ -212,7 +212,14 @@ class FormRiwayatAncActivity : BaseActivity() {
         fieldLila.setText("${user.anc_history.lila}")
         fieldTinggi.setText("${user.anc_history.height}")
         fieldKontrasepsi.setText("${user.anc_history.kontrasepsi}")
-        fieldRiwayatPenyakit.setText("${user.anc_history.riwayat_penyakit}")
+        var daftarPenyakit = ""
+
+        for (i in 0..user.anc_history.riwayat_penyakit.size-1){
+            daftarPenyakit="${daftarPenyakit}${user.anc_history.riwayat_penyakit[i].toString().substring(1,user.anc_history.riwayat_penyakit[i].toString().length-1)}, "
+        }
+        println("data Penyakit: ${gson.toJson(dataPenyakit)}")
+        fieldRiwayatPenyakit.setText(daftarPenyakit.substring(0, daftarPenyakit.length - 2))
+
         fieldRiwayatAlergiObat.setText("${user.anc_history.alergi_obat}")
         fieldAlergiLain.setText("${user.anc_history.alergi_lain}")
 //        fieldkehamilan.setText("${user.anc_history.preg_num}")

@@ -228,8 +228,7 @@ class MainKiaActivity : BaseActivity() {
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(user))
         var url = ""
         url = "${Urls.registerMother}/${userPref.getUser().id}"
-//        if (keterangan.equals("mother")){
-//        }
+
         println("req body : ${requestBody}")
         val call: Call<DataResponse<Any>> = baseApi.updateDataMom(url,requestBody)
         call.enqueue(object : Callback<DataResponse<Any>> {

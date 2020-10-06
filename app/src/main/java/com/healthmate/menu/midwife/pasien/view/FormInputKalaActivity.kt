@@ -13,6 +13,7 @@ import com.healthmate.api.DataResponse
 import com.healthmate.common.base.BaseActivity
 import com.healthmate.common.constant.Urls
 import com.healthmate.menu.midwife.pasien.data.IncKalaModel
+import com.healthmate.menu.reusable.data.MasterListModel
 import com.healthmate.menu.reusable.data.User
 import kotlinx.android.synthetic.main.activity_form_input_inc.*
 import okhttp3.MediaType
@@ -44,7 +45,7 @@ class FormInputKalaActivity : BaseActivity() {
     var dateNow: String = ""
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        this.setTitle("Formulir Kala")
+        this.setTitle("Formulir Kala 1")
         var current = LocalDateTime.now().toString()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
         dateNow = current.format(formatter)
@@ -59,18 +60,21 @@ class FormInputKalaActivity : BaseActivity() {
         rb_kembar.setOnClickListener {
             rb_kembar.isChecked = true
             rb_tunggal.isChecked = false
-            fieldDjj2.visibility = View.VISIBLE
+            inputDjj2.visibility = View.VISIBLE
         }
         rb_tunggal.setOnClickListener {
             rb_kembar.isChecked = false
             rb_tunggal.isChecked = true
-            fieldDjj2.visibility = View.GONE
+            inputDjj2.visibility = View.GONE
         }
         fieldTanggal.setOnClickListener {
             callCalender()
         }
         fieldWaktu.setOnClickListener {
             showTimePicker()
+        }
+        fieldKesadaran.setOnClickListener {
+            navigator.dataMaster(this,"kesadaran",1)
         }
     }
 
@@ -104,20 +108,24 @@ class FormInputKalaActivity : BaseActivity() {
         incKalaModel.date = "${fieldTanggal.text.toString()}T${fieldWaktu.text.toString()}+07:00"
         incKalaModel.time = fieldWaktu.text.toString()
         incKalaModel.complaint = fieldKeluhan.text.toString()
-        incKalaModel.sistolik = fieldSistolik.text.toString()
-        incKalaModel.tfu = fieldTfu.text.toString()
-        incKalaModel.diastolik = fieldDiastolik.text.toString()
-        incKalaModel.his = fieldHis.text.toString()
-        incKalaModel.djj1 = fieldDjj.text.toString()
-        incKalaModel.djj2 = fieldDjj2.text.toString()
-        incKalaModel.pulse = fieldNadi.text.toString()
+        incKalaModel.awareness = fieldKesadaran.text.toString()
+        incKalaModel.td = fieldTd.text.toString().toInt()
+        incKalaModel.tfu = fieldTfu.text.toString().toInt()
+        incKalaModel.his = fieldHis.text.toString().toInt()
+        if (rb_kembar.isChecked){
+            incKalaModel.djj.add(fieldDjj.text.toString().toInt())
+            incKalaModel.djj.add(fieldDjj2.text.toString().toInt())
+        } else{
+            incKalaModel.djj.add(fieldDjj.text.toString().toInt())
+        }
+        incKalaModel.pulse = fieldNadi.text.toString().toInt()
         incKalaModel.amniotic_fluid = fieldKetuban.text.toString()
-        incKalaModel.rr = fieldRr.text.toString()
-        incKalaModel.dilatasi = fieldDilatasi.text.toString()
-        incKalaModel.temperature = fieldSuhu.text.toString()
-        incKalaModel.effacement = fieldEffacement.text.toString()
+        incKalaModel.rr = fieldRr.text.toString().toInt()
+        incKalaModel.temperature = fieldSuhu.text.toString().toInt()
+        incKalaModel.effacement = fieldEffacement.text.toString().toInt()
         incKalaModel.analisys = fieldAnalisis.text.toString()
         incKalaModel.penatalaksaan = fieldPenatalaksaan.text.toString()
+        incKalaModel.vt = fieldVT.text.toString().toInt()
         incKalaModel.type = type
         incKalaModel.mother_id = dataMother.id
         incKalaModel.midwife_id = userPref.getUser().id
@@ -133,14 +141,11 @@ class FormInputKalaActivity : BaseActivity() {
         } else if (fieldKeluhan.text.toString().equals("")){
             fieldKeluhan.setError("Wajib diisi")
             return false
-        } else if (fieldSistolik.text.toString().equals("")){
-            fieldSistolik.setError("Wajib diisi")
+        } else if (fieldTd.text.toString().equals("")){
+            fieldTd.setError("Wajib diisi")
             return false
         } else if (fieldTfu.text.toString().equals("")){
             fieldTfu.setError("Wajib diisi")
-            return false
-        } else if (fieldDiastolik.text.toString().equals("")){
-            fieldDiastolik.setError("Wajib diisi")
             return false
         } else if (fieldHis.text.toString().equals("")){
             fieldHis.setError("Wajib diisi")
@@ -157,8 +162,8 @@ class FormInputKalaActivity : BaseActivity() {
         } else if (fieldRr.text.toString().equals("")){
             fieldRr.setError("Wajib diisi")
             return false
-        } else if (fieldDilatasi.text.toString().equals("")){
-            fieldDilatasi.setError("Wajib diisi")
+        } else if (fieldVT.text.toString().equals("")){
+            fieldVT.setError("Wajib diisi")
             return false
         } else if (fieldSuhu.text.toString().equals("")){
             fieldSuhu.setError("Wajib diisi")
@@ -171,6 +176,9 @@ class FormInputKalaActivity : BaseActivity() {
             return false
         } else if (fieldPenatalaksaan.text.toString().equals("")){
             fieldPenatalaksaan.setError("Wajib diisi")
+            return false
+        } else if (fieldKesadaran.text.toString().equals("")){
+            fieldKesadaran.setError("Wajib diisi")
             return false
         }
         if (rb_kembar.isChecked){
@@ -231,5 +239,15 @@ class FormInputKalaActivity : BaseActivity() {
 
                 }, hour, minute, true)
         timePickerDialog.show()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode== RESULT_OK){
+            if (requestCode==1){
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
+                fieldKesadaran.setText(dataMaster.name)
+            }
+        }
     }
 }

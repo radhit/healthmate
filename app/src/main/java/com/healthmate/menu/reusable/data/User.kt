@@ -29,20 +29,20 @@ data class AncHistory(
         var hpht: String? = "",
         var hpl: String? = "",
 
-        var lila: String? = "",
-        var height: String? = "",
+        var lila: Int? = 0,
+        var height: Int? = 0,
         var kontrasepsi: String? = "",
-        var riwayat_penyakit: String? = "",
+        var riwayat_penyakit: ArrayList<String> = arrayListOf(),
         var alergi_obat: String? = "",
         var alergi_lain: String? = "",
 
 //        var preg_num: String? = "",
 //        var labor_num: String? = "",
 //        var miscarriage_num: String? = "",
-        var live_child_num: String? = "",
+        var live_child_num: Int? = 0,
 
-        var live_dead_num: String? = "",
-        var less_month_child_num: String? = "",
+        var live_dead_num: Int? = 0,
+        var less_month_child_num: Int? = 0,
 
         var prev_child_difference: String? = "",
 

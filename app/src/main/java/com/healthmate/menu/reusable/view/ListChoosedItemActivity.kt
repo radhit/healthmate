@@ -35,7 +35,11 @@ class ListChoosedItemActivity : BaseActivity(), SelectableViewHolder.OnItemSelec
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         this.setTitle("${intent.getStringExtra(EXTRA)}")
-        setData()
+        if (intent.getStringExtra(EXTRA).equals("Riwayat Penyakit")){
+            setData()
+        } else{
+            setDataKeluhan()
+        }
         setRecycleView()
         btn_simpan.setOnClickListener {
             if (selectedItems.size>0){
@@ -51,6 +55,25 @@ class ListChoosedItemActivity : BaseActivity(), SelectableViewHolder.OnItemSelec
                 createDialog("Anda harus memilih salah satu jawaban")
             }
         }
+    }
+
+    private fun setDataKeluhan() {
+        val arrays: ArrayList<Item> = arrayListOf()
+        arrays.add(Item("Tidak ada keluhan"))
+        arrays.add(Item("Mual/Muntah"))
+        arrays.add(Item("Sesak"))
+        arrays.add(Item("Pusing"))
+        arrays.add(Item("Nyeri kepala"))
+        arrays.add(Item("Mata berkunang-kunang"))
+        arrays.add(Item("Perdarahan"))
+        arrays.add(Item("Keluar air (merembes air)"))
+        arrays.add(Item("Perut kenceng-kenceng/kontraksi rahim"))
+        arrays.add(Item("Gerak anak berkurang"))
+        arrays.add(Item("Gerak anak tidak dirasakan"))
+        arrays.add(Item("Lainnya"))
+
+        list.clear()
+        list.addAll(arrays)
     }
 
     private fun setData() {

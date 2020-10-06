@@ -105,15 +105,15 @@ class DataAncFragment : BaseFragment() {
             tv_hpht.text = dataPasien.anc_history.hpht!!.split("T")[0]
         }
         if (dataPasien.anc_history.hpl!!.equals("")){
-            tv_hpht.text = dataPasien.anc_history.hpl.replaceEmpty("-")
+            tv_hpl.text = dataPasien.anc_history.hpl.replaceEmpty("-")
         } else {
-            tv_hpht.text = dataPasien.anc_history.hpl!!.split("T")[0]
+            tv_hpl.text = dataPasien.anc_history.hpl!!.split("T")[0]
         }
-//        tv_kehamilan_ke.text = dataPasien.anc_history.preg_num.replaceEmpty("-")
-//        tv_total_persalinan.text = dataPasien.anc_history.labor_num.replaceEmpty("-")
+        tv_lila.text = "${dataPasien.anc_history.lila.toString().replace("0","-")} cm"
+        tv_tinggi.text = "${dataPasien.anc_history.height.toString().replace("0","-")} cm"
 //        tv_total_keguguran.text = dataPasien.anc_history.miscarriage_num.replaceEmpty("-")
-        tv_total_hidup.text = dataPasien.anc_history.live_child_num.replaceEmpty("-")
-        tv_jarak.text = dataPasien.anc_history.prev_child_difference.replaceEmpty("-")
+        tv_total_hidup.text = dataPasien.anc_history.live_child_num.toString().replace("0","-")
+        tv_jarak.text = dataPasien.anc_history.prev_child_difference.toString().replace("0","-")
     }
 
     private fun getData(keterangan: String) {
