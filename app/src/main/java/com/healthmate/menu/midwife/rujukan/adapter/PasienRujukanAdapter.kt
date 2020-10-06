@@ -24,13 +24,13 @@ class PasienRujukanAdapter(private val mContext: Context, private val keterangan
         val value = lists[position]
         holder.view.tv_status.text = value.diagnostic_color
         holder.view.tv_nama.text = value.name
-        if (keterangan.equals("penerima")){
-            holder.view.tv_rujukan.text = "Dirujuk oleh ${value.rujukan!!.asal_perujuk!!.name}"
-            holder.view.tv_tanggal.text = "Dirujuk tanggal ${value.rujukan!!.date.split("T")[0]}"
-        } else{
-            holder.view.tv_rujukan.text = "Merujuk ke ${value.rujukan!!.asal_perujuk!!.name}"
-            holder.view.tv_tanggal.text = "Merujuk tanggal ${value.rujukan!!.date.split("T")[0]}"
-        }
+//        if (keterangan.equals("penerima")){
+//            holder.view.tv_rujukan.text = "Dirujuk oleh ${value.rujukan!!.asal_perujuk!!.name}"
+//            holder.view.tv_tanggal.text = "Dirujuk tanggal ${value.rujukan!!.date.split("T")[0]}"
+//        } else{
+//            holder.view.tv_rujukan.text = "Merujuk ke ${value.rujukan!!.asal_perujuk!!.name}"
+//            holder.view.tv_tanggal.text = "Merujuk tanggal ${value.rujukan!!.date.split("T")[0]}"
+//        }
         Glide.with(mContext).load(value.profile_picture).into(holder.view.iv_foto)
     }
 

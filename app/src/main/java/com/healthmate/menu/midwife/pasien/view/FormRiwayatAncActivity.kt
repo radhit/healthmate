@@ -5,13 +5,11 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.gson.JsonArray
+import com.google.gson.reflect.TypeToken
 import com.healthmate.R
 import com.healthmate.api.DataResponse
-import com.healthmate.api.Payload
-import com.healthmate.api.PayloadEntry
-import com.healthmate.api.Result
 import com.healthmate.common.base.BaseActivity
 import com.healthmate.common.constant.Urls
 import com.healthmate.common.functions.replaceEmpty
@@ -24,7 +22,6 @@ import kotlinx.android.synthetic.main.activity_data_riwayat_anc.*
 import kotlinx.android.synthetic.main.activity_data_riwayat_anc.btn_simpan
 import kotlinx.android.synthetic.main.activity_data_riwayat_anc.fieldPenolong
 import kotlinx.android.synthetic.main.activity_form_ringkasan_persalinan.*
-import kotlinx.android.synthetic.main.activity_main_kia.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -53,10 +50,11 @@ class FormRiwayatAncActivity : BaseActivity() {
     var keterangan: String = ""
     var user: User = User()
     var historyAncsModel: AncHistory = AncHistory()
+    var dataPenyakit: ArrayList<String> = arrayListOf()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         keterangan = intent.getStringExtra(EXTRA_KETERANGAN)
-        user = gson.fromJson(intent.getStringExtra(EXTRA),User::class.java)
+        user = gson.fromJson(intent.getStringExtra(EXTRA), User::class.java)
         this.setTitle("Data History Anc")
         if (keterangan.equals("edit")){
             setData()
@@ -82,16 +80,19 @@ class FormRiwayatAncActivity : BaseActivity() {
             callCalender("imunisasi")
         }
         fieldKontrasepsi.setOnClickListener {
-            navigator.dataMaster(this,"kontrasepsi",1)
+            navigator.dataMaster(this, "kontrasepsi", 1)
         }
         fieldImunisasi.setOnClickListener {
-            navigator.dataMaster(this,"imunisasi",2)
+            navigator.dataMaster(this, "imunisasi", 2)
         }
         fieldPenolong.setOnClickListener {
-            navigator.dataMaster(this,"penolong persalinan",3)
+            navigator.dataMaster(this, "penolong persalinan", 3)
         }
         fieldCaraPersalinan.setOnClickListener {
-            navigator.dataMaster(this,"cara persalinan",4)
+            navigator.dataMaster(this, "cara persalinan", 4)
+        }
+        fieldRiwayatPenyakit.setOnClickListener {
+            navigator.dataSelectable(this, "Riwayat Penyakit", 5)
         }
     }
 
@@ -141,11 +142,11 @@ class FormRiwayatAncActivity : BaseActivity() {
                     } else {
                         tanggal = tanggal + dayOfMonth.toString()
                     }
-                    if (keterangan.equals("hpht")){
+                    if (keterangan.equals("hpht")) {
                         fieldHPHT.setText(tanggal)
-                    } else if (keterangan.equals("hpl")){
+                    } else if (keterangan.equals("hpl")) {
                         fieldHPL.setText(tanggal)
-                    } else{
+                    } else {
                         fieldTanggalImunisasi.setText(tanggal)
                     }
                 }, mYear, mMonth, mDay)
@@ -157,24 +158,24 @@ class FormRiwayatAncActivity : BaseActivity() {
         showLoadingDialog()
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(historyAncsModel))
         println("req body : ${requestBody}")
-        val call: Call<DataResponse<Any>> = baseApi.updateDataAncsHistory("${Urls.ancsHistory}/${user.anc_history.id}",requestBody)
+        val call: Call<DataResponse<Any>> = baseApi.updateDataAncsHistory("${Urls.ancsHistory}/${user.anc_history.id}", requestBody)
         call.enqueue(object : Callback<DataResponse<Any>> {
             override fun onResponse(call: Call<DataResponse<Any>>?, response: Response<DataResponse<Any>>?) {
                 closeLoadingDialog()
                 if (response!!.isSuccessful) {
-                    if (response!!.body()!!.responseCode in 200..299){
+                    if (response!!.body()!!.responseCode in 200..299) {
                         finish()
-                    } else{
+                    } else {
                         createDialog(response.body()!!.message)
                     }
                 } else {
-                    Toast.makeText(this@FormRiwayatAncActivity,"Terjadi kesalahan", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@FormRiwayatAncActivity, "Terjadi kesalahan", Toast.LENGTH_LONG).show()
                 }
             }
 
             override fun onFailure(call: Call<DataResponse<Any>>?, t: Throwable?) {
                 closeLoadingDialog()
-                Toast.makeText(this@FormRiwayatAncActivity,t!!.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(this@FormRiwayatAncActivity, t!!.message, Toast.LENGTH_LONG).show()
             }
         })
     }
@@ -183,24 +184,24 @@ class FormRiwayatAncActivity : BaseActivity() {
         showLoadingDialog()
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(historyAncsModel))
         println("req body : ${requestBody}")
-        val call: Call<DataResponse<Any>> = baseApi.inputForm("${Urls.registerMother}/${user.id}/anc-history",requestBody)
+        val call: Call<DataResponse<Any>> = baseApi.inputForm("${Urls.registerMother}/${user.id}/anc-history", requestBody)
         call.enqueue(object : Callback<DataResponse<Any>> {
             override fun onResponse(call: Call<DataResponse<Any>>?, response: Response<DataResponse<Any>>?) {
                 closeLoadingDialog()
                 if (response!!.isSuccessful) {
-                    if (response!!.body()!!.responseCode in 200..299){
+                    if (response!!.body()!!.responseCode in 200..299) {
                         finish()
-                    } else{
+                    } else {
                         createDialog(response.body()!!.message)
                     }
                 } else {
-                    Toast.makeText(this@FormRiwayatAncActivity,"Terjadi kesalahan", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@FormRiwayatAncActivity, "Terjadi kesalahan", Toast.LENGTH_LONG).show()
                 }
             }
 
             override fun onFailure(call: Call<DataResponse<Any>>?, t: Throwable?) {
                 closeLoadingDialog()
-                Toast.makeText(this@FormRiwayatAncActivity,t!!.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(this@FormRiwayatAncActivity, t!!.message, Toast.LENGTH_LONG).show()
             }
         })
     }
@@ -285,18 +286,33 @@ class FormRiwayatAncActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode==1){
-            var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
-            fieldKontrasepsi.setText(dataMaster.name)
-        } else if (requestCode==2){
-            var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
-            fieldImunisasi.setText(dataMaster.name)
-        } else if (requestCode==3){
-            var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
-            fieldPenolong.setText(dataMaster.name)
-        } else if (requestCode==4){
-            var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
-            fieldCaraPersalinan.setText(dataMaster.name)
+        if (resultCode== RESULT_OK){
+            if (requestCode==1){
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
+                fieldKontrasepsi.setText(dataMaster.name)
+            } else if (requestCode==2){
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
+                fieldImunisasi.setText(dataMaster.name)
+            } else if (requestCode==3){
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
+                fieldPenolong.setText(dataMaster.name)
+            } else if (requestCode==4){
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
+                fieldCaraPersalinan.setText(dataMaster.name)
+            } else if (requestCode==5){
+                dataPenyakit.clear()
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), JsonArray::class.java)
+                println("data master : ${gson.toJson(dataMaster)}")
+                var daftarPenyakit = ""
+
+                for (i in 0..dataMaster.size()-1){
+                    dataPenyakit.add(dataMaster[i].toString().substring(1,dataMaster[i].toString().length-1))
+                    daftarPenyakit="${daftarPenyakit}${dataMaster[i].toString().substring(1,dataMaster[i].toString().length-1)}, "
+                }
+                println("data Penyakit: ${gson.toJson(dataPenyakit)}")
+                fieldRiwayatPenyakit.setText(daftarPenyakit.substring(0, daftarPenyakit.length - 2))
+            }
+
         }
     }
 }

@@ -60,12 +60,12 @@ class MainIncFragment : BaseFragment() {
         btn_catatan_bayi.setOnClickListener {
             navigator.mainBabyNoteInc(activity!!, gson.toJson(dataMother))
         }
-        btn_rujukan.setOnClickListener {
-            navigator.mainRujukan(activity!!, gson.toJson(dataMother))
-        }
-        btn_balikan_rujukan.setOnClickListener {
-            navigator.mainBalikanRujukan(activity!!, gson.toJson(dataMother))
-        }
+//        btn_rujukan.setOnClickListener {
+//            navigator.mainRujukan(activity!!, gson.toJson(dataMother))
+//        }
+//        btn_balikan_rujukan.setOnClickListener {
+//            navigator.mainBalikanRujukan(activity!!, gson.toJson(dataMother))
+//        }
 //        getData()
     }
 

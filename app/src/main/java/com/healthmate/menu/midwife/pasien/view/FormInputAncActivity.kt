@@ -444,17 +444,25 @@ class FormInputAncActivity : BaseActivity() {
                 tv_lokasi_rujukan.text = "Rujukan\nKe\n${dataMaster.level}"
             }
         } else if (requestCode==9){
-            var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
-            fieldKakiBengkak.setText(dataMaster.name)
+            if (resultCode==Activity.RESULT_OK){
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
+                fieldKakiBengkak.setText(dataMaster.name)
+            }
         } else if (requestCode==10){
-            var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
-            fieldProteinUrin.setText(dataMaster.name)
+            if (resultCode==Activity.RESULT_OK){
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
+                fieldProteinUrin.setText(dataMaster.name)
+            }
         } else if (requestCode==11){
-            var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
-            fieldReduksiUrin.setText(dataMaster.name)
+            if (resultCode==Activity.RESULT_OK){
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
+                fieldReduksiUrin.setText(dataMaster.name)
+            }
         } else if (requestCode==12){
-            var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
-            fieldLetakJanin.setText(dataMaster.name)
+            if (resultCode==Activity.RESULT_OK){
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
+                fieldLetakJanin.setText(dataMaster.name)
+            }
         }
     }
 }

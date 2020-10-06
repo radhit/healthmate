@@ -551,20 +551,30 @@ class MainKiaActivity : BaseActivity() {
                 fieldPendidikanSuami.setText(dataMaster.name)
             }
         } else if (requestCode==10){
-            var dataMaster = gson.fromJson(data!!.getStringExtra("data"),MasterListModel::class.java)
-            fieldPenolong.setText(dataMaster.name)
+            if (resultCode== RESULT_OK){
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"),MasterListModel::class.java)
+                fieldPenolong.setText(dataMaster.name)
+            }
         } else if (requestCode==11){
-            var dataMaster = gson.fromJson(data!!.getStringExtra("data"),MasterListModel::class.java)
-            fieldDana.setText(dataMaster.name)
+            if (resultCode== RESULT_OK){
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"),MasterListModel::class.java)
+                fieldDana.setText(dataMaster.name)
+            }
         } else if (requestCode==12){
-            var dataMaster = gson.fromJson(data!!.getStringExtra("data"),MasterListModel::class.java)
-            fieldKendaraan.setText(dataMaster.name)
+            if (resultCode== RESULT_OK){
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"),MasterListModel::class.java)
+                fieldKendaraan.setText(dataMaster.name)
+            }
         } else if (requestCode==13){
-            var dataMaster = gson.fromJson(data!!.getStringExtra("data"),MasterListModel::class.java)
-            fieldMetode.setText(dataMaster.name)
+            if (resultCode== RESULT_OK){
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"),MasterListModel::class.java)
+                fieldMetode.setText(dataMaster.name)
+            }
         } else if (requestCode==14){
-            var dataMaster = gson.fromJson(data!!.getStringExtra("data"),MasterListModel::class.java)
-            fieldPekerjaanSuami.setText(dataMaster.name)
+            if (resultCode== RESULT_OK){
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"),MasterListModel::class.java)
+                fieldPekerjaanSuami.setText(dataMaster.name)
+            }
         }
     }
 

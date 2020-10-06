@@ -13,6 +13,7 @@ import com.healthmate.menu.mom.covid.view.ScreeningCovidActivity
 import com.healthmate.menu.mom.kia.view.MainKiaActivity
 import com.healthmate.menu.mom.main.MainMomActivity
 import com.healthmate.menu.mom.rapor.view.MainRaporActivity
+import com.healthmate.menu.reusable.view.ListChoosedItemActivity
 import com.healthmate.menu.reusable.view.ListLocationActivity
 import com.healthmate.menu.reusable.view.MasterListActivity
 import javax.inject.Inject
@@ -65,6 +66,10 @@ class Navigator @Inject constructor() {
 
     fun dataMaster(activity: Activity, keterangan:String, response_code: Int){
         gotoForResult(activity,MasterListActivity.getCallingIntent(activity,keterangan),response_code)
+    }
+
+    fun dataSelectable(activity: Activity, keterangan: String = "", response_code: Int){
+        gotoForResult(activity,ListChoosedItemActivity.getCallingIntent(activity,keterangan),response_code)
     }
 
     fun listLocation(activity: Activity, keterangan:String, response_code: Int, data: String = ""){
