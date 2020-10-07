@@ -214,14 +214,14 @@
                 style="@style/TextInputLayoutCustom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Pendarahan"
+                android:hint="Pendarahan (ml)"
                 android:layout_marginTop="10dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldPendarahan"
                     android:layout_width="match_parent"
                     android:padding="10dp"
                     android:layout_height="50dp"
-                    android:inputType="text"/>
+                    android:inputType="number"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -260,6 +260,36 @@
                     android:id="@+id/fieldNasihat"
                     android:layout_width="match_parent"
                     android:padding="10dp"
+                    android:layout_height="50dp"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Keadaan Ibu"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fieldKeadaanIbu"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:layout_height="50dp"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Keadaan Bayi"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fieldKeadaanBayi"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:clickable="true"
+                    android:focusable="false"
                     android:layout_height="50dp"
                     android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>

@@ -106,7 +106,18 @@ class MasterListActivity : BaseActivity() {
             getKandungKemih()
         } else if (intent.getStringExtra(EXTRA).equals("laseri")){
             getLaseri()
+        } else if (intent.getStringExtra(EXTRA).equals("keadaan")){
+            getKeadaan()
         }
+    }
+
+    private fun getKeadaan() {
+        val arrays: ArrayList<MasterListModel> = arrayListOf()
+        arrays.add(MasterListModel("1","Sehat"))
+        arrays.add(MasterListModel("2","Sakit"))
+        arrays.add(MasterListModel("3","Meninggal"))
+
+        adapter.updateLists(arrays)
     }
 
     private fun getLaseri() {

@@ -10,7 +10,9 @@ import com.healthmate.R
 import com.healthmate.api.DataResponse
 import com.healthmate.common.base.BaseActivity
 import com.healthmate.common.constant.Urls
+import com.healthmate.common.functions.replaceEmpty
 import com.healthmate.menu.midwife.pasien.data.PncModel
+import com.healthmate.menu.reusable.data.Location
 import com.healthmate.menu.reusable.data.User
 import kotlinx.android.synthetic.main.activity_form_pnc.*
 import okhttp3.MediaType
@@ -46,6 +48,12 @@ class FormPncActivity : BaseActivity() {
         fieldTanggal.setOnClickListener {
             callCalender()
         }
+        fieldKeadaanIbu.setOnClickListener {
+            navigator.dataMaster(this,"keadaan",1)
+        }
+        fieldKeadaanBayi.setOnClickListener {
+            navigator.dataMaster(this,"keadaan",2)
+        }
     }
 
     private fun submit() {
@@ -76,21 +84,23 @@ class FormPncActivity : BaseActivity() {
 
     private fun setDataInput() {
         pncModel.date = "${fieldTanggal.text.toString()}T07:00:00+07:00"
-        pncModel.subjective = fieldKeluhan.text.toString()
+        pncModel.keluhan = fieldKeluhan.text.toString()
         pncModel.td = fieldSistolik.text.toString().toInt()
         pncModel.nadi = fieldNadi.text.toString().toInt()
         pncModel.rr = fieldRr.text.toString().toInt()
         pncModel.suhu = fieldSuhu.text.toString().toInt()
         pncModel.kontaksi = fieldKontraksi.text.toString()
-        pncModel.pendarahan = fieldPendarahan.text.toString()
+        pncModel.pendarahan = fieldPendarahan.text.toString().replaceEmpty("0").toInt()
+        pncModel.warna_lokhia = fieldWarna.text.toString()
+        pncModel.jumlah_lokhia = fieldJumlahLokhia.text.toString().replaceEmpty("0").toInt()
         pncModel.bab = fieldBab.text.toString()
         pncModel.bak = fieldBak.text.toString()
-        pncModel.warna_lokhia = fieldWarna.text.toString()
-        pncModel.jumlah_lokhia = fieldJumlahLokhia.text.toString()
         pncModel.produksi_asi = fieldAsi.text.toString()
-        pncModel.komplikasi_kehamilan = fieldKomplikasi.text.toString()
         pncModel.tindakan = fieldTindakan.text.toString()
         pncModel.nasihat = fieldNasihat.text.toString()
+        pncModel.komplikasi_kehamilan = fieldKomplikasi.text.toString()
+        pncModel.keadaan_ibu = fieldKeadaanIbu.text.toString()
+        pncModel.keadaan_bayi = fieldKeadaanBayi.text.toString()
         pncModel.mother_id = dataMother.id
         pncModel.midwife_id = userPref.getUser().id
     }
@@ -172,5 +182,21 @@ class FormPncActivity : BaseActivity() {
                 }, mYear, mMonth, mDay)
         datePickerDialog.datePicker.minDate = Date().time
         datePickerDialog.show()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode==1){
+            if (resultCode== Activity.RESULT_OK){
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), Location::class.java)
+                fieldKeadaanIbu.setText(dataMaster.name)
+
+            }
+        } else if (requestCode==2){
+            if (resultCode== Activity.RESULT_OK){
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), Location::class.java)
+                fieldKeadaanBayi.setText(dataMaster.name)
+            }
+        }
     }
 }
