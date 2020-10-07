@@ -27,7 +27,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".menu.midwife.pasien.view.FormInputKala2Activity"></activity>
+        <activity android:name=".menu.midwife.pasien.view.FormInputKala4Activity"></activity>
+        <activity android:name=".menu.midwife.pasien.view.FormInputKala3Activity" />
+        <activity android:name=".menu.midwife.pasien.view.FormInputKala2Activity" />
         <activity android:name=".menu.reusable.view.ListChoosedItemActivity" />
         <activity android:name=".menu.midwife.rujukan.view.FormPenerimaanRujukanActivity" />
         <activity android:name=".menu.midwife.rujukan.view.FormPengirimanRujukanActivity" />

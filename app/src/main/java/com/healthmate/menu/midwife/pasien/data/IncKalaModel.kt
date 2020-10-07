@@ -29,7 +29,7 @@ data class IncKalaModel(
         var kontrasi_uterus: String = "",
         var kandung_kemih: String = "",
         var teraba_janin_kedua: String = "",
-        var pendarahan: String = "",
+        var pendarahan: Int = 0,
         var laseri: String = "",
 
         var analisys: String = "",

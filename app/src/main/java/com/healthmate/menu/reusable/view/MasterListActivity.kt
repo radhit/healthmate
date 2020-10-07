@@ -99,9 +99,31 @@ class MasterListActivity : BaseActivity() {
             getPresentasiKala()
         } else if (intent.getStringExtra(EXTRA).equals("denominator")){
             getDenominator()
-        } else if (intent.getStringExtra(EXTRA).equals("tali pusar") || intent.getStringExtra(EXTRA).equals("pernium") || intent.getStringExtra(EXTRA).equals("vulva vagina")){
+        } else if (intent.getStringExtra(EXTRA).equals("tali pusar") || intent.getStringExtra(EXTRA).equals("pernium") || intent.getStringExtra(EXTRA).equals("vulva vagina")
+                || intent.getStringExtra(EXTRA).equals("teraba janin kedua")){
             getYaTidak()
+        } else if (intent.getStringExtra(EXTRA).equals("kandung kemih")){
+            getKandungKemih()
+        } else if (intent.getStringExtra(EXTRA).equals("laseri")){
+            getLaseri()
         }
+    }
+
+    private fun getLaseri() {
+        val arrays: ArrayList<MasterListModel> = arrayListOf()
+        arrays.add(MasterListModel("1","Grade 1"))
+        arrays.add(MasterListModel("2","Grade 2"))
+        arrays.add(MasterListModel("3","Grade 3"))
+
+        adapter.updateLists(arrays)
+    }
+
+    private fun getKandungKemih() {
+        val arrays: ArrayList<MasterListModel> = arrayListOf()
+        arrays.add(MasterListModel("1","Kosong"))
+        arrays.add(MasterListModel("2","Tidak"))
+
+        adapter.updateLists(arrays)
     }
 
     private fun getYaTidak() {

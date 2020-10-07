@@ -71,6 +71,10 @@ class MainKalaActivity : BaseActivity() {
                 navigator.formKalaInc(this,type,gson.toJson(dataMother))
             } else if (kala_number==2){
                 navigator.formKala2Inc(this,type,gson.toJson(dataMother))
+            } else if (kala_number==3){
+                navigator.formKala3Inc(this,type,gson.toJson(dataMother))
+            } else if (kala_number==4){
+                navigator.formKala4Inc(this,type,gson.toJson(dataMother))
             }
         }
         setRecycleView()
@@ -97,13 +101,13 @@ class MainKalaActivity : BaseActivity() {
                 .observe(this, Observer {result ->
                     when(result.status){
                         Result.Status.LOADING->{
-                            tv_loading.visibility = View.VISIBLE
+                            showLoadingDialog()
                             rv_list.visibility = View.GONE
                         }
                         Result.Status.SUCCESS->{
+                            closeLoadingDialog()
                             var data = result.data!!
                             if (data.size>0){
-                                tv_loading.visibility = View.GONE
                                 rv_list.visibility = View.VISIBLE
                                 adapter.lists.clear()
                                 adapter.lists.addAll(result.data!!)
@@ -118,6 +122,7 @@ class MainKalaActivity : BaseActivity() {
                             }
                         }
                         Result.Status.ERROR->{
+                            closeLoadingDialog()
                             tv_loading.visibility = View.VISIBLE
                             rv_list.visibility = View.GONE
                             tv_loading.text = "Data Kosong"

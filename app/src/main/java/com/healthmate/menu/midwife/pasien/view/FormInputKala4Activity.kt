@@ -6,7 +6,6 @@ import android.app.TimePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import com.healthmate.R
 import com.healthmate.api.DataResponse
@@ -15,7 +14,7 @@ import com.healthmate.common.constant.Urls
 import com.healthmate.menu.midwife.pasien.data.IncKalaModel
 import com.healthmate.menu.reusable.data.MasterListModel
 import com.healthmate.menu.reusable.data.User
-import kotlinx.android.synthetic.main.activity_form_input_kala2.*
+import kotlinx.android.synthetic.main.activity_form_input_kala4.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -25,26 +24,26 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class FormInputKala2Activity : BaseActivity() {
+class FormInputKala4Activity : BaseActivity() {
     companion object {
         val EXTRA = "EXTRA"
         val EXTRA_TYPE = "EXTRA_TYPE"
         @JvmStatic
         fun getCallingIntent(activity: Activity, type: String, data: String): Intent {
-            val intent = Intent(activity, FormInputKala2Activity::class.java)
+            val intent = Intent(activity, FormInputKala4Activity::class.java)
             intent.putExtra(EXTRA_TYPE, type)
             intent.putExtra(EXTRA, data)
             return intent
         }
     }
-    override fun getView(): Int = R.layout.activity_form_input_kala2
+    override fun getView(): Int = R.layout.activity_form_input_kala4
     var dataMother: User = User()
     var type: String = ""
     var incKalaModel: IncKalaModel = IncKalaModel()
     var dateNow: String = ""
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        this.setTitle("Formulir Kala 2")
+        this.setTitle("Formulir Kala 3")
         var current = LocalDateTime.now().toString()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
         dateNow = current.format(formatter)
@@ -56,16 +55,7 @@ class FormInputKala2Activity : BaseActivity() {
                 submit()
             }
         }
-        rb_kembar.setOnClickListener {
-            rb_kembar.isChecked = true
-            rb_tunggal.isChecked = false
-            inputDjj2.visibility = View.VISIBLE
-        }
-        rb_tunggal.setOnClickListener {
-            rb_kembar.isChecked = false
-            rb_tunggal.isChecked = true
-            inputDjj2.visibility = View.GONE
-        }
+
         fieldTanggal.setOnClickListener {
             callCalender()
         }
@@ -75,20 +65,8 @@ class FormInputKala2Activity : BaseActivity() {
         fieldKesadaran.setOnClickListener {
             navigator.dataMaster(this,"kesadaran",1)
         }
-        fieldPresentasi.setOnClickListener {
-            navigator.dataMaster(this,"presentasi",2)
-        }
-        fieldDenominator.setOnClickListener {
-            navigator.dataMaster(this,"denominator",3)
-        }
-        fieldTaliPusar.setOnClickListener {
-            navigator.dataMaster(this,"tali pusar",4)
-        }
-        fieldPernium.setOnClickListener {
-            navigator.dataMaster(this,"pernium",5)
-        }
-        fieldVulva.setOnClickListener {
-            navigator.dataMaster(this,"vulva vagina",6)
+        fieldKandungKemih.setOnClickListener {
+            navigator.dataMaster(this,"kandung kemih",2)
         }
     }
 
@@ -107,13 +85,13 @@ class FormInputKala2Activity : BaseActivity() {
                         createDialog(response.body()!!.message)
                     }
                 } else {
-                    Toast.makeText(this@FormInputKala2Activity,"Terjadi kesalahan", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@FormInputKala4Activity,"Terjadi kesalahan", Toast.LENGTH_LONG).show()
                 }
             }
 
             override fun onFailure(call: Call<DataResponse<Any>>?, t: Throwable?) {
                 closeLoadingDialog()
-                Toast.makeText(this@FormInputKala2Activity,t!!.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(this@FormInputKala4Activity,t!!.message, Toast.LENGTH_LONG).show()
             }
         })
     }
@@ -124,27 +102,14 @@ class FormInputKala2Activity : BaseActivity() {
         incKalaModel.complaint = fieldKeluhan.text.toString()
         incKalaModel.awareness = fieldKesadaran.text.toString()
         incKalaModel.td = fieldTd.text.toString().toInt()
+
         incKalaModel.pulse = fieldNadi.text.toString().toInt()
         incKalaModel.rr = fieldRr.text.toString().toInt()
         incKalaModel.temperature = fieldSuhu.text.toString().toInt()
-
-        if (rb_kembar.isChecked){
-            incKalaModel.djj.add(fieldDjj.text.toString().toInt())
-            incKalaModel.djj.add(fieldDjj2.text.toString().toInt())
-        } else{
-            incKalaModel.djj.add(fieldDjj.text.toString().toInt())
-        }
-        incKalaModel.his = fieldHis.text.toString().toInt()
-        incKalaModel.amniotic_fluid = fieldKetuban.text.toString()
-        incKalaModel.vt = fieldVT.text.toString().toInt()
-        incKalaModel.effacement = fieldEffacement.text.toString().toInt()
-        incKalaModel.warna_ketuban = fieldWarnaKetuban.text.toString()
-        incKalaModel.presentasi = fieldPresentasi.text.toString()
-        incKalaModel.denominator = fieldDenominator.text.toString()
-        incKalaModel.tali_pusar = fieldTaliPusar.text.toString()
-        incKalaModel.pernium_menonjol = fieldPernium.text.toString()
-        incKalaModel.vulva_vagina = fieldVulva.text.toString()
-
+        incKalaModel.tfu = fieldTfu.text.toString().toInt()
+        incKalaModel.kontrasi_uterus = fieldKontrasiUterus.text.toString()
+        incKalaModel.kandung_kemih = fieldKandungKemih.text.toString()
+        incKalaModel.pendarahan = fieldPendarahan.text.toString().toInt()
         incKalaModel.analisys = fieldAnalisis.text.toString()
         incKalaModel.penatalaksaan = fieldPenatalaksaan.text.toString()
         incKalaModel.type = type
@@ -165,29 +130,17 @@ class FormInputKala2Activity : BaseActivity() {
         } else if (fieldTd.text.toString().equals("")){
             fieldTd.setError("Wajib diisi")
             return false
-        } else if (fieldHis.text.toString().equals("")){
-            fieldHis.setError("Wajib diisi")
-            return false
-        } else if (fieldDjj.text.toString().equals("")){
-            fieldDjj.setError("Wajib diisi")
+        } else if (fieldTfu.text.toString().equals("")){
+            fieldTfu.setError("Wajib diisi")
             return false
         } else if (fieldNadi.text.toString().equals("")){
             fieldNadi.setError("Wajib diisi")
             return false
-        } else if (fieldKetuban.text.toString().equals("")){
-            fieldKetuban.setError("Wajib diisi")
-            return false
         } else if (fieldRr.text.toString().equals("")){
             fieldRr.setError("Wajib diisi")
             return false
-        } else if (fieldVT.text.toString().equals("")){
-            fieldVT.setError("Wajib diisi")
-            return false
         } else if (fieldSuhu.text.toString().equals("")){
             fieldSuhu.setError("Wajib diisi")
-            return false
-        } else if (fieldEffacement.text.toString().equals("")){
-            fieldEffacement.setError("Wajib diisi")
             return false
         } else if (fieldAnalisis.text.toString().equals("")){
             fieldAnalisis.setError("Wajib diisi")
@@ -198,28 +151,17 @@ class FormInputKala2Activity : BaseActivity() {
         } else if (fieldKesadaran.text.toString().equals("")){
             fieldKesadaran.setError("Wajib diisi")
             return false
-        } else if (fieldTaliPusar.text.toString().equals("")){
-            fieldTaliPusar.setError("Wajib diisi")
+        } else if (fieldKandungKemih.text.toString().equals("")){
+            fieldKandungKemih.setError("Wajib diisi")
             return false
-        } else if (fieldPresentasi.text.toString().equals("")){
-            fieldPresentasi.setError("Wajib diisi")
+        } else if (fieldKontrasiUterus.text.toString().equals("")){
+            fieldKontrasiUterus.setError("Wajib diisi")
             return false
-        } else if (fieldDenominator.text.toString().equals("")){
-            fieldDenominator.setError("Wajib diisi")
-            return false
-        } else if (fieldPernium.text.toString().equals("")){
-            fieldPernium.setError("Wajib diisi")
-            return false
-        } else if (fieldVulva.text.toString().equals("")){
-            fieldVulva.setError("Wajib diisi")
+        } else if (fieldPendarahan.text.toString().equals("")){
+            fieldPendarahan.setError("Wajib diisi")
             return false
         }
-        if (rb_kembar.isChecked){
-            if (fieldDjj2.text.toString().equals("")){
-                fieldDjj2.setError("Wajib diisi")
-                return false
-            }
-        }
+
         return true
     }
 
@@ -282,19 +224,7 @@ class FormInputKala2Activity : BaseActivity() {
                 fieldKesadaran.setText(dataMaster.name)
             } else if (requestCode==2){
                 var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
-                fieldPresentasi.setText(dataMaster.name)
-            } else if (requestCode==3){
-                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
-                fieldDenominator.setText(dataMaster.name)
-            } else if (requestCode==4){
-                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
-                fieldTaliPusar.setText(dataMaster.name)
-            } else if (requestCode==5){
-                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
-                fieldPernium.setText(dataMaster.name)
-            } else if (requestCode==6){
-                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
-                fieldVulva.setText(dataMaster.name)
+                fieldKandungKemih.setText(dataMaster.name)
             }
         }
     }

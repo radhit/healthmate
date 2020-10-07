@@ -65,7 +65,7 @@ class ListChoosedItemActivity : BaseActivity(), SelectableViewHolder.OnItemSelec
         arrays.add(Item("Pusing"))
         arrays.add(Item("Nyeri kepala"))
         arrays.add(Item("Mata berkunang-kunang"))
-        arrays.add(Item("Perdarahan"))
+        arrays.add(Item("Pendarahan"))
         arrays.add(Item("Keluar air (merembes air)"))
         arrays.add(Item("Perut kenceng-kenceng/kontraksi rahim"))
         arrays.add(Item("Gerak anak berkurang"))
