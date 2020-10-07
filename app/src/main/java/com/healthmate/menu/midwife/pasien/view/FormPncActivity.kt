@@ -77,19 +77,19 @@ class FormPncActivity : BaseActivity() {
     private fun setDataInput() {
         pncModel.date = "${fieldTanggal.text.toString()}T07:00:00+07:00"
         pncModel.subjective = fieldKeluhan.text.toString()
-        pncModel.sistolik = fieldSistolik.text.toString()
-        pncModel.diastolik = fieldDiastolik.text.toString()
-        pncModel.nadi = fieldNadi.text.toString()
-        pncModel.rr = fieldRr.text.toString()
-        pncModel.suhu = fieldSuhu.text.toString()
+        pncModel.td = fieldSistolik.text.toString().toInt()
+        pncModel.nadi = fieldNadi.text.toString().toInt()
+        pncModel.rr = fieldRr.text.toString().toInt()
+        pncModel.suhu = fieldSuhu.text.toString().toInt()
+        pncModel.kontaksi = fieldKontraksi.text.toString()
+        pncModel.pendarahan = fieldPendarahan.text.toString()
         pncModel.bab = fieldBab.text.toString()
         pncModel.bak = fieldBak.text.toString()
-        pncModel.kontaksi = fieldKontraksi.text.toString()
         pncModel.warna_lokhia = fieldWarna.text.toString()
         pncModel.jumlah_lokhia = fieldJumlahLokhia.text.toString()
         pncModel.produksi_asi = fieldAsi.text.toString()
         pncModel.komplikasi_kehamilan = fieldKomplikasi.text.toString()
-        pncModel.terapi = fieldTerapi.text.toString()
+        pncModel.tindakan = fieldTindakan.text.toString()
         pncModel.nasihat = fieldNasihat.text.toString()
         pncModel.mother_id = dataMother.id
         pncModel.midwife_id = userPref.getUser().id
@@ -104,9 +104,6 @@ class FormPncActivity : BaseActivity() {
             return false
         } else if (fieldSistolik.text.toString().equals("")){
             fieldSistolik.setError("Wajib diisi")
-            return false
-        } else if (fieldDiastolik.text.toString().equals("")){
-            fieldDiastolik.setError("Wajib diisi")
             return false
         } else if (fieldNadi.text.toString().equals("")){
             fieldNadi.setError("Wajib diisi")
@@ -138,11 +135,14 @@ class FormPncActivity : BaseActivity() {
         } else if (fieldKomplikasi.text.toString().equals("")){
             fieldAsi.setError("Wajib diisi")
             return false
-        } else if (fieldTerapi.text.toString().equals("")){
-            fieldTerapi.setError("Wajib diisi")
+        } else if (fieldTindakan.text.toString().equals("")){
+            fieldTindakan.setError("Wajib diisi")
             return false
         } else if (fieldNasihat.text.toString().equals("")){
             fieldNasihat.setError("Wajib diisi")
+            return false
+        } else if (fieldPendarahan.text.toString().equals("")){
+            fieldPendarahan.setError("Wajib diisi")
             return false
         }
         return true

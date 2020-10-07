@@ -74,23 +74,10 @@
                         style="@style/TextInputLayoutCustom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Sistolik (mmHg)"
+                        android:hint="TD (mmHg)"
                         android:layout_marginTop="10dp">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/fieldSistolik"
-                            android:layout_width="match_parent"
-                            android:padding="10dp"
-                            android:layout_height="50dp"
-                            android:inputType="number"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/TextInputLayoutCustom"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Diastolik (mmHg)"
-                        android:layout_marginTop="10dp">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/fieldDiastolik"
                             android:layout_width="match_parent"
                             android:padding="10dp"
                             android:layout_height="50dp"
@@ -227,6 +214,20 @@
                 style="@style/TextInputLayoutCustom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Pendarahan"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fieldPendarahan"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:layout_height="50dp"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="Komplikasi Kehamilan"
                 android:layout_marginTop="10dp">
                 <com.google.android.material.textfield.TextInputEditText
@@ -240,10 +241,10 @@
                 style="@style/TextInputLayoutCustom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Terapi"
+                android:hint="Tindakan"
                 android:layout_marginTop="10dp">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/fieldTerapi"
+                    android:id="@+id/fieldTindakan"
                     android:layout_width="match_parent"
                     android:padding="10dp"
                     android:layout_height="50dp"

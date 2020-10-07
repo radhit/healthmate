@@ -109,11 +109,11 @@ class DataAncFragment : BaseFragment() {
         } else {
             tv_hpl.text = dataPasien.anc_history.hpl!!.split("T")[0]
         }
-        tv_lila.text = "${dataPasien.anc_history.lila.toString().replace("0","-")} cm"
-        tv_tinggi.text = "${dataPasien.anc_history.height.toString().replace("0","-")} cm"
+        tv_lila.text = "${dataPasien.anc_history.lila.toString().replace("0.0","-")} cm"
+        tv_tinggi.text = "${dataPasien.anc_history.height.toString().replace("0.0","-")} cm"
 //        tv_total_keguguran.text = dataPasien.anc_history.miscarriage_num.replaceEmpty("-")
         tv_total_hidup.text = dataPasien.anc_history.live_child_num.toString().replace("0","-")
-        tv_jarak.text = dataPasien.anc_history.prev_child_difference.toString().replace("0","-")
+        tv_jarak.text = "${dataPasien.anc_history.prev_child_year} Tahun ${dataPasien.anc_history.prev_child_month} Bulan"
     }
 
     private fun getData(keterangan: String) {

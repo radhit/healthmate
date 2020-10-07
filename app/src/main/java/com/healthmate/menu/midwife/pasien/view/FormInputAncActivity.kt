@@ -232,6 +232,7 @@ class FormInputAncActivity : BaseActivity() {
         ancModel.tfu = fieldTfu.text.toString().toInt()
         ancModel.fetus_position = fieldLetakJanin.text.toString()
         ancModel.others = fieldLainnya.text.toString()
+        ancModel.djj.clear()
         if (rb_kembar.isChecked){
             ancModel.djj.add(fieldDjj.text.toString().toInt())
             ancModel.djj.add(fieldDjj2.text.toString().toInt())

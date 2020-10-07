@@ -54,7 +54,7 @@
                     android:layout_width="match_parent"
                     android:padding="10dp"
                     android:layout_height="50dp"
-                    android:inputType="number"/>
+                    android:inputType="numberDecimal"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/TextInputLayoutCustom"
@@ -67,7 +67,7 @@
                     android:layout_width="match_parent"
                     android:padding="10dp"
                     android:layout_height="50dp"
-                    android:inputType="number"/>
+                    android:inputType="numberDecimal"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -167,6 +167,57 @@
                     android:inputType="number"
                     android:layout_height="50dp"/>
             </com.google.android.material.textfield.TextInputLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputLayoutCustom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="G"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/fieldG"
+                        android:layout_width="match_parent"
+                        android:padding="10dp"
+                        android:inputType="number"
+                        android:layout_height="50dp"/>
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputLayoutCustom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginRight="10dp"
+                    android:hint="P"
+                    android:layout_marginTop="10dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/fieldP"
+                        android:layout_width="match_parent"
+                        android:padding="10dp"
+                        android:inputType="number"
+                        android:layout_height="50dp"/>
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputLayoutCustom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginRight="10dp"
+                    android:hint="A"
+                    android:layout_marginTop="10dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/fieldA"
+                        android:layout_width="match_parent"
+                        android:padding="10dp"
+                        android:inputType="number"
+                        android:layout_height="50dp"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/TextInputLayoutCustom"
                 android:layout_width="match_parent"
@@ -210,13 +261,26 @@
                 style="@style/TextInputLayoutCustom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Jarak kehamilan sebelumnya"
+                android:hint="Jarak kehamilan sebelumnya (Tahun)"
                 android:layout_marginTop="10dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldJarak"
                     android:layout_width="match_parent"
                     android:padding="10dp"
-                    android:inputType="text"
+                    android:inputType="number"
+                    android:layout_height="50dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Jarak kehamilan sebelumnya (Bulan)"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fieldJarakBulan"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:inputType="number"
                     android:layout_height="50dp"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout

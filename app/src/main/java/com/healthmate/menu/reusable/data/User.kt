@@ -29,8 +29,9 @@ data class AncHistory(
         var hpht: String? = "",
         var hpl: String? = "",
 
-        var lila: Int? = 0,
-        var height: Int? = 0,
+        var lila: Double? = 0.0,
+        var lila_status: String? = "",
+        var height: Double? = 0.0,
         var kontrasepsi: String? = "",
         var riwayat_penyakit: ArrayList<String> = arrayListOf(),
         var alergi_obat: String? = "",
@@ -39,12 +40,16 @@ data class AncHistory(
 //        var preg_num: String? = "",
 //        var labor_num: String? = "",
 //        var miscarriage_num: String? = "",
+        var g: Int? = 0,
+        var p: Int? = 0,
+        var a: Int? = 0,
         var live_child_num: Int? = 0,
 
-        var live_dead_num: Int? = 0,
+        var dead_child_num: Int? = 0,
         var less_month_child_num: Int? = 0,
 
-        var prev_child_difference: String? = "",
+        var prev_child_month: Int? = 0,
+        var prev_child_year: Int? = 0,
 
         var status_imunisasi: String? = "",
         var date_imunisasi: String? = "",
