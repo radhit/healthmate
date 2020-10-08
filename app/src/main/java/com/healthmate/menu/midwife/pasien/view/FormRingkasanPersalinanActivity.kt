@@ -11,6 +11,8 @@ import com.healthmate.api.DataResponse
 import com.healthmate.common.base.BaseActivity
 import com.healthmate.common.constant.Urls
 import com.healthmate.menu.midwife.pasien.data.Summary
+import com.healthmate.menu.reusable.data.MasterListModel
+import kotlinx.android.synthetic.main.activity_form_input_kala4.*
 import kotlinx.android.synthetic.main.activity_form_ringkasan_persalinan.*
 import kotlinx.android.synthetic.main.activity_form_ringkasan_persalinan.btn_simpan
 import kotlinx.android.synthetic.main.activity_form_ringkasan_persalinan.fieldWaktu
@@ -52,6 +54,15 @@ class FormRingkasanPersalinanActivity : BaseActivity() {
         }
         fieldWaktu.setOnClickListener {
             showTimePicker()
+        }
+        fieldPenolong.setOnClickListener {
+            navigator.dataMaster(this,"penolong persalinan",1)
+        }
+        fieldCara.setOnClickListener {
+            navigator.dataMaster(this,"cara persalinan",2)
+        }
+        fieldKeadaanIbu.setOnClickListener {
+            navigator.dataMaster(this,"keadaan",3)
         }
     }
 
@@ -135,8 +146,8 @@ class FormRingkasanPersalinanActivity : BaseActivity() {
         summary.date_birth = "${fieldTanggalPersalinan.text.toString()}T${fieldWaktu.text.toString()}+07:00"
         summary.time_birth = fieldWaktu.text.toString()
         summary.age_pregnancy = fieldUsiaKehamilan.text.toString()
-        summary.birth_attendant = fieldPenolong.text.toString()
-        summary.mode_delivery = fieldCara.text.toString()
+        summary.helper = fieldPenolong.text.toString()
+        summary.born_method = fieldCara.text.toString()
         summary.mother_condition = fieldKeadaanIbu.text.toString()
         summary.information = fieldKeterangan.text.toString()
     }
@@ -171,9 +182,25 @@ class FormRingkasanPersalinanActivity : BaseActivity() {
         fieldTanggalPersalinan.setText("${summary.date_birth!!.split("T")[0]}")
         fieldWaktu.setText("${summary.time_birth!!}")
         fieldUsiaKehamilan.setText("${summary.age_pregnancy!!}")
-        fieldPenolong.setText("${summary.birth_attendant!!}")
-        fieldCara.setText("${summary.mode_delivery!!}")
+        fieldPenolong.setText("${summary.helper!!}")
+        fieldCara.setText("${summary.born_method!!}")
         fieldKeadaanIbu.setText("${summary.mother_condition!!}")
         fieldKeterangan.setText("${summary.information!!}")
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode== RESULT_OK){
+            if (requestCode==1){
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
+                fieldPenolong.setText(dataMaster.name)
+            } else if (requestCode==2){
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
+                fieldCara.setText(dataMaster.name)
+            } else if (requestCode==3){
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
+                fieldKeadaanIbu.setText(dataMaster.name)
+            }
+        }
     }
 }

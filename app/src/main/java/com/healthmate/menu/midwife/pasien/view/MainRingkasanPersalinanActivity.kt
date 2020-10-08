@@ -75,8 +75,8 @@ class MainRingkasanPersalinanActivity : BaseActivity() {
         }
         tv_waktu_kelahiran.text = summary.time_birth!!.replaceEmpty("-")
         tv_umur_kehamilan.text = "${summary.age_pregnancy!!.replaceEmpty("-")} Minggu"
-        tv_penolong_persalinan.text = summary.birth_attendant!!.replaceEmpty("-")
-        tv_cara_persalinan.text = summary.mode_delivery!!.replaceEmpty("-")
+        tv_penolong_persalinan.text = summary.helper!!.replaceEmpty("-")
+        tv_cara_persalinan.text = summary.born_method!!.replaceEmpty("-")
         tv_keadaan_ibu.text = summary.mother_condition!!.replaceEmpty("-")
         tv_keterangan.text = summary.information!!.replaceEmpty("-")
     }
