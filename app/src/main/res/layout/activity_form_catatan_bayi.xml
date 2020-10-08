@@ -92,6 +92,8 @@
                     android:id="@+id/fieldKeadaanLahir"
                     android:layout_width="match_parent"
                     android:padding="10dp"
+                    android:clickable="true"
+                    android:focusable="false"
                     android:layout_height="50dp"
                     android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -106,7 +108,7 @@
                     android:layout_width="match_parent"
                     android:padding="10dp"
                     android:layout_height="50dp"
-                    android:inputType="text"/>
+                    android:inputType="number"/>
             </com.google.android.material.textfield.TextInputLayout>
             <TextView
                 android:layout_width="match_parent"
@@ -129,6 +131,11 @@
                 android:layout_height="wrap_content"
                 android:text="Salep Mata Antibiotik"
                 android:id="@+id/cb_3"/>
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Imunisasi HB0"
+                android:id="@+id/cb_4"/>
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/TextInputLayoutCustom"
                 android:layout_width="match_parent"

@@ -9,8 +9,13 @@ import com.healthmate.R
 import com.healthmate.api.DataResponse
 import com.healthmate.common.base.BaseActivity
 import com.healthmate.common.constant.Urls
+import com.healthmate.common.functions.replaceEmpty
 import com.healthmate.menu.midwife.pasien.data.BabyNote
+import com.healthmate.menu.reusable.data.MasterListModel
 import kotlinx.android.synthetic.main.activity_form_catatan_bayi.*
+import kotlinx.android.synthetic.main.activity_form_catatan_bayi.btn_simpan
+import kotlinx.android.synthetic.main.activity_form_catatan_bayi.fieldKeterangan
+import kotlinx.android.synthetic.main.activity_form_ringkasan_persalinan.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -33,7 +38,7 @@ class FormCatatanBayiActivity : BaseActivity() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         this.setTitle("Formulir Catatan Bayi")
         babyNote = gson.fromJson(intent.getStringExtra(EXTRA),BabyNote::class.java)
-        if (!babyNote.weight.equals("")){
+        if (!babyNote.gender.equals("")){
             setData()
         }
         btn_simpan.setOnClickListener {
@@ -41,6 +46,9 @@ class FormCatatanBayiActivity : BaseActivity() {
                 setDataInput()
                 submit()
             }
+        }
+        fieldKeadaanLahir.setOnClickListener {
+            navigator.dataMaster(this, "keadaan",1)
         }
     }
 
@@ -71,13 +79,13 @@ class FormCatatanBayiActivity : BaseActivity() {
     }
 
     private fun setDataInput() {
-        babyNote.child_number = fieldAnakKe.text.toString()
-        babyNote.weight = fieldBerat.text.toString()
-        babyNote.height = fieldPanjang.text.toString()
-        babyNote.head = fieldLingkar.text.toString()
+        babyNote.child_number = fieldAnakKe.text.toString().replaceEmpty("0").toInt()
+        babyNote.weight = fieldBerat.text.toString().replaceEmpty("0").toInt()
+        babyNote.height = fieldPanjang.text.toString().replaceEmpty("0").toInt()
+        babyNote.lila = fieldLingkar.text.toString().replaceEmpty("0").toInt()
         babyNote.gender = fieldJenisKelamin.text.toString()
-        babyNote.born_situation = fieldKeadaanLahir.text.toString()
-        babyNote.apgar = fieldSkor.text.toString()
+        babyNote.baby_condition = fieldKeadaanLahir.text.toString()
+        babyNote.apgar = fieldSkor.text.toString().replaceEmpty("0").toInt()
         babyNote.information = fieldKeterangan.text.toString()
         var asuhan: ArrayList<String> = arrayListOf()
         if (cb_1.isChecked){
@@ -88,6 +96,9 @@ class FormCatatanBayiActivity : BaseActivity() {
         }
         if (cb_3.isChecked){
             asuhan.add("Salep Mata Antibiotik")
+        }
+        if (cb_4.isChecked){
+            asuhan.add("Imunisasi HB0")
         }
         babyNote.asuhan_bayi = asuhan
     }
@@ -125,9 +136,9 @@ class FormCatatanBayiActivity : BaseActivity() {
         fieldAnakKe.setText("${babyNote.child_number}")
         fieldBerat.setText("${babyNote.weight}")
         fieldPanjang.setText("${babyNote.height}")
-        fieldLingkar.setText("${babyNote.head}")
+        fieldLingkar.setText("${babyNote.lila}")
         fieldJenisKelamin.setText("${babyNote.gender}")
-        fieldKeadaanLahir.setText("${babyNote.born_situation}")
+        fieldKeadaanLahir.setText("${babyNote.baby_condition}")
         fieldSkor.setText("${babyNote.apgar}")
         if (babyNote.asuhan_bayi!!.size>0){
             for (i in 0..babyNote.asuhan_bayi!!.size-1){
@@ -137,9 +148,21 @@ class FormCatatanBayiActivity : BaseActivity() {
                     cb_2.isChecked = true
                 } else if (babyNote.asuhan_bayi!![i].contains("Salep")){
                     cb_3.isChecked = true
+                } else if (babyNote.asuhan_bayi!![i].contains("Imunisasi")){
+                    cb_4.isChecked = true
                 }
             }
         }
         fieldKeterangan.setText("${babyNote.information}")
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode== RESULT_OK){
+            if (requestCode==1){
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), MasterListModel::class.java)
+                fieldKeadaanLahir.setText(dataMaster.name)
+            }
+        }
     }
 }

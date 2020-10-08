@@ -18,21 +18,21 @@ data class Summary(
         var date_birth: String? = "",
         var time_birth: String? = "",
         var age_pregnancy: String? = "",
-        var birth_attendant: String? = "",
-        var mode_delivery: String? = "",
+        var helper: String? = "",
+        var born_method: String? = "",
         var mother_condition: String? = "",
         var information: String? = ""
 )
 
 data class BabyNote(
         var inc_id: String? = "",
-        var child_number: String? = "",
-        var weight: String? = "",
-        var height: String? = "",
-        var head: String? = "",
+        var child_number: Int? = 0,
+        var weight: Int? = 0,
+        var height: Int? = 0,
+        var lila: Int? = 0,
         var gender: String? = "",
-        var born_situation: String? = "",
-        var apgar: String? = "",
+        var baby_condition: String? = "",
+        var apgar: Int? = 0,
         var asuhan_bayi: ArrayList<String>? = arrayListOf(),
         var information: String? = ""
 )

@@ -68,13 +68,13 @@ class MainCatatanBayiActivity : BaseActivity() {
     }
 
     private fun setData() {
-        tv_anak_ke.text = babyNote.child_number.replaceEmpty("-")
-        tv_berat.text = "${babyNote.weight.replaceEmpty("-")} gram"
-        tv_panjang.text = "${babyNote.height.replaceEmpty("-")} cm"
-        tv_lingkar_kepala.text = "${babyNote.head.replaceEmpty("-")} cm"
+        tv_anak_ke.text = babyNote.child_number.toString()
+        tv_berat.text = "${babyNote.weight} gram"
+        tv_panjang.text = "${babyNote.height} cm"
+        tv_lingkar_kepala.text = "${babyNote.lila} cm"
         tv_jenis_kelamin.text = "${babyNote.gender.replaceEmpty("-")}"
-        tv_keadaan_lahir.text = babyNote.born_situation.replaceEmpty("-")
-        tv_skor.text = babyNote.apgar.replaceEmpty("-")
+        tv_keadaan_lahir.text = babyNote.baby_condition.replaceEmpty("-")
+        tv_skor.text = babyNote.apgar.toString()
         var asuhan = ""
         for (i in 0..babyNote.asuhan_bayi!!.size-1){
             asuhan = "${asuhan}${babyNote.asuhan_bayi!![i]}\n"
