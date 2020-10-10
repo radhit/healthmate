@@ -246,17 +246,15 @@ class BerandaFragment : BaseFragment() {
     private fun setTampilan() {
         if (userPref.getUser()!=null){
             if (userPref.getUser().city!=null && userPref.getUser().city!!.name.equals("")){
-                ll_profile_done.visibility = View.GONE
-                ll_profile_not.visibility = View.VISIBLE
-                tv_nama_not.text = "Hei, ${user.name}"
+                tv_keterangan.visibility = View.VISIBLE
+                tv_nama.text = "Hei, ${user.name}"
                 iv_banner.visibility = View.GONE
                 checkup_inprogress.visibility = View.GONE
             } else{
-                ll_profile_done.visibility = View.VISIBLE
-                ll_profile_not.visibility = View.GONE
-                tv_nama_done.text = "Pasien\n${user.name}"
+                tv_keterangan.visibility = View.GONE
+                tv_nama.text = "Pasien\n${user.name}"
                 checkup_inprogress.visibility = View.GONE
-                Glide.with(this).applyDefaultRequestOptions(requestOptionsMom).load(userPref.getUser().profile_picture).into(iv_profile_done)
+                Glide.with(this).applyDefaultRequestOptions(requestOptionsMom).load(userPref.getUser().profile_picture).into(iv_profile)
                 if (!userPref.getUser().covid_status.equals("")){
                     iv_banner.visibility = View.GONE
                     if (!userPref.getUser().hospital!!.id.equals("")){

@@ -84,11 +84,10 @@ class ListLocationActivity : BaseActivity() {
         setRecycleView()
         if(level.equals("kabupaten") || level.equals("kecamatan")){
             getData()
+            ll_search.visibility = View.GONE
         } else{
-            if (level.equals("rujukan")){
-                dataMother = gson.fromJson(intent.getStringExtra(EXTRA_DATA),User::class.java)
-            }
             getHospital()
+            ll_search.visibility = View.VISIBLE
         }
         btn_cari.setOnClickListener {
             if (!fieldSearch.text.toString().equals("")){
@@ -148,18 +147,21 @@ class ListLocationActivity : BaseActivity() {
 
     private fun search() {
         val payload = Payload()
+        var url = ""
         var level = ""
         var city = "${userPref.getUser().city!!.name}"
         var district = "${userPref.getUser().district!!.name}"
         if (!intent.getStringExtra(EXTRA).equals("bidan")){
             level = intent.getStringExtra(EXTRA)
+            url = "${Urls.hospital}?num=1000&level=${level}&city=${city}&district=${district}&name=${fieldSearch.text.toString()}"
         }
         if (intent.getStringExtra(EXTRA).equals("rujukan")){
-            city = dataMother.city!!.name
-            district = dataMother.district!!.name
+            city = ""
+            district = ""
             level = ""
+            url = "${Urls.hospital}?num=500&name=${fieldSearch.text.toString()}"
         }
-        payload.url = "${Urls.hospital}?num=1000&level=${level}&city=${city}&district=${district}&name=${fieldSearch.text.toString()}"
+        payload.url = url
         viewModel.getHospital(payload)
                 .observe(this, Observer {result ->
                     when(result.status){
@@ -201,18 +203,22 @@ class ListLocationActivity : BaseActivity() {
         var level = ""
         var city = "${userPref.getUser().city!!.name}"
         var district = "${userPref.getUser().district!!.name}"
+        var url = ""
         if (!intent.getStringExtra(EXTRA).equals("bidan")){
             level = intent.getStringExtra(EXTRA)
+//            url = "${Urls.hospital}?num=50&level=${level}&city=${city}&district=${district}"
+        } else{
+//            url = "${Urls.hospital}?num=50&level=${level}&city=${city}&district=${district}"
         }
         if (intent.getStringExtra(EXTRA).equals("rujukan")){
-            city = dataMother.city!!.name
-            district = dataMother.district!!.name
-            level = ""
+            url = "${Urls.hospital}?num=50"
+        } else{
+            url = "${Urls.hospital}?num=50&level=${level}&city=${city}&district=${district}"
         }
         if (keterangan.equals("awal")){
-            payload.url = "${Urls.hospital}?num=50&level=${level}&city=${city}&district=${district}"
+            payload.url = url
         } else{
-            payload.url = "${Urls.hospital}?num=50&level=${level}&city=${city}&district=${district}&cursor=${cursor}"
+            payload.url = "${url}&cursor=${cursor}"
         }
         viewModel.getHospital(payload)
                 .observe(this, Observer {result ->

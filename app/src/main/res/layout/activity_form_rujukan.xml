@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:padding="10dp"
     android:background="@color/white"
-    tools:context=".menu.midwife.pasien.view.FormRujukanActivity">
+    tools:context=".menu.midwife.rujukan.view.FormRujukanActivity">
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -62,6 +62,21 @@
                 style="@style/TextInputLayoutCustom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Asal Perujuk"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fieldAsal"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:layout_height="50dp"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="Sebab Dirujuk"
                 android:layout_marginTop="10dp">
                 <com.google.android.material.textfield.TextInputEditText
@@ -75,10 +90,10 @@
                 style="@style/TextInputLayoutCustom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Dx Sementara"
+                android:hint="Diagnosis Sementara"
                 android:layout_marginTop="10dp">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/fieldDx"
+                    android:id="@+id/fieldDiagnosis"
                     android:layout_width="match_parent"
                     android:padding="10dp"
                     android:layout_height="80dp"
@@ -95,6 +110,21 @@
                     android:layout_width="match_parent"
                     android:padding="10dp"
                     android:layout_height="100dp"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/TextInputLayoutCustom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Tujuan Rujukan"
+                android:layout_marginTop="10dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fieldTujuan"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:layout_height="50dp"
+                    android:clickable="true"
+                    android:focusable="false"
                     android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
             <Button

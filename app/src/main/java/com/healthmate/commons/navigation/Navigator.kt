@@ -8,6 +8,10 @@ import com.healthmate.menu.auth.view.ValidasiActivity
 import com.healthmate.menu.midwife.main.MainMidwiveActivity
 import com.healthmate.menu.midwife.pasien.view.*
 import com.healthmate.menu.midwife.profile.view.UbahProfileMidwiveActivity
+import com.healthmate.menu.midwife.rujukan.view.FormRujukanActivity
+import com.healthmate.menu.midwife.rujukan.view.FormUmpanBalikRujukanActivity
+import com.healthmate.menu.midwife.rujukan.view.ListMotherAvailableReferencesActivity
+import com.healthmate.menu.midwife.rujukan.view.MainRujukanActivity
 import com.healthmate.menu.mom.checkup.view.CheckupActivity
 import com.healthmate.menu.mom.covid.view.ScreeningCovidActivity
 import com.healthmate.menu.mom.kia.view.MainKiaActivity
@@ -76,6 +80,10 @@ class Navigator @Inject constructor() {
         gotoForResult(activity,ListLocationActivity.getCallingIntent(activity,keterangan,data),response_code)
     }
 
+    fun listMotherAvailableReferences(activity: Activity){
+        goto(activity,ListMotherAvailableReferencesActivity.getCallingIntent(activity))
+    }
+
     fun rapor(activity: Activity){
         goto(activity, MainRaporActivity.getCallingIntent(activity))
     }
@@ -142,12 +150,16 @@ class Navigator @Inject constructor() {
         goto(activity,FormCatatanBayiActivity.getCallingIntent(activity,data))
     }
 
-    fun mainRujukan(activity: Activity,data: String){
-        goto(activity,FormRujukanActivity.getCallingIntent(activity,data))
+    fun mainRujukan(activity: Activity){
+        goto(activity,MainRujukanActivity.getCallingIntent(activity))
     }
 
-    fun mainBalikanRujukan(activity: Activity, data: String){
-        goto(activity,FormUmpanBalikRujukanActivity.getCallingIntent(activity,data))
+    fun formRujukan(activity: Activity,data: String, keterangan: String = ""){
+        goto(activity, FormRujukanActivity.getCallingIntent(activity,data, keterangan))
+    }
+
+    fun formUmpanbalikRujukan(activity: Activity, data: String){
+        goto(activity, FormUmpanBalikRujukanActivity.getCallingIntent(activity,data))
     }
 
     fun formPnc(activity: Activity, data: String){

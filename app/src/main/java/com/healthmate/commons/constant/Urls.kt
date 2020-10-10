@@ -31,6 +31,7 @@ object Urls {
     val kala = "/kala"
     val inc = "/incs"
     val pnc = "/pncs"
+    val rujukan = "/references"
 
 
 }

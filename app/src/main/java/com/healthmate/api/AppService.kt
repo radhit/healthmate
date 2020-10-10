@@ -1,6 +1,7 @@
 package com.healthmate.api
 
 import com.healthmate.menu.midwife.pasien.data.*
+import com.healthmate.menu.midwife.rujukan.data.Rujukan
 import com.healthmate.menu.mom.home.data.CheckUpModel
 import com.healthmate.menu.mom.rapor.data.AncModel
 import com.healthmate.menu.reusable.data.Gambar
@@ -62,4 +63,7 @@ interface AppService {
 
     @GET
     suspend fun getListPnc(@Url url: String): Response<DataResponse<List<PncModel>>>
+
+    @GET
+    suspend fun getListReferences(@Url url: String): Response<DataResponse<List<Rujukan>>>
 }

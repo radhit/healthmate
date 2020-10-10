@@ -106,7 +106,7 @@ class GrafikBbFragment : BaseFragment() {
         lineChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
         lineChart.data = LineData(lineBB)
         lineChart.animateXY(100, 500)
-        val tanggal = AxisDateFormatter(date.toArray(arrayOfNulls<String>(date.size)))
-        lineChart.xAxis?.setValueFormatter(tanggal)
+//        val tanggal = AxisDateFormatter(date.toArray(arrayOfNulls<String>(date.size)))
+//        lineChart.xAxis?.setValueFormatter(tanggal)
     }
 }

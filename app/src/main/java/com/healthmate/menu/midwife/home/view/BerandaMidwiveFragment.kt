@@ -36,6 +36,9 @@ class BerandaMidwiveFragment : BaseFragment() {
         setRecycleView()
         tv_nama.text = "Bidan\n${userPref.getUser().name}"
         iv_banner.visibility = View.GONE
+        tv_update.setOnClickListener {
+            navigator.ubahProfileMidwife(activity!!)
+        }
         Glide.with(this).applyDefaultRequestOptions(requestOptionsMidwife).load(userPref.getUser().profile_picture).into(iv_foto)
     }
 
@@ -59,7 +62,12 @@ class BerandaMidwiveFragment : BaseFragment() {
                 } else if (menu.nama.equals("Modul")){
                     createDialog("Masih dalam pengembangan")
                 } else if (menu.nama.equals("Rujukan")){
-                    createDialog("Masih dalam pengembangan")
+                    if (userPref.getUser().hospital!=null && userPref.getUser().hospital!!.id.equals("")){
+                        createDialog("Update data anda terlebih dahulu")
+                    } else {
+                        navigator.mainRujukan(activity!!)
+                    }
+
                 } else if (menu.nama.equals("Konsultasi")){
                     createDialog("Masih dalam pengembangan")
                 } else if (menu.nama.equals("Komunitas")){

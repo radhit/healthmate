@@ -108,7 +108,27 @@ class MasterListActivity : BaseActivity() {
             getLaseri()
         } else if (intent.getStringExtra(EXTRA).equals("keadaan")){
             getKeadaan()
+        } else if (intent.getStringExtra(EXTRA).equals("tfu")){
+            getTfu()
+        } else if (intent.getStringExtra(EXTRA).equals("kontraksi")){
+            getKontraksi()
         }
+    }
+
+    private fun getKontraksi() {
+        val arrays: ArrayList<MasterListModel> = arrayListOf()
+        arrays.add(MasterListModel("1","Lembek"))
+        arrays.add(MasterListModel("2","Keras"))
+        adapter.updateLists(arrays)
+    }
+
+    private fun getTfu() {
+        val arrays: ArrayList<MasterListModel> = arrayListOf()
+        arrays.add(MasterListModel("1","Dua jari diatas pusat"))
+        arrays.add(MasterListModel("2","Setinggi pusat"))
+        arrays.add(MasterListModel("4","Pertengahan pusat simfisis"))
+        arrays.add(MasterListModel("5","Tidak teraba diatas simfisis"))
+        adapter.updateLists(arrays)
     }
 
     private fun getKeadaan() {

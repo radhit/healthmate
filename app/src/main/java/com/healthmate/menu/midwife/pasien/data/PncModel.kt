@@ -9,6 +9,7 @@ data class PncModel(
         var rr: Int = 0,
         var suhu: Int = 0,
         var kontaksi: String = "",
+        var tfu: String = "",
         var pendarahan: Int = 0,
         var warna_lokhia: String = "",
         var jumlah_lokhia: Int = 0,

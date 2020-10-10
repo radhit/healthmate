@@ -54,6 +54,12 @@ class FormPncActivity : BaseActivity() {
         fieldKeadaanBayi.setOnClickListener {
             navigator.dataMaster(this,"keadaan",2)
         }
+        fieldTfu.setOnClickListener {
+            navigator.dataMaster(this, "tfu",3)
+        }
+        fieldKontraksi.setOnClickListener {
+            navigator.dataMaster(this,"kontraksi",4)
+        }
     }
 
     private fun submit() {
@@ -90,6 +96,7 @@ class FormPncActivity : BaseActivity() {
         pncModel.rr = fieldRr.text.toString().toInt()
         pncModel.suhu = fieldSuhu.text.toString().toInt()
         pncModel.kontaksi = fieldKontraksi.text.toString()
+        pncModel.tfu = fieldTfu.text.toString()
         pncModel.pendarahan = fieldPendarahan.text.toString().replaceEmpty("0").toInt()
         pncModel.warna_lokhia = fieldWarna.text.toString()
         pncModel.jumlah_lokhia = fieldJumlahLokhia.text.toString().replaceEmpty("0").toInt()
@@ -154,6 +161,9 @@ class FormPncActivity : BaseActivity() {
         } else if (fieldPendarahan.text.toString().equals("")){
             fieldPendarahan.setError("Wajib diisi")
             return false
+        } else if (fieldTfu.text.toString().equals("")){
+            fieldTfu.setError("Wajib diisi")
+            return false
         }
         return true
     }
@@ -164,6 +174,7 @@ class FormPncActivity : BaseActivity() {
         val mMonth = c.get(Calendar.MONTH)
         val mDay = c.get(Calendar.DAY_OF_MONTH)
         val datePickerDialog = DatePickerDialog(this,
+                android.R.style.Theme_Holo_Light_Dialog,
                 DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                     var tanggal = ""
                     tanggal = year.toString() + "-"
@@ -190,12 +201,21 @@ class FormPncActivity : BaseActivity() {
             if (resultCode== Activity.RESULT_OK){
                 var dataMaster = gson.fromJson(data!!.getStringExtra("data"), Location::class.java)
                 fieldKeadaanIbu.setText(dataMaster.name)
-
             }
         } else if (requestCode==2){
             if (resultCode== Activity.RESULT_OK){
                 var dataMaster = gson.fromJson(data!!.getStringExtra("data"), Location::class.java)
                 fieldKeadaanBayi.setText(dataMaster.name)
+            }
+        } else if (requestCode==3){
+            if (resultCode== Activity.RESULT_OK){
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), Location::class.java)
+                fieldTfu.setText(dataMaster.name)
+            }
+        } else if (requestCode==4){
+            if (resultCode== Activity.RESULT_OK){
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), Location::class.java)
+                fieldKontraksi.setText(dataMaster.name)
             }
         }
     }

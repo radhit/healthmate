@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.Window
@@ -53,7 +52,7 @@ class FormInputAncActivity : BaseActivity() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         this.setTitle("Formulir ANC")
-        mother = gson.fromJson(intent.getStringExtra(EXTRA),User::class.java)
+        mother = gson.fromJson(intent.getStringExtra(EXTRA), User::class.java)
         ll_form.visibility = View.VISIBLE
         ll_hospital.visibility = View.GONE
 
@@ -63,47 +62,47 @@ class FormInputAncActivity : BaseActivity() {
         println("date comeback : ${dateNow}")
         tv_tanggal.text = dateNow.split("T")[0]
         fieldGoldar.setOnClickListener {
-            navigator.dataMaster(this,"goldar",1)
+            navigator.dataMaster(this, "goldar", 1)
         }
         fieldRhesus.setOnClickListener {
-            navigator.dataMaster(this, "rhesus",2)
+            navigator.dataMaster(this, "rhesus", 2)
         }
         fieldHepatitis.setOnClickListener {
-            navigator.dataMaster(this,"hepatitis",3)
+            navigator.dataMaster(this, "hepatitis", 3)
         }
         fieldBta.setOnClickListener {
-            navigator.dataMaster(this,"bta",4)
+            navigator.dataMaster(this, "bta", 4)
         }
         fieldHiv.setOnClickListener {
-            navigator.dataMaster(this,"hiv",5)
+            navigator.dataMaster(this, "hiv", 5)
         }
         fieldMalaria.setOnClickListener {
-            navigator.dataMaster(this,"malaria",6)
+            navigator.dataMaster(this, "malaria", 6)
         }
         fieldSifilis.setOnClickListener {
-            navigator.dataMaster(this,"sifilis",7)
+            navigator.dataMaster(this, "sifilis", 7)
         }
         fieldTanggal.setOnClickListener {
             callCalender()
         }
         fieldKeluhanUtama.setOnClickListener {
-            navigator.dataSelectable(this,"Keluhan",13)
+            navigator.dataSelectable(this, "Keluhan", 13)
         }
 
         fieldRujukan.setOnClickListener {
-            navigator.listLocation(this,"rujukan",8,gson.toJson(mother))
+            navigator.listLocation(this, "rujukan", 8, gson.toJson(mother))
         }
         fieldKakiBengkak.setOnClickListener {
-            navigator.dataMaster(this,"kaki bengkak",9)
+            navigator.dataMaster(this, "kaki bengkak", 9)
         }
         fieldProteinUrin.setOnClickListener {
-            navigator.dataMaster(this,"protein urin",10)
+            navigator.dataMaster(this, "protein urin", 10)
         }
         fieldReduksiUrin.setOnClickListener {
-            navigator.dataMaster(this,"reduksi urin",11)
+            navigator.dataMaster(this, "reduksi urin", 11)
         }
         fieldLetakJanin.setOnClickListener {
-            navigator.dataMaster(this,"letak janin",12)
+            navigator.dataMaster(this, "letak janin", 12)
         }
         rb_kembar.setOnClickListener {
             rb_kembar.isChecked = true
@@ -135,24 +134,24 @@ class FormInputAncActivity : BaseActivity() {
         showLoadingDialog()
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(ancModel))
         println("req body : ${requestBody}")
-        val call: Call<DataResponse<Any>> = baseApi.inputForm("${Urls.ancsMom}",requestBody)
+        val call: Call<DataResponse<Any>> = baseApi.inputForm("${Urls.ancsMom}", requestBody)
         call.enqueue(object : Callback<DataResponse<Any>> {
             override fun onResponse(call: Call<DataResponse<Any>>?, response: Response<DataResponse<Any>>?) {
                 closeLoadingDialog()
                 if (response!!.isSuccessful) {
-                    if (response!!.body()!!.responseCode in 200..299){
+                    if (response!!.body()!!.responseCode in 200..299) {
                         dialogFinish()
-                    } else{
+                    } else {
                         createDialog(response.body()!!.message)
                     }
                 } else {
-                    Toast.makeText(this@FormInputAncActivity,"Terjadi kesalahan", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@FormInputAncActivity, "Terjadi kesalahan", Toast.LENGTH_LONG).show()
                 }
             }
 
             override fun onFailure(call: Call<DataResponse<Any>>?, t: Throwable?) {
                 closeLoadingDialog()
-                Toast.makeText(this@FormInputAncActivity,t!!.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(this@FormInputAncActivity, t!!.message, Toast.LENGTH_LONG).show()
             }
         })
     }
@@ -178,35 +177,35 @@ class FormInputAncActivity : BaseActivity() {
         showLoadingDialog()
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(ancModel))
         println("req body : ${requestBody}")
-        val call: Call<DataResponse<AncModel>> = baseApi.validatorAnc("/ancs-validator",requestBody)
+        val call: Call<DataResponse<AncModel>> = baseApi.validatorAnc("/ancs-validator", requestBody)
         call.enqueue(object : Callback<DataResponse<AncModel>> {
             override fun onResponse(call: Call<DataResponse<AncModel>>?, response: Response<DataResponse<AncModel>>?) {
                 closeLoadingDialog()
                 if (response!!.isSuccessful) {
-                    if (response!!.body()!!.responseCode in 200..299){
+                    if (response!!.body()!!.responseCode in 200..299) {
                         println("data validator ${gson.toJson(response.body()!!.data)}")
                         ancModel.diagnostic_color = response.body()!!.data!!.diagnostic_color
                         println("data anc ${gson.toJson(ancModel)}")
                         ll_form.visibility = View.GONE
                         ll_hospital.visibility = View.VISIBLE
-                        if (ancModel.diagnostic_color.equals("red")){
+                        if (ancModel.diagnostic_color.equals("red")) {
                             Glide.with(this@FormInputAncActivity).applyDefaultRequestOptions(requestOptions).load(getDrawable(R.drawable.status_red)).into(iv_status)
-                        } else if (ancModel.diagnostic_color.equals("green")){
+                        } else if (ancModel.diagnostic_color.equals("green")) {
                             Glide.with(this@FormInputAncActivity).applyDefaultRequestOptions(requestOptions).load(getDrawable(R.drawable.status_green)).into(iv_status)
-                        } else{
+                        } else {
                             Glide.with(this@FormInputAncActivity).applyDefaultRequestOptions(requestOptions).load(getDrawable(R.drawable.status_yellow)).into(iv_status)
                         }
-                    } else{
+                    } else {
                         createDialog(response.body()!!.message)
                     }
                 } else {
-                    Toast.makeText(this@FormInputAncActivity,"Terjadi kesalahan", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@FormInputAncActivity, "Terjadi kesalahan", Toast.LENGTH_LONG).show()
                 }
             }
 
             override fun onFailure(call: Call<DataResponse<AncModel>>?, t: Throwable?) {
                 closeLoadingDialog()
-                Toast.makeText(this@FormInputAncActivity,t!!.message, Toast.LENGTH_LONG).show()
+                Toast.makeText(this@FormInputAncActivity, t!!.message, Toast.LENGTH_LONG).show()
             }
         })
     }
@@ -369,33 +368,55 @@ class FormInputAncActivity : BaseActivity() {
         return true
     }
 
+    val MODE_SPINNER = 1
+
     private fun callCalender() {
         val c = Calendar.getInstance()
         val mYear = c.get(Calendar.YEAR)
         val mMonth = c.get(Calendar.MONTH)
         val mDay = c.get(Calendar.DAY_OF_MONTH)
-        val datePickerDialog = DatePickerDialog(this,
-                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                    var tanggal = ""
-                    tanggal = year.toString() + "-"
-                    if (monthOfYear + 1 < 10) {
-                        tanggal = tanggal + "0" + (monthOfYear + 1).toString() + "-"
-                    } else {
-                        tanggal = tanggal + (monthOfYear + 1).toString() + "-"
-                    }
+        val datepickerdialog = DatePickerDialog(this,
+                android.R.style.Theme_Holo_Light_Dialog, { view, year, monthOfYear, dayOfMonth ->
+            var tanggal = ""
+            tanggal = year.toString() + "-"
+            if (monthOfYear + 1 < 10) {
+                tanggal = tanggal + "0" + (monthOfYear + 1).toString() + "-"
+            } else {
+                tanggal = tanggal + (monthOfYear + 1).toString() + "-"
+            }
 
-                    if (dayOfMonth < 10) {
-                        tanggal = tanggal + "0" + dayOfMonth.toString()
-                    } else {
-                        tanggal = tanggal + dayOfMonth.toString()
-                    }
-                    dateComeback = "${tanggal}T${dateNow.split("T")[1]}+07:00"
-                    fieldTanggal.setText(tanggal)
-                    println("date comeback : ${dateComeback}")
+            if (dayOfMonth < 10) {
+                tanggal = tanggal + "0" + dayOfMonth.toString()
+            } else {
+                tanggal = tanggal + dayOfMonth.toString()
+            }
+            dateComeback = "${tanggal}T${dateNow.split("T")[1]}+07:00"
+            fieldTanggal.setText(tanggal)
+            println("date comeback : ${dateComeback}")
 
-                }, mYear, mMonth, mDay)
-        datePickerDialog.datePicker.minDate = Date().time
-        datePickerDialog.show()
+        }, mYear, mMonth, mDay)
+//        val datePickerDialog = DatePickerDialog(this,
+//                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+//                    var tanggal = ""
+//                    tanggal = year.toString() + "-"
+//                    if (monthOfYear + 1 < 10) {
+//                        tanggal = tanggal + "0" + (monthOfYear + 1).toString() + "-"
+//                    } else {
+//                        tanggal = tanggal + (monthOfYear + 1).toString() + "-"
+//                    }
+//
+//                    if (dayOfMonth < 10) {
+//                        tanggal = tanggal + "0" + dayOfMonth.toString()
+//                    } else {
+//                        tanggal = tanggal + dayOfMonth.toString()
+//                    }
+//                    dateComeback = "${tanggal}T${dateNow.split("T")[1]}+07:00"
+//                    fieldTanggal.setText(tanggal)
+//                    println("date comeback : ${dateComeback}")
+//
+//                }, mYear, mMonth, mDay)
+        datepickerdialog.datePicker.minDate = Date().time
+        datepickerdialog.show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -438,7 +459,7 @@ class FormInputAncActivity : BaseActivity() {
             }
         } else if (requestCode==8){
             if (resultCode==Activity.RESULT_OK){
-                var dataMaster = gson.fromJson(data!!.getStringExtra("data"),Hospital::class.java)
+                var dataMaster = gson.fromJson(data!!.getStringExtra("data"), Hospital::class.java)
                 fieldRujukan.setText(dataMaster.name)
                 ancModel.next_hospital = dataMaster
                 tv_lokasi_rujukan.text = "Rujukan\nKe\n${dataMaster.level}"
@@ -471,8 +492,8 @@ class FormInputAncActivity : BaseActivity() {
                 var daftarKeluhan = ""
 
                 for (i in 0..dataMaster.size()-1){
-                    dataKeluhan.add(dataMaster[i].toString().substring(1,dataMaster[i].toString().length-1))
-                    daftarKeluhan="${daftarKeluhan}${dataMaster[i].toString().substring(1,dataMaster[i].toString().length-1)}, "
+                    dataKeluhan.add(dataMaster[i].toString().substring(1, dataMaster[i].toString().length - 1))
+                    daftarKeluhan="${daftarKeluhan}${dataMaster[i].toString().substring(1, dataMaster[i].toString().length - 1)}, "
                 }
                 fieldKeluhanUtama.setText(daftarKeluhan.substring(0, daftarKeluhan.length - 2))
             }

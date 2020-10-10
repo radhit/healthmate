@@ -112,27 +112,3 @@ data class Husband(
         var city: Location? = Location(),
         var district: Location? = Location()
 )
-
-data class Rujukan(
-        var id: String = "",
-        var status: String = "",
-        var date: String = "",
-        var time: String = "",
-        var nama_perujuk: String = "",
-        var asal_perujuk: Hospital? = Hospital(),
-        var sebab: String = "",
-        var diagnosis: String = "",
-        var tindakan: String = "",
-        var tujuan: String = "",
-        var umpanbalik_rujukan: UmpanbalikRujukan? = UmpanbalikRujukan()
-)
-
-data class UmpanbalikRujukan(
-        var id: String = "",
-        var date: String = "",
-        var time: String = "",
-        var penerima_rujukan: String = "",
-        var asal_penerima: Hospital? = Hospital(),
-        var diagnosis: String = "",
-        var tindakan: String = ""
-)

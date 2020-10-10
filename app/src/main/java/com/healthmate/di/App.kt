@@ -29,7 +29,7 @@ class App : MultiDexApplication(),DaggerComponentProvider {
         setupTimber()
         CalligraphyConfig.initDefault(
                 CalligraphyConfig.Builder()
-                        .setDefaultFontPath("fonts/Roboto-Regular.ttf")
+                        .setDefaultFontPath("fonts/montserrat_regular.ttf")
                         .setFontAttrId(R.attr.fontPath)
                         .build()
         )
