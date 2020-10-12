@@ -25,7 +25,7 @@ class KalaListAdapter(private val mContext: Context) : RecyclerView.Adapter<Kala
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val value = lists[position]
-        holder.view.tv_tanggal.text = "${value.date.split("T")[0]} - ${value.time}"
+        holder.view.tv_tanggal.text = "${value.datetime.split("T")[0]} - ${value.datetime.split("T")[1].split("+")[0]}"
 
     }
 

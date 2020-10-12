@@ -2,8 +2,7 @@ package com.healthmate.menu.midwife.pasien.data
 
 data class IncKalaModel(
         var id: String = "",
-        var date: String = "",
-        var time: String = "",
+        var datetime: String = "",
         var complaint: String = "",
         var awareness: String = "",
         var td: Int = 0,

@@ -97,8 +97,8 @@ class FormInputKala4Activity : BaseActivity() {
     }
 
     private fun setDataInput() {
-        incKalaModel.date = "${fieldTanggal.text.toString()}T${fieldWaktu.text.toString()}+07:00"
-        incKalaModel.time = fieldWaktu.text.toString()
+        incKalaModel.datetime = "${fieldTanggal.text.toString()}T${fieldWaktu.text.toString()}+07:00"
+//        incKalaModel.time = fieldWaktu.text.toString()
         incKalaModel.complaint = fieldKeluhan.text.toString()
         incKalaModel.awareness = fieldKesadaran.text.toString()
         incKalaModel.td = fieldTd.text.toString().toInt()

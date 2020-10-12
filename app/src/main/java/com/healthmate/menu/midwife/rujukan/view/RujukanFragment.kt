@@ -18,10 +18,7 @@ import com.healthmate.di.injector
 import com.healthmate.menu.midwife.pasien.data.PasienViewModel
 import com.healthmate.menu.midwife.rujukan.data.Rujukan
 import com.healthmate.menu.midwife.rujukan.data.RujukanViewModel
-import kotlinx.android.synthetic.main.fragment_list_rapor.*
 import kotlinx.android.synthetic.main.fragment_list_rujukan.*
-import kotlinx.android.synthetic.main.fragment_list_rujukan.rv_list
-import kotlinx.android.synthetic.main.fragment_list_rujukan.tv_loading
 
 class RujukanFragment : BaseFragment() {
 
@@ -129,6 +126,7 @@ class RujukanFragment : BaseFragment() {
         initiateLinearLayoutRecyclerView(rv_list,object : RecyclerViewClickListener {
             override fun onClick(view: View, position: Int) {
                 if (keterangan.equals("penerimaan")){
+                    println("data rujukan : ${gson.toJson(pasienRujukanAdapter.lists[position])}")
                     navigator.formUmpanbalikRujukan(activity!!,gson.toJson(pasienRujukanAdapter.lists[position]))
                 } else{
 //                    navigator.formRujukan(activity!!,gson.toJson(pasienRujukanAdapter.lists[position]))
@@ -148,5 +146,10 @@ class RujukanFragment : BaseFragment() {
 
                 }
         )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getData("awal")
     }
 }

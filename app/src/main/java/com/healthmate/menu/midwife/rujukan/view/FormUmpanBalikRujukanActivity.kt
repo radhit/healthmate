@@ -6,6 +6,7 @@ import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.healthmate.R
 import com.healthmate.api.DataResponse
 import com.healthmate.common.base.BaseActivity
@@ -34,7 +35,7 @@ class FormUmpanBalikRujukanActivity : BaseActivity() {
         val EXTRA = "EXTRA"
         @JvmStatic
         fun getCallingIntent(activity: Activity, data: String): Intent {
-            val intent = Intent(activity, FormRujukanActivity::class.java)
+            val intent = Intent(activity, FormUmpanBalikRujukanActivity::class.java)
             intent.putExtra(EXTRA,data)
             return intent
         }
@@ -46,8 +47,18 @@ class FormUmpanBalikRujukanActivity : BaseActivity() {
     var midwife: Midwife = Midwife()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+
         rujukan = gson.fromJson(intent.getStringExtra(EXTRA),Rujukan::class.java)
         umpanBalikRujukan = rujukan.umpanbalik_rujukan!!
+        if (!umpanBalikRujukan.datetime.equals("")){
+            setData()
+        } else{
+            midwife.name = userPref.getUser().name
+            midwife.id = userPref.getUser().id
+            asal = userPref.getUser().hospital!!
+            fieldPenerimaRujukan.setText("${midwife.name}")
+            fieldAsal.setText("${asal.name}")
+        }
         fieldTanggal.setOnClickListener {
             callCalender()
         }
@@ -60,15 +71,30 @@ class FormUmpanBalikRujukanActivity : BaseActivity() {
         btn_simpan.setOnClickListener {
             if (isValid()){
                 setDataInput()
+                submit()
             }
         }
+    }
+
+    private fun setData() {
+        fieldTanggal.setText("${umpanBalikRujukan.datetime.split("T")[0]}")
+        fieldWaktu.setText("${umpanBalikRujukan.datetime.split("T")[0].split("+")[0]}")
+        fieldPenerimaRujukan.setText("${umpanBalikRujukan.penerima.name}")
+        midwife = umpanBalikRujukan.penerima
+        asal = umpanBalikRujukan.asal_penerima
+        fieldAsal.setText("${umpanBalikRujukan.asal_penerima.name}")
+        fieldDiagnosis.setText("${umpanBalikRujukan.diagnosis}")
+        fieldAnjuran.setText("${umpanBalikRujukan.anjuran}")
+        btn_simpan.isEnabled = false
+        btn_simpan.background = ContextCompat.getDrawable(this, R.drawable.bg_rounded_grey)
+        btn_simpan.setTextColor(resources.getColor(R.color.white))
     }
 
     private fun submit() {
         showLoadingDialog()
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), gson.toJson(rujukan))
         println("req body : ${requestBody}")
-        val call: Call<DataResponse<Any>> = baseApi.updateForm("${Urls.rujukan}",requestBody)
+        val call: Call<DataResponse<Any>> = baseApi.updateForm("${Urls.rujukan}/${rujukan.id}",requestBody)
         call.enqueue(object : Callback<DataResponse<Any>> {
             override fun onResponse(call: Call<DataResponse<Any>>?, response: Response<DataResponse<Any>>?) {
                 closeLoadingDialog()
@@ -92,8 +118,7 @@ class FormUmpanBalikRujukanActivity : BaseActivity() {
 
     private fun setDataInput() {
         umpanBalikRujukan.datetime = "${fieldTanggal.text.toString()}T${fieldWaktu.text.toString()}+07:00"
-        midwife.id = userPref.getUser().id
-        midwife.name = fieldNama.text.toString()
+        midwife.name = fieldPenerimaRujukan.text.toString()
 
         umpanBalikRujukan.penerima = midwife
         umpanBalikRujukan.asal_penerima = asal
