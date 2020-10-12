@@ -52,8 +52,17 @@ class ListLocationActivity : BaseActivity() {
     var level = ""
     var dataMother: User = User()
     var search: Boolean = false
+    var title: String = ""
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        title = intent.getStringExtra(EXTRA)
+        if (title.equals("bidan")){
+            title = "Lokasi kerja"
+        } else if (title.equals("bpm")){
+            title = "BPM"
+        } else if (title.equals("rujukan")){
+            title = "lokasi rujukan"
+        }
         this.setTitle("Daftar ${intent.getStringExtra(EXTRA)}")
         level = intent.getStringExtra(EXTRA)
         fieldSearch.addTextChangedListener(object : TextWatcher {
@@ -151,14 +160,12 @@ class ListLocationActivity : BaseActivity() {
         var level = ""
         var city = "${userPref.getUser().city!!.name}"
         var district = "${userPref.getUser().district!!.name}"
-        if (!intent.getStringExtra(EXTRA).equals("bidan")){
+        if (intent.getStringExtra(EXTRA).equals("bpm") || intent.getStringExtra(EXTRA).equals("puskesmas") || intent.getStringExtra(EXTRA).equals("rs")){
             level = intent.getStringExtra(EXTRA)
-            url = "${Urls.hospital}?num=1000&level=${level}&city=${city}&district=${district}&name=${fieldSearch.text.toString()}"
-        }
-        if (intent.getStringExtra(EXTRA).equals("rujukan")){
-            city = ""
-            district = ""
-            level = ""
+            url = "${Urls.hospital}?num=500&level=${level}&district=${district}&name=${fieldSearch.text.toString()}"
+        } else if (intent.getStringExtra(EXTRA).equals("bidan")){
+            url = "${Urls.hospital}?num=500&district=${district}&name=${fieldSearch.text.toString()}"
+        } else if (intent.getStringExtra(EXTRA).equals("rujukan")){
             url = "${Urls.hospital}?num=500&name=${fieldSearch.text.toString()}"
         }
         payload.url = url
@@ -204,16 +211,13 @@ class ListLocationActivity : BaseActivity() {
         var city = "${userPref.getUser().city!!.name}"
         var district = "${userPref.getUser().district!!.name}"
         var url = ""
-        if (!intent.getStringExtra(EXTRA).equals("bidan")){
+        if (intent.getStringExtra(EXTRA).equals("bpm") || intent.getStringExtra(EXTRA).equals("puskesmas") || intent.getStringExtra(EXTRA).equals("rs")){
             level = intent.getStringExtra(EXTRA)
-//            url = "${Urls.hospital}?num=50&level=${level}&city=${city}&district=${district}"
-        } else{
-//            url = "${Urls.hospital}?num=50&level=${level}&city=${city}&district=${district}"
-        }
-        if (intent.getStringExtra(EXTRA).equals("rujukan")){
-            url = "${Urls.hospital}?num=50"
-        } else{
-            url = "${Urls.hospital}?num=50&level=${level}&city=${city}&district=${district}"
+            url = "${Urls.hospital}?num=500&level=${level}&district=${district}"
+        } else if (intent.getStringExtra(EXTRA).equals("bidan")){
+            url = "${Urls.hospital}?num=500&district=${district}"
+        } else if (intent.getStringExtra(EXTRA).equals("rujukan")){
+            url = "${Urls.hospital}?num=500"
         }
         if (keterangan.equals("awal")){
             payload.url = url
