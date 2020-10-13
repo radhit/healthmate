@@ -10,6 +10,8 @@ abstract class BaseDataSource {
         try{
             val response = call()
             val body = response.body()
+            val gson : Gson = Gson()
+            println("data body api : ${gson.toJson(body)}")
             if (body!=null){
                 if (body.responseCode in 200..299){
                     return Result.success(body.data,body.message.replaceEmpty("-"),200,body.cursor) as Result<T>

@@ -113,7 +113,6 @@ class FormRingkasanPersalinanActivity : BaseActivity() {
                     }
                     fieldTanggalPersalinan.setText(tanggal)
                 }, mYear, mMonth, mDay)
-        datePickerDialog.datePicker.minDate = Date().time
         datePickerDialog.show()
     }
 

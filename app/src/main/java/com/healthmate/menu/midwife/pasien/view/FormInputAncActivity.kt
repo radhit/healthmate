@@ -21,7 +21,9 @@ import com.healthmate.menu.reusable.data.Hospital
 import com.healthmate.menu.reusable.data.Location
 import com.healthmate.menu.reusable.data.MasterListModel
 import com.healthmate.menu.reusable.data.User
+import kotlinx.android.synthetic.main.activity_data_riwayat_anc.*
 import kotlinx.android.synthetic.main.activity_form_input_anc.*
+import kotlinx.android.synthetic.main.activity_form_input_anc.btn_simpan
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -368,55 +370,32 @@ class FormInputAncActivity : BaseActivity() {
         return true
     }
 
-    val MODE_SPINNER = 1
-
     private fun callCalender() {
         val c = Calendar.getInstance()
         val mYear = c.get(Calendar.YEAR)
         val mMonth = c.get(Calendar.MONTH)
         val mDay = c.get(Calendar.DAY_OF_MONTH)
-        val datepickerdialog = DatePickerDialog(this,
-                android.R.style.Theme_Holo_Light_Dialog, { view, year, monthOfYear, dayOfMonth ->
-            var tanggal = ""
-            tanggal = year.toString() + "-"
-            if (monthOfYear + 1 < 10) {
-                tanggal = tanggal + "0" + (monthOfYear + 1).toString() + "-"
-            } else {
-                tanggal = tanggal + (monthOfYear + 1).toString() + "-"
-            }
+        val datePickerDialog = DatePickerDialog(this,
+                android.R.style.Theme_Holo_Light_Dialog,
+                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                    var tanggal = ""
+                    tanggal = year.toString() + "-"
+                    if (monthOfYear + 1 < 10) {
+                        tanggal = tanggal + "0" + (monthOfYear + 1).toString() + "-"
+                    } else {
+                        tanggal = tanggal + (monthOfYear + 1).toString() + "-"
+                    }
 
-            if (dayOfMonth < 10) {
-                tanggal = tanggal + "0" + dayOfMonth.toString()
-            } else {
-                tanggal = tanggal + dayOfMonth.toString()
-            }
-            dateComeback = "${tanggal}T${dateNow.split("T")[1]}+07:00"
-            fieldTanggal.setText(tanggal)
-            println("date comeback : ${dateComeback}")
+                    if (dayOfMonth < 10) {
+                        tanggal = tanggal + "0" + dayOfMonth.toString()
+                    } else {
+                        tanggal = tanggal + dayOfMonth.toString()
+                    }
+                    dateComeback = "${tanggal}T${dateNow.split("T")[1]}+07:00"
+                    fieldTanggal.setText(tanggal)
+                }, mYear, mMonth, mDay)
 
-        }, mYear, mMonth, mDay)
-//        val datePickerDialog = DatePickerDialog(this,
-//                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-//                    var tanggal = ""
-//                    tanggal = year.toString() + "-"
-//                    if (monthOfYear + 1 < 10) {
-//                        tanggal = tanggal + "0" + (monthOfYear + 1).toString() + "-"
-//                    } else {
-//                        tanggal = tanggal + (monthOfYear + 1).toString() + "-"
-//                    }
-//
-//                    if (dayOfMonth < 10) {
-//                        tanggal = tanggal + "0" + dayOfMonth.toString()
-//                    } else {
-//                        tanggal = tanggal + dayOfMonth.toString()
-//                    }
-//                    dateComeback = "${tanggal}T${dateNow.split("T")[1]}+07:00"
-//                    fieldTanggal.setText(tanggal)
-//                    println("date comeback : ${dateComeback}")
-//
-//                }, mYear, mMonth, mDay)
-        datepickerdialog.datePicker.minDate = Date().time
-        datepickerdialog.show()
+        datePickerDialog.show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

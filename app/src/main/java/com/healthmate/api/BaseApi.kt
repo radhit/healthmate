@@ -8,6 +8,9 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface BaseApi {
+    @POST
+    fun signin(@Url url: String, @Body requestBody: RequestBody): Call<DataResponse<User>>
+
     @PUT
     fun updateDataMom(@Url url: String, @Body requestBody: RequestBody): Call<DataResponse<Any>>
 

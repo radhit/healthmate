@@ -156,6 +156,7 @@ class FormUmpanBalikRujukanActivity : BaseActivity() {
         val mMonth = c.get(Calendar.MONTH)
         val mDay = c.get(Calendar.DAY_OF_MONTH)
         val datePickerDialog = DatePickerDialog(this,
+                android.R.style.Theme_Holo_Light_Dialog,
                 DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                     var tanggal = ""
                     tanggal = year.toString() + "-"
@@ -172,7 +173,6 @@ class FormUmpanBalikRujukanActivity : BaseActivity() {
                     }
                     fieldTanggal.setText(tanggal)
                 }, mYear, mMonth, mDay)
-        datePickerDialog.datePicker.minDate = Date().time
         datePickerDialog.show()
     }
 
