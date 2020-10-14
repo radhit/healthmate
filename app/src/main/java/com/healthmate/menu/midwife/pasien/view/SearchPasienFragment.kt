@@ -1,7 +1,12 @@
 package com.healthmate.menu.midwife.pasien.view
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.ViewModelProviders
 import com.healthmate.R
 import com.healthmate.api.Payload
@@ -36,6 +41,7 @@ class SearchPasienFragment : BaseFragment() {
     override fun onFragmentCreated(savedInstanceState: Bundle?) {
         setRecycleView()
         btn_search.setOnClickListener {
+            closeKeyboard(parent)
             if (fieldName.text.toString().equals("")){
                 fieldName.setError("Wajib diisi")
             } else{
@@ -56,6 +62,7 @@ class SearchPasienFragment : BaseFragment() {
                     when(result.status){
                         Result.Status.LOADING->{
                             tv_loading.visibility = View.VISIBLE
+                            tv_loading.text = "Mohon Tunggu.."
                             rv_list.visibility = View.GONE
                         }
                         Result.Status.SUCCESS->{
@@ -116,5 +123,10 @@ class SearchPasienFragment : BaseFragment() {
 
                 }
         )
+    }
+
+    private fun closeKeyboard(ll_search: RelativeLayout) {
+        val inputMethodManager = activity!!.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(ll_search.windowToken, 0)
     }
 }

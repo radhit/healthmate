@@ -666,6 +666,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Pilih Lokasi Rujukan"
+                    android:id="@+id/inputLokasi"
                     android:layout_marginTop="20dp">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldRujukan"

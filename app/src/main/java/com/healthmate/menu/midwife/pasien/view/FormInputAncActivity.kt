@@ -36,10 +36,14 @@ import java.util.*
 class FormInputAncActivity : BaseActivity() {
     companion object {
         val EXTRA = "EXTRA"
+        val EXTRA_KETERANGAN = "EXTRA_KETERANGAN"
+        val EXTRA_ANC = "EXTRA_ANC"
         @JvmStatic
-        fun getCallingIntent(activity: Activity, data: String): Intent {
+        fun getCallingIntent(activity: Activity, data: String, keterangan: String, dataAnc: String): Intent {
             val intent = Intent(activity, FormInputAncActivity::class.java)
             intent.putExtra(EXTRA, data)
+            intent.putExtra(EXTRA_KETERANGAN, keterangan)
+            intent.putExtra(EXTRA_ANC, dataAnc)
             return intent
         }
     }
@@ -57,6 +61,10 @@ class FormInputAncActivity : BaseActivity() {
         mother = gson.fromJson(intent.getStringExtra(EXTRA), User::class.java)
         ll_form.visibility = View.VISIBLE
         ll_hospital.visibility = View.GONE
+        if (intent.getStringExtra(EXTRA_KETERANGAN).equals("detil")){
+            setViewDetil()
+        }
+
 
         var current = LocalDateTime.now().toString()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
@@ -130,6 +138,106 @@ class FormInputAncActivity : BaseActivity() {
             }
         }
 
+    }
+
+    private fun setViewDetil() {
+        ancModel = gson.fromJson(intent.getStringExtra(EXTRA_ANC),AncModel::class.java)
+        ll_hospital.visibility = View.VISIBLE
+        var complaint = ""
+        for (data in ancModel.complaint){
+            complaint="${complaint}${data}, "
+        }
+        fieldKeluhanUtama.setText(complaint.substring(0,complaint.length-2))
+        fieldKeluhanUtama.isEnabled = false
+        fieldKeluhanLainnya.setText(ancModel.other_complaint)
+        fieldKeluhanLainnya.isEnabled = false
+        fieldSistolik.setText(ancModel.sistolik)
+        fieldSistolik.isEnabled = false
+        fieldbb.setText(ancModel.weight)
+        fieldbb.isEnabled = false
+        fieldBbawal.setText(ancModel.initial_weight)
+        fieldBbawal.isEnabled = false
+        fieldSuggestedWeight.setText(ancModel.suggested_weight)
+        fieldSuggestedWeight.isEnabled = false
+        fieldDiastolik.setText(ancModel.diastolik)
+        fieldDiastolik.isEnabled = false
+        fieldDifferenceBB.setText(ancModel.differenced_weight)
+        fieldDifferenceBB.isEnabled = false
+        fieldNadi.setText(ancModel.nadi)
+        fieldNadi.isEnabled = false
+        fieldImt.setText(ancModel.imt)
+        fieldImt.isEnabled = false
+        fieldRr.setText(ancModel.rr)
+        fieldRr.isEnabled = false
+        fieldMap.setText(ancModel.map)
+        fieldMap.isEnabled = false
+        fieldRot.setText(ancModel.rot)
+        fieldRot.isEnabled = false
+        fieldUmurKehamilan.setText(ancModel.age_of_pregnancy)
+        fieldUmurKehamilan.isEnabled = false
+        fieldTfu.setText(ancModel.tfu)
+        fieldTfu.isEnabled = false
+        fieldLetakJanin.setText(ancModel.fetus_position)
+        fieldLetakJanin.isEnabled = false
+        fieldLainnya.setText(ancModel.others)
+        fieldLainnya.isEnabled = false
+        fieldDjj.setText(ancModel.djj[0])
+        fieldDjj.isEnabled = false
+        if (ancModel.djj.size>1){
+            rb_tunggal.isChecked = false
+            rb_kembar.isChecked = true
+            fieldDjj2.visibility = View.VISIBLE
+            fieldDjj2.setText(ancModel.djj[1])
+            fieldDjj2.isEnabled = false
+        } else{
+            rb_tunggal.isChecked = true
+            rb_kembar.isChecked = false
+        }
+        fieldKakiBengkak.setText(ancModel.swollen_foot)
+        fieldKakiBengkak.isEnabled = false
+        fieldGoldar.setText(ancModel.blood_type)
+        fieldGoldar.isEnabled = false
+        fieldRhesus.setText(ancModel.rhesus)
+        fieldRhesus.isEnabled = false
+        fieldGulaDarah.setText(ancModel.blood_sugar)
+        fieldGulaDarah.isEnabled = false
+        fieldHb.setText(ancModel.hb)
+        fieldHb.isEnabled = false
+        fieldProteinUrin.setText(ancModel.urine_protein)
+        fieldProteinUrin.isEnabled = false
+        fieldReduksiUrin.setText(ancModel.urine_reduction)
+        fieldReduksiUrin.isEnabled = false
+        fieldHepatitis.setText(ancModel.hepatitis_b)
+        fieldHepatitis.isEnabled = false
+        fieldBta.setText(ancModel.bta)
+        fieldBta.isEnabled = false
+        fieldHiv.setText(ancModel.hiv)
+        fieldHiv.isEnabled = false
+        fieldMalaria.setText(ancModel.malaria)
+        fieldMalaria.isEnabled = false
+        fieldSifilis.setText(ancModel.sifilis)
+        fieldSifilis.isEnabled = false
+        fieldDiagnosa.setText(ancModel.diagnostic)
+        fieldDiagnosa.isEnabled = false
+        fieldTerapi.setText(ancModel.therapy)
+        fieldTerapi.isEnabled = false
+        fieldPemberianImunisasi.setText(ancModel.number_of_immunitation)
+        fieldPemberianImunisasi.isEnabled = false
+        fieldTanggal.setText(ancModel.return_date.split("T")[0])
+        fieldTanggal.isEnabled = false
+        fieldNasihat.setText(ancModel.message)
+        fieldNasihat.isEnabled = false
+        btn_verif.visibility = View.GONE
+        tv_lokasi_rujukan.setText("Rujukan Ke\n${ancModel.next_hospital!!.name}")
+        inputLokasi.visibility = View.GONE
+        btn_simpan.visibility = View.GONE
+        if (ancModel.diagnostic_color.equals("red")) {
+            Glide.with(this@FormInputAncActivity).applyDefaultRequestOptions(requestOptions).load(getDrawable(R.drawable.status_red)).into(iv_status)
+        } else if (ancModel.diagnostic_color.equals("green")) {
+            Glide.with(this@FormInputAncActivity).applyDefaultRequestOptions(requestOptions).load(getDrawable(R.drawable.status_green)).into(iv_status)
+        } else {
+            Glide.with(this@FormInputAncActivity).applyDefaultRequestOptions(requestOptions).load(getDrawable(R.drawable.status_yellow)).into(iv_status)
+        }
     }
 
     private fun postAnc() {
@@ -376,7 +484,7 @@ class FormInputAncActivity : BaseActivity() {
         val mMonth = c.get(Calendar.MONTH)
         val mDay = c.get(Calendar.DAY_OF_MONTH)
         val datePickerDialog = DatePickerDialog(this,
-                android.R.style.Theme_Holo_Light_Dialog,
+                R.style.MySpinnerDatePickerStyle,
                 DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                     var tanggal = ""
                     tanggal = year.toString() + "-"

@@ -184,7 +184,7 @@ class DataAncFragment : BaseFragment() {
         rv_list.adapter = adapter
         initiateLinearLayoutRecyclerView(rv_list,object : RecyclerViewClickListener {
             override fun onClick(view: View, position: Int) {
-
+                navigator.formInputAnc(activity!!, gson.toJson(dataPasien), "detil",gson.toJson(adapter.lists[position]))
             }
             override fun onLongClick(view: View, position: Int) {
             }

@@ -247,7 +247,6 @@ class MasterListActivity : BaseActivity() {
         arrays.add(MasterListModel("4","Tarikan cunam/forseps"))
         arrays.add(MasterListModel("5","Operasi sesar/CS"))
         arrays.add(MasterListModel("6","Laparatomi"))
-        arrays.add(MasterListModel("7","Lainnya"))
         arrays.add(MasterListModel("8","Manual plasenta"))
         arrays.add(MasterListModel("9","Riwayat infus/transfusi"))
         arrays.add(MasterListModel("10","Lainnya"))

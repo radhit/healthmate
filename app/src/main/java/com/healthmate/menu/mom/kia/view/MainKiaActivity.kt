@@ -393,6 +393,8 @@ class MainKiaActivity : BaseActivity() {
     }
 
     private fun setData() {
+        dateMother = dataKia.birth_date
+        dateHusband = dataKia.husband!!.birth_date
         fieldDomisili.setText("${dataKia.domisili}")
         fieldNomorKtp.setText("${dataKia.nik}")
         fieldTempatLahir.setText("${dataKia.birth_place}")
@@ -435,7 +437,7 @@ class MainKiaActivity : BaseActivity() {
         val mMonth = c.get(Calendar.MONTH)
         val mDay = c.get(Calendar.DAY_OF_MONTH)
         val datePickerDialog = DatePickerDialog(this,
-                android.R.style.Theme_Holo_Light_Dialog,
+                R.style.MySpinnerDatePickerStyle,
                 DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                     var tanggal = ""
                     tanggal = year.toString() + "-"
@@ -458,7 +460,6 @@ class MainKiaActivity : BaseActivity() {
                         dateHusband = "${tanggal}T01:00:00+07:00"
                     }
                 }, mYear, mMonth, mDay)
-        datePickerDialog.datePicker.maxDate = Date().time
         datePickerDialog.show()
     }
 

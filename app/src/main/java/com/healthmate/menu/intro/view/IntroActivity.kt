@@ -66,24 +66,24 @@ class IntroActivity : BaseActivity() {
     }
 
     private fun perrmission() {
-        if (ActivityCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            permissionCount++
-        } else {
-            requestPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-        }
-        if (ActivityCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            permissionCount++
-        } else {
-            requestPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
-        }
+//        if (ActivityCompat.checkSelfPermission(
+//                        this,
+//                        Manifest.permission.ACCESS_FINE_LOCATION
+//                ) == PackageManager.PERMISSION_GRANTED
+//        ) {
+//            permissionCount++
+//        } else {
+//            requestPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+//        }
+//        if (ActivityCompat.checkSelfPermission(
+//                        this,
+//                        Manifest.permission.ACCESS_COARSE_LOCATION
+//                ) == PackageManager.PERMISSION_GRANTED
+//        ) {
+//            permissionCount++
+//        } else {
+//            requestPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
+//        }
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE

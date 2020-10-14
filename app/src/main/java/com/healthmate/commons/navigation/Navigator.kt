@@ -110,8 +110,8 @@ class Navigator @Inject constructor() {
         goto(activity, FormRiwayatAncActivity.getCallingIntent(activity, keterangan, data))
     }
 
-    fun formInputAnc(activity: Activity, data: String){
-        goto(activity,FormInputAncActivity.getCallingIntent(activity,data))
+    fun formInputAnc(activity: Activity, data: String, keterangan: String = "", dataAnc: String = ""){
+        goto(activity,FormInputAncActivity.getCallingIntent(activity,data,keterangan,dataAnc))
     }
 
     fun mainKalaInc(activity: Activity,type: String, data: String){

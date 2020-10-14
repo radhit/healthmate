@@ -171,7 +171,7 @@ class FormInputKala4Activity : BaseActivity() {
         val mMonth = c.get(Calendar.MONTH)
         val mDay = c.get(Calendar.DAY_OF_MONTH)
         val datePickerDialog = DatePickerDialog(this,
-                android.R.style.Theme_Holo_Light_Dialog,
+                R.style.MySpinnerDatePickerStyle,
                 DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                     var tanggal = ""
                     tanggal = year.toString() + "-"
