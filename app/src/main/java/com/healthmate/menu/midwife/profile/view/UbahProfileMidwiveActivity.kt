@@ -159,6 +159,9 @@ class UbahProfileMidwiveActivity : BaseActivity() {
                             }
                             Result.Status.ERROR->{
                                 closeLoadingDialog()
+                                if (result.response_code==401){
+                                    result.message = "Token expired"
+                                }
                                 Fun.handleError(this,result)
                             }
                         }

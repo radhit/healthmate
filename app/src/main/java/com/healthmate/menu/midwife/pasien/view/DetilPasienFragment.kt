@@ -10,6 +10,7 @@ import com.healthmate.api.Payload
 import com.healthmate.api.Result
 import com.healthmate.common.base.BaseFragment
 import com.healthmate.common.constant.Urls
+import com.healthmate.common.functions.Fun
 import com.healthmate.di.injector
 import com.healthmate.menu.reusable.data.MasterViewModel
 import com.healthmate.menu.reusable.data.User
@@ -64,7 +65,10 @@ class DetilPasienFragment : BaseFragment() {
                         }
                         Result.Status.ERROR -> {
                             finishLoading()
-                            createDialog(result.message!!)
+                            if (result.response_code==401){
+                                result.message = "Token expired"
+                            }
+                            Fun.handleError(activity!!,result)
                         }
                     }
                 })

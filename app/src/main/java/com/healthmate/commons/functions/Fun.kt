@@ -19,6 +19,7 @@ import com.scottyab.aescrypt.AESCrypt
 import java.security.GeneralSecurityException
 import java.util.*
 import com.healthmate.api.Result
+import com.healthmate.menu.auth.view.SigninActivity
 
 
 object Fun{
@@ -48,11 +49,19 @@ object Fun{
         return result
     }
 
-    fun handleError(activity: Activity, response: Result<Any?>, showDialog: Boolean = true, isNeedClose: Boolean = false){
+    fun handleError(activity: Activity, response: Result<Any?>, keterangan: String = "", showDialog: Boolean = true, isNeedClose: Boolean = false){
         if ((response.status == Result.Status.ERROR && showDialog)){
-            val dialog = MaterialDialog(activity).title(null,"Failed")
+            val dialog = MaterialDialog(activity).title(null,"HealthMate")
                 .message(null, response.message.replaceEmpty("Something Wrong."))
                 .positiveButton(null,"OK",{
+                    if (response.response_code==401){
+                        if (keterangan.equals("")){
+                            val dataManager = UserPref(activity)
+                            dataManager.setUser(User())
+                            activity.startActivity(Intent(activity, SigninActivity::class.java))
+                            activity.finish()
+                        }
+                    }
                     if (isNeedClose){
                         activity.finish()
                     }

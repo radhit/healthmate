@@ -143,6 +143,7 @@ class FormInputAncActivity : BaseActivity() {
     private fun setViewDetil() {
         ancModel = gson.fromJson(intent.getStringExtra(EXTRA_ANC),AncModel::class.java)
         ll_hospital.visibility = View.VISIBLE
+
         var complaint = ""
         for (data in ancModel.complaint){
             complaint="${complaint}${data}, "
@@ -151,43 +152,45 @@ class FormInputAncActivity : BaseActivity() {
         fieldKeluhanUtama.isEnabled = false
         fieldKeluhanLainnya.setText(ancModel.other_complaint)
         fieldKeluhanLainnya.isEnabled = false
-        fieldSistolik.setText(ancModel.sistolik)
+        fieldSistolik.setText(ancModel.sistolik.toString())
         fieldSistolik.isEnabled = false
-        fieldbb.setText(ancModel.weight)
+        fieldbb.setText(ancModel.weight.toString())
         fieldbb.isEnabled = false
-        fieldBbawal.setText(ancModel.initial_weight)
+        fieldBbawal.setText(ancModel.initial_weight.toString())
         fieldBbawal.isEnabled = false
         fieldSuggestedWeight.setText(ancModel.suggested_weight)
         fieldSuggestedWeight.isEnabled = false
-        fieldDiastolik.setText(ancModel.diastolik)
+        fieldDiastolik.setText(ancModel.diastolik.toString())
         fieldDiastolik.isEnabled = false
-        fieldDifferenceBB.setText(ancModel.differenced_weight)
+        fieldDifferenceBB.setText(ancModel.differenced_weight.toString())
         fieldDifferenceBB.isEnabled = false
-        fieldNadi.setText(ancModel.nadi)
+        fieldNadi.setText(ancModel.nadi.toString())
         fieldNadi.isEnabled = false
-        fieldImt.setText(ancModel.imt)
+        fieldImt.setText(ancModel.imt.toString())
         fieldImt.isEnabled = false
-        fieldRr.setText(ancModel.rr)
+        fieldRr.setText(ancModel.rr.toString())
         fieldRr.isEnabled = false
-        fieldMap.setText(ancModel.map)
+        fieldMap.setText(ancModel.map.toString())
         fieldMap.isEnabled = false
         fieldRot.setText(ancModel.rot)
         fieldRot.isEnabled = false
-        fieldUmurKehamilan.setText(ancModel.age_of_pregnancy)
+        fieldUmurKehamilan.setText(ancModel.age_of_pregnancy.toString())
         fieldUmurKehamilan.isEnabled = false
-        fieldTfu.setText(ancModel.tfu)
+        fieldTfu.setText(ancModel.tfu.toString())
         fieldTfu.isEnabled = false
         fieldLetakJanin.setText(ancModel.fetus_position)
         fieldLetakJanin.isEnabled = false
         fieldLainnya.setText(ancModel.others)
         fieldLainnya.isEnabled = false
-        fieldDjj.setText(ancModel.djj[0])
+        fieldDjj.setText(ancModel.djj[0].toString())
         fieldDjj.isEnabled = false
+        rb_tunggal.isEnabled = false
+        rb_kembar.isEnabled = false
         if (ancModel.djj.size>1){
             rb_tunggal.isChecked = false
             rb_kembar.isChecked = true
             fieldDjj2.visibility = View.VISIBLE
-            fieldDjj2.setText(ancModel.djj[1])
+            fieldDjj2.setText(ancModel.djj[1].toString())
             fieldDjj2.isEnabled = false
         } else{
             rb_tunggal.isChecked = true
@@ -201,7 +204,7 @@ class FormInputAncActivity : BaseActivity() {
         fieldRhesus.isEnabled = false
         fieldGulaDarah.setText(ancModel.blood_sugar)
         fieldGulaDarah.isEnabled = false
-        fieldHb.setText(ancModel.hb)
+        fieldHb.setText(ancModel.hb.toString())
         fieldHb.isEnabled = false
         fieldProteinUrin.setText(ancModel.urine_protein)
         fieldProteinUrin.isEnabled = false

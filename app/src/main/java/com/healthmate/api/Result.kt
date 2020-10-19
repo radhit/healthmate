@@ -1,6 +1,6 @@
 package com.healthmate.api
 
-data class Result<out T>(val status: Status, val data: T?, val message: String?, val response_code: Int=0, val cursor: String=""){
+data class Result<out T>(val status: Status, val data: T?, var message: String?, val response_code: Int=0, val cursor: String=""){
     enum class Status {
         SUCCESS,
         ERROR,
@@ -12,7 +12,7 @@ data class Result<out T>(val status: Status, val data: T?, val message: String?,
             return Result(Status.SUCCESS,data,message,response_code, cursor)
         }
 
-        fun <T> error(message: String, data: T? = null,response_code: Int = 420): Result<T>{
+        fun <T> error(message: String, data: T? = null,response_code: Int): Result<T>{
             return Result(Status.ERROR,data,message,response_code)
         }
 

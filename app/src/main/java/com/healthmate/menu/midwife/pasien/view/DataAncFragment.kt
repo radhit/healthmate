@@ -13,6 +13,7 @@ import com.healthmate.api.Result
 import com.healthmate.common.adapter.RecyclerViewClickListener
 import com.healthmate.common.base.BaseFragment
 import com.healthmate.common.constant.Urls
+import com.healthmate.common.functions.Fun
 import com.healthmate.common.functions.replaceEmpty
 import com.healthmate.commons.helper.EndlessScrollListener
 import com.healthmate.di.injector
@@ -92,7 +93,10 @@ class DataAncFragment : BaseFragment() {
                         }
                         Result.Status.ERROR->{
                             finishLoading()
-                            createDialog(result.message!!)
+                            if (result.response_code==401){
+                                result.message = "Token expired"
+                            }
+                            Fun.handleError(activity!!,result)
                         }
                     }
                 })
@@ -161,7 +165,10 @@ class DataAncFragment : BaseFragment() {
                             tv_loading.visibility = View.VISIBLE
                             rv_list.visibility = View.GONE
                             tv_loading.text = "Data Kosong"
-                            createDialog(result.message!!)
+                            if (result.response_code==401){
+                                result.message = "Token expired"
+                            }
+                            Fun.handleError(activity!!,result)
                         }
                     }
                 })

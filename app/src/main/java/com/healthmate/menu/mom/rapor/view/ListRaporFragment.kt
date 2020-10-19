@@ -84,7 +84,10 @@ class ListRaporFragment : BaseFragment() {
                             tv_loading.visibility = View.VISIBLE
                             rv_list.visibility = View.GONE
                             tv_loading.text = "Data Kosong"
-                            createDialog(result.message!!)
+                            if (result.response_code==401){
+                                result.message = "Token expired"
+                            }
+                            Fun.handleError(activity!!,result)
                         }
                     }
                 })

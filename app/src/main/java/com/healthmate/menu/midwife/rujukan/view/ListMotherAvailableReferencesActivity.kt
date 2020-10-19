@@ -16,6 +16,7 @@ import com.healthmate.api.Result
 import com.healthmate.common.adapter.RecyclerViewClickListener
 import com.healthmate.common.base.BaseActivity
 import com.healthmate.common.constant.Urls
+import com.healthmate.common.functions.Fun
 import com.healthmate.commons.helper.EndlessScrollListener
 import com.healthmate.di.injector
 import com.healthmate.menu.midwife.pasien.data.PasienViewModel
@@ -127,7 +128,10 @@ class ListMotherAvailableReferencesActivity : BaseActivity() {
                             tv_loading.visibility = View.VISIBLE
                             rv_list.visibility = View.GONE
                             tv_loading.text = "Data Kosong"
-                            createDialog(result.message!!)
+                            if (result.response_code==401){
+                                result.message = "Token expired"
+                            }
+                            Fun.handleError(this,result)
                         }
                     }
                 })
@@ -194,7 +198,10 @@ class ListMotherAvailableReferencesActivity : BaseActivity() {
                             tv_loading.visibility = View.VISIBLE
                             rv_list.visibility = View.GONE
                             tv_loading.text = "Data Kosong"
-                            createDialog(result.message!!)
+                            if (result.response_code==401){
+                                result.message = "Token expired"
+                            }
+                            Fun.handleError(this,result)
                         }
                     }
                 })

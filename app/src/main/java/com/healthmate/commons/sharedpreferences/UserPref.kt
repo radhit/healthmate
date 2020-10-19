@@ -59,4 +59,8 @@ class UserPref @Inject constructor(context: Context){
             }
         return false
     }
+
+    fun clear(){
+        userPref.edit().clear().apply()
+    }
 }

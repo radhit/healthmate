@@ -11,6 +11,7 @@ import com.healthmate.api.Payload
 import com.healthmate.api.Result
 import com.healthmate.common.base.BaseActivity
 import com.healthmate.common.constant.Urls
+import com.healthmate.common.functions.Fun
 import com.healthmate.common.functions.replaceEmpty
 import com.healthmate.di.injector
 import com.healthmate.menu.midwife.pasien.data.BabyNote
@@ -61,7 +62,10 @@ class MainCatatanBayiActivity : BaseActivity() {
                         }
                         Result.Status.ERROR->{
                             closeLoadingDialog()
-                            createDialog(result.message!!)
+                            if (result.response_code==401){
+                                result.message = "Token expired"
+                            }
+                            Fun.handleError(this,result)
                         }
                     }
                 })

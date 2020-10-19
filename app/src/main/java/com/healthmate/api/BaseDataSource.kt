@@ -19,6 +19,7 @@ abstract class BaseDataSource {
                     return error(body.message,body.responseCode)
                 }
             }else{
+                println("data body adalah : ${response.code()}")
                 return error("Got error. Please try again later.",response.code())
             }
         }catch (e: Exception){

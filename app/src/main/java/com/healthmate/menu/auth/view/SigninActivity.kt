@@ -152,7 +152,10 @@ class SigninActivity : BaseActivity() {
                         }
                         Result.Status.ERROR->{
                             finishLoading("register")
-                            createDialog(result.message!!)
+                            if (result.response_code==401){
+                                result.message = "Token expired"
+                            }
+                            Fun.handleError(this,result)
                         }
                     }
                 })
@@ -182,7 +185,11 @@ class SigninActivity : BaseActivity() {
                         }
                         Result.Status.ERROR->{
                             finishLoading("login")
-                            createDialog(result.message!!)
+                            if (result.response_code==401){
+                                result.message = "Wrong phone number or password"
+                            }
+                            Fun.handleError(this,result,"login")
+//                            createDialog(result.message!!)
                         }
                     }
                 })
