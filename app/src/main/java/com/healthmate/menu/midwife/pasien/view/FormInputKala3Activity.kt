@@ -51,6 +51,7 @@ class FormInputKala3Activity : BaseActivity() {
         dataMother = gson.fromJson(intent.getStringExtra(FormInputKalaActivity.EXTRA),User::class.java)
         type = intent.getStringExtra(FormInputKalaActivity.EXTRA_TYPE)
         btn_simpan.setOnClickListener {
+            removeError()
             if (isValid()){
                 setDataInput()
                 submit()
@@ -75,6 +76,25 @@ class FormInputKala3Activity : BaseActivity() {
         fieldLaseri.setOnClickListener {
             navigator.dataMaster(this,"laseri",4)
         }
+    }
+
+    private fun removeError() {
+        inputTanggal.setError(null)
+        inputWaktu.setError(null)
+        inputKeluhan.setError(null)
+        inputTd.setError(null)
+        inputTfu.setError(null)
+        inputNadi.setError(null)
+        inputRR.setError(null)
+        inputSuhu.setError(null)
+        inputAnalisis.setError(null)
+        inputPenatalaksaan.setError(null)
+        inputKesadaran.setError(null)
+        inputKandung.setError(null)
+        inputTeraba.setError(null)
+        inputLaseri.setError(null)
+        inputkontrasi.setError(null)
+        inputPendarahan.setError(null)
     }
 
     private fun submit() {
@@ -128,52 +148,52 @@ class FormInputKala3Activity : BaseActivity() {
 
     private fun isValid(): Boolean {
         if (fieldTanggal.text.toString().equals("")){
-            fieldTanggal.setError("Wajib diisi")
+            inputTanggal.setError("Wajib diisi")
             return false
         } else if (fieldWaktu.text.toString().equals("")){
-            fieldWaktu.setError("Wajib diisi")
+            inputWaktu.setError("Wajib diisi")
             return false
         } else if (fieldKeluhan.text.toString().equals("")){
-            fieldKeluhan.setError("Wajib diisi")
+            inputKeluhan.setError("Wajib diisi")
             return false
         } else if (fieldTd.text.toString().equals("")){
-            fieldTd.setError("Wajib diisi")
+            inputTd.setError("Wajib diisi")
             return false
         } else if (fieldTfu.text.toString().equals("")){
-            fieldTfu.setError("Wajib diisi")
+            inputTfu.setError("Wajib diisi")
             return false
         } else if (fieldNadi.text.toString().equals("")){
-            fieldNadi.setError("Wajib diisi")
+            inputNadi.setError("Wajib diisi")
             return false
         } else if (fieldRr.text.toString().equals("")){
-            fieldRr.setError("Wajib diisi")
+            inputRR.setError("Wajib diisi")
             return false
         } else if (fieldSuhu.text.toString().equals("")){
-            fieldSuhu.setError("Wajib diisi")
+            inputSuhu.setError("Wajib diisi")
             return false
         } else if (fieldAnalisis.text.toString().equals("")){
-            fieldAnalisis.setError("Wajib diisi")
+            inputAnalisis.setError("Wajib diisi")
             return false
         } else if (fieldPenatalaksaan.text.toString().equals("")){
-            fieldPenatalaksaan.setError("Wajib diisi")
+            inputPenatalaksaan.setError("Wajib diisi")
             return false
         } else if (fieldKesadaran.text.toString().equals("")){
-            fieldKesadaran.setError("Wajib diisi")
+            inputKesadaran.setError("Wajib diisi")
             return false
         } else if (fieldKandungKemih.text.toString().equals("")){
-            fieldKandungKemih.setError("Wajib diisi")
+            inputKandung.setError("Wajib diisi")
             return false
         } else if (fieldTeraba.text.toString().equals("")){
-            fieldTeraba.setError("Wajib diisi")
+            inputTeraba.setError("Wajib diisi")
             return false
         } else if (fieldLaseri.text.toString().equals("")){
-            fieldLaseri.setError("Wajib diisi")
+            inputLaseri.setError("Wajib diisi")
             return false
         } else if (fieldKontrasiUterus.text.toString().equals("")){
-            fieldKontrasiUterus.setError("Wajib diisi")
+            inputkontrasi.setError("Wajib diisi")
             return false
         } else if (fieldPendarahan.text.toString().equals("")){
-            fieldPendarahan.setError("Wajib diisi")
+            inputPendarahan.setError("Wajib diisi")
             return false
         }
 

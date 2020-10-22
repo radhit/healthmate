@@ -27,7 +27,8 @@
                     android:layout_weight="1"
                     android:layout_marginRight="10dp"
                     android:hint="Tanggal"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputTanggal">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldTanggal"
                         android:layout_width="match_parent"
@@ -42,7 +43,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="Waktu"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputWaktu">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldWaktu"
                         android:layout_width="match_parent"
@@ -58,14 +60,14 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:text="Subjektif"
-                android:layout_marginTop="10dp"
                 android:textColor="@color/colorPrimary"/>
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/TextInputLayoutCustom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Isi Keluhan"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputKeluhan">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldKeluhan"
                     android:layout_width="match_parent"
@@ -79,14 +81,14 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:text="Objektif"
-                android:layout_marginTop="10dp"
                 android:textColor="@color/colorPrimary"/>
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/TextInputLayoutCustom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Kesadaran"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputKesadaran">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldKesadaran"
                     android:layout_width="match_parent"
@@ -105,7 +107,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="TD (mmHg)"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputTd">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldTd"
                         android:layout_width="match_parent"
@@ -123,7 +126,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="Nadi (x/mnt)"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputNadi">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldNadi"
                         android:layout_width="match_parent"
@@ -138,7 +142,8 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
                     android:hint="HIS (x/10mnt)"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputHis">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldHis"
                         android:layout_width="match_parent"
@@ -156,7 +161,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="RR (x/mnt)"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputRR">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldRr"
                         android:layout_width="match_parent"
@@ -171,7 +177,8 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
                     android:hint="Ketuban"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputKetuban">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldKetuban"
                         android:layout_width="match_parent"
@@ -190,7 +197,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="Suhu (C)"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputSuhu">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldSuhu"
                         android:layout_width="match_parent"
@@ -205,7 +213,8 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
                     android:hint="VT (cm)"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputVt">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldVT"
                         android:layout_width="match_parent"
@@ -239,7 +248,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="DJJ (x/menit)"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputDjj1">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldDjj"
                     android:layout_width="match_parent"
@@ -254,7 +264,7 @@
                 android:hint="DJJ 2 (x/menit)"
                 android:visibility="gone"
                 android:id="@+id/inputDjj2"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldDjj2"
                     android:layout_width="match_parent"
@@ -267,7 +277,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Effacement %"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputEffacement">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldEffacement"
                     android:layout_width="match_parent"
@@ -280,7 +291,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Warna Ketuban"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputWarna">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldWarnaKetuban"
                     android:layout_width="match_parent"
@@ -293,7 +305,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Presentasi"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputPresentasi">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldPresentasi"
                     android:layout_width="match_parent"
@@ -308,7 +321,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Denominator"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputDenominator">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldDenominator"
                     android:layout_width="match_parent"
@@ -323,7 +337,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Teraba Tali Pusar"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputTaliPusar">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldTaliPusar"
                     android:layout_width="match_parent"
@@ -338,7 +353,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Pernium Menonjol"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputPernium">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldPernium"
                     android:layout_width="match_parent"
@@ -353,7 +369,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Vulva vagina dan spingter ani membuka"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputVulva">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldVulva"
                     android:layout_width="match_parent"
@@ -369,7 +386,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Analisis"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputAnalisis">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldAnalisis"
                     android:layout_width="match_parent"
@@ -382,7 +400,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Penatalaksaan"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputPenatalaksaan">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldPenatalaksaan"
                     android:layout_width="match_parent"

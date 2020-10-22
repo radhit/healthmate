@@ -21,9 +21,7 @@ import com.healthmate.menu.reusable.data.Hospital
 import com.healthmate.menu.reusable.data.Location
 import com.healthmate.menu.reusable.data.MasterListModel
 import com.healthmate.menu.reusable.data.User
-import kotlinx.android.synthetic.main.activity_data_riwayat_anc.*
 import kotlinx.android.synthetic.main.activity_form_input_anc.*
-import kotlinx.android.synthetic.main.activity_form_input_anc.btn_simpan
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -55,6 +53,7 @@ class FormInputAncActivity : BaseActivity() {
     var dateNow: String = ""
     var dateComeback: String = ""
     var dataKeluhan: ArrayList<String> = arrayListOf()
+    var isError: Boolean = false
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         this.setTitle("Formulir ANC")
@@ -125,6 +124,9 @@ class FormInputAncActivity : BaseActivity() {
             inputDjj2.visibility = View.GONE
         }
         btn_verif.setOnClickListener {
+//            if (isError){
+//            }
+            removeError()
             if (isValid()){
                 setData()
                 submit()
@@ -140,10 +142,45 @@ class FormInputAncActivity : BaseActivity() {
 
     }
 
+    private fun removeError() {
+        inputKeluhanUtama.setError(null)
+        inputSuggestedWeight.setError(null)
+        inputKeluhanLain.setError(null)
+        inputSistolik.setError(null)
+        inputbb.setError(null)
+        inputDiastolik.setError(null)
+        inputNadi.setError(null)
+        inputMap.setError(null)
+        inputRR.setError(null)
+        inputRot.setError(null)
+        inputUmurKehamilan.setError(null)
+        inputTfu.setError(null)
+        inputLetakJanin.setError(null)
+        inputDjj1.setError(null)
+        inputKakiBengkak.setError(null)
+        inputGoldar.setError(null)
+        inputRhesus.setError(null)
+        inputHb.setError(null)
+        inputProteinUrin.setError(null)
+        inputReduksiUrin.setError(null)
+        inputHepatitis.setError(null)
+        inputBta.setError(null)
+        inputHiv.setError(null)
+        inputMalaria.setError(null)
+        inputSifilis.setError(null)
+        inputDiagnosa.setError(null)
+        inputTerapi.setError(null)
+        inputPemberian.setError(null)
+        inputTanggal.setError(null)
+        inputNasihat.setError(null)
+        inputDjj2.setError(null)
+    }
+
     private fun setViewDetil() {
         ancModel = gson.fromJson(intent.getStringExtra(EXTRA_ANC),AncModel::class.java)
         ll_hospital.visibility = View.VISIBLE
-
+        inputImt.visibility = View.VISIBLE
+        inputPerbedaan.visibility = View.VISIBLE
         var complaint = ""
         for (data in ancModel.complaint){
             complaint="${complaint}${data}, "
@@ -180,8 +217,8 @@ class FormInputAncActivity : BaseActivity() {
         fieldTfu.isEnabled = false
         fieldLetakJanin.setText(ancModel.fetus_position)
         fieldLetakJanin.isEnabled = false
-        fieldLainnya.setText(ancModel.others)
-        fieldLainnya.isEnabled = false
+//        fieldLainnya.setText(ancModel.others)
+//        fieldLainnya.isEnabled = false
         fieldDjj.setText(ancModel.djj[0].toString())
         fieldDjj.isEnabled = false
         rb_tunggal.isEnabled = false
@@ -336,14 +373,14 @@ class FormInputAncActivity : BaseActivity() {
         ancModel.rr = fieldRr.text.toString().toInt()
         ancModel.weight = fieldbb.text.toString().toInt()
         ancModel.suggested_weight = fieldSuggestedWeight.text.toString()
-        ancModel.differenced_weight = fieldDifferenceBB.text.toString().toInt()
-        ancModel.imt = fieldImt.text.toString().toInt()
+//        ancModel.differenced_weight = fieldDifferenceBB.text.toString().toInt()
+//        ancModel.imt = fieldImt.text.toString().toInt()
         ancModel.map = fieldMap.text.toString().toInt()
         ancModel.rot = fieldRot.text.toString()
         ancModel.age_of_pregnancy = fieldUmurKehamilan.text.toString().toInt()
         ancModel.tfu = fieldTfu.text.toString().toInt()
         ancModel.fetus_position = fieldLetakJanin.text.toString()
-        ancModel.others = fieldLainnya.text.toString()
+//        ancModel.others = fieldLainnya.text.toString()
         ancModel.djj.clear()
         if (rb_kembar.isChecked){
             ancModel.djj.add(fieldDjj.text.toString().toInt())
@@ -372,109 +409,115 @@ class FormInputAncActivity : BaseActivity() {
     }
 
     private fun isValid(): Boolean {
-        if (fieldDifferenceBB.text.toString().equals("")){
-            fieldDifferenceBB.setError("Wajib diisi")
-            return false
-        } else if (fieldKeluhanUtama.text.toString().equals("")){
-            fieldKeluhanUtama.setError("Wajib diisi")
+//        if (fieldDifferenceBB.text.toString().equals("")){
+//            fieldDifferenceBB.setError("Wajib diisi")
+//            return false
+//        } else
+        if (fieldKeluhanUtama.text.toString().equals("")){
+            inputKeluhanUtama.setError("Wajib diisi")
+            isError = true
             return false
         } else if (fieldSuggestedWeight.text.toString().equals("")){
-            fieldSuggestedWeight.setError("Wajib diisi")
+            inputSuggestedWeight.setError("Wajib diisi")
             return false
         } else if (fieldKeluhanLainnya.text.toString().equals("")){
-            fieldKeluhanLainnya.setError("Wajib diisi")
+            inputKeluhanLain.setError("Wajib diisi")
             return false
         } else if (fieldSistolik.text.toString().equals("")){
-            fieldSistolik.setError("Wajib diisi")
+            inputSistolik.setError("Wajib diisi")
             return false
         } else if (fieldbb.text.toString().equals("")){
-            fieldbb.setError("Wajib diisi")
+            inputbb.setError("Wajib diisi")
             return false
         } else if (fieldDiastolik.text.toString().equals("")){
-            fieldDiastolik.setError("Wajib diisi")
+            inputDiastolik.setError("Wajib diisi")
             return false
-        } else if (fieldImt.text.toString().equals("")){
-            fieldImt.setError("Wajib diisi")
-            return false
-        } else if (fieldNadi.text.toString().equals("")){
-            fieldNadi.setError("Wajib diisi")
+        }
+//        else if (fieldImt.text.toString().equals("")){
+//            fieldImt.setError("Wajib diisi")
+//            return false
+//        }
+        else if (fieldNadi.text.toString().equals("")){
+            inputNadi.setError("Wajib diisi")
             return false
         } else if (fieldMap.text.toString().equals("")){
-            fieldMap.setError("Wajib diisi")
+            inputMap.setError("Wajib diisi")
             return false
         } else if (fieldRr.text.toString().equals("")){
-            fieldRr.setError("Wajib diisi")
+            inputRR.setError("Wajib diisi")
             return false
         } else if (fieldRot.text.toString().equals("")){
-            fieldRot.setError("Wajib diisi")
+            inputRot.setError("Wajib diisi")
             return false
         } else if (fieldUmurKehamilan.text.toString().equals("")){
-            fieldUmurKehamilan.setError("Wajib diisi")
+            inputUmurKehamilan.setError("Wajib diisi")
             return false
         } else if (fieldTfu.text.toString().equals("")){
-            fieldTfu.setError("Wajib diisi")
+            inputTfu.setError("Wajib diisi")
             return false
         } else if (fieldLetakJanin.text.toString().equals("")){
-            fieldLetakJanin.setError("Wajib diisi")
+            inputLetakJanin.setError("Wajib diisi")
             return false
-        } else if (fieldLainnya.text.toString().equals("")){
-            fieldLainnya.setError("Wajib diisi")
-            return false
-        } else if (fieldDjj.text.toString().equals("")){
-            fieldDjj.setError("Wajib diisi")
+        }
+//        else if (fieldLainnya.text.toString().equals("")){
+//            fieldLainnya.setError("Wajib diisi")
+//            return false
+//        }
+        else if (fieldDjj.text.toString().equals("")){
+            inputDjj1.setError("Wajib diisi")
             return false
         } else if (fieldKakiBengkak.text.toString().equals("")){
-            fieldKakiBengkak.setError("Wajib diisi")
+            inputKakiBengkak.setError("Wajib diisi")
             return false
         } else if (fieldGoldar.text.toString().equals("")){
-            fieldGoldar.setError("Wajib diisi")
+            inputGoldar.setError("Wajib diisi")
             return false
         } else if (fieldRhesus.text.toString().equals("")){
-            fieldRhesus.setError("Wajib diisi")
+            inputRhesus.setError("Wajib diisi")
             return false
         } else if (fieldHb.text.toString().equals("")){
-            fieldHb.setError("Wajib diisi")
+            inputHb.setError("Wajib diisi")
             return false
         } else if (fieldProteinUrin.text.toString().equals("")){
-            fieldProteinUrin.setError("Wajib diisi")
+            inputProteinUrin.setError("Wajib diisi")
             return false
         } else if (fieldReduksiUrin.text.toString().equals("")){
-            fieldReduksiUrin.setError("Wajib diisi")
+            inputReduksiUrin.setError("Wajib diisi")
             return false
         } else if (fieldHepatitis.text.toString().equals("")){
-            fieldHepatitis.setError("Wajib diisi")
+            inputHepatitis.setError("Wajib diisi")
             return false
         } else if (fieldBta.text.toString().equals("")){
-            fieldBta.setError("Wajib diisi")
+            inputBta.setError("Wajib diisi")
             return false
         } else if (fieldHiv.text.toString().equals("")){
-            fieldHiv.setError("Wajib diisi")
+            inputHiv.setError("Wajib diisi")
             return false
         } else if (fieldMalaria.text.toString().equals("")){
-            fieldMalaria.setError("Wajib diisi")
+            inputMalaria.setError("Wajib diisi")
             return false
         } else if (fieldSifilis.text.toString().equals("")){
-            fieldSifilis.setError("Wajib diisi")
+            inputSifilis.setError("Wajib diisi")
             return false
         } else if (fieldDiagnosa.text.toString().equals("")){
-            fieldDiagnosa.setError("Wajib diisi")
+            inputDiagnosa.setError("Wajib diisi")
             return false
         } else if (fieldTerapi.text.toString().equals("")){
-            fieldTerapi.setError("Wajib diisi")
+            inputTerapi.setError("Wajib diisi")
             return false
         } else if (fieldPemberianImunisasi.text.toString().equals("")){
-            fieldPemberianImunisasi.setError("Wajib diisi")
+            inputPemberian.setError("Wajib diisi")
             return false
         } else if (fieldTanggal.text.toString().equals("")){
-            fieldTanggal.setError("Wajib diisi")
+            inputTanggal.setError("Wajib diisi")
             return false
         } else if (fieldNasihat.text.toString().equals("")){
-            fieldNasihat.setError("Wajib diisi")
+            inputNasihat.setError("Wajib diisi")
             return false
         }
         if (rb_kembar.isChecked){
             if (fieldDjj2.text.toString().equals("")){
-                fieldDjj2.setError("Wajib diisi")
+                inputDjj2.setError("Wajib diisi")
                 return false
             }
         }

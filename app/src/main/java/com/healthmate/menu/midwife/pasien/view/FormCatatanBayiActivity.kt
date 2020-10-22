@@ -13,9 +13,6 @@ import com.healthmate.common.functions.replaceEmpty
 import com.healthmate.menu.midwife.pasien.data.BabyNote
 import com.healthmate.menu.reusable.data.MasterListModel
 import kotlinx.android.synthetic.main.activity_form_catatan_bayi.*
-import kotlinx.android.synthetic.main.activity_form_catatan_bayi.btn_simpan
-import kotlinx.android.synthetic.main.activity_form_catatan_bayi.fieldKeterangan
-import kotlinx.android.synthetic.main.activity_form_ringkasan_persalinan.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -42,6 +39,7 @@ class FormCatatanBayiActivity : BaseActivity() {
             setData()
         }
         btn_simpan.setOnClickListener {
+            removeError()
             if (isValid()){
                 setDataInput()
                 submit()
@@ -50,6 +48,18 @@ class FormCatatanBayiActivity : BaseActivity() {
         fieldKeadaanLahir.setOnClickListener {
             navigator.dataMaster(this, "keadaan",1)
         }
+    }
+
+    private fun removeError() {
+        inputAnakKe.setError(null)
+        inputBerat.setError(null)
+        inputPanjang.setError(null)
+        inputLingkar.setError(null)
+        inputJenisKelamin.setError(null)
+        inputKeadaanLahir.setError(null)
+        inputSkor.setError(null)
+        inputKeterangan.setError(null)
+
     }
 
     private fun submit() {
@@ -105,28 +115,28 @@ class FormCatatanBayiActivity : BaseActivity() {
 
     private fun isValid(): Boolean {
         if (fieldAnakKe.text.toString().equals("")){
-            fieldAnakKe.setError("Wajib diisi")
+            inputAnakKe.setError("Wajib diisi")
             return false
         } else if (fieldBerat.text.toString().equals("")){
-            fieldBerat.setError("Wajib diisi")
+            inputBerat.setError("Wajib diisi")
             return false
         } else if (fieldPanjang.text.toString().equals("")){
-            fieldPanjang.setError("Wajib diisi")
+            inputPanjang.setError("Wajib diisi")
             return false
         } else if (fieldLingkar.text.toString().equals("")){
-            fieldLingkar.setError("Wajib diisi")
+            inputLingkar.setError("Wajib diisi")
             return false
         } else if (fieldJenisKelamin.text.toString().equals("")){
-            fieldJenisKelamin.setError("Wajib diisi")
+            inputJenisKelamin.setError("Wajib diisi")
             return false
         } else if (fieldKeadaanLahir.text.toString().equals("")){
-            fieldKeadaanLahir.setError("Wajib diisi")
+            inputKeadaanLahir.setError("Wajib diisi")
             return false
         } else if (fieldSkor.text.toString().equals("")){
-            fieldSkor.setError("Wajib diisi")
+            inputSkor.setError("Wajib diisi")
             return false
         }  else if (fieldKeterangan.text.toString().equals("")){
-            fieldKeterangan.setError("Wajib diisi")
+            inputKeterangan.setError("Wajib diisi")
             return false
         }
         return true

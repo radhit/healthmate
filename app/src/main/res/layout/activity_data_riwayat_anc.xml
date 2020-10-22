@@ -20,7 +20,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="HPHT"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputHpht">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldHPHT"
                     android:layout_width="match_parent"
@@ -34,7 +35,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="HPL"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputHpl">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldHPL"
                     android:layout_width="match_parent"
@@ -48,7 +50,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Lingkar Lengan (cm)"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputLila">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldLila"
                     android:layout_width="match_parent"
@@ -61,7 +64,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Tinggi Badan (cm)"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputTinggi">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldTinggi"
                     android:layout_width="match_parent"
@@ -75,7 +79,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Kontrasepsi sebelum kehamilan"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputKontrasepsi">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldKontrasepsi"
                     android:layout_width="match_parent"
@@ -89,7 +94,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Riwayat Penyakit"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputRiwayatPenyakit">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldRiwayatPenyakit"
                     android:layout_width="match_parent"
@@ -104,7 +110,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Riwayat Alergi Obat"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputRiwayatAlergiObat">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldRiwayatAlergiObat"
                     android:layout_width="match_parent"
@@ -117,7 +124,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Alergi Lainnya"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputAlergiLain">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldAlergiLain"
                     android:layout_width="match_parent"
@@ -131,7 +139,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Kehamilan ke"
                 android:visibility="gone"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputKehamilan">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldkehamilan"
                     android:layout_width="match_parent"
@@ -177,7 +186,8 @@
                     android:layout_weight="1"
                     android:hint="G"
                     android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputG">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldG"
                         android:layout_width="match_parent"
@@ -192,7 +202,8 @@
                     android:layout_weight="1"
                     android:layout_marginRight="10dp"
                     android:hint="P"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputP">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldP"
                         android:layout_width="match_parent"
@@ -207,7 +218,8 @@
                     android:layout_weight="1"
                     android:layout_marginRight="10dp"
                     android:hint="A"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputA">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldA"
                         android:layout_width="match_parent"
@@ -223,7 +235,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Jumlah Anak Hidup"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputJumlahAnakHidup">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldJumlahAnakHidup"
                     android:layout_width="match_parent"
@@ -236,7 +249,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Jumlah Lahir Meninggal"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputJumlahLahirMeninggal">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldJumlahLahirMeninggal"
                     android:layout_width="match_parent"
@@ -249,7 +263,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Jumlah Anak Lahir Kurang Bulan"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputJumlahLahirKurangBulan">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldJumlahLahirKurangBulan"
                     android:layout_width="match_parent"
@@ -262,7 +277,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Jarak kehamilan sebelumnya (Tahun)"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputJarak">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldJarak"
                     android:layout_width="match_parent"
@@ -275,7 +291,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Jarak kehamilan sebelumnya (Bulan)"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputJarakBulan">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldJarakBulan"
                     android:layout_width="match_parent"
@@ -288,7 +305,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Status Imunisasi TT"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputImunisasi">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldImunisasi"
                     android:layout_width="match_parent"
@@ -303,7 +321,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Imunisasi TT Terkahir"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputTangglImunisasi">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldTanggalImunisasi"
                     android:layout_width="match_parent"
@@ -317,7 +336,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Penolong Persalinan Terakhir"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputPenolong">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldPenolong"
                     android:layout_width="match_parent"
@@ -331,7 +351,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Cara Persalinan Terakhir"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputCaraPersalinan">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldCaraPersalinan"
                     android:layout_width="match_parent"

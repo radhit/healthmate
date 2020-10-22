@@ -61,6 +61,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Keluhan Sekarang"
+                    app:errorEnabled="true"
+                    android:id="@+id/inputKeluhanUtama"
                     android:layout_marginTop="10dp">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldKeluhanUtama"
@@ -76,7 +78,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Keluhan Lainnya"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputKeluhanLain">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldKeluhanLainnya"
                         android:layout_width="match_parent"
@@ -89,18 +92,19 @@
                     android:layout_height="wrap_content"
                     android:text="Pemeriksaan Fisik"
                     android:textSize="16sp"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_marginTop="10dp"/>
+                    android:textColor="@color/colorPrimary"/>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/TextInputLayoutCustom"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:hint="Sistolik (mmHg)"
-                        android:layout_marginTop="10dp">
+                        app:errorEnabled="true"
+                        android:id="@+id/inputSistolik">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/fieldSistolik"
                             android:layout_width="match_parent"
@@ -115,7 +119,8 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="10dp"
                         android:hint="Berat Badan (kg)"
-                        android:layout_marginTop="10dp">
+                        app:errorEnabled="true"
+                        android:id="@+id/inputbb">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/fieldbb"
                             android:layout_width="match_parent"
@@ -134,7 +139,8 @@
                         android:layout_weight="1"
                         android:layout_marginRight="10dp"
                         android:hint="Berat Badan Awal (kg)"
-                        android:layout_marginTop="10dp">
+                        app:errorEnabled="true"
+                        android:id="@+id/inputBbawal">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/fieldBbawal"
                             android:layout_width="match_parent"
@@ -148,7 +154,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:hint="Saran Berat Badan (kg)"
-                        android:layout_marginTop="10dp">
+                        app:errorEnabled="true"
+                        android:id="@+id/inputSuggestedWeight">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/fieldSuggestedWeight"
                             android:layout_width="match_parent"
@@ -165,23 +172,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="Diastolik (mmHg)"
-                        android:layout_marginTop="10dp">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/fieldDiastolik"
-                            android:layout_width="match_parent"
-                            android:padding="10dp"
-                            android:layout_height="50dp"
-                            android:inputType="number"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/TextInputLayoutCustom"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="10dp"
+                        android:visibility="gone"
                         android:hint="Perbedaan BB (kg)"
-                        android:layout_marginTop="10dp">
+                        android:id="@+id/inputPerbedaan">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/fieldDifferenceBB"
                             android:layout_width="match_parent"
@@ -189,30 +182,14 @@
                             android:layout_height="50dp"
                             android:inputType="number"/>
                     </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <com.google.android.material.textfield.TextInputLayout
-                        style="@style/TextInputLayoutCustom"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="Nadi (x/menit)"
-                        android:layout_marginTop="10dp">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/fieldNadi"
-                            android:layout_width="match_parent"
-                            android:padding="10dp"
-                            android:layout_height="50dp"
-                            android:inputType="number"/>
-                    </com.google.android.material.textfield.TextInputLayout>
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/TextInputLayoutCustom"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginLeft="10dp"
+                        android:id="@+id/inputImt"
+                        android:visibility="gone"
                         android:hint="IMT (Kg/m2)"
                         android:layout_marginTop="10dp">
                         <com.google.android.material.textfield.TextInputEditText
@@ -231,8 +208,44 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:hint="Nadi (x/menit)"
+                        app:errorEnabled="true"
+                        android:id="@+id/inputNadi">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/fieldNadi"
+                            android:layout_width="match_parent"
+                            android:padding="10dp"
+                            android:layout_height="50dp"
+                            android:inputType="number"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutCustom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Diastolik (mmHg)"
+                        android:layout_marginLeft="10dp"
+                        app:errorEnabled="true"
+                        android:id="@+id/inputDiastolik">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/fieldDiastolik"
+                            android:layout_width="match_parent"
+                            android:padding="10dp"
+                            android:layout_height="50dp"
+                            android:inputType="number"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/TextInputLayoutCustom"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:hint="RR (x/menit)"
-                        android:layout_marginTop="10dp">
+                        app:errorEnabled="true"
+                        android:id="@+id/inputRR">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/fieldRr"
                             android:layout_width="match_parent"
@@ -247,7 +260,8 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="10dp"
                         android:hint="MAP (mmHg)"
-                        android:layout_marginTop="10dp">
+                        app:errorEnabled="true"
+                        android:id="@+id/inputMap">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/fieldMap"
                             android:layout_width="match_parent"
@@ -262,7 +276,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="ROT"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputRot">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldRot"
                         android:layout_width="match_parent"
@@ -275,7 +290,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Umur Kehamilan (minggu)"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputUmurKehamilan">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldUmurKehamilan"
                         android:layout_width="match_parent"
@@ -288,7 +304,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="TFU (cm)"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputTfu">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldTfu"
                         android:layout_width="match_parent"
@@ -301,7 +318,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Letak Janin"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputLetakJanin">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldLetakJanin"
                         android:layout_width="match_parent"
@@ -316,6 +334,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Lainnya Sebutkan"
+                    android:visibility="gone"
                     android:layout_marginTop="10dp">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldLainnya"
@@ -350,7 +369,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="DJJ (x/menit)"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputDjj1">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldDjj"
                         android:layout_width="match_parent"
@@ -365,7 +385,7 @@
                     android:hint="DJJ 2 (x/menit)"
                     android:visibility="gone"
                     android:id="@+id/inputDjj2"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldDjj2"
                         android:layout_width="match_parent"
@@ -378,7 +398,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Kaki Bengkak"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputKakiBengkak">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldKakiBengkak"
                         android:layout_width="match_parent"
@@ -399,7 +420,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Golongan Darah"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputGoldar">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldGoldar"
                         android:layout_width="match_parent"
@@ -413,7 +435,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Rhesus"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputRhesus">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldRhesus"
                         android:layout_width="match_parent"
@@ -427,7 +450,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Gula Darah (gr/dl)"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputGulaDarah">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldGulaDarah"
                         android:layout_width="match_parent"
@@ -440,7 +464,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Hb (gr/dl)"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputHb">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldHb"
                         android:layout_width="match_parent"
@@ -453,7 +478,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Protein Urin"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputProteinUrin">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldProteinUrin"
                         android:layout_width="match_parent"
@@ -467,7 +493,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Reduksi Urin"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputReduksiUrin">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldReduksiUrin"
                         android:layout_width="match_parent"
@@ -482,7 +509,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Hepatitis B"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputHepatitis">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldHepatitis"
                         android:layout_width="match_parent"
@@ -496,7 +524,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="BTA"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputBta">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldBta"
                         android:layout_width="match_parent"
@@ -510,7 +539,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="HIV"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputHiv">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldHiv"
                         android:layout_width="match_parent"
@@ -524,7 +554,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Malaria"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputMalaria">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldMalaria"
                         android:layout_width="match_parent"
@@ -538,7 +569,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Sifilis"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputSifilis">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldSifilis"
                         android:layout_width="match_parent"
@@ -553,7 +585,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Diagnosa"
                     android:gravity="top"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputDiagnosa">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldDiagnosa"
                         android:layout_width="match_parent"
@@ -567,7 +600,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Terapi"
                     android:gravity="top"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputTerapi">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldTerapi"
                         android:layout_width="match_parent"
@@ -580,7 +614,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Pemberian Imunisasi ke-"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputPemberian">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldPemberianImunisasi"
                         android:layout_width="match_parent"
@@ -593,7 +628,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Tanggal harus kembali"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputTanggal">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldTanggal"
                         android:layout_width="match_parent"
@@ -608,7 +644,8 @@
                     android:layout_height="wrap_content"
                     android:hint="Nasihat yang ingin disampaikan"
                     android:gravity="top"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputNasihat">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldNasihat"
                         android:layout_width="match_parent"

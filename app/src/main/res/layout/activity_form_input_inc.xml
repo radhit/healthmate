@@ -27,7 +27,8 @@
                     android:layout_weight="1"
                     android:layout_marginRight="10dp"
                     android:hint="Tanggal"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputTanggal">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldTanggal"
                         android:layout_width="match_parent"
@@ -42,7 +43,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="Waktu"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputWaktu">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldWaktu"
                         android:layout_width="match_parent"
@@ -58,14 +60,14 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:text="Subjektif"
-                android:layout_marginTop="10dp"
                 android:textColor="@color/colorPrimary"/>
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/TextInputLayoutCustom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Isi Keluhan"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputKeluhan">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldKeluhan"
                     android:layout_width="match_parent"
@@ -79,14 +81,14 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:text="Objektif"
-                android:layout_marginTop="10dp"
                 android:textColor="@color/colorPrimary"/>
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/TextInputLayoutCustom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Kesadaran"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputKesadaran">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldKesadaran"
                     android:layout_width="match_parent"
@@ -105,7 +107,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="TD (mmHg)"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputTd">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldTd"
                         android:layout_width="match_parent"
@@ -120,7 +123,8 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
                     android:hint="TFU (cm)"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputTfu">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldTfu"
                         android:layout_width="match_parent"
@@ -138,7 +142,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="Nadi (x/mnt)"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputNadi">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldNadi"
                         android:layout_width="match_parent"
@@ -153,7 +158,8 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
                     android:hint="HIS (x/10mnt)"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputHis">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldHis"
                         android:layout_width="match_parent"
@@ -171,7 +177,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="RR (x/mnt)"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputRR">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldRr"
                         android:layout_width="match_parent"
@@ -186,7 +193,8 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
                     android:hint="Ketuban"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputKetuban">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldKetuban"
                         android:layout_width="match_parent"
@@ -205,7 +213,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="Suhu (C)"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputSuhu">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldSuhu"
                         android:layout_width="match_parent"
@@ -220,7 +229,8 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
                     android:hint="VT (cm)"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputVt">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldVT"
                         android:layout_width="match_parent"
@@ -254,7 +264,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="DJJ (x/menit)"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputDjj1">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldDjj"
                     android:layout_width="match_parent"
@@ -282,7 +293,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Effacement %"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputEffacement">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldEffacement"
                     android:layout_width="match_parent"
@@ -295,7 +307,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Analisis"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputAnalisis">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldAnalisis"
                     android:layout_width="match_parent"
@@ -308,7 +321,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Penatalaksaan"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputPenatalaksaan">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldPenatalaksaan"
                     android:layout_width="match_parent"

@@ -137,10 +137,9 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:text="Lanjutkan"
-                        android:textColor="@color/white"
+                        style="@style/ButtonOrange"
                         android:textStyle="bold"
-                        android:layout_gravity="right"
-                        android:background="@drawable/bg_rounded_light"/>
+                        android:layout_gravity="right"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView

@@ -22,7 +22,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Anak ke"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputAnakKe">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldAnakKe"
                     android:layout_width="match_parent"
@@ -35,7 +36,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Berat Lahir (gram)"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputBerat">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldBerat"
                     android:layout_width="match_parent"
@@ -48,7 +50,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Panjang Badan (cm)"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputPanjang">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldPanjang"
                     android:layout_width="match_parent"
@@ -61,7 +64,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Lingkar Kepala (cm)"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputLingkar">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldLingkar"
                     android:layout_width="match_parent"
@@ -74,7 +78,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Jenis Kelamin"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputJenisKelamin">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldJenisKelamin"
                     android:layout_width="match_parent"
@@ -87,7 +92,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Keadaan saat lahir"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputKeadaanLahir">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldKeadaanLahir"
                     android:layout_width="match_parent"
@@ -102,7 +108,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Skor APGAR"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputSkor">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldSkor"
                     android:layout_width="match_parent"
@@ -141,7 +148,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Keterangan Tambahan"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputKeterangan">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldKeterangan"
                     android:layout_width="match_parent"

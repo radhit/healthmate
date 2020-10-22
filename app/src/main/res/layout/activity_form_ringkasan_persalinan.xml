@@ -22,7 +22,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Tanggal Persalinan"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputTanggal">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldTanggalPersalinan"
                     android:layout_width="match_parent"
@@ -36,7 +37,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Waktu Kelahiran"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputWaktu">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldWaktu"
                     android:layout_width="match_parent"
@@ -50,7 +52,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Usia Kehamilan (minggu)"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputUsia">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldUsiaKehamilan"
                     android:layout_width="match_parent"
@@ -63,7 +66,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Penolong Kehamilan"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputPenolong">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldPenolong"
                     android:layout_width="match_parent"
@@ -78,7 +82,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Cara Persalinan"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputCara">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldCara"
                     android:layout_width="match_parent"
@@ -93,7 +98,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Keadaan Ibu"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputKeadaanIbu">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldKeadaanIbu"
                     android:layout_width="match_parent"
@@ -108,7 +114,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Keterangan Tambahan"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputKeterangan">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldKeterangan"
                     android:layout_width="match_parent"

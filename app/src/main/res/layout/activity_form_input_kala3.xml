@@ -27,7 +27,8 @@
                     android:layout_weight="1"
                     android:layout_marginRight="10dp"
                     android:hint="Tanggal"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputTanggal">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldTanggal"
                         android:layout_width="match_parent"
@@ -42,7 +43,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="Waktu"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputWaktu">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldWaktu"
                         android:layout_width="match_parent"
@@ -58,14 +60,14 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:text="Subjektif"
-                android:layout_marginTop="10dp"
                 android:textColor="@color/colorPrimary"/>
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/TextInputLayoutCustom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Isi Keluhan"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputKeluhan">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldKeluhan"
                     android:layout_width="match_parent"
@@ -86,7 +88,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Kesadaran"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputKesadaran">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldKesadaran"
                     android:layout_width="match_parent"
@@ -105,7 +108,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="TD (mmHg)"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputTd">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldTd"
                         android:layout_width="match_parent"
@@ -120,7 +124,8 @@
                     android:layout_weight="1"
                     android:hint="Suhu (C)"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputSuhu">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldSuhu"
                         android:layout_width="match_parent"
@@ -138,7 +143,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="Nadi (x/mnt)"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputNadi">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldNadi"
                         android:layout_width="match_parent"
@@ -153,7 +159,8 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
                     android:hint="TFU (cm)"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputTfu">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldTfu"
                         android:layout_width="match_parent"
@@ -171,7 +178,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="RR (x/mnt)"
-                    android:layout_marginTop="10dp">
+                    app:errorEnabled="true"
+                    android:id="@+id/inputRR">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/fieldRr"
                         android:layout_width="match_parent"
@@ -187,7 +195,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Kontrasi Uterus"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputkontrasi">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldKontrasiUterus"
                     android:layout_width="match_parent"
@@ -200,7 +209,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Kandung Kemih"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputKandung">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldKandungKemih"
                     android:layout_width="match_parent"
@@ -215,7 +225,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Teraba janin kedua"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputTeraba">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldTeraba"
                     android:layout_width="match_parent"
@@ -231,7 +242,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Pendarahan (ml)"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputPendarahan">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldPendarahan"
                     android:layout_width="match_parent"
@@ -244,7 +256,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Laseri"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputLaseri">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldLaseri"
                     android:layout_width="match_parent"
@@ -260,7 +273,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Analisis"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputAnalisis">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldAnalisis"
                     android:layout_width="match_parent"
@@ -273,7 +287,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Penatalaksaan"
-                android:layout_marginTop="10dp">
+                app:errorEnabled="true"
+                android:id="@+id/inputPenatalaksaan">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fieldPenatalaksaan"
                     android:layout_width="match_parent"

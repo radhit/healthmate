@@ -12,10 +12,7 @@ import com.healthmate.common.base.BaseActivity
 import com.healthmate.common.constant.Urls
 import com.healthmate.menu.midwife.pasien.data.Summary
 import com.healthmate.menu.reusable.data.MasterListModel
-import kotlinx.android.synthetic.main.activity_form_input_kala4.*
 import kotlinx.android.synthetic.main.activity_form_ringkasan_persalinan.*
-import kotlinx.android.synthetic.main.activity_form_ringkasan_persalinan.btn_simpan
-import kotlinx.android.synthetic.main.activity_form_ringkasan_persalinan.fieldWaktu
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -44,6 +41,7 @@ class FormRingkasanPersalinanActivity : BaseActivity() {
             setData()
         }
         btn_simpan.setOnClickListener {
+            removeError()
             if (isValid()){
                 setDataSubmit()
                 submit()
@@ -64,6 +62,16 @@ class FormRingkasanPersalinanActivity : BaseActivity() {
         fieldKeadaanIbu.setOnClickListener {
             navigator.dataMaster(this,"keadaan",3)
         }
+    }
+
+    private fun removeError() {
+        inputTanggal.setError(null)
+        inputWaktu.setError(null)
+        inputUsia.setError(null)
+        inputPenolong.setError(null)
+        inputCara.setError(null)
+        inputKeadaanIbu.setError(null)
+        inputKeterangan.setError(null)
     }
 
     private fun showTimePicker() {//jam_buka & jam_tutup
@@ -154,25 +162,25 @@ class FormRingkasanPersalinanActivity : BaseActivity() {
 
     private fun isValid(): Boolean {
         if (fieldTanggalPersalinan.text.toString().equals("")){
-            fieldTanggalPersalinan.setError("Wajib diisi")
+            inputTanggal.setError("Wajib diisi")
             return false
         } else if (fieldWaktu.text.toString().equals("")){
-            fieldWaktu.setError("Wajib diisi")
+            inputWaktu.setError("Wajib diisi")
             return false
         } else if (fieldUsiaKehamilan.text.toString().equals("")){
-            fieldUsiaKehamilan.setError("Wajib diisi")
+            inputUsia.setError("Wajib diisi")
             return false
         } else if (fieldPenolong.text.toString().equals("")){
-            fieldPenolong.setError("Wajib diisi")
+            inputPenolong.setError("Wajib diisi")
             return false
         } else if (fieldCara.text.toString().equals("")){
-            fieldCara.setError("Wajib diisi")
+            inputCara.setError("Wajib diisi")
             return false
         } else if (fieldKeadaanIbu.text.toString().equals("")){
-            fieldKeadaanIbu.setError("Wajib diisi")
+            inputKeadaanIbu.setError("Wajib diisi")
             return false
         } else if (fieldKeterangan.text.toString().equals("")){
-            fieldKeterangan.setError("Wajib diisi")
+            inputKeterangan.setError("Wajib diisi")
             return false
         }
         return true

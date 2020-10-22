@@ -19,9 +19,6 @@ import com.healthmate.menu.reusable.data.AncHistory
 import com.healthmate.menu.reusable.data.MasterListModel
 import com.healthmate.menu.reusable.data.User
 import kotlinx.android.synthetic.main.activity_data_riwayat_anc.*
-import kotlinx.android.synthetic.main.activity_data_riwayat_anc.btn_simpan
-import kotlinx.android.synthetic.main.activity_data_riwayat_anc.fieldPenolong
-import kotlinx.android.synthetic.main.activity_form_ringkasan_persalinan.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -61,6 +58,7 @@ class FormRiwayatAncActivity : BaseActivity() {
             setData()
         }
         btn_simpan.setOnClickListener {
+            removeError()
             if (isValid()){
                 setDataInput()
                 if (keterangan.equals("edit")){
@@ -95,6 +93,26 @@ class FormRiwayatAncActivity : BaseActivity() {
         fieldRiwayatPenyakit.setOnClickListener {
             navigator.dataSelectable(this, "Riwayat Penyakit", 5)
         }
+    }
+
+    private fun removeError() {
+        inputHpht.setError(null)
+        inputHpl.setError(null)
+        inputJumlahAnakHidup.setError(null)
+        inputJarak.setError(null)
+        inputJarakBulan.setError(null)
+        inputLila.setError(null)
+        inputTinggi.setError(null)
+        inputKontrasepsi.setError(null)
+        inputJumlahLahirMeninggal.setError(null)
+        inputJumlahLahirKurangBulan.setError(null)
+        inputImunisasi.setError(null)
+        inputTangglImunisasi.setError(null)
+        inputPenolong.setError(null)
+        inputCaraPersalinan.setError(null)
+        inputG.setError(null)
+        inputP.setError(null)
+        inputA.setError(null)
     }
 
     private fun setDataInput() {
@@ -256,63 +274,56 @@ class FormRiwayatAncActivity : BaseActivity() {
 
     private fun isValid(): Boolean {
         if (fieldHPHT.text.toString().equals("")){
-            fieldHPHT.setError("Wajib diisi")
+            inputHpht.setError("Wajib diisi")
             return false
         } else if (fieldHPL.text.toString().equals("")){
-            fieldHPL.setError("Wajib diisi")
+            inputHpl.setError("Wajib diisi")
             return false
         }
-//        else if (fieldkehamilan.text.toString().equals("")){
-//            fieldkehamilan.setError("Wajib diisi")
-//            return false
-//        } else if (fieldJumlahPersalinan.text.toString().equals("")){
-//            fieldJumlahPersalinan.setError("Wajib diisi")
-//            return false
-//        } else if (fieldJumlahKeguguran.text.toString().equals("")){
-//            fieldJumlahKeguguran.setError("Wajib diisi")
-//            return false
-//        }
         else if (fieldJumlahAnakHidup.text.toString().equals("")){
-            fieldJumlahAnakHidup.setError("Wajib diisi")
+            inputJumlahAnakHidup.setError("Wajib diisi")
             return false
         } else if (fieldJarak.text.toString().equals("")){
-            fieldJarak.setError("Wajib diisi")
+            inputJarak.setError("Wajib diisi")
+            return false
+        } else if (fieldJarakBulan.text.toString().equals("")){
+            inputJarakBulan.setError("Wajib diisi")
             return false
         } else if (fieldLila.text.toString().equals("")){
-            fieldLila.setError("Wajib diisi")
+            inputLila.setError("Wajib diisi")
             return false
         } else if (fieldTinggi.text.toString().equals("")){
-            fieldTinggi.setError("Wajib diisi")
+            inputTinggi.setError("Wajib diisi")
             return false
         } else if (fieldKontrasepsi.text.toString().equals("")){
-            fieldKontrasepsi.setError("Wajib diisi")
+            inputKontrasepsi.setError("Wajib diisi")
             return false
         } else if (fieldJumlahLahirMeninggal.text.toString().equals("")){
-            fieldJumlahLahirMeninggal.setError("Wajib diisi")
+            inputJumlahLahirMeninggal.setError("Wajib diisi")
             return false
         } else if (fieldJumlahLahirKurangBulan.text.toString().equals("")){
-            fieldJumlahLahirKurangBulan.setError("Wajib diisi")
+            inputJumlahLahirKurangBulan.setError("Wajib diisi")
             return false
         } else if (fieldImunisasi.text.toString().equals("")){
-            fieldImunisasi.setError("Wajib diisi")
+            inputImunisasi.setError("Wajib diisi")
             return false
         } else if (fieldTanggalImunisasi.text.toString().equals("")){
-            fieldTanggalImunisasi.setError("Wajib diisi")
+            inputTangglImunisasi.setError("Wajib diisi")
             return false
         } else if (fieldPenolong.text.toString().equals("")){
-            fieldPenolong.setError("Wajib diisi")
+            inputPenolong.setError("Wajib diisi")
             return false
         } else if (fieldCaraPersalinan.text.toString().equals("")){
-            fieldCara.setError("Wajib diisi")
+            inputCaraPersalinan.setError("Wajib diisi")
             return false
         } else if (fieldG.text.toString().equals("")){
-            fieldG.setError("Wajib diisi")
+            inputG.setError("Wajib diisi")
             return false
         } else if (fieldP.text.toString().equals("")){
-            fieldP.setError("Wajib diisi")
+            inputP.setError("Wajib diisi")
             return false
         } else if (fieldA.text.toString().equals("")){
-            fieldA.setError("Wajib diisi")
+            inputA.setError("Wajib diisi")
             return false
         }
         return true
