@@ -15,7 +15,7 @@ data class AncModel(
         var weight: Int = 0,
         var suggested_weight: String = "",
         var differenced_weight: Int = 0,
-        var imt: Int = 0,
+        var imt: Double = 0.0,
         var map: Int = 0,
         var rot: String = "",
         var age_of_pregnancy: Int = 0,

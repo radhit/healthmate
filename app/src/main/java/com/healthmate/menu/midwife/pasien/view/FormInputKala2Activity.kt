@@ -181,68 +181,89 @@ class FormInputKala2Activity : BaseActivity() {
     private fun isValid(): Boolean {
         if (fieldTanggal.text.toString().equals("")){
             inputTanggal.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala2Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldWaktu.text.toString().equals("")){
             inputWaktu.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala2Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldKeluhan.text.toString().equals("")){
             inputKeluhan.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala2Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldTd.text.toString().equals("")){
             inputTd.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala2Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldHis.text.toString().equals("")){
             inputHis.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala2Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldDjj.text.toString().equals("")){
             inputDjj1.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala2Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldNadi.text.toString().equals("")){
             inputNadi.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala2Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldKetuban.text.toString().equals("")){
             inputKetuban.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala2Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldRr.text.toString().equals("")){
             inputRR.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala2Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldVT.text.toString().equals("")){
             inputVt.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala2Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldSuhu.text.toString().equals("")){
             inputSuhu.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala2Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldEffacement.text.toString().equals("")){
             inputEffacement.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala2Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldAnalisis.text.toString().equals("")){
             inputAnalisis.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala2Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldPenatalaksaan.text.toString().equals("")){
             inputPenatalaksaan.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala2Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldKesadaran.text.toString().equals("")){
             inputKesadaran.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala2Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldTaliPusar.text.toString().equals("")){
             inputTaliPusar.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala2Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldPresentasi.text.toString().equals("")){
             inputPresentasi.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala2Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldDenominator.text.toString().equals("")){
             inputDenominator.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala2Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldPernium.text.toString().equals("")){
             inputPernium.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala2Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldVulva.text.toString().equals("")){
             inputVulva.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala2Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         }
         if (rb_kembar.isChecked){
             if (fieldDjj2.text.toString().equals("")){
                 inputDjj2.setError("Wajib diisi")
+                Toast.makeText(this@FormInputKala2Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
                 return false
             }
         }

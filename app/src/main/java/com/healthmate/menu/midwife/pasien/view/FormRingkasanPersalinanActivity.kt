@@ -163,24 +163,31 @@ class FormRingkasanPersalinanActivity : BaseActivity() {
     private fun isValid(): Boolean {
         if (fieldTanggalPersalinan.text.toString().equals("")){
             inputTanggal.setError("Wajib diisi")
+            Toast.makeText(this@FormRingkasanPersalinanActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldWaktu.text.toString().equals("")){
             inputWaktu.setError("Wajib diisi")
+            Toast.makeText(this@FormRingkasanPersalinanActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldUsiaKehamilan.text.toString().equals("")){
             inputUsia.setError("Wajib diisi")
+            Toast.makeText(this@FormRingkasanPersalinanActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldPenolong.text.toString().equals("")){
             inputPenolong.setError("Wajib diisi")
+            Toast.makeText(this@FormRingkasanPersalinanActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldCara.text.toString().equals("")){
             inputCara.setError("Wajib diisi")
+            Toast.makeText(this@FormRingkasanPersalinanActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldKeadaanIbu.text.toString().equals("")){
             inputKeadaanIbu.setError("Wajib diisi")
+            Toast.makeText(this@FormRingkasanPersalinanActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldKeterangan.text.toString().equals("")){
             inputKeterangan.setError("Wajib diisi")
+            Toast.makeText(this@FormRingkasanPersalinanActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         }
         return true

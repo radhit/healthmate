@@ -136,54 +136,71 @@ class FormPncActivity : BaseActivity() {
     private fun isValid(): Boolean {
         if (fieldTanggal.text.toString().equals("")){
             inputTanggal.setError("Wajib diisi")
+            Toast.makeText(this@FormPncActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldKeluhan.text.toString().equals("")){
             inputKeluhan.setError("Wajib diisi")
+            Toast.makeText(this@FormPncActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldSistolik.text.toString().equals("")){
             inputTd.setError("Wajib diisi")
+            Toast.makeText(this@FormPncActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldNadi.text.toString().equals("")){
             inputNadi.setError("Wajib diisi")
+            Toast.makeText(this@FormPncActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldRr.text.toString().equals("")){
             inputRR.setError("Wajib diisi")
+            Toast.makeText(this@FormPncActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldSuhu.text.toString().equals("")){
             inputSuhu.setError("Wajib diisi")
+            Toast.makeText(this@FormPncActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldBab.text.toString().equals("")){
             inputbab.setError("Wajib diisi")
+            Toast.makeText(this@FormPncActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldBak.text.toString().equals("")){
             inputBak.setError("Wajib diisi")
+            Toast.makeText(this@FormPncActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldKontraksi.text.toString().equals("")){
             inputkontraksi.setError("Wajib diisi")
+            Toast.makeText(this@FormPncActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldWarna.text.toString().equals("")){
             inputWarna.setError("Wajib diisi")
+            Toast.makeText(this@FormPncActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldJumlahLokhia.text.toString().equals("")){
             inputjumlahlokhia.setError("Wajib diisi")
+            Toast.makeText(this@FormPncActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldAsi.text.toString().equals("")){
             inputAsi.setError("Wajib diisi")
+            Toast.makeText(this@FormPncActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldKomplikasi.text.toString().equals("")){
             inputKomplikasi.setError("Wajib diisi")
+            Toast.makeText(this@FormPncActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldTindakan.text.toString().equals("")){
             inputTindakan.setError("Wajib diisi")
+            Toast.makeText(this@FormPncActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldNasihat.text.toString().equals("")){
             inputNasihat.setError("Wajib diisi")
+            Toast.makeText(this@FormPncActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldPendarahan.text.toString().equals("")){
             inputPendarahan.setError("Wajib diisi")
+            Toast.makeText(this@FormPncActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldTfu.text.toString().equals("")){
             inputTfu.setError("Wajib diisi")
+            Toast.makeText(this@FormPncActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         }
         return true

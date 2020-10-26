@@ -130,21 +130,27 @@ class FormUmpanBalikRujukanActivity : BaseActivity() {
     private fun isValid(): Boolean {
         if (fieldTanggal.text.toString().equals("")){
             fieldTanggal.setError("Wajib diisi")
+            Toast.makeText(this@FormUmpanBalikRujukanActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldWaktu.text.toString().equals("")){
             fieldWaktu.setError("Wajib diisi")
+            Toast.makeText(this@FormUmpanBalikRujukanActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldPenerimaRujukan.text.toString().equals("")){
             fieldPenerimaRujukan.setError("Wajib diisi")
+            Toast.makeText(this@FormUmpanBalikRujukanActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldAsal.text.toString().equals("")){
             fieldAsal.setError("Wajib diisi")
+            Toast.makeText(this@FormUmpanBalikRujukanActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldAnjuran.text.toString().equals("")){
             fieldAnjuran.setError("Wajib diisi")
+            Toast.makeText(this@FormUmpanBalikRujukanActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldDiagnosis.text.toString().equals("")){
             fieldDiagnosis.setError("Wajib diisi")
+            Toast.makeText(this@FormUmpanBalikRujukanActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         }
         return true

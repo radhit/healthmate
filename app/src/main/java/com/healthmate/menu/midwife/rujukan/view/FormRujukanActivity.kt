@@ -123,27 +123,35 @@ class FormRujukanActivity : BaseActivity() {
     private fun isValid(): Boolean {
         if (fieldTanggal.text.toString().equals("")){
             fieldTanggal.setError("Wajib diisi")
+            Toast.makeText(this@FormRujukanActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldWaktu.text.toString().equals("")){
             fieldWaktu.setError("Wajib diisi")
+            Toast.makeText(this@FormRujukanActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldNama.text.toString().equals("")){
             fieldNama.setError("Wajib diisi")
+            Toast.makeText(this@FormRujukanActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldSebab.text.toString().equals("")){
             fieldSebab.setError("Wajib diisi")
+            Toast.makeText(this@FormRujukanActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldDiagnosis.text.toString().equals("")){
             fieldDiagnosis.setError("Wajib diisi")
+            Toast.makeText(this@FormRujukanActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldTindakan.text.toString().equals("")){
             fieldTindakan.setError("Wajib diisi")
+            Toast.makeText(this@FormRujukanActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldAsal.text.toString().equals("")){
             fieldAsal.setError("Wajib diisi")
+            Toast.makeText(this@FormRujukanActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldTujuan.text.toString().equals("")){
             fieldTujuan.setError("Wajib diisi")
+            Toast.makeText(this@FormRujukanActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         }
         return true

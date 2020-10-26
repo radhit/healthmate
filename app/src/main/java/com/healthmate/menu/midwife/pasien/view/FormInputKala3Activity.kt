@@ -149,51 +149,67 @@ class FormInputKala3Activity : BaseActivity() {
     private fun isValid(): Boolean {
         if (fieldTanggal.text.toString().equals("")){
             inputTanggal.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala3Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldWaktu.text.toString().equals("")){
             inputWaktu.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala3Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldKeluhan.text.toString().equals("")){
             inputKeluhan.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala3Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldTd.text.toString().equals("")){
             inputTd.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala3Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldTfu.text.toString().equals("")){
             inputTfu.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala3Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldNadi.text.toString().equals("")){
             inputNadi.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala3Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldRr.text.toString().equals("")){
             inputRR.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala3Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldSuhu.text.toString().equals("")){
             inputSuhu.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala3Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldAnalisis.text.toString().equals("")){
             inputAnalisis.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala3Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldPenatalaksaan.text.toString().equals("")){
             inputPenatalaksaan.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala3Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldKesadaran.text.toString().equals("")){
             inputKesadaran.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala3Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldKandungKemih.text.toString().equals("")){
             inputKandung.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala3Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldTeraba.text.toString().equals("")){
             inputTeraba.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala3Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldLaseri.text.toString().equals("")){
             inputLaseri.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala3Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldKontrasiUterus.text.toString().equals("")){
             inputkontrasi.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala3Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldPendarahan.text.toString().equals("")){
             inputPendarahan.setError("Wajib diisi")
+            Toast.makeText(this@FormInputKala3Activity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         }
 

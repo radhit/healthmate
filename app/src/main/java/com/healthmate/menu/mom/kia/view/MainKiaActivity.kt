@@ -295,71 +295,93 @@ class MainKiaActivity : BaseActivity() {
     private fun isValid(): Boolean {
         if (fieldNama.text.toString().equals("")){
             fieldNama.setError("Wajib diisi!")
+            Toast.makeText(this@MainKiaActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldDomisili.text.toString().equals("")){
             fieldDomisili.setError("Wajib diisi!")
+            Toast.makeText(this@MainKiaActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldNomorKtp.text.toString().equals("")){
             fieldNomorKtp.setError("Wajib diisi!")
+            Toast.makeText(this@MainKiaActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldTempatLahir.text.toString().equals("")){
             fieldTempatLahir.setError("Wajib diisi!")
+            Toast.makeText(this@MainKiaActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldTanggalLahir.text.toString().equals("")){
             fieldTanggalLahir.setError("Wajib diisi!")
+            Toast.makeText(this@MainKiaActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldHamilKeberapa.text.toString().equals("")){
             fieldHamilKeberapa.setError("Wajib diisi!")
+            Toast.makeText(this@MainKiaActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldUmurAnak.text.toString().equals("")){
             fieldUmurAnak.setError("Isi 0 jika tidak ada")
+            Toast.makeText(this@MainKiaActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldPekerjaanMom.text.toString().equals("")){
             fieldPekerjaanMom.setError("Wajib diisi!")
+            Toast.makeText(this@MainKiaActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldAgamaMom.text.toString().equals("")){
             fieldAgamaMom.setError("Wajib diisi!")
+            Toast.makeText(this@MainKiaActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldNomorJkn.text.toString().equals("")){
             fieldNomorJkn.setError("Wajib diisi!")
+            Toast.makeText(this@MainKiaActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldGoldarMom.text.toString().equals("")){
             fieldGoldarMom.setError("Wajib diisi!")
+            Toast.makeText(this@MainKiaActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldNamaSuami.text.toString().equals("")){
             fieldNamaSuami.setError("Wajib diisi!")
+            Toast.makeText(this@MainKiaActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldTempatLahirSuami.text.toString().equals("")){
             fieldTempatLahirSuami.setError("Wajib diisi!")
+            Toast.makeText(this@MainKiaActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldTanggalLahirSuami.text.toString().equals("")){
             fieldTanggalLahirSuami.setError("Wajib diisi!")
+            Toast.makeText(this@MainKiaActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldNomorHpSuami.text.toString().equals("")){
             fieldNomorHpSuami.setError("Wajib diisi!")
+            Toast.makeText(this@MainKiaActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldAgamaSuami.text.toString().equals("")){
             fieldAgamaSuami.setError("Wajib diisi!")
+            Toast.makeText(this@MainKiaActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldGoldarSuami.text.toString().equals("")){
             fieldGoldarSuami.setError("Wajib diisi!")
+            Toast.makeText(this@MainKiaActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldAlamat.text.toString().equals("")){
             fieldAlamat.setError("Wajib diisi!")
+            Toast.makeText(this@MainKiaActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldKabupaten.text.toString().equals("")){
             fieldKabupaten.setError("Wajib diisi!")
+            Toast.makeText(this@MainKiaActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldKecamatan.text.toString().equals("")){
             fieldKecamatan.setError("Wajib diisi!")
+            Toast.makeText(this@MainKiaActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         }
         if (keterangan.equals("midwife_create")){
             if (fieldNomorHp.text.toString().equals("")){
                 fieldNomorHp.setError("Wajib diisi")
+                Toast.makeText(this@MainKiaActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
                 return false
             } else if (fieldPassword.text.toString().equals("")){
                 fieldPassword.setError("Wajib disii")
+                Toast.makeText(this@MainKiaActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
                 return false
             }
         }

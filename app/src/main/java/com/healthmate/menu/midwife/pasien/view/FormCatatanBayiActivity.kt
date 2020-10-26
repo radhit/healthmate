@@ -116,27 +116,35 @@ class FormCatatanBayiActivity : BaseActivity() {
     private fun isValid(): Boolean {
         if (fieldAnakKe.text.toString().equals("")){
             inputAnakKe.setError("Wajib diisi")
+            Toast.makeText(this@FormCatatanBayiActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldBerat.text.toString().equals("")){
             inputBerat.setError("Wajib diisi")
+            Toast.makeText(this@FormCatatanBayiActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldPanjang.text.toString().equals("")){
             inputPanjang.setError("Wajib diisi")
+            Toast.makeText(this@FormCatatanBayiActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldLingkar.text.toString().equals("")){
             inputLingkar.setError("Wajib diisi")
+            Toast.makeText(this@FormCatatanBayiActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldJenisKelamin.text.toString().equals("")){
             inputJenisKelamin.setError("Wajib diisi")
+            Toast.makeText(this@FormCatatanBayiActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldKeadaanLahir.text.toString().equals("")){
             inputKeadaanLahir.setError("Wajib diisi")
+            Toast.makeText(this@FormCatatanBayiActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         } else if (fieldSkor.text.toString().equals("")){
             inputSkor.setError("Wajib diisi")
+            Toast.makeText(this@FormCatatanBayiActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         }  else if (fieldKeterangan.text.toString().equals("")){
             inputKeterangan.setError("Wajib diisi")
+            Toast.makeText(this@FormCatatanBayiActivity, "Data formulir tidak lengkap!", Toast.LENGTH_LONG).show()
             return false
         }
         return true

@@ -401,7 +401,7 @@
                         style="@style/TextInputLayoutCustom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Kota/Kabupaten"
+                        android:hint="Wilayah Administrasi"
                         android:layout_marginTop="10dp">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/fieldKabupaten"
