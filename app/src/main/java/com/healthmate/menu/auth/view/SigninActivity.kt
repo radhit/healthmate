@@ -176,11 +176,15 @@ class SigninActivity : BaseActivity() {
                             val user = result.data!!
                             user.password = Base64.getEncoder().encodeToString(fieldPassword.text.toString().toByteArray())
                             userPref.setUser(user)
-                            println("data user : ${userPref.getUser()}")
-                            if (userPref.getUser().type.equals("midwife")){
-                                navigator.mainMidwive(this,true)
+                            if (user.validated){
+                                println("data user : ${userPref.getUser()}")
+                                if (userPref.getUser().type.equals("midwife")){
+                                    navigator.mainMidwive(this,true)
+                                } else{
+                                    navigator.mainMom(this,true)
+                                }
                             } else{
-                                navigator.mainMom(this,true)
+                                navigator.verifikasi(this,gson.toJson(user),currentChar, true)
                             }
                         }
                         Result.Status.ERROR->{
@@ -234,5 +238,12 @@ class SigninActivity : BaseActivity() {
             btn_signup.isEnabled = true
             btn_signup.text = "Daftar"
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val homeIntent = Intent(Intent.ACTION_MAIN)
+        homeIntent.addCategory(Intent.CATEGORY_HOME)
+        startActivity(homeIntent)
     }
 }

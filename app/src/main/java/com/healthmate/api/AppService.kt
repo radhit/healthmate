@@ -23,6 +23,9 @@ interface AppService {
     suspend fun verifikasi(@Url url: String, @Body requestBody: RequestBody): Response<DataResponse<Any>>
 
     @GET
+    suspend fun resend(@Url url: String): Response<DataResponse<Any>>
+
+    @GET
     suspend fun getDataMe(@Url url: String): Response<DataResponse<User>>
 
     @GET

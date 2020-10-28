@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.healthmate.R
 import com.healthmate.menu.reusable.data.User
 import kotlinx.android.synthetic.main.activity_ubah_profile_midwive.*
@@ -14,6 +16,8 @@ import kotlinx.android.synthetic.main.item_list_pasien.view.*
 
 class PasienListAdapter(private val mContext: Context) : RecyclerView.Adapter<PasienListAdapter.ViewHolder>(){
     var lists: ArrayList<User> = arrayListOf()
+    protected var requestOption = RequestOptions().placeholder(R.drawable.bumil_on).error(R.drawable.bumil_off).diskCacheStrategy(
+            DiskCacheStrategy.AUTOMATIC).skipMemoryCache(true)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_list_pasien,parent,false))
@@ -36,7 +40,7 @@ class PasienListAdapter(private val mContext: Context) : RecyclerView.Adapter<Pa
         } else if (value.diagnostic_color.equals("green")){
             holder.view.iv_foto.borderColor = getColor(mContext, R.color.md_green_500)
         }
-        Glide.with(mContext).load(value.profile_picture).into(holder.view.iv_foto)
+        Glide.with(mContext).applyDefaultRequestOptions(requestOption).load(value.profile_picture).into(holder.view.iv_foto)
 
 
     }

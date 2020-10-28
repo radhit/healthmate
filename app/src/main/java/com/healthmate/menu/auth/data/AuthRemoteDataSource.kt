@@ -19,4 +19,8 @@ class AuthRemoteDataSource @Inject constructor(private val  appService: AppServi
     suspend fun verifikasi(payload: Payload) = getResult {
         appService.verifikasi(Urls.verifikasi, payload.getRequestBody())
     }
+
+    suspend fun resend(payload: Payload) = getResult {
+        appService.resend(payload.url)
+    }
 }

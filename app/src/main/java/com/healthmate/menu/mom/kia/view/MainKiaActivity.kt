@@ -88,12 +88,11 @@ class MainKiaActivity : BaseActivity() {
         if (keterangan.equals("mother")){
             fieldNama.setText("${userPref.getUser().name}")
             Glide.with(this).applyDefaultRequestOptions(requestOptionsMom).load(userPref.getUser().profile_picture).into(iv_profile)
-
+            user = userPref.getUser()
             if (userPref.getUser().kia!=null){
                 dataKia = userPref.getUser().kia!!
                 setData()
             }
-            user = userPref.getUser()
             midwife_create.visibility = View.GONE
         } else if (keterangan.equals("midwife_create")){
             user = User()

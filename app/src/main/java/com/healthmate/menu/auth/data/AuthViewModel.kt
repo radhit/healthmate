@@ -10,4 +10,6 @@ class AuthViewModel @Inject constructor(private val authRepository: AuthReposito
     fun register(payload: Payload) = authRepository.register(payload)
 
     fun verifikasi(payload: Payload) = authRepository.verifikasi(payload)
+
+    fun resend(payload: Payload) = authRepository.resend(payload)
 }

@@ -68,6 +68,7 @@ class CheckupActivity : BaseActivity() {
             var user = userPref.getUser()
             user.hospital = hospital
             userPref.setUser(user)
+            println("data user ${gson.toJson(userPref.getUser())}")
             updateData()
         }
     }

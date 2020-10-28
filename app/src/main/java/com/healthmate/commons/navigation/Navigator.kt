@@ -46,8 +46,8 @@ class Navigator @Inject constructor() {
         activity.startActivity(intent)
     }
 
-    fun verifikasi(activity: Activity, data: String, keterangan: String){
-        goto(activity,ValidasiActivity.getCallingIntent(activity,data, keterangan))
+    fun verifikasi(activity: Activity, data: String, keterangan: String, resend: Boolean = false){
+        goto(activity,ValidasiActivity.getCallingIntent(activity,data, keterangan, resend))
     }
 
     fun mainMom(activity: Activity,clearTop:Boolean = false){

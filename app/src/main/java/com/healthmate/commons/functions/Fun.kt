@@ -58,7 +58,9 @@ object Fun{
                         if (keterangan.equals("")){
                             val dataManager = UserPref(activity)
                             dataManager.setUser(User())
-                            activity.startActivity(Intent(activity, SigninActivity::class.java))
+                            var intent = Intent(activity, SigninActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            activity.startActivity(intent)
                             activity.finish()
                         }
                     }

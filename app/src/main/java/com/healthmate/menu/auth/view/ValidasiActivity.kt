@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import com.healthmate.R
 import com.healthmate.api.Payload
@@ -25,11 +26,13 @@ class ValidasiActivity : BaseActivity() {
     companion object {
         val EXTRA = "EXTRA"
         val EXTRA_KETERANGAN = "EXTRA_KETERANGAN"
+        val EXTRA_RESEND = "EXTRA_RESEND"
         @JvmStatic
-        fun getCallingIntent(activity: Activity, data: String, keterangan:String): Intent {
+        fun getCallingIntent(activity: Activity, data: String, keterangan:String, resend: Boolean): Intent {
             val intent = Intent(activity, ValidasiActivity::class.java)
             intent.putExtra(EXTRA,data)
             intent.putExtra(EXTRA_KETERANGAN,keterangan)
+            intent.putExtra(EXTRA_RESEND,resend)
             return intent
         }
     }
@@ -44,14 +47,42 @@ class ValidasiActivity : BaseActivity() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         user = gson.fromJson(intent.getStringExtra(EXTRA),User::class.java)
         tv_info.text = "OTP sudah dikirim ke nomor \n${Tools().getAsterik(user.phone_number)}"
+        if (intent.getBooleanExtra(EXTRA_RESEND,false)){
+            resendOTP()
+        }
         btn_confirm.setOnClickListener {
             verifikasi()
-
         }
         tv_kirim_ulang.setOnClickListener {
-            createDialog("OTP berhasil dikirim ulang ke nomor ${Tools().getAsterik(intent.getStringExtra(EXTRA))}")
+            createDialog("OTP berhasil dikirim ulang ke nomor ${Tools().getAsterik(user.phone_number)}",{
+                resendOTP()
+            })
         }
 
+    }
+
+    private fun resendOTP() {
+        val payload = Payload()
+        payload.url = "${Urls.verifikasi}?phone_number=${user.phone_number}&user_id=${user.id}&user_type=${intent.getStringExtra(EXTRA_KETERANGAN)}"
+        viewModel.resend(payload)
+                .observe(this, Observer {result ->
+                    when(result.status){
+                        Result.Status.LOADING->{
+                            showLoadingDialog()
+                        }
+                        Result.Status.SUCCESS->{
+                            closeLoadingDialog()
+                            Toast.makeText(this@ValidasiActivity, "OTP berhasil dikirim", Toast.LENGTH_LONG).show()
+                        }
+                        Result.Status.ERROR->{
+                            closeLoadingDialog()
+                            if (result.response_code==401){
+                                result.message = "Token expired"
+                            }
+                            Fun.handleError(this,result)
+                        }
+                    }
+                })
     }
 
     private fun verifikasi() {

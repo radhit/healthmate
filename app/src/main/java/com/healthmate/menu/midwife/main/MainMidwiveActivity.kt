@@ -60,9 +60,9 @@ class MainMidwiveActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-//        val homeIntent = Intent(Intent.ACTION_MAIN)
-//        homeIntent.addCategory(Intent.CATEGORY_HOME)
-//        startActivity(homeIntent)
-        finish()
+        val homeIntent = Intent(Intent.ACTION_MAIN)
+        homeIntent.addCategory(Intent.CATEGORY_HOME)
+        startActivity(homeIntent)
+//        finish()
     }
 }

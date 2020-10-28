@@ -16,4 +16,8 @@ class AuthRepository @Inject constructor(private val authRemoteDataSource: AuthR
     fun verifikasi(payload: Payload) = resultLiveDataNoDao (
             networkCall = {authRemoteDataSource.verifikasi(payload)}
     )
+
+    fun resend(payload: Payload) = resultLiveDataNoDao (
+            networkCall = {authRemoteDataSource.resend(payload)}
+    )
 }

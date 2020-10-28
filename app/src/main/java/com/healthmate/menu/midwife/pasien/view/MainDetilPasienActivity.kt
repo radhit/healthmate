@@ -73,7 +73,7 @@ class MainDetilPasienActivity : BaseActivity() {
         } else if (user.diagnostic_color.equals("green")){
             iv_foto.borderColor = ContextCompat.getColor(this, R.color.md_green_500)
         }
-        Glide.with(this).applyDefaultRequestOptions(requestOptionsMidwife).load(user.profile_picture).into(iv_foto)
+        Glide.with(this).applyDefaultRequestOptions(requestOptionsMom).load(user.profile_picture).into(iv_foto)
         tv_nama.text = user.name
         tv_status.text = "Status Terakhir : ${user.diagnostic_color.replaceEmpty("-")}"
     }

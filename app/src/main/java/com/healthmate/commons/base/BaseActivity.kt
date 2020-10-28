@@ -97,7 +97,7 @@ abstract class BaseActivity: AppCompatActivity() {
 //        httpClient = enableTls12OnPreLollipop(httpClient)
 
         retrofit = Retrofit.Builder()
-                .baseUrl(Urls.SERVER_DEV)
+                .baseUrl(Urls.SERVER_PROD)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(httpClient.build())
                 .build()

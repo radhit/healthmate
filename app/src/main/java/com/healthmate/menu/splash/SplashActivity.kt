@@ -19,10 +19,10 @@ class SplashActivity : BaseActivity() {
                 startActivity(intent)
             } else{
                 if (userPref.isLoggedin){
-                    if (userPref.getUser().type.equals("mother")){
-                        navigator.mainMom(this,true)
-                    } else{
+                    if (userPref.getUser().type.equals("midwife")){
                         navigator.mainMidwive(this,true)
+                    } else{
+                        navigator.mainMom(this,true)
                     }
                 } else{
                     navigator.signin(this, true)
