@@ -20,6 +20,14 @@ android {
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        config {
+            keyAlias 'healthmate'
+            keyPassword 'healthmate123!'
+            storeFile file('healthmate.jks')
+            storePassword 'healthmate123!'
+        }
+    }
 
     buildTypes {
         debug {

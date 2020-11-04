@@ -686,13 +686,13 @@ class MainKiaActivity : BaseActivity() {
         val targetH = 600
         val bmOptions = BitmapFactory.Options()
         bmOptions.inJustDecodeBounds = true
-        BitmapFactory.decodeStream(ctx.contentResolver.openInputStream(uri), null, bmOptions)
+        BitmapFactory.decodeStream(ctx.contentResolver.openInputStream(uri!!), null, bmOptions)
         val photoW = bmOptions.outWidth
         val photoH = bmOptions.outHeight
         val scaleFactor = Math.min(photoW / targetW, photoH / targetH)
         bmOptions.inJustDecodeBounds = false
         bmOptions.inSampleSize = scaleFactor
-        return BitmapFactory.decodeStream(ctx.contentResolver.openInputStream(uri), null, bmOptions)
+        return BitmapFactory.decodeStream(ctx.contentResolver.openInputStream(uri!!), null, bmOptions)
     }
 
 }
