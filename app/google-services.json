@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "138074681064",
+    "firebase_url": "https://new-healthmate-5efca.firebaseio.com",
+    "project_id": "new-healthmate-5efca",
+    "storage_bucket": "new-healthmate-5efca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:138074681064:android:54e262c2a6c48a7ff4635d",
+        "android_client_info": {
+          "package_name": "com.healthmate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "138074681064-47q70p73j0i5o8oha5jijbm3u67noncf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8UM0dO_6ZtCbj52-ujKm6EOUIj0GamgU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "138074681064-47q70p73j0i5o8oha5jijbm3u67noncf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -34,7 +34,6 @@ import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -113,10 +112,6 @@ abstract class BaseActivity: AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.clear()
-    }
-
-    override fun attachBaseContext(base: Context) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(base))
     }
 
     open fun observeVM(){ }

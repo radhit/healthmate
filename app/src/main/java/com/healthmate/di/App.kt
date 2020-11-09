@@ -8,7 +8,6 @@ import com.healthmate.R
 import com.healthmate.di.room.RoomModule
 import com.facebook.stetho.Stetho
 import timber.log.Timber
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
 class App : MultiDexApplication(),DaggerComponentProvider {
     private var activityVisible = false
@@ -27,12 +26,6 @@ class App : MultiDexApplication(),DaggerComponentProvider {
         context =this
         Stetho.initializeWithDefaults(this);
         setupTimber()
-        CalligraphyConfig.initDefault(
-                CalligraphyConfig.Builder()
-                        .setDefaultFontPath("fonts/montserrat_regular.ttf")
-                        .setFontAttrId(R.attr.fontPath)
-                        .build()
-        )
     }
 
     override fun attachBaseContext(base: Context) {
